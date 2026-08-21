@@ -32,38 +32,66 @@ export const EVENTO = {
 
 export const CUPO = {
   total: 200,
-  ocupados: 0, // ← actualizar a mano hasta que el endpoint esté conectado
+  ocupados: 85, // ← actualizar a mano hasta que el endpoint esté conectado
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Qué se lleva el que viene (los 4 del brief, en orden de peso)
+// La reunión de diagnóstico — LA promesa de toda la convocatoria.
+//
+// Ojo: el formato, la duración y el plazo todavía no están definidos (pendiente
+// del brief). Acá se describe QUÉ se analiza, no cuánto dura ni cuándo es.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const DIAGNOSTICO = {
+  titular: "Te vas con un diagnóstico de tu negocio.",
+  bajada:
+    "No es una charla de pasillo ni una demo. Es una reunión técnica sobre tu marca: dónde estás parado hoy a nivel tecnológico, qué te está costando plata sin que lo veas, y cuál es el próximo paso concreto.",
+  puntos: [
+    {
+      titulo: "Dónde estás parado",
+      texto:
+        "Qué tecnología estás usando hoy, qué te falta y qué tenés de más. La foto real, sin diplomacia.",
+    },
+    {
+      titulo: "Qué te dicen tus datos",
+      texto:
+        "Qué información ya estás generando y no estás leyendo. Ahí suele estar el margen que falta.",
+    },
+    {
+      titulo: "Tu canal propio",
+      texto: "Cuánto de tu venta depende de terceros y qué haría falta para tener canal propio.",
+    },
+    {
+      titulo: "El próximo paso",
+      texto:
+        "Uno concreto, priorizado y con orden de magnitud. No una lista de treinta cosas para hacer.",
+    },
+  ],
+  cierre:
+    "Le corresponde a todo el que entra, sin excepción y sin costo. No se vende, no se consigue por otro canal y no hay lista especial: se desbloquea con tu QR el día del evento.",
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Qué más se lleva el que viene (el diagnóstico tiene sección propia)
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const BENEFICIOS = [
   {
     n: "01",
-    kicker: "LO PRINCIPAL",
-    titulo: "Tu reunión de diagnóstico.",
-    texto:
-      "Una reunión técnica sobre tu propio negocio: en qué punto está a nivel tecnológico y hacia dónde tiene que ir. Le corresponde a todos los que entran, sin excepción.",
-    destacado: true,
-  },
-  {
-    n: "02",
     kicker: "BENEFICIOS",
     titulo: "Condiciones que solo existen en la sala.",
     texto:
       "Cada partner llega con un beneficio exclusivo para los que están ese día. No se consiguen en otro momento ni por otro canal.",
   },
   {
-    n: "03",
+    n: "02",
     kicker: "INNOVACIÓN",
     titulo: "Lo que ya está funcionando.",
     texto:
       "Qué se está usando de verdad en el rubro y qué viene. Datos, IA, POS y contenido aplicados al negocio gastronómico. No teoría: lo que ya funciona en otros locales.",
   },
   {
-    n: "04",
+    n: "03",
     kicker: "MATERIAL",
     titulo: "La grilla en la mano.",
     texto:
@@ -365,36 +393,40 @@ export const MARCAS_LOGOS = [
 
 export const FAQ = [
   {
+    q: "¿Qué es exactamente la reunión de diagnóstico?",
+    a: "Una reunión técnica sobre tu marca: dónde estás parado a nivel tecnológico, qué te está costando plata sin que lo veas y cuál es el próximo paso concreto. Le corresponde a todo el que entra, sin excepción y sin costo. Se desbloquea al escanear tu QR el día del evento.",
+  },
+  {
+    q: "¿Me van a querer vender algo?",
+    a: "No. En todo el día no hay pitch de producto ni ronda comercial: hay charlas de gente que labura del rubro, demos que podés mirar si querés y un diagnóstico sobre tu negocio. Si después de eso querés seguir hablando, se habla. Si no, te vas con el diagnóstico igual.",
+  },
+  {
     q: "¿Cuánto cuesta?",
     a: "Nada. La entrada es gratuita, pero el registro previo es obligatorio y el cupo es real: 200 personas. Sin registro no hay ingreso.",
   },
   {
-    q: "¿Se transmite en vivo?",
-    a: "No. No hay streaming ni grabación abierta de las charlas. Lo que pasa en el salón —los beneficios, las demos, la mesa redonda, tu reunión de diagnóstico— pasa estando ahí.",
+    q: "¿Por qué solo 200 lugares?",
+    a: "Porque es lo que entra en el salón y porque a partir de ahí deja de ser una sala de trabajo. Preferimos 200 dueños que puedan hablar entre ellos antes que un auditorio lleno donde nadie se cruza con nadie.",
   },
   {
-    q: "¿Qué es la reunión de diagnóstico?",
-    a: "Una reunión técnica sobre tu negocio: en qué punto está a nivel tecnológico y hacia dónde tiene que ir. Le corresponde a todo el que entra. Se desbloquea y se agenda al escanear tu QR en la puerta.",
+    q: "¿Tengo que saber de tecnología para aprovecharlo?",
+    a: "No. Hablamos de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
   },
   {
-    q: "¿Para quién es?",
-    a: "Para dueños de marcas gastronómicas y dueños de restaurantes de Córdoba capital y provincia. También franquiciantes, cadenas y grupos multimarca. Es un evento de negocios para decisores, no para empleados ni para público general.",
+    q: "¿Y si mi negocio es chico?",
+    a: `Entrás igual y te llevás lo mismo. El restaurante de un solo local pesa igual que la cadena de veinte: el diagnóstico se hace sobre tu negocio, sea del tamaño que sea.`,
   },
   {
-    q: "¿Hay almuerzo?",
-    a: "No hay almuerzo servido. Hay cuatro rondas de degustación entre charlas, una pausa larga al mediodía con degustación y stands, un coffee break a media tarde, y networking de cierre con vino, cerveza y café.",
-  },
-  {
-    q: "¿Dónde es exactamente?",
-    a: `En un salón de 200 m² del ${EVENTO.venue}, en Córdoba. El salón es nuestro y el cupo es el del salón. Está dentro de ${EVENTO.eventoMadre}, un evento multisala por el que circulan unas ${EVENTO.eventoMadreCirculacion} personas.`,
+    q: "¿Qué me llevo si vengo?",
+    a: "Tu reunión de diagnóstico, los beneficios exclusivos de todos los partners, la jornada completa de charlas y demos, y la grilla con todo por escrito para poder encararlo el lunes.",
   },
   {
     q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, pero cada persona necesita su propio registro y su propio QR. El cupo se cuenta por persona.",
+    a: "Sí, y conviene. Cada persona necesita su propio registro y su propio QR porque el cupo se cuenta por persona, pero el diagnóstico se hace sobre la marca: venir con tu socio o tu gerente hace que la conversación rinda más.",
   },
   {
-    q: "¿Qué pasa si me anoto y no voy?",
-    a: "Ocupás un lugar que no se libera. Si sabés que no vas a poder ir, avisanos y lo liberamos para alguien de la lista de espera.",
+    q: "¿Dónde es exactamente?",
+    a: `En un salón propio de 200 m² del ${EVENTO.venue}, en Córdoba, de ${EVENTO.horario}. Está dentro de ${EVENTO.eventoMadre}, un evento multisala por el que circulan unas ${EVENTO.eventoMadreCirculacion} personas a lo largo del día.`,
   },
 ];
 

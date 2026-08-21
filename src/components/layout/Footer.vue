@@ -98,7 +98,8 @@ import { EVENTO } from "@/data/evento";
 const anio = new Date().getFullYear();
 
 const enlaces = [
-  { id: "que-te-llevas", label: "Qué te llevás" },
+  { id: "diagnostico", label: "El diagnóstico" },
+  { id: "que-te-llevas", label: "Qué más te llevás" },
   { id: "jornada", label: "La jornada" },
   { id: "speakers", label: "Quiénes hablan" },
   { id: "lugar", label: "El lugar" },

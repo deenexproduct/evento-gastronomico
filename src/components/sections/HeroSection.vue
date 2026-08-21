@@ -97,11 +97,11 @@
         </a>
 
         <a
-          href="#jornada"
-          @click.prevent="ir('jornada')"
+          href="#diagnostico"
+          @click.prevent="ir('diagnostico')"
           class="group inline-flex items-center gap-2 px-3 py-3 sm:px-4 sm:py-3.5 text-[0.9rem] sm:text-[0.95rem] font-semibold text-slate-600 hover:text-primary transition-colors"
         >
-          Ver cómo es el día
+          Qué es el diagnóstico
           <svg
             width="12"
             height="12"
@@ -190,10 +190,10 @@ const barra = ref(0);
 const objetivoBarra = computed(() => Math.max(porcentaje.value, 4));
 
 const stats = [
-  { prefix: "", value: 8, suffix: "h", label: "de jornada" },
+  { prefix: "", value: 1, suffix: "", label: "diagnóstico por marca" },
+  { prefix: "", value: 9, suffix: "h", label: "de jornada" },
   { prefix: "", value: 6, suffix: "+", label: "voces en escenario" },
   { prefix: "", value: 200, suffix: "", label: "lugares, no más" },
-  { prefix: "", value: 100, suffix: "%", label: "dueños en la sala" },
 ];
 
 const displayValues = reactive(stats.map(() => "0"));

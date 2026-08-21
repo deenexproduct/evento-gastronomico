@@ -3,6 +3,7 @@
     <Navbar />
     <main>
       <HeroSection />
+      <DiagnosticoSection class="v-reveal" />
       <ValuePropSection class="v-reveal" />
       <ManifestoSection class="v-reveal" />
       <EntradaLlaveSection class="v-reveal" />
@@ -26,6 +27,7 @@ import { onMounted } from "vue";
 import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
+import DiagnosticoSection from "@/components/sections/DiagnosticoSection.vue";
 import ValuePropSection from "@/components/sections/ValuePropSection.vue";
 import ManifestoSection from "@/components/sections/ManifestoSection.vue";
 import EntradaLlaveSection from "@/components/sections/EntradaLlaveSection.vue";
