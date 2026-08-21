@@ -5,13 +5,16 @@
       <HeroSection />
       <ValuePropSection class="v-reveal" />
       <ManifestoSection class="v-reveal" />
-      <SpeakersSection class="v-reveal" />
+      <EntradaLlaveSection class="v-reveal" />
       <AgendaSection class="v-reveal" />
+      <SpeakersSection class="v-reveal" />
+      <MesaRedondaSection class="v-reveal" />
+      <QuieroIrBanner class="v-reveal" />
+      <ParaQuienSection class="v-reveal" />
       <BrandsSection class="v-reveal" />
       <LocationSection class="v-reveal" />
-      <QuieroIrBanner class="v-reveal" />
+      <RegistroSection class="v-reveal" />
       <FAQSection class="v-reveal" />
-      <SponsorCTASection class="v-reveal" />
       <FinalCTASection class="v-reveal" />
     </main>
     <Footer />
@@ -23,15 +26,18 @@ import { onMounted } from "vue";
 import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
-import ManifestoSection from "@/components/sections/ManifestoSection.vue";
-import SpeakersSection from "@/components/sections/SpeakersSection.vue";
-import AgendaSection from "@/components/sections/AgendaSection.vue";
 import ValuePropSection from "@/components/sections/ValuePropSection.vue";
+import ManifestoSection from "@/components/sections/ManifestoSection.vue";
+import EntradaLlaveSection from "@/components/sections/EntradaLlaveSection.vue";
+import AgendaSection from "@/components/sections/AgendaSection.vue";
+import SpeakersSection from "@/components/sections/SpeakersSection.vue";
+import MesaRedondaSection from "@/components/sections/MesaRedondaSection.vue";
+import QuieroIrBanner from "@/components/sections/QuieroIrBanner.vue";
+import ParaQuienSection from "@/components/sections/ParaQuienSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
-import QuieroIrBanner from "@/components/sections/QuieroIrBanner.vue";
+import RegistroSection from "@/components/sections/RegistroSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
-import SponsorCTASection from "@/components/sections/SponsorCTASection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
 onMounted(() => {

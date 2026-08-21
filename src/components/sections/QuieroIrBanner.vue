@@ -1,84 +1,57 @@
 <template>
-  <section
-    id="quiero-ir-banner"
-    class="relative py-20 sm:py-24 px-6 sm:px-12 overflow-hidden"
-  >
-    <!-- Glow accents -->
-    <div class="pointer-events-none absolute inset-0 -z-10">
+  <section class="relative py-6">
+    <div class="mx-auto w-full max-w-[1240px] px-6 sm:px-8">
       <div
-        class="absolute -top-24 left-1/4 w-[500px] h-[500px] bg-primary/8 blur-[120px] rounded-full"
-      ></div>
-      <div
-        class="absolute -bottom-24 right-1/4 w-[400px] h-[400px] bg-violet-300/10 blur-[100px] rounded-full"
-      ></div>
-    </div>
-
-    <div class="max-w-5xl mx-auto">
-      <div
-        class="relative bg-primary text-white rounded-3xl p-8 sm:p-12 overflow-hidden flex flex-col md:flex-row items-center md:items-stretch gap-7 md:gap-10"
+        class="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/[0.08] via-white to-violet-100/40 p-8 sm:p-10"
       >
-        <!-- Inner glow -->
         <div
-          class="pointer-events-none absolute inset-x-0 -top-16 h-32 bg-gradient-to-b from-white/15 to-transparent blur-2xl opacity-40"
-        ></div>
-        <div
-          class="pointer-events-none absolute inset-x-0 -bottom-16 h-32 bg-gradient-to-t from-white/10 to-transparent blur-2xl opacity-30"
+          class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl"
         ></div>
 
-        <!-- Texto -->
-        <div class="flex-1 text-center md:text-left relative">
-          <div
-            class="inline-flex items-center gap-2 mb-3 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-white/70 font-bold"
-          >
-            <span class="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse"></span>
-            Sábado 16.05.2026 · 17 hs
-          </div>
-          <h2
-            class="font-heading text-[clamp(1.6rem,3.4vw,2.4rem)] font-extrabold leading-[1.1] tracking-tight"
-          >
-            ¿Te lo vas a perder, en serio?
-          </h2>
-          <p class="mt-2 text-white/80 text-[0.95rem] sm:text-[1rem] leading-snug">
-            Quedan {{ 30 - occupied }} lugares.
-            <span class="font-bold text-white">Es gratis</span>, pero la
-            inscripción pasa por aprobación manual.
-          </p>
-        </div>
-
-        <!-- CTA -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 relative">
-          <a
-            :href="signupLink"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group inline-flex items-center gap-2 bg-white text-primary font-bold rounded-xl px-7 py-4 text-[0.95rem] transition-all hover:bg-slate-50 hover:-translate-y-0.5 shadow-xl shadow-black/10"
-          >
-            Quiero ir
+        <div class="relative flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center">
+          <div class="max-w-2xl">
             <span
-              class="inline-flex items-center justify-center w-5 h-5 rounded-lg bg-primary/10 text-primary transition-transform duration-300 group-hover:translate-x-0.5"
+              class="inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.16em]"
+              :class="
+                critico
+                  ? 'border-rose-200 bg-rose-50 text-rose-600'
+                  : 'border-primary/20 bg-primary/5 text-primary'
+              "
             >
-              <svg width="10" height="10" viewBox="0 0 13 13" fill="none">
-                <path
-                  d="M2 6.5h9M7.5 3l3.5 3.5L7.5 10"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <span
+                class="h-1 w-1 rounded-full"
+                :class="critico ? 'bg-rose-500 animate-pulse' : 'bg-primary'"
+              ></span>
+              {{ agotado ? "Cupo completo" : `Quedan ${restantes} de ${total} lugares` }}
             </span>
-          </a>
 
-          <div class="text-center sm:text-left">
-            <div class="font-heading font-extrabold text-white text-[1.4rem] leading-none tracking-tight">
-              <span class="tabular-nums">{{ occupied }}</span>
-              <span class="text-white/40 mx-1">/</span>
-              <span class="tabular-nums text-white/70">30</span>
-            </div>
-            <div class="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/60 mt-1">
-              marcas inscriptas
-            </div>
+            <h2
+              class="mt-4 font-heading text-[clamp(1.4rem,2.6vw,2.1rem)] font-extrabold leading-[1.15] tracking-tighter text-slate-900"
+            >
+              Faltan {{ diasRestantes }} días y el salón tiene un límite.
+            </h2>
+            <p class="mt-3 text-[0.98rem] leading-[1.6] text-slate-500">
+              Registrarte lleva un minuto y te asegura la entrada, los beneficios de los partners y
+              tu reunión de diagnóstico.
+            </p>
           </div>
+
+          <a
+            href="#registro"
+            @click.prevent="ir('registro')"
+            class="inline-flex shrink-0 items-center gap-2 rounded-xl bg-primary px-6 py-4 text-[0.95rem] font-bold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:bg-[#5346c7]"
+          >
+            Reservar mi lugar
+            <svg width="12" height="12" viewBox="0 0 13 13" fill="none">
+              <path
+                d="M2 6.5h9M7.5 3l3.5 3.5L7.5 10"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
@@ -86,12 +59,18 @@
 </template>
 
 <script setup>
-// WhatsApp Alan Tapia (organizador) — single funnel for signups
-const signupLink =
-  "https://wa.me/5491154596266?text=" +
-  encodeURIComponent(
-    "Hola Alan! Quiero anotarme al evento del 16 de mayo en Córdoba. Mi nombre es ____ y mi marca es ____."
-  );
-// PLACEHOLDER: actualizar manualmente
-const occupied = 18;
+import { computed } from "vue";
+import { EVENTO } from "@/data/evento";
+import { useCupo } from "@/composables/useCupo";
+
+const { total, restantes, agotado, critico } = useCupo();
+
+const diasRestantes = computed(() => {
+  const diff = new Date(EVENTO.fechaISO).getTime() - Date.now();
+  return Math.max(0, Math.ceil(diff / 86400000));
+});
+
+function ir(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 </script>

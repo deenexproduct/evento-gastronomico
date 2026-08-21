@@ -19,48 +19,45 @@
   <rect width="1200" height="630" fill="url(#orb2)"/>
 
   <!-- Pill -->
-  <g transform="translate(72, 72)">
-    <rect width="270" height="36" rx="18" fill="#695EDE" fill-opacity="0.1" stroke="#695EDE" stroke-opacity="0.25"/>
+  <g transform="translate(72, 68)">
+    <rect width="330" height="36" rx="18" fill="#695EDE" fill-opacity="0.1" stroke="#695EDE" stroke-opacity="0.25"/>
     <circle cx="20" cy="18" r="3" fill="#695EDE"/>
     <text x="34" y="23" font-family="Inter, sans-serif" font-size="12" font-weight="700"
-          letter-spacing="2" fill="#695EDE">SÁBADO 16.05.2026 · CÓRDOBA</text>
+          letter-spacing="2" fill="#695EDE">DOMINGO 20.09.2026 · CÓRDOBA</text>
   </g>
 
-  <!-- Headline (3 lines) -->
-  <text x="72" y="200" font-family="DM Sans, system-ui, sans-serif" font-size="78"
-        font-weight="800" letter-spacing="-3" fill="#1B1B1B">Cómo</text>
-
-  <text x="72" y="290" font-family="DM Sans, system-ui, sans-serif" font-size="78"
-        font-weight="800" letter-spacing="-3" fill="#1B1B1B">
-    <tspan font-weight="300" font-style="italic" fill="#695EDE">vender</tspan>,
-    <tspan font-weight="300" font-style="italic" fill="#695EDE">mover</tspan>
-    y hacer
+  <!-- Headline -->
+  <text x="72" y="190" font-family="DM Sans, system-ui, sans-serif" font-size="66"
+        font-weight="800" letter-spacing="-2.5" fill="#1B1B1B">No venís a
+    <tspan font-weight="300" font-style="italic" fill="#94a3b8">escuchar charlas</tspan>.
   </text>
 
-  <text x="72" y="380" font-family="DM Sans, system-ui, sans-serif" font-size="78"
-        font-weight="300" font-style="italic" letter-spacing="-3" fill="#695EDE">
-    crecer<tspan fill="#1B1B1B" font-weight="800" font-style="normal">.</tspan>
+  <text x="72" y="272" font-family="DM Sans, system-ui, sans-serif" font-size="66"
+        font-weight="800" letter-spacing="-2.5" fill="#1B1B1B">Te vas con un
+    <tspan font-weight="300" font-style="italic" fill="#695EDE">diagnóstico</tspan>
   </text>
+
+  <text x="72" y="354" font-family="DM Sans, system-ui, sans-serif" font-size="66"
+        font-weight="800" letter-spacing="-2.5" fill="#1B1B1B">de tu negocio.</text>
 
   <!-- Subline -->
-  <text x="72" y="450" font-family="Inter, sans-serif" font-size="28" font-weight="500"
-        fill="#475569">Tu cadena gastronómica en 2026.</text>
+  <text x="72" y="424" font-family="Inter, sans-serif" font-size="26" font-weight="500"
+        fill="#475569">Innovación, tecnología y marketing para el mercado gastronómico.</text>
+  <text x="72" y="462" font-family="Inter, sans-serif" font-size="26" font-weight="500"
+        fill="#475569">Hotel Quinto Centenario · 9 a 18 hs.</text>
 
-  <!-- Footer organizers -->
+  <!-- Footer -->
   <text x="72" y="540" font-family="Inter, sans-serif" font-size="13" font-weight="700"
-        letter-spacing="3" fill="#94a3b8">3 FOUNDERS · 1 ESCENARIO</text>
-  <text x="72" y="572" font-family="DM Sans, system-ui, sans-serif" font-size="24"
-        font-weight="800" fill="#1B1B1B">
-    Deenex <tspan fill="#cbd5e1" dx="10">·</tspan><tspan dx="10">Puni</tspan>
-    <tspan fill="#cbd5e1" dx="10">·</tspan><tspan dx="10">Pimentón</tspan>
-  </text>
+        letter-spacing="3" fill="#94a3b8">ENTRADA GRATUITA · REGISTRO OBLIGATORIO</text>
+  <text x="72" y="574" font-family="DM Sans, system-ui, sans-serif" font-size="24"
+        font-weight="800" fill="#1B1B1B">El evento de Deenex</text>
 
-  <!-- Right side decorative -->
-  <g transform="translate(990, 470)" opacity="0.95">
-    <rect width="130" height="90" rx="14" fill="#695EDE"/>
-    <text x="65" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="11"
+  <!-- Cupo -->
+  <g transform="translate(985, 465)" opacity="0.95">
+    <rect width="140" height="96" rx="14" fill="#695EDE"/>
+    <text x="70" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="11"
           font-weight="700" letter-spacing="2" fill="#ffffff" fill-opacity="0.7">SOLO</text>
-    <text x="65" y="68" text-anchor="middle" font-family="DM Sans, sans-serif"
-          font-size="32" font-weight="800" font-style="italic" fill="#ffffff">30 marcas</text>
+    <text x="70" y="74" text-anchor="middle" font-family="DM Sans, sans-serif"
+          font-size="34" font-weight="800" font-style="italic" fill="#ffffff">200 lugares</text>
   </g>
 </svg>

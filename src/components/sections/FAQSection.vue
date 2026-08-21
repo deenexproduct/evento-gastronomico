@@ -1,57 +1,80 @@
 <template>
-  <section id="faq" class="py-32 sm:py-40 px-6 sm:px-12 overflow-hidden">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
+  <section id="faq" class="relative bg-white py-24 sm:py-32">
+    <div class="mx-auto w-full max-w-[1240px] px-6 sm:px-8">
+      <div class="grid gap-12 lg:grid-cols-[380px_1fr] lg:gap-16">
+        <!-- Header -->
         <div>
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-4"
+          <span
+            class="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-primary font-bold mb-5"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-            Preguntas frecuentes
-          </div>
+            Preguntas
+          </span>
           <h2
-            class="font-heading text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold tracking-tighter leading-[1.05] text-slate-900"
+            class="font-heading text-[clamp(1.8rem,3.4vw,2.8rem)] font-extrabold leading-[1.1] tracking-tighter text-slate-900"
           >
-            Lo que <span class="text-primary italic font-light">seguro</span> te estás preguntando.
+            Lo que
+            <em class="font-light italic text-primary">siempre nos preguntan.</em>
           </h2>
-        </div>
-        <div class="hidden lg:block max-w-[260px] text-right relative lg:ml-auto">
-          <div class="absolute -left-10 top-0 bottom-0 w-px bg-slate-200/60"></div>
-          <p class="text-slate-400 text-sm leading-relaxed pr-2">
-            "Si tenés una duda que no está acá, escribinos por WhatsApp."
+          <p class="mt-6 text-[0.98rem] leading-[1.7] text-slate-500">
+            ¿Te quedó algo afuera? Escribinos por WhatsApp y te lo respondemos.
           </p>
-        </div>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-4">
-        <div
-          v-for="(item, i) in faqs"
-          :key="i"
-          class="border border-slate-200 rounded-2xl bg-white overflow-hidden cursor-pointer group hover:border-primary/30 transition-colors duration-300"
-          @click="toggle(i)"
-        >
-          <button class="w-full flex items-start justify-between gap-4 p-5 text-left">
-            <span
-              class="font-heading text-[clamp(0.95rem,1.4vw,1.05rem)] font-bold text-slate-900 leading-snug group-hover:text-primary transition-colors"
-            >
-              {{ item.q }}
-            </span>
-            <span
-              class="flex-shrink-0 w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300"
-              :class="open === i ? 'bg-primary border-primary text-white rotate-45' : 'text-slate-400'"
-            >
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg>
-            </span>
-          </button>
-          <div
-            class="overflow-hidden transition-all duration-300 ease-in-out"
-            :class="open === i ? 'max-h-72 pb-5' : 'max-h-0'"
+          <a
+            :href="whatsappConsultas"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-5 inline-flex items-center gap-2 text-[0.9rem] font-semibold text-primary hover:underline"
           >
-            <p class="px-5 text-[0.92rem] text-slate-500 leading-relaxed">
-              {{ item.a }}
-            </p>
+            Preguntar por WhatsApp
+            <svg width="12" height="12" viewBox="0 0 13 13" fill="none">
+              <path
+                d="M2 6.5h9M7.5 3l3.5 3.5L7.5 10"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Acordeón -->
+        <div class="divide-y divide-slate-200 border-y border-slate-200">
+          <div v-for="(item, i) in FAQ" :key="i">
+            <button
+              type="button"
+              class="flex w-full items-start justify-between gap-6 py-6 text-left transition-colors hover:text-primary"
+              :aria-expanded="abierto === i"
+              :aria-controls="`faq-panel-${i}`"
+              @click="toggle(i)"
+            >
+              <span
+                class="font-heading text-[1.02rem] font-bold tracking-tight text-slate-900 sm:text-[1.1rem]"
+                >{{ item.q }}</span
+              >
+              <span
+                class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-slate-200 transition-all duration-300"
+                :class="abierto === i ? 'rotate-45 border-primary bg-primary text-white' : 'text-slate-400'"
+              >
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M6 2v8M2 6h8"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <div
+              :id="`faq-panel-${i}`"
+              class="grid transition-all duration-400 ease-out"
+              :class="abierto === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
+            >
+              <div class="overflow-hidden">
+                <p class="pb-6 pr-10 text-[0.95rem] leading-[1.7] text-slate-500">{{ item.a }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -61,44 +84,15 @@
 
 <script setup>
 import { ref } from "vue";
+import { FAQ } from "@/data/evento";
 
-const open = ref(null);
+const abierto = ref(0);
+
 function toggle(i) {
-  open.value = open.value === i ? null : i;
+  abierto.value = abierto.value === i ? -1 : i;
 }
 
-const faqs = [
-  {
-    q: "¿Cuánto cuesta la entrada?",
-    a: "Es gratis. Pero hay solo 30 marcas en la mesa y el acceso es por invitación. Tu registro queda sujeto a aprobación de los organizadores.",
-  },
-  {
-    q: "¿Cómo me anoto?",
-    a: "Apretás el botón \"Anotarme\", completás el formulario con los datos de tu marca y te avisamos por mail si quedaste seleccionado. Tarda menos de un minuto.",
-  },
-  {
-    q: "¿Quién puede asistir?",
-    a: "Dueños de cadenas, gerentes comerciales, e-commerce managers, equipos de marketing y emprendedores dentro de la industria del retail (supermercados, farmacia, indumentaria, gastronomía y afines). No participan proveedores ni competencia directa de los organizadores.",
-  },
-  {
-    q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, podés venir con todo tu equipo sin problema. Contamos por marca, no por persona: cada marca aprobada puede traer a quien necesite (gerentes, marketing, operaciones). Solo pedimos que nos digas cuántos van a venir cuando confirmes, para preparar el espacio.",
-  },
-  {
-    q: "¿Va a haber grabación?",
-    a: "Sí, es un evento producido y vamos a generar contenido del escenario y del networking. Si preferís no aparecer en cámara, avisanos al confirmar y lo coordinamos.",
-  },
-  {
-    q: "¿Por qué solo 30 marcas?",
-    a: "Porque queremos que el networking del cierre funcione de verdad. Más allá de 30 marcas, las conversaciones después del evento se diluyen y los contactos quedan superficiales.",
-  },
-  {
-    q: "¿Hay estacionamiento?",
-    a: "La sede está en el centro de Córdoba, con varias opciones de cocheras a metros. Te enviamos la guía exacta junto con la confirmación.",
-  },
-  {
-    q: "¿Voy a poder hacer preguntas y conocer a los founders?",
-    a: "Sí. Después de cada charla hay tiempo para preguntas del público y al cierre hay un debate abierto entre los tres. Y al final, networking con tragos en el que vas a poder hablar 1-a-1 con Alan, Matías y Gabriel sin filtros.",
-  },
-];
+const whatsappConsultas =
+  "https://wa.me/5491154596266?text=" +
+  encodeURIComponent("Hola! Tengo una consulta sobre el evento de Deenex del 20 de septiembre.");
 </script>

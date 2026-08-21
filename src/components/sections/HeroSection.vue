@@ -12,90 +12,75 @@
       <div class="orb orb-3 absolute rounded-full bg-indigo-300/8 blur-[100px]"></div>
     </div>
 
-    <div
-      class="relative z-10 mx-auto flex w-full max-w-[1240px] flex-1 flex-col px-6 sm:px-8"
-    >
-      <!-- FOMO pills -->
+    <div class="relative z-10 mx-auto flex w-full max-w-[1240px] flex-1 flex-col px-6 sm:px-8">
+      <!-- Pills -->
       <div
         :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
         class="mb-7 flex flex-wrap items-center justify-center gap-2.5"
         style="animation-delay: 0.05s"
       >
+        <span class="pill pill-neutral">Córdoba · Argentina</span>
+        <span class="pill pill-neutral">{{ EVENTO.fechaCorta }} · {{ EVENTO.horario }}</span>
+        <span class="pill pill-primary">Solo {{ total }} lugares</span>
+        <span class="pill pill-neutral">{{ EVENTO.venue }}</span>
         <span
-          class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 backdrop-blur-sm px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-semibold tracking-wide text-slate-600"
+          class="pill"
+          :class="critico || agotado ? 'pill-rose' : 'pill-emerald'"
         >
-          Córdoba · Argentina
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 backdrop-blur-sm px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-semibold tracking-wide text-slate-600"
-        >
-          Sábado 16.05.2026 · 17 hs
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-bold tracking-wide text-primary"
-        >
-          Solo 30 marcas
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-bold tracking-wide text-emerald-700"
-        >
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-          100% Gratis
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-bold tracking-wide text-rose-500"
-        >
-          <span class="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-          Cupos disponibles
+          <span
+            class="h-1.5 w-1.5 rounded-full"
+            :class="critico || agotado ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'"
+          ></span>
+          {{ agotado ? "Cupo completo · lista de espera" : `Quedan ${restantes} lugares` }}
         </span>
       </div>
 
       <!-- Headline -->
       <h1
         :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="text-center font-heading text-[clamp(2rem,5.2vw,4.2rem)] leading-[1.08] tracking-tighter text-slate-900 max-w-5xl mx-auto"
+        class="text-center font-heading text-[clamp(1.9rem,4.9vw,4rem)] leading-[1.08] tracking-tighter text-slate-900 max-w-5xl mx-auto"
         style="animation-delay: 0.15s"
       >
         <span class="block font-extrabold">
-          Cómo
-          <em class="font-light italic text-primary">vender</em>,
-          <em class="font-light italic text-primary">mover</em>
+          No venís a <em class="font-light italic text-slate-400">escuchar charlas</em>.
         </span>
         <span class="block font-extrabold">
-          y hacer <em class="font-light italic text-primary">crecer</em>.
+          Te vas con un <em class="font-light italic text-primary">diagnóstico</em>
         </span>
+        <span class="block font-extrabold">de tu negocio.</span>
         <span
           class="block mt-6 text-[clamp(1rem,1.6vw,1.5rem)] font-medium leading-snug text-slate-500 tracking-tight"
         >
-          Tu cadena gastronómica en 2026.
+          Una jornada de innovación, tecnología y marketing para el mercado gastronómico.
         </span>
       </h1>
 
       <!-- Sub -->
       <p
         :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mx-auto mt-7 max-w-[640px] text-center text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-slate-500"
+        class="mx-auto mt-7 max-w-[660px] text-center text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-slate-500"
         style="animation-delay: 0.28s"
       >
-        Tres founders argentinos del nuevo retail
-        <span class="font-semibold text-slate-900">en un mismo escenario</span>.
-        Sábado 16 de mayo, centro de Córdoba.
+        {{ EVENTO.fechaLarga }}, en el {{ EVENTO.venue }} de Córdoba.
+        <span class="font-semibold text-slate-900"
+          >Hasta {{ total }} dueños de marcas gastronómicas y restaurantes</span
+        >
+        en la misma sala. Entrada gratuita, registro obligatorio.
       </p>
 
       <!-- CTAs -->
       <div
         :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mt-9 flex items-center justify-center gap-3 sm:gap-4"
+        class="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
         style="animation-delay: 0.4s"
       >
         <a
-          :href="signupWhatsapp"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#registro"
+          @click.prevent="ir('registro')"
           class="btn-primary group inline-flex items-center gap-2 bg-primary text-white font-semibold rounded-xl px-5 py-3 sm:px-6 sm:py-3.5 text-[0.9rem] sm:text-[0.95rem] transition-all hover:bg-[#5346c7] shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 relative overflow-hidden"
         >
           <span class="btn-shimmer"></span>
-          Anotarme
+          Reservar mi lugar
           <span
             class="inline-flex items-center justify-center w-5 h-5 rounded-lg bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5"
           >
@@ -112,10 +97,11 @@
         </a>
 
         <a
-          href="#speakers"
+          href="#jornada"
+          @click.prevent="ir('jornada')"
           class="group inline-flex items-center gap-2 px-3 py-3 sm:px-4 sm:py-3.5 text-[0.9rem] sm:text-[0.95rem] font-semibold text-slate-600 hover:text-primary transition-colors"
         >
-          Conocer a los founders
+          Ver cómo es el día
           <svg
             width="12"
             height="12"
@@ -134,7 +120,7 @@
         </a>
       </div>
 
-      <!-- Scarcity meter -->
+      <!-- Cupo -->
       <div
         :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
         class="mx-auto mt-12 w-full max-w-[460px]"
@@ -143,12 +129,25 @@
         <div
           class="flex items-center justify-between mb-2.5 font-mono text-[0.68rem] uppercase tracking-[0.14em]"
         >
-          <span class="text-slate-400">Marcas inscriptas</span>
-          <span class="text-primary font-bold">{{ occupied }} / 30</span>
+          <span class="text-slate-400">Lugares tomados</span>
+          <span class="font-bold" :class="critico ? 'text-rose-500' : 'text-primary'"
+            >{{ ocupados }} / {{ total }}</span
+          >
         </div>
         <div class="h-1 bg-slate-200 rounded-full overflow-hidden">
-          <div class="scarcity-fill h-full bg-gradient-to-r from-primary to-violet-400 rounded-full"></div>
+          <div
+            class="h-full rounded-full transition-[width] duration-[1600ms] ease-out"
+            :class="
+              critico
+                ? 'bg-gradient-to-r from-rose-500 to-orange-400'
+                : 'bg-gradient-to-r from-primary to-violet-400'
+            "
+            :style="{ width: barra + '%' }"
+          ></div>
         </div>
+        <p class="mt-2.5 text-center text-[0.72rem] text-slate-400">
+          El cupo es el del salón. Cuando se llena, se cierra.
+        </p>
       </div>
 
       <!-- Stats -->
@@ -158,14 +157,9 @@
         style="animation-delay: 0.6s"
         ref="statsRef"
       >
-        <div
-          v-for="(stat, i) in stats"
-          :key="i"
-          class="text-center"
-          :class="{ 'stat-active': hasAnimated }"
-        >
+        <div v-for="(stat, i) in stats" :key="i" class="text-center">
           <div
-            class="font-heading font-black text-primary text-[clamp(2rem,4vw,2.8rem)] leading-none tracking-tighter mb-1.5"
+            class="font-heading font-black text-primary text-[clamp(1.7rem,3.6vw,2.6rem)] leading-none tracking-tighter mb-1.5"
           >
             <span v-if="stat.prefix" class="text-[0.65em] opacity-75">{{ stat.prefix }}</span>
             <span class="tabular-nums">{{ displayValues[i] }}</span>
@@ -181,34 +175,33 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
+import { EVENTO } from "@/data/evento";
+import { useCupo } from "@/composables/useCupo";
 
 const ready = ref(false);
 const statsRef = ref(null);
 const hasAnimated = ref(false);
-const occupied = ref(18); // PLACEHOLDER: actualizar manualmente
 
-// WhatsApp Alan Tapia (organizador) — single funnel for signups
-const signupWhatsapp =
-  "https://wa.me/5491154596266?text=" +
-  encodeURIComponent(
-    "Hola Alan! Quiero anotarme al evento del 16 de mayo en Córdoba. Mi nombre es ____ y mi marca es ____."
-  );
+const { total, ocupados, restantes, porcentaje, agotado, critico } = useCupo();
+
+// La barra nunca arranca en cero visual: da sensación de sala que se está llenando.
+const barra = ref(0);
+const objetivoBarra = computed(() => Math.max(porcentaje.value, 4));
 
 const stats = [
-  { prefix: "+", value: 1500, suffix: "", label: "Marcas trabajadas" },
-  { prefix: "+", value: 1, suffix: "M", label: "Envíos / mes" },
-  { prefix: "", value: 3, suffix: "", label: "CEOs fundadores" },
-  { prefix: "", value: 100, suffix: "%", label: "Decisores en la mesa" },
+  { prefix: "", value: 8, suffix: "h", label: "de jornada" },
+  { prefix: "", value: 6, suffix: "+", label: "voces en escenario" },
+  { prefix: "", value: 200, suffix: "", label: "lugares, no más" },
+  { prefix: "", value: 100, suffix: "%", label: "dueños en la sala" },
 ];
 
-const displayValues = reactive(stats.map(() => 0));
+const displayValues = reactive(stats.map(() => "0"));
 
 function animateCounter(index, target, duration = 1800) {
   const startTime = performance.now();
   function step(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
+    const progress = Math.min((now - startTime) / duration, 1);
     const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
     const value = Math.round(target * eased);
     displayValues[index] = value >= 1000 ? value.toLocaleString("es-AR") : String(value);
@@ -217,26 +210,32 @@ function animateCounter(index, target, duration = 1800) {
   requestAnimationFrame(step);
 }
 
+function ir(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
+
 let observer = null;
 
 onMounted(() => {
-  setTimeout(() => {
-    ready.value = true;
-  }, 200);
+  setTimeout(() => (ready.value = true), 200);
+  setTimeout(() => (barra.value = objetivoBarra.value), 900);
 
   observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting && !hasAnimated.value) {
         hasAnimated.value = true;
-        stats.forEach((stat, i) => {
-          setTimeout(() => animateCounter(i, stat.value), i * 120);
-        });
+        stats.forEach((stat, i) => setTimeout(() => animateCounter(i, stat.value), i * 120));
         observer.disconnect();
       }
     },
     { threshold: 0.3 }
   );
   if (statsRef.value) observer.observe(statsRef.value);
+});
+
+// Si el endpoint de cupo responde después del montaje, la barra sigue el dato real.
+watch(objetivoBarra, (v) => {
+  if (barra.value > 0) barra.value = v;
 });
 
 onUnmounted(() => {
@@ -247,6 +246,46 @@ onUnmounted(() => {
 <style scoped>
 .hero-section {
   background: #f8f9fb;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border-width: 1px;
+  padding: 0.25rem 0.875rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+@media (min-width: 640px) {
+  .pill {
+    font-size: 0.72rem;
+    padding: 0.375rem 0.875rem;
+  }
+}
+.pill-neutral {
+  border-color: rgb(226 232 240);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  color: rgb(71 85 105);
+  font-weight: 600;
+}
+.pill-primary {
+  border-color: rgba(105, 94, 222, 0.2);
+  background: rgba(105, 94, 222, 0.05);
+  color: var(--primary);
+}
+.pill-emerald {
+  border-color: rgb(167 243 208);
+  background: rgb(236 253 245);
+  color: rgb(4 120 87);
+}
+.pill-rose {
+  border-color: rgb(254 205 211);
+  background: rgb(255 241 242);
+  color: rgb(225 29 72);
 }
 
 .hero-dot-grid {
@@ -282,8 +321,12 @@ onUnmounted(() => {
 }
 
 @keyframes orbDrift {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(30px, -20px) scale(1.05); }
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(30px, -20px) scale(1.05);
+  }
 }
 
 @keyframes rise {
@@ -302,14 +345,6 @@ onUnmounted(() => {
   animation: rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.scarcity-fill {
-  width: 0;
-  animation: fillBar 2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards;
-}
-@keyframes fillBar {
-  to { width: 60%; }
-}
-
 .btn-primary {
   isolation: isolate;
 }
@@ -326,7 +361,18 @@ onUnmounted(() => {
   animation: shimmer 3s ease-in-out infinite;
 }
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .btn-shimmer {
+    animation: none;
+  }
 }
 </style>
