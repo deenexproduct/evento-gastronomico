@@ -16,11 +16,17 @@
 
       <!-- Bajada + acción -->
       <div class="mt-12 grid gap-10 border-t border-linea pt-8 lg:grid-cols-12 lg:gap-8">
-        <p class="text-[1.05rem] leading-[1.65] text-gris lg:col-span-6 lg:col-start-1">
-          Un día entero de charlas, demos en vivo y networking para dueños de marcas gastronómicas y
-          restaurantes. Seis bloques sobre lo que ya está cambiando el negocio: datos, inteligencia
-          artificial, sistemas POS, contenido y ecosistema.
-        </p>
+        <div class="lg:col-span-6 lg:col-start-1">
+          <p class="text-[1.15rem] leading-[1.55] text-tinta">
+            Se está formando un mercado gastronómico nuevo: con otra tecnología, otros datos y otra
+            forma de hacer marketing.
+          </p>
+          <p class="mt-4 text-[1.02rem] leading-[1.65] text-gris">
+            El 20 de septiembre juntamos en una sala a los que ya entraron, para que cuenten cómo lo
+            hicieron. Seis bloques de charla, demos en vivo y doscientos dueños de marcas
+            gastronómicas y restaurantes.
+          </p>
+        </div>
 
         <div class="lg:col-span-4 lg:col-start-9">
           <div class="flex flex-wrap items-center gap-3">

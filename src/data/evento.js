@@ -142,6 +142,58 @@ export const DIAGNOSTICO = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Con qué volvés al local — el inventario de valor, al cierre de la página.
+//
+// Todo lo de acá tiene que ser tangible y verificable: es la contracara
+// concreta de la apertura aspiracional. Nada de promesas de resultado.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const VOLVES_CON = [
+  {
+    n: "01",
+    titulo: "Seis temas, cada uno con algo para hacer",
+    texto:
+      "Ningún bloque cierra con una conclusión inspiradora. Cierra con algo concreto: qué mirar, por dónde empezar y qué esperar cuando lo hagas.",
+  },
+  {
+    n: "02",
+    titulo: "Los sistemas, vistos funcionando",
+    texto:
+      "Demos en vivo montadas en el salón, no capturas de pantalla. Te parás adelante, preguntás y ves si sirve para tu operación antes de contratar nada.",
+  },
+  {
+    n: "03",
+    titulo: "La grilla, por escrito",
+    texto:
+      "El evento entero en un material: los beneficios disponibles, quién los da y cómo encararlos. Es lo que abrís el lunes cuando volvés al local.",
+  },
+  {
+    n: "04",
+    titulo: "Los beneficios de cada partner",
+    texto:
+      "Condiciones que solo existen para los que estuvieron en la sala ese día. No se consiguen después ni por otro canal.",
+  },
+  {
+    n: "05",
+    titulo: "Doscientos colegas del rubro",
+    texto:
+      "Dueños que ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
+  },
+  {
+    n: "06",
+    titulo: "Tus preguntas respondidas",
+    texto:
+      "En la mesa redonda están todos los que hablaron, sentados juntos y una hora entera. Es la única parte del día donde preguntás lo que quieras a quien quieras.",
+  },
+  {
+    n: "07",
+    titulo: "Tu diagnóstico, si lo pedís",
+    texto:
+      "Una reunión técnica sobre tu marca: dónde está parada a nivel tecnológico y cuál sería el próximo paso. Opcional y sin costo.",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
 // La entrada como llave — los 3 pasos del QR
 // ─────────────────────────────────────────────────────────────────────────────
 

@@ -8,6 +8,9 @@
       <!-- ATENCIÓN: qué es, cuándo y para quién -->
       <HeroSection />
 
+      <!-- MARCO: por qué este momento -->
+      <ManifestoSection class="v-reveal" />
+
       <!-- INTERÉS: de qué se habla, quién lo dice, dónde pasa -->
       <TemasSection class="v-reveal" />
       <SpeakersSection class="v-reveal" />
@@ -16,19 +19,20 @@
       <!-- DESEO: cómo es el día y qué te llevás -->
       <AgendaSection class="v-reveal" />
       <MesaRedondaSection class="v-reveal" />
-      <ValuePropSection class="v-reveal" />
 
       <!-- ACCIÓN: urgencia y formulario, a mitad de página -->
       <QuieroIrBanner />
       <RegistroSection />
 
       <!-- REFUERZO: para el que todavía duda -->
-      <ManifestoSection class="v-reveal" />
       <ParaQuienSection class="v-reveal" />
       <BrandsSection class="v-reveal" />
       <EntradaLlaveSection class="v-reveal" />
       <LocationSection class="v-reveal" />
       <FAQSection class="v-reveal" />
+
+      <!-- BALANCE: todo lo que se lleva, en concreto -->
+      <VolvesConSection class="v-reveal" />
       <FinalCTASection class="v-reveal" />
     </main>
 
@@ -48,7 +52,6 @@ import SpeakersSection from "@/components/sections/SpeakersSection.vue";
 import SalonSection from "@/components/sections/SalonSection.vue";
 import AgendaSection from "@/components/sections/AgendaSection.vue";
 import MesaRedondaSection from "@/components/sections/MesaRedondaSection.vue";
-import ValuePropSection from "@/components/sections/ValuePropSection.vue";
 import QuieroIrBanner from "@/components/sections/QuieroIrBanner.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import ManifestoSection from "@/components/sections/ManifestoSection.vue";
@@ -57,6 +60,7 @@ import BrandsSection from "@/components/sections/BrandsSection.vue";
 import EntradaLlaveSection from "@/components/sections/EntradaLlaveSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
+import VolvesConSection from "@/components/sections/VolvesConSection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
 let observer = null;
