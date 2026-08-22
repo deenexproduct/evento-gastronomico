@@ -17,7 +17,6 @@ export const EVENTO = {
   horario: "9:00 a 18:00",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
-  // Dirección del evento madre (CCM 2026). CONFIRMAR con producción antes de publicar.
   direccion: "Duarte Quirós 1300",
   salon: "Salón de 200 m²",
   // Contexto, nunca asistencia propia: las 20.000 son del evento madre.
