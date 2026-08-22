@@ -5,7 +5,7 @@
   >
     <div class="contenedor">
       <div class="flex items-center justify-between gap-6 py-3.5">
-        <a href="#hero" class="flex min-h-[40px] min-w-0 items-center gap-3" @click.prevent="arriba">
+        <a href="#hero" class="flex min-h-[44px] min-w-0 items-center gap-3" @click.prevent="arriba">
           <span class="text-[0.95rem] font-semibold tracking-[-0.02em]">El evento de Deenex</span>
           <span class="rotulo hidden text-gris sm:inline">{{ EVENTO.fechaNumerica }} · Córdoba</span>
         </a>

@@ -1,119 +1,60 @@
 <template>
-  <section id="hero" class="border-b border-linea pt-[68px]">
-    <div class="contenedor">
-      <!-- Ficha del evento, en reglas -->
-      <dl class="pt-12 sm:pt-16">
-        <div v-for="d in FICHA" :key="d.rotulo" class="fila-rotulo pb-5">
-          <dt class="rotulo text-violeta-texto">{{ d.rotulo }}</dt>
-          <dd class="text-[0.95rem] text-tinta">{{ d.valor }}</dd>
-        </div>
-      </dl>
+  <!--
+    El hero tiene que cerrar solo: 64% del tráfico móvil no pasa de este
+    viewport. Fecha, hora, sede, formato, precio y CTA tienen que estar acá.
+  -->
+  <section id="hero" class="border-b border-linea pt-[92px]">
+    <div class="contenedor py-12 sm:py-16">
+      <p class="rotulo text-violeta-texto">Jornada de gastronomía y tecnología · Edición 01</p>
 
-      <!-- Titular -->
-      <h1 class="titular mt-14 max-w-[16ch] text-[clamp(2.5rem,6.6vw,5.6rem)]">
-        El evento de gastronomía <span class="text-violeta-texto">y tecnología</span>.
+      <h1 class="display mt-6 max-w-[15ch] text-[clamp(2.5rem,8.4vw,5.5rem)]">
+        Nueve horas para bajar costos y vender más.
       </h1>
 
-      <!-- Bajada + acción -->
-      <div class="mt-12 grid gap-10 border-t border-linea pt-8 lg:grid-cols-12 lg:gap-8">
-        <div class="lg:col-span-6 lg:col-start-1">
-          <p class="text-[1.15rem] leading-[1.55] text-tinta">
-            Se está formando un mercado gastronómico nuevo: con otra tecnología, otros datos y otra
-            forma de hacer marketing.
-          </p>
-          <p class="mt-4 text-[1.02rem] leading-[1.65] text-gris">
-            El 20 de septiembre juntamos en una sala a los que ya entraron, para que cuenten cómo lo
-            hicieron. Seis bloques de charla, demos en vivo y doscientos dueños de marcas
-            gastronómicas y restaurantes.
-          </p>
-        </div>
-
-        <div class="lg:col-span-4 lg:col-start-9">
-          <div class="flex flex-wrap items-center gap-3">
-            <a href="#registro" class="btn" @click.prevent="ir('registro')">
-              Reservar mi lugar
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M2 8h11M9 3.5L13.5 8 9 12.5"
-                  stroke="currentColor"
-                  stroke-width="1.9"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </a>
-            <a href="#temas" class="btn-linea" @click.prevent="ir('temas')">Ver el programa</a>
-          </div>
-          <p class="mt-4 text-[0.85rem] text-gris">
-            Entrada gratuita · Registro previo obligatorio
-          </p>
-        </div>
+      <!-- Tira de logística: todo lo que decide el registro, en una línea -->
+      <div
+        class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-linea py-4 text-[15px] font-semibold sm:text-[17px]"
+      >
+        <span>Domingo 20 de septiembre</span>
+        <span class="text-gris/40" aria-hidden="true">·</span>
+        <span>9 a 18 h</span>
+        <span class="text-gris/40" aria-hidden="true">·</span>
+        <span>{{ EVENTO.venue }}, Córdoba</span>
+        <span class="text-gris/40" aria-hidden="true">·</span>
+        <span class="text-violeta-texto">Presencial</span>
       </div>
 
-      <!-- Cupo -->
-      <div class="mt-12 border-t border-linea pt-6">
-        <div class="flex items-baseline justify-between gap-4">
-          <p class="rotulo text-gris">Ocupación de la sala</p>
-          <p class="text-[0.85rem] font-medium text-gris">
-            <span class="text-[1.05rem] font-semibold text-tinta">{{ ocupados }}</span> de
-            {{ total }} lugares tomados
-          </p>
-        </div>
-        <div class="mt-3 h-[3px] w-full bg-linea">
-          <div
-            class="h-full transition-[width] duration-[1200ms] ease-out"
-            :class="critico ? 'bg-[#C2410C]' : 'bg-violeta'"
-            :style="{ width: ancho + '%' }"
-          ></div>
-        </div>
-      </div>
+      <p class="lectura mt-7 text-gris">
+        Seis charlas y una mesa redonda sobre lo que ya está cambiando el negocio gastronómico:
+        costos, datos, sistemas de venta y contenido. Para dueños de marcas y restaurantes.
+      </p>
 
-      <!-- Datos duros -->
-      <dl class="mt-12 grid grid-cols-2 border-t border-linea pb-16 sm:pb-20 lg:grid-cols-4">
-        <div
-          v-for="(d, i) in DATOS"
-          :key="d.label"
-          class="border-linea py-8 pr-6"
-          :class="[i % 2 === 1 ? 'border-l pl-6 lg:border-l' : '', i === 2 ? 'lg:border-l lg:pl-6' : '', i < 2 ? 'border-b lg:border-b-0' : '']"
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#registro" class="btn" @click.prevent="ir('registro')">Quiero mi lugar</a>
+        <a
+          href="#domingo"
+          class="inline-flex min-h-[52px] items-center text-[16px] font-semibold text-violeta-texto underline underline-offset-4"
+          @click.prevent="ir('domingo')"
         >
-          <dd class="titular text-[clamp(1.9rem,3.6vw,2.7rem)] text-violeta-texto">{{ d.valor }}</dd>
-          <dt class="rotulo mt-2.5 text-gris">{{ d.label }}</dt>
-        </div>
-      </dl>
+          ¿Por qué un domingo?
+        </a>
+      </div>
+
+      <!-- Clarificador debajo del botón: +9% de conversión -->
+      <p class="mt-4 text-[15px] text-gris">
+        Gratis con inscripción previa · {{ total }} lugares · El código de acceso te llega por mail
+      </p>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, ocupados, porcentaje, critico } = useCupo();
-
-const ancho = ref(0);
-const objetivo = computed(() => Math.max(porcentaje.value, 2));
-
-const FICHA = [
-  { rotulo: "Fecha", valor: `${EVENTO.fechaLarga} · ${EVENTO.horario}` },
-  { rotulo: "Lugar", valor: `${EVENTO.venue}, ${EVENTO.direccion} · Córdoba` },
-  { rotulo: "Para quién", valor: "Dueños de marcas gastronómicas y de restaurantes" },
-];
-
-// Voces confirmadas: Alan, CEO de Bistrosoft, orador de UGC y los dos de Avanzia.
-const DATOS = [
-  { valor: "6", label: "Bloques de charla" },
-  { valor: "5+", label: "Voces en escenario" },
-  { valor: "9h", label: "De jornada" },
-  { valor: "200", label: "Lugares, no más" },
-];
+const { total } = useCupo();
 
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
-
-onMounted(() => setTimeout(() => (ancho.value = objetivo.value), 400));
-watch(objetivo, (v) => {
-  if (ancho.value > 0) ancho.value = v;
-});
 </script>

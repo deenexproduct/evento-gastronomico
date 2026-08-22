@@ -45,53 +45,112 @@ export const CUPO = {
 
 export const TEMAS = [
   {
-    n: "01",
-    tema: "El nuevo mercado gastronómico",
+    hora: "10:00",
+    tipo: "charla",
+    titulo: "Qué cambió en el mercado y qué hace distinto el que creció este año",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Qué cambió en los últimos dos años y por qué el que no se movió ya está corriendo de atrás. La foto del mercado con números, no con impresiones.",
+      "La foto del rubro con números, no con impresiones. Por qué la brecha que se abrió no es de tamaño ni de plata.",
   },
   {
-    n: "02",
-    tema: "Datos e inteligencia artificial en tu negocio",
+    hora: "11:00",
+    tipo: "charla",
+    titulo: "Qué te están diciendo tus datos y no estás escuchando",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Tu local ya está generando los datos. La pregunta es si alguien los está leyendo, y qué decisiones de margen se toman distinto cuando sí.",
+      "Tu local ya genera la información. Qué decisiones de margen se toman distinto cuando alguien la lee.",
   },
   {
-    n: "03",
-    tema: "La evolución de los sistemas POS",
+    hora: "12:00",
+    tipo: "demo",
+    titulo: "Hasta dónde llega hoy el sistema con el que cobrás",
     quien: "CEO de Bistrosoft",
     punta:
-      "El sistema con el que cobrás puede ser el que te diga qué comprar y cuándo. Con demos en vivo montadas en el salón, no en slides.",
+      "El punto de venta como fuente de decisiones y no solo de facturas. Con demos montadas en el salón.",
   },
   {
-    n: "04",
-    tema: "La nueva forma de hacer contenido",
+    hora: "13:45",
+    tipo: "charla",
+    titulo: "Cómo se hace hoy el contenido que mueve una marca gastronómica",
     quien: "UGC y contenidos",
     punta:
-      "Cómo se produce y se distribuye hoy el contenido de una marca gastronómica, sin un equipo de diez personas atrás.",
+      "Qué se graba, con qué frecuencia y por qué mostrar el plato dejó de rendir. Sin equipo de diez personas.",
   },
   {
-    n: "05",
-    tema: "Conducción y mercado",
-    quien: "Avanzia",
+    hora: "14:45",
+    tipo: "charla",
+    titulo: "Cómo se conduce un negocio del rubro cuando el mercado se endurece",
+    quien: "Avanzia · ex-CEO de Dexter y ex-presidente de la CAME",
     punta:
-      "Dos oradores que ya condujeron una compañía grande y una cámara del sector, hablando del momento que atraviesa el rubro.",
+      "Dos que ya tomaron esas decisiones con gente y plata en juego, contando cómo las tomaron.",
   },
   {
-    n: "06",
-    tema: "Cómo se arma un ecosistema",
+    hora: "16:00",
+    tipo: "charla",
+    titulo: "Por qué solos no llegamos: marcas, tecnología y proveedores",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Marcas, tecnología y proveedores trabajando juntos. Por qué solos no llegamos, y cómo se construye la red que sí llega.",
+      "Cómo se construye la red que sí llega, y qué hace falta de cada lado para que funcione.",
+  },
+  {
+    hora: "17:00",
+    tipo: "mesa",
+    titulo: "Cuatro voces del día dicen lo que nadie dice en público",
+    quien: "Mesa redonda · todos los oradores y partners",
+    punta:
+      "Una hora sentados en el centro del salón, con preguntas abiertas de la sala. Sin guion.",
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Qué se lleva el que viene
-// ─────────────────────────────────────────────────────────────────────────────
+/** Los cuatro tipos de bloque, con su pictograma y su tinte. */
+export const TIPOS_BLOQUE = {
+  charla: { label: "Charla", clase: "bg-violeta-tinte text-violeta-texto" },
+  demo: { label: "Demo en vivo", clase: "bg-tinta text-papel" },
+  mesa: { label: "Mesa redonda", clase: "bg-violeta text-white" },
+  pausa: { label: "Degustación", clase: "bg-papel-2 text-gris" },
+};
 
+/**
+ * El día en un vistazo. Reemplaza la franja de "cuántos vienen" que usa todo
+ * el rubro: con 200 asistentes no competimos contra los 24.000 de FITHEP.
+ * El eje es densidad de valor por hora.
+ */
+export const BENTO = [
+  { dato: "7", label: "bloques en el día", peso: "grande",
+    detalle: "Seis charlas más la mesa redonda de cierre. Track único: no elegís, no te perdés nada." },
+  { dato: "9 a 18", label: "de jornada", peso: "chico" },
+  { dato: "5", label: "degustaciones", peso: "chico" },
+  { dato: "200", label: "dueños en la sala", peso: "medio",
+    detalle: "Sala curada de decisores del rubro. Sin público general." },
+  { dato: "Demos", label: "montadas en vivo", peso: "chico" },
+  { dato: "$0", label: "la entrada", peso: "chico" },
+];
+
+/** Con qué volvés al local. Verbo + resultado tangible, sin adjetivos. */
+export const EL_LUNES = [
+  "Cómo mirar tu food cost real y no el que dice tu ficha técnica",
+  "Qué datos ya estás generando y dónde se leen",
+  "Herramientas probadas en vivo, con lo que hacen y lo que cuestan",
+  "Los proveedores del rubro comparados en un día en vez de en tres meses",
+  "Los números reales de otros dueños de Córdoba, dichos en voz alta",
+  "La grilla del evento con todos los beneficios de partners por escrito",
+];
+
+/**
+ * La objeción del domingo. Ninguna landing del rubro la tiene porque ninguna
+ * la necesita: Hotelga y FITHEP van de 13 a 20, HIP y Alimentaria de lunes a
+ * miércoles. Es nuestra mayor barrera y también nuestro punto de vista.
+ */
+export const DOMINGO = {
+  titulo: "Sí, es domingo. Y sabemos lo que factura tu domingo.",
+  cuerpo: [
+    "Por eso la jornada dura nueve horas y no dos: es el único día en que no te llama ningún proveedor, ni el banco, ni la gestoría. Delegás el servicio una vez y ganás el día entero.",
+    "Entrás y salís cuando quieras. Nadie controla la butaca: venís a la mañana y llegás al local para el servicio, o llegás a la tarde y agarrás los últimos bloques más la mesa redonda.",
+  ],
+  salida: "Y si de verdad no podés, mandá a tu socio o a tu encargado. El lugar es de la marca, no de la persona.",
+};
+
+// ──────────────────────────────────────────────────────────────────────────
 export const BENEFICIOS = [
   {
     n: "01",
