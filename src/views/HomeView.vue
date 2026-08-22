@@ -16,6 +16,9 @@
       <!-- Quiénes van a estar · negro medio -->
       <OradoresSection class="v-reveal bg-noche-2" />
 
+      <!-- Reels verticales: se activa sola cuando haya videos cargados -->
+      <ReelsSection class="v-reveal" />
+
       <!-- El programa completo, con las horas como sistema -->
       <JornadaSection class="v-reveal bg-noche" />
 
@@ -63,6 +66,7 @@ import Footer from "@/components/layout/Footer.vue";
 import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import OradoresSection from "@/components/sections/OradoresSection.vue";
+import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
 import CuentaSection from "@/components/sections/CuentaSection.vue";

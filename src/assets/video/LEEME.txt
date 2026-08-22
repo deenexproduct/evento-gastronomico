@@ -1,0 +1,6 @@
+Videos verticales 9:16 para la seccion de reels.
+
+Dejar los .mp4 aca y completar REELS en src/data/evento.js.
+Mientras REELS este vacio, la seccion no se muestra.
+
+Recomendado: max 8 MB por video, H.264, y un poster .jpg del primer frame.

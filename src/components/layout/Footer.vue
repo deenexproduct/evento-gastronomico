@@ -62,6 +62,30 @@
         <span class="rotulo text-gris">© {{ anio }} Deenex Technologies · Córdoba</span>
         <span class="rotulo text-gris">{{ EVENTO.fechaCorta }}</span>
       </div>
+
+      <!--
+        Bloque de descripción larga, como el "Sobre Food Delivery Day" del
+        referente. Sirve para búsqueda orgánica y para que un asistente de IA
+        pueda responder qué es este evento. Todo el contenido es verificable.
+      -->
+      <div class="mt-14 border-t border-white/10 pt-10">
+        <h2 class="text-[13px] font-black uppercase tracking-[0.14em] text-gris">
+          Sobre el evento de gastronomía y tecnología
+        </h2>
+        <p class="mt-4 max-w-[80ch] text-[15px] leading-[1.7] text-gris">
+          El evento de gastronomía y tecnología de Deenex es una jornada de negocios para dueños de
+          marcas gastronómicas y restaurantes, que se realiza el domingo 20 de septiembre de 2026 de
+          9 a 18 horas en el Hotel Quinto Centenario de Córdoba, Argentina. La programación reúne
+          siete bloques sobre el estado del mercado gastronómico, datos e inteligencia artificial
+          aplicados al negocio, la evolución de los sistemas de punto de venta con demostraciones en
+          vivo, la producción de contenido para marcas del rubro, y la construcción de un ecosistema
+          entre marcas, tecnología y proveedores. Cierra con una mesa redonda abierta a preguntas de
+          la sala. Entre las voces confirmadas están Alan Tapia, founder y CEO de Deenex, el CEO de
+          Bistrosoft como partner oficial, y dos oradores que aporta Avanzia. La actividad se
+          desarrolla dentro de Córdoba Corazón de Moda, es de entrada libre con registro previo
+          obligatorio, y el cupo es de 200 personas por la capacidad del salón.
+        </p>
+      </div>
     </div>
   </footer>
 </template>

@@ -631,4 +631,20 @@ export const CANTIDAD_LOCALES = [
 ];
 
 /** WhatsApp de Alan — fallback cuando no hay endpoint conectado. */
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Reels verticales embebidos.
+//
+// Se llenan con las piezas que ya se graban para redes: el material existe
+// igual, así que no hay costo de producción extra. Dejar el .mp4 en
+// src/assets/video/ y poner acá el nombre del archivo.
+// Con la lista vacía, la sección directamente no se renderiza.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const REELS = [
+  // { archivo: "01-por-que-ahora.mp4", poster: "01.jpg", titulo: "Por qué armé este evento" },
+  // { archivo: "05-tus-datos.mp4", poster: "05.jpg", titulo: "Tu sistema de cobro sabe más que vos" },
+  // { archivo: "17-el-salon.mp4", poster: "17.jpg", titulo: "Este es el salón" },
+];
+
 export const WHATSAPP_ORGANIZADOR = "5491154596266";
