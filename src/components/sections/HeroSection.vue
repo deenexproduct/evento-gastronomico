@@ -10,9 +10,13 @@
       </dl>
 
       <!-- Titular -->
-      <h1 class="titular mt-14 max-w-[16ch] text-[clamp(2.5rem,6.6vw,5.6rem)]">
-        El evento de gastronomía <span class="text-violeta-texto">y tecnología</span>.
+      <h1 class="titular mt-14 max-w-[15ch] text-[clamp(2.5rem,6.6vw,5.6rem)]">
+        <span class="text-violeta-texto">{{ EVENTO.nombre }}</span> llega a Córdoba.
       </h1>
+
+      <p class="mt-7 max-w-[24ch] text-[clamp(1.15rem,2.4vw,1.8rem)] font-medium leading-[1.3] tracking-[-0.025em]">
+        {{ EVENTO.bajada }}
+      </p>
 
       <!-- Bajada + acción -->
       <div class="mt-12 grid gap-10 border-t border-linea pt-8 lg:grid-cols-12 lg:gap-8">

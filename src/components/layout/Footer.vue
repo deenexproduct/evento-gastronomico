@@ -3,10 +3,12 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="text-[1rem] font-semibold tracking-[-0.02em]">El evento de Deenex</p>
+          <p class="text-[1.05rem] font-semibold tracking-[-0.02em]">
+            {{ EVENTO.nombre }}
+            <span class="font-normal text-gris">· un evento de {{ EVENTO.organiza }}</span>
+          </p>
           <p class="mt-3 max-w-[40ch] text-[0.9rem] leading-[1.65] text-gris">
-            Un día de gastronomía y tecnología para dueños de marcas gastronómicas y restaurantes.
-            {{ EVENTO.fechaLarga }}, {{ EVENTO.venue }}, Córdoba.
+            {{ EVENTO.bajada }} {{ EVENTO.fechaLarga }}, {{ EVENTO.venue }}, Córdoba.
           </p>
         </div>
 
