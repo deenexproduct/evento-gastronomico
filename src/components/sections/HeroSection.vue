@@ -9,12 +9,12 @@
     <!-- Halo del acento, contenido y barato: sin JS ni imágenes -->
     <div
       class="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[130px]"
-      style="background: radial-gradient(circle, #7B6EF6 0%, transparent 70%)"
+      style="background: radial-gradient(circle, #FF0054 0%, transparent 70%)"
       aria-hidden="true"
     ></div>
 
     <div class="contenedor relative py-14 sm:py-20">
-      <p class="rotulo text-violeta">Edición 01 · Jornada de gastronomía y tecnología</p>
+      <p class="rotulo text-acento-texto">Edición 01 · Jornada de gastronomía y tecnología</p>
 
       <p class="mt-7 text-[14px] font-bold uppercase tracking-[0.14em] text-gris sm:text-[16px]">
         20 de septiembre 2026 &nbsp;|&nbsp; {{ EVENTO.venue }}, Córdoba
@@ -32,7 +32,7 @@
       <!-- Escasez con razón física, no con fases de precio -->
       <div class="mt-10 max-w-[520px] tarjeta p-5 sm:p-6">
         <div class="flex items-baseline justify-between gap-4">
-          <p class="rotulo text-violeta">{{ porcentaje }}% del salón tomado</p>
+          <p class="rotulo text-acento-texto">{{ porcentaje }}% del salón tomado</p>
           <p class="text-[14px] font-bold tabular-nums text-gris">
             {{ ocupados }} / {{ total }}
           </p>
@@ -40,7 +40,7 @@
 
         <div class="mt-3 h-2 w-full overflow-hidden bg-white/10">
           <div
-            class="h-full bg-violeta-solido transition-[width] duration-[1200ms] ease-out"
+            class="h-full bg-acento transition-[width] duration-[1200ms] ease-out"
             :style="{ width: ancho + '%' }"
           ></div>
         </div>

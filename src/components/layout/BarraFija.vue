@@ -14,14 +14,14 @@
             <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
               <template v-if="agotado">Cupo completo · lista de espera</template>
               <template v-else>
-                Quedan <span class="text-violeta">{{ restantes }}</span> de {{ total }} lugares
+                Quedan <span class="text-acento-texto">{{ restantes }}</span> de {{ total }} lugares
               </template>
             </p>
           </div>
 
           <a
             href="#registro"
-            class="shrink-0 bg-violeta-solido px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#5B4FD0]"
+            class="shrink-0 bg-acento px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
             @click.prevent="ir"
           >
             Reservar mi lugar

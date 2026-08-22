@@ -4,30 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Base oscura, en el registro de Food Delivery Day (#1A1A1A).
-        noche: "#161616",
-        "noche-2": "#1F1F1F",
-        // Superficies translúcidas: el recurso que sostiene toda su grilla.
-        // Se aplican con bg-white/5 y bg-white/10.
+        // Los tres tonos de negro que alterna el referente sección a sección.
+        // Es lo que le da profundidad sin usar un solo borde.
+        noche: "#1A1A1A",
+        "noche-2": "#0D0D0D",
+        "noche-3": "#0A0A0A",
 
-        // Acento único saturado. Ellos usan magenta #FF0054; acá va el
-        // violeta de Deenex en ese mismo rol, para no confundirse con ellos.
-        violeta: "#9C92F5", // 6.3:1 sobre las superficies oscuras — texto
-        "violeta-solido": "#695EDE", // botones y fondos plenos
-        "violeta-tinte": "#EEEBFB",
+        // Acento del referente, separado en tres roles. El #FF0054 original
+        // da 3.9:1 con texto blanco encima, así que no puede llevar texto
+        // chico: queda para superficies grandes, barras y el halo del hero.
+        acento: "#FF0054",
+        "acento-boton": "#E00049", // 5.0:1 con blanco — botones y píldoras
+        "acento-texto": "#FF5C87", // 5.8:1 sobre los negros — texto chico
 
         papel: "#FFFFFF",
-        gris: "#A5A1B5", // 7.4:1 sobre noche
-        linea: "#2E2E33",
+        gris: "#A3A3A8", // 7.3:1 sobre noche
+        "gris-2": "#82828A", // 4.9:1 sobre el negro profundo
+        linea: "#2A2A2A",
       },
       fontFamily: {
-        // Grotesca con peso 900 real: es lo que da el golpe visual del
-        // referente. No es Inter, Poppins ni Montserrat.
         sans: ["Archivo", "system-ui", "sans-serif"],
       },
       maxWidth: {
         contenido: "1200px",
         lectura: "68ch",
+      },
+      spacing: {
+        // El ritmo vertical del referente: 96px en todas las secciones.
+        seccion: "96px",
       },
     },
   },

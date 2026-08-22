@@ -1,5 +1,5 @@
 <template>
-  <section id="mesa-redonda" class="border-b border-linea bg-violeta-texto py-20 text-white sm:py-28">
+  <section id="mesa-redonda" class="border-b border-linea bg-acento-texto py-20 text-white sm:py-28">
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-3">
@@ -24,7 +24,7 @@
 
           <a
             href="#registro"
-            class="mt-10 inline-flex items-center gap-2.5 bg-white/5 px-7 py-4 text-[0.92rem] font-semibold text-violeta transition-colors hover:bg-white/90"
+            class="mt-10 inline-flex items-center gap-2.5 bg-white/5 px-7 py-4 text-[0.92rem] font-semibold text-acento-texto transition-colors hover:bg-white/90"
             @click.prevent="ir('registro')"
           >
             Quiero estar en la sala

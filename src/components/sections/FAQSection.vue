@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta">Preguntas</p>
+          <p class="rotulo text-acento-texto">Preguntas</p>
           <h2 class="titular mt-5 max-w-[14ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
             Lo que siempre nos preguntan.
           </h2>
@@ -14,7 +14,7 @@
             :href="whatsappConsultas"
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-2 inline-flex min-h-[44px] items-center text-[0.9rem] font-semibold text-violeta underline underline-offset-4"
+            class="mt-2 inline-flex min-h-[44px] items-center text-[0.9rem] font-semibold text-acento-texto underline underline-offset-4"
           >
             Preguntar por WhatsApp
           </a>
@@ -26,7 +26,7 @@
               <h3>
                 <button
                   type="button"
-                  class="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors hover:text-violeta"
+                  class="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors hover:text-acento-texto"
                   :aria-expanded="abierto === i"
                   :aria-controls="`faq-panel-${i}`"
                   @click="toggle(i)"
@@ -35,7 +35,7 @@
                     {{ item.q }}
                   </span>
                   <span
-                    class="mt-0.5 shrink-0 text-[1.3rem] leading-none text-violeta transition-transform duration-300"
+                    class="mt-0.5 shrink-0 text-[1.3rem] leading-none text-acento-texto transition-transform duration-300"
                     :class="abierto === i ? 'rotate-45' : ''"
                     aria-hidden="true"
                     >+</span

@@ -7,7 +7,7 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta">El balance del día</p>
+          <p class="rotulo text-acento-texto">El balance del día</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4.2vw,3.4rem)]">
@@ -26,7 +26,7 @@
           :key="v.n"
           class="grid gap-x-8 gap-y-2 border-b border-linea py-6 lg:grid-cols-12"
         >
-          <span class="rotulo text-violeta lg:col-span-1">{{ v.n }}</span>
+          <span class="rotulo text-acento-texto lg:col-span-1">{{ v.n }}</span>
           <h3 class="titular text-[1.12rem] lg:col-span-5">{{ v.titulo }}</h3>
           <p class="max-w-[52ch] text-[0.95rem] leading-[1.62] text-gris lg:col-span-6">
             {{ v.texto }}

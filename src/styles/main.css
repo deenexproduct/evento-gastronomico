@@ -5,10 +5,11 @@
 @tailwind utilities;
 
 :root {
-  --noche: #161616;
-  --violeta: #9C92F5;
-  --violeta-solido: #695EDE;
-  --gris: #A5A1B5;
+  --noche: #1A1A1A;
+  --acento: #FF0054;
+  --acento-texto: #FF5C87;
+  
+  --gris: #A3A3A8;
   --linea: #2E2E33;
 }
 
@@ -56,9 +57,9 @@ img, video { max-width: 100%; height: auto; display: block; }
 
   /* ── Botones ────────────────────────────────────────────────────────── */
   .btn {
-    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 bg-violeta-solido
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 bg-acento-boton
            px-7 text-[15px] font-black uppercase tracking-[0.02em] text-white
-           transition-colors duration-150 hover:bg-[#5B4FD0];
+           transition-colors duration-150 hover:bg-[#D80047];
   }
   .btn-linea {
     @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 border border-white/25
@@ -73,11 +74,11 @@ img, video { max-width: 100%; height: auto; display: block; }
 }
 
 /* ── Foco ───────────────────────────────────────────────────────────── */
-:focus-visible { outline: 3px solid var(--violeta); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--acento-texto); outline-offset: 3px; }
 
 .saltar {
   position: absolute; left: 8px; top: -60px; z-index: 200;
-  background: var(--violeta-solido); color: #fff;
+  background: #E00049; color: #fff;
   padding: 14px 22px; font-weight: 800; transition: top .15s;
 }
 .saltar:focus { top: 8px; }
@@ -94,7 +95,7 @@ img, video { max-width: 100%; height: auto; display: block; }
 
 .foto-pendiente {
   background-color: rgba(255,255,255,.04);
-  background-image: repeating-linear-gradient(135deg, rgba(123,110,246,.14) 0 10px, transparent 10px 20px);
+  background-image: repeating-linear-gradient(135deg, rgba(255,0,84,.14) 0 10px, transparent 10px 20px);
 }
 
 @media (prefers-reduced-motion: reduce) {

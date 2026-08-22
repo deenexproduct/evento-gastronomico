@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="flex flex-wrap items-center justify-between gap-8">
         <div>
-          <p class="rotulo text-violeta">
+          <p class="rotulo text-acento-texto">
             {{ agotado ? "Cupo completo" : `Quedan ${restantes} de ${total} lugares` }}
           </p>
           <h2 class="titular mt-3 max-w-[24ch] text-[clamp(1.4rem,2.8vw,2.1rem)]">

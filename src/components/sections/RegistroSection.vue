@@ -4,7 +4,7 @@
       <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <!-- Argumento -->
         <div class="lg:col-span-5">
-          <p class="rotulo text-violeta">Reservá tu lugar</p>
+          <p class="rotulo text-acento-texto">Reservá tu lugar</p>
           <h2 class="titular mt-5 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.9rem)]">
             Son {{ total }} lugares. Este puede ser el tuyo.
           </h2>
@@ -18,7 +18,7 @@
             <div class="flex items-baseline justify-between gap-4">
               <span
                 class="titular text-[clamp(2.2rem,4.4vw,3rem)]"
-                :class="critico ? 'text-[#C2410C]' : 'text-violeta'"
+                :class="critico ? 'text-[#C2410C]' : 'text-acento-texto'"
               >
                 {{ restantes }}
               </span>
@@ -27,7 +27,7 @@
             <div class="mt-4 h-[3px] w-full bg-linea">
               <div
                 class="h-full transition-[width] duration-1000 ease-out"
-                :class="critico ? 'bg-[#C2410C]' : 'bg-violeta'"
+                :class="critico ? 'bg-[#C2410C]' : 'bg-acento'"
                 :style="{ width: Math.max(porcentaje, 2) + '%' }"
               ></div>
             </div>
@@ -40,7 +40,7 @@
               :key="i"
               class="flex gap-3.5 border-b border-linea py-3 text-[0.93rem] leading-snug"
             >
-              <span class="shrink-0 text-violeta" aria-hidden="true">—</span>
+              <span class="shrink-0 text-acento-texto" aria-hidden="true">—</span>
               {{ item }}
             </li>
           </ul>
@@ -59,7 +59,7 @@
           <div class="border border-linea bg-white/5 p-7 sm:p-9">
             <!-- Éxito -->
             <div v-if="enviado" class="py-8">
-              <p class="rotulo text-violeta">Listo</p>
+              <p class="rotulo text-acento-texto">Listo</p>
               <h3 class="titular mt-4 text-[clamp(1.6rem,3vw,2.2rem)]">Tu lugar quedó reservado.</h3>
               <p class="mt-5 max-w-[44ch] text-[0.97rem] leading-[1.65] text-gris">
                 <template v-if="tieneBackend">
@@ -79,7 +79,7 @@
               </p>
               <button
                 type="button"
-                class="mt-8 block text-[0.9rem] font-semibold text-violeta underline underline-offset-4"
+                class="mt-8 block text-[0.9rem] font-semibold text-acento-texto underline underline-offset-4"
                 @click="reiniciar"
               >
                 Registrar a otra persona
@@ -93,7 +93,7 @@
                 <span class="rotulo shrink-0 text-gris">30 segundos</span>
               </div>
 
-              <p class="mt-4 border-l-2 border-violeta pl-4 text-[0.88rem] leading-snug text-gris">
+              <p class="mt-4 border-l-2 border-acento pl-4 text-[0.88rem] leading-snug text-gris">
                 <span class="font-semibold text-white">{{ ocupados }} marcas</span> ya reservaron su
                 lugar en la sala.
               </p>
@@ -191,13 +191,13 @@
                   :class="
                     errores.acepta
                       ? 'border-[#C2410C] bg-[#FEF7F5]'
-                      : 'border-linea hover:border-violeta/50'
+                      : 'border-linea hover:border-acento/50'
                   "
                 >
                   <input
                     v-model="form.acepta"
                     type="checkbox"
-                    class="mt-0.5 h-4 w-4 shrink-0 accent-violeta"
+                    class="mt-0.5 h-4 w-4 shrink-0 accent-acento"
                   />
                   <span class="text-[0.85rem] leading-[1.5] text-gris">
                     Confirmo que voy a asistir el {{ EVENTO.fechaLarga.toLowerCase() }} y que Deenex
@@ -237,7 +237,7 @@
                   :href="whatsappRegistro"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="font-semibold text-violeta underline underline-offset-4"
+                  class="font-semibold text-acento-texto underline underline-offset-4"
                   >Escribinos y te anotamos nosotros</a
                 >
               </p>

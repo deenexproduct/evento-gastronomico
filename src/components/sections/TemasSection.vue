@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta">El programa</p>
+          <p class="rotulo text-acento-texto">El programa</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
@@ -22,7 +22,7 @@
           :key="t.n"
           class="group grid gap-x-8 gap-y-3 border-b border-linea py-7 transition-colors duration-200 hover:bg-white/5/60 sm:py-8 lg:grid-cols-12"
         >
-          <span class="rotulo text-violeta lg:col-span-1">{{ t.n }}</span>
+          <span class="rotulo text-acento-texto lg:col-span-1">{{ t.n }}</span>
 
           <div class="lg:col-span-5">
             <h3 class="titular text-[clamp(1.15rem,2.1vw,1.6rem)]">{{ t.tema }}</h3>

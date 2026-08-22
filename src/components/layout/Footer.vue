@@ -18,7 +18,7 @@
                 <li v-for="l in enlaces" :key="l.id">
                   <a
                     :href="`#${l.id}`"
-                    class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-violeta"
+                    class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
                     @click.prevent="ir(l.id)"
                     >{{ l.label }}</a
                   >
@@ -33,7 +33,7 @@
                     :href="whatsapp"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-violeta"
+                    class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
                     >WhatsApp</a
                   >
                 </li>
@@ -42,7 +42,7 @@
                     href="https://deenex.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-violeta"
+                    class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
                     >deenex.tech</a
                   >
                 </li>

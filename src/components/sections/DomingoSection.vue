@@ -9,7 +9,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
         <div>
-          <p class="rotulo text-violeta">La pregunta que todos hacen</p>
+          <p class="rotulo text-acento-texto">La pregunta que todos hacen</p>
           <h2 class="titulo mt-5 max-w-[17ch] text-[clamp(1.9rem,5vw,3.2rem)]">
             {{ DOMINGO.titulo }}
           </h2>
@@ -25,7 +25,7 @@
             {{ p }}
           </p>
 
-          <p class="lectura mt-7 border-l-2 border-violeta-claro pl-5 text-[17px] font-semibold">
+          <p class="lectura mt-7 border-l-2 border-acento-claro pl-5 text-[17px] font-semibold">
             {{ DOMINGO.salida }}
           </p>
 
@@ -38,7 +38,7 @@
               :href="whatsappMaterial"
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-4 inline-flex min-h-[48px] items-center text-[16px] font-bold text-violeta underline underline-offset-4"
+              class="mt-4 inline-flex min-h-[48px] items-center text-[16px] font-bold text-acento-texto underline underline-offset-4"
             >
               Avisame por WhatsApp
             </a>

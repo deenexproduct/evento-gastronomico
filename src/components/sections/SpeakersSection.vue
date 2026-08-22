@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta">Oradores</p>
+          <p class="rotulo text-acento-texto">Oradores</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">
@@ -30,11 +30,11 @@
         </div>
 
         <div class="lg:col-span-8">
-          <p class="rotulo text-violeta">Tres bloques · todo el día en escena</p>
+          <p class="rotulo text-acento-texto">Tres bloques · todo el día en escena</p>
           <h3 class="titular mt-4 text-[clamp(1.8rem,3.4vw,2.8rem)]">{{ alan.nombre }}</h3>
           <p class="rotulo mt-2 text-gris">{{ alan.rol }}</p>
 
-          <p class="mt-7 max-w-[46ch] border-l-2 border-violeta pl-5 text-[1.05rem] leading-[1.55]">
+          <p class="mt-7 max-w-[46ch] border-l-2 border-acento pl-5 text-[1.05rem] leading-[1.55]">
             “{{ alan.frase }}”
           </p>
 
@@ -46,7 +46,7 @@
               :key="i"
               class="flex gap-5 border-b border-linea py-3.5 text-[0.95rem]"
             >
-              <span class="rotulo shrink-0 pt-1 text-violeta">0{{ i + 1 }}</span>
+              <span class="rotulo shrink-0 pt-1 text-acento-texto">0{{ i + 1 }}</span>
               <span class="leading-snug">{{ charla }}</span>
             </li>
           </ol>
@@ -60,7 +60,7 @@
             <FotoSlot :src="fotos[s.id]" :alt="s.nombre" :etiqueta="`Foto · ${s.nombre}`" />
           </div>
 
-          <p class="rotulo mt-5 text-violeta">Confirmado</p>
+          <p class="rotulo mt-5 text-acento-texto">Confirmado</p>
           <h3 class="titular mt-2.5 text-[1.25rem]">{{ s.nombre }}</h3>
           <p class="rotulo mt-2 text-gris">{{ s.rol }}</p>
           <p class="mt-4 text-[0.93rem] leading-[1.62] text-gris">{{ s.bio }}</p>

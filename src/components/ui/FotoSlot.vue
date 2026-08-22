@@ -15,7 +15,7 @@
     class="foto-pendiente flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center"
   >
     <svg
-      class="h-7 w-7 text-violeta/45"
+      class="h-7 w-7 text-acento-texto/45"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

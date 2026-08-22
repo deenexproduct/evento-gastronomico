@@ -1,42 +1,54 @@
 <template>
+  <!--
+    Orden y ritmo del referente (fooddeliveryday.com.ar):
+    hero → oradores → acceso → cuenta regresiva → partners → prueba →
+    comunidad → pie. La alternancia de los tres negros es lo que le da
+    profundidad sección a sección, sin un solo borde.
+  -->
   <div class="pb-[80px]">
     <a href="#contenido" class="saltar">Saltar al contenido</a>
     <Navbar />
 
     <main id="contenido">
-      <!-- 1 · Cierra solo: fecha, hora, sede, precio y CTA en un viewport -->
+      <!-- Hero · fondo base -->
       <HeroSection />
 
-      <!-- 2 · Grilla de tarjetas: el recurso central del referente -->
-      <OradoresSection class="v-reveal" />
+      <!-- Quiénes van a estar · negro medio -->
+      <OradoresSection class="v-reveal bg-noche-2" />
 
-      <!-- 3 · El día en un vistazo, por densidad de valor y no por asistentes -->
-      <BentoSection class="v-reveal" />
+      <!-- El programa completo, con las horas como sistema -->
+      <JornadaSection class="v-reveal bg-noche" />
 
-      <!-- 3 · Con qué volvés al local el lunes -->
-      <ElLunesSection class="v-reveal" />
+      <!-- Asegurá tu lugar · negro profundo -->
+      <AccesoSection class="v-reveal" />
 
-      <!-- 4 · La objeción de frente, antes de pedir nada -->
+      <!-- Cuenta regresiva -->
+      <CuentaSection class="v-reveal" />
+
+      <!-- Sí, es domingo · la objeción, antes de pedir nada -->
       <DomingoSection class="v-reveal" />
 
-      <!-- 5 · El corazón visual: el día contado con las horas -->
-      <JornadaSection class="v-reveal" />
+      <!-- Con qué volvés al local -->
+      <ElLunesSection class="v-reveal bg-noche-2" />
 
-      <!-- 6 · Registro, después de la prueba de valor -->
+      <!-- Registro -->
       <RegistroSection />
 
-      <!-- 7 · Dónde es y cómo llego -->
-      <LocationSection class="v-reveal" />
+      <!-- Partners · negro profundo -->
+      <BrandsSection class="v-reveal bg-noche-3" />
 
-      <!-- 8 · Para quién es y para quién no + preguntas -->
-      <ParaQuienSection class="v-reveal" />
-      <FAQSection class="v-reveal" />
+      <!-- Quién organiza + logos -->
+      <PruebaSection class="v-reveal" />
 
-      <!-- 9 · Partners, subordinado y con CTA propio -->
-      <BrandsSection class="v-reveal" />
+      <!-- Dónde es -->
+      <LocationSection class="v-reveal bg-noche-2" />
 
-      <!-- 10 · Cierre -->
-      <FinalCTASection class="v-reveal" />
+      <!-- Para quién es y preguntas -->
+      <ParaQuienSection class="v-reveal bg-noche" />
+      <FAQSection class="v-reveal bg-noche-2" />
+
+      <!-- Cierre -->
+      <FinalCTASection class="v-reveal bg-noche-3" />
     </main>
 
     <Footer />
@@ -51,15 +63,17 @@ import Footer from "@/components/layout/Footer.vue";
 import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import OradoresSection from "@/components/sections/OradoresSection.vue";
-import BentoSection from "@/components/sections/BentoSection.vue";
-import ElLunesSection from "@/components/sections/ElLunesSection.vue";
-import DomingoSection from "@/components/sections/DomingoSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
+import AccesoSection from "@/components/sections/AccesoSection.vue";
+import CuentaSection from "@/components/sections/CuentaSection.vue";
+import DomingoSection from "@/components/sections/DomingoSection.vue";
+import ElLunesSection from "@/components/sections/ElLunesSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
+import BrandsSection from "@/components/sections/BrandsSection.vue";
+import PruebaSection from "@/components/sections/PruebaSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
 import ParaQuienSection from "@/components/sections/ParaQuienSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
-import BrandsSection from "@/components/sections/BrandsSection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
 let observer = null;

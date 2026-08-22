@@ -7,7 +7,7 @@
   -->
   <section id="oradores" class="border-t border-linea py-16 sm:py-24">
     <div class="contenedor">
-      <p class="rotulo text-violeta">★ Quiénes van a estar</p>
+      <p class="rotulo text-acento-texto">★ Quiénes van a estar</p>
       <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5.6vw,3.4rem)]">
         Siete bloques, un solo track
       </h2>
@@ -24,10 +24,10 @@
           :class="t.tipo === 'mesa' ? 'sm:col-span-2 lg:col-span-3' : ''"
         >
           <div class="flex items-center justify-between gap-3">
-            <span class="chip" :class="t.tipo === 'mesa' ? 'border-violeta/40 text-violeta' : ''">
+            <span class="chip" :class="t.tipo === 'mesa' ? 'border-acento/40 text-acento-texto' : ''">
               {{ TIPOS_BLOQUE[t.tipo].label }}
             </span>
-            <span class="hora text-[1.6rem] text-violeta">{{ t.hora }}</span>
+            <span class="hora text-[1.6rem] text-acento-texto">{{ t.hora }}</span>
           </div>
 
           <h3
@@ -42,7 +42,7 @@
           </p>
 
           <p
-            class="mt-6 border-t border-white/10 pt-4 text-[13px] font-bold uppercase tracking-[0.08em] text-violeta"
+            class="mt-6 border-t border-white/10 pt-4 text-[13px] font-bold uppercase tracking-[0.08em] text-acento-texto"
           >
             {{ t.quien }}
           </p>

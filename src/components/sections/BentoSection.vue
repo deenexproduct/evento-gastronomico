@@ -7,7 +7,7 @@
   -->
   <section id="vistazo" class="border-b border-linea py-16 sm:py-24">
     <div class="contenedor">
-      <p class="rotulo text-violeta">El día en un vistazo</p>
+      <p class="rotulo text-acento-texto">El día en un vistazo</p>
       <h2 class="titulo mt-5 max-w-[18ch] text-[clamp(1.9rem,5vw,3.2rem)]">
         Un domingo entero, sin relleno.
       </h2>
@@ -18,7 +18,7 @@
           :key="b.label"
           class="flex flex-col justify-between border border-linea p-6 sm:p-7"
           :class="[
-            b.peso === 'grande' ? 'col-span-2 row-span-2 bg-violeta-solido text-white lg:col-span-2' : '',
+            b.peso === 'grande' ? 'col-span-2 row-span-2 bg-acento text-white lg:col-span-2' : '',
             b.peso === 'medio' ? 'col-span-2 bg-white/5' : '',
             b.peso === 'chico' ? 'bg-noche' : '',
           ]"
@@ -27,7 +27,7 @@
             class="hora"
             :class="[
               b.peso === 'grande' ? 'text-[clamp(4rem,14vw,8rem)]' : 'text-[clamp(2rem,7vw,3.4rem)]',
-              b.peso === 'grande' ? 'text-white' : 'text-violeta',
+              b.peso === 'grande' ? 'text-white' : 'text-acento-texto',
             ]"
           >
             {{ b.dato }}
