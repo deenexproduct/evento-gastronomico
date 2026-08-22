@@ -2,19 +2,22 @@
   <section id="mesa-redonda" class="bg-fuego text-white">
     <div class="grid lg:grid-cols-[1.15fr_.85fr]">
       <div class="border-b-[3px] border-ink p-8 sm:p-12 lg:border-b-0 lg:border-r-[3px]">
-        <p class="kicker opacity-70">El cierre · 17:00</p>
+        <p class="kicker opacity-70">El cierre de la jornada</p>
         <h2 class="titular mt-6 text-[clamp(2.2rem,6.4vw,4.6rem)]">
           Todos los partners y speakers, en el centro del salón.
         </h2>
 
         <p class="mt-8 max-w-[50ch] text-[1.05rem] leading-[1.6] text-white/85">
-          Una hora de mesa redonda para hablar en serio de cómo se construye un ecosistema
-          gastronómico entre nosotros, y cómo apoyarnos para conseguir clientes serios.
+          Una hora de mesa redonda sobre cómo se construye un ecosistema gastronómico entre
+          nosotros, y cómo apoyarnos para conseguir clientes serios. Con preguntas de la sala.
         </p>
 
         <p class="mt-5 max-w-[50ch] text-[1.05rem] leading-[1.6] text-white/85">
-          Es el momento que mejor resume de qué se trata todo esto:
-          <strong class="font-extrabold text-ink">no vinimos a escuchar, vinimos a armar algo juntos.</strong>
+          Es la única parte del día en la que
+          <strong class="font-extrabold text-ink"
+            >todos los que hablaron están sentados juntos</strong
+          >
+          y se les puede preguntar cualquier cosa.
         </p>
 
         <a href="#registro" class="btn-cartel-inv mt-10 text-[0.95rem]" @click.prevent="ir('registro')">

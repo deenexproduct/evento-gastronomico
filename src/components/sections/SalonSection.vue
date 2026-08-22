@@ -50,20 +50,20 @@ const fotoSalon = computed(() => {
 const CONTEXTO = [
   {
     dato: "200 m²",
-    titulo: "Un salón propio",
-    texto: "No compartimos sala con nadie. El cupo del evento es, literalmente, el del salón.",
+    titulo: "Una sala propia y cerrada",
+    texto: "No compartimos salón con nadie. El cupo del evento es, literalmente, el del salón.",
   },
   {
     dato: EVENTO.eventoMadreCirculacion,
     titulo: `Circulan por ${EVENTO.eventoMadre}`,
     texto:
-      "Estamos adentro de un evento multisala por el que pasa esa cantidad de gente a lo largo del día. Nuestra sala es cerrada.",
+      "Nuestra sala está adentro de un evento multisala por el que pasa esa cantidad de gente durante el día.",
   },
   {
-    dato: "9 a 18",
-    titulo: "De punta a punta",
+    dato: "Córdoba",
+    titulo: EVENTO.direccion,
     texto:
-      "Puertas a las 9 con acreditación y café. Primera charla a las 10. Networking de cierre a las 18.",
+      "En Córdoba capital, con todo el movimiento del evento madre alrededor de nuestra sala.",
   },
 ];
 </script>

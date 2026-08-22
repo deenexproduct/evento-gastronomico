@@ -12,7 +12,7 @@
           agenda completa del día y la grilla con los beneficios de todos los partners.
         </p>
         <p class="max-w-[46ch] self-end text-[1.1rem] font-bold leading-[1.4] sm:text-[1.35rem]">
-          Son 200 lugares y el control en la puerta es real. Sin registro previo no se entra.
+          Son 200 lugares y la puerta se controla. El que llega sin haberse registrado, no entra.
         </p>
       </div>
     </div>
@@ -41,9 +41,9 @@
         <path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2M20 14h1" />
       </svg>
       <p class="max-w-[62ch] text-[1rem] leading-[1.6] text-white/70">
-        El QR llega a tu email apenas te registrás. Guardalo:
-        <strong class="font-extrabold text-lima">sin QR no hay ingreso</strong>, y con él se abre
-        todo lo demás.
+        El QR llega a tu email apenas te registrás.
+        <strong class="font-extrabold text-lima">Guardalo en el celular</strong> — no hace falta
+        imprimirlo, y con eso ya tenés todo resuelto en la puerta.
       </p>
     </div>
   </section>

@@ -70,10 +70,11 @@ const MARQUESINA_1 = [
 ];
 
 const MARQUESINA_2 = [
-  "Sin registro no hay ingreso",
-  "El cupo es el del salón",
-  "20 de septiembre",
-  "Hotel Quinto Centenario",
+  "200 dueños en una sala",
+  "Seis bloques",
+  "Demos en vivo",
+  "Degustación entre charlas",
+  "Entrada gratuita",
 ];
 
 let observer = null;

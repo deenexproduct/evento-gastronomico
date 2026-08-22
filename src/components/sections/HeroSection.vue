@@ -89,10 +89,12 @@ const { total, ocupados, restantes, porcentaje, agotado, critico } = useCupo();
 const ancho = ref(0);
 const objetivo = computed(() => Math.max(porcentaje.value, 3));
 
+// Voces confirmadas: Alan, CEO de Bistrosoft, orador de UGC, ex-CEO de Dexter y
+// ex-presidente de la CAME. El "+" es porque se están cerrando más.
 const DATOS = [
   { valor: "6", label: "Bloques de charla" },
+  { valor: "5+", label: "Voces en escenario" },
   { valor: "9h", label: "De jornada" },
-  { valor: "6+", label: "Voces en escenario" },
   { valor: "200", label: "Lugares, no más" },
 ];
 

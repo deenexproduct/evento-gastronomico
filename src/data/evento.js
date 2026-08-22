@@ -17,6 +17,8 @@ export const EVENTO = {
   horario: "9:00 a 18:00",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
+  // Dirección del evento madre (CCM 2026). CONFIRMAR con producción antes de publicar.
+  direccion: "Duarte Quirós 1300",
   salon: "Salón de 200 m²",
   // Contexto, nunca asistencia propia: las 20.000 son del evento madre.
   eventoMadre: "Córdoba Corazón de Moda",
@@ -95,9 +97,9 @@ export const BENEFICIOS = [
   {
     n: "01",
     kicker: "CONTENIDO",
-    titulo: "Lo que ya está funcionando.",
+    titulo: "Cosas que podés aplicar el lunes.",
     texto:
-      "Seis bloques sobre datos, inteligencia artificial, POS, contenido y ecosistema. Lo que ya funciona en otros locales, contado por los que lo hacen. No teoría.",
+      "Cada bloque cierra con algo concreto para hacer, no con una conclusión inspiradora. Lo que ya funciona en otros locales, contado por los que lo hacen.",
   },
   {
     n: "02",
@@ -192,7 +194,7 @@ export const SPEAKERS = [
     foto: "alan-tapia.jpg",
     frase:
       "Hay un mercado gastronómico nuevo formándose. Vengo a mostrar cómo se entra, con datos y sin humo.",
-    bio: "Founder de Deenex, plataforma omnicanal para cadenas de foodservice y gastronomía. Abre la jornada, presenta a cada speaker, modera la mesa redonda y cierra el día.",
+    bio: "Founder de Deenex, la plataforma omnicanal con la que trabajan más de 350 marcas de foodservice y gastronomía. Da tres de los seis bloques del día.",
     charlas: [
       "El nuevo mercado gastronómico y por qué este es el momento",
       "Datos, tecnología e inteligencia artificial aplicados al negocio",
@@ -236,7 +238,7 @@ export const SPEAKERS = [
     nombre: "UGC y contenidos",
     rol: "LA NUEVA FORMA DE HACER CONTENIDO",
     frase: "Cómo se hace hoy el contenido que mueve una marca gastronómica.",
-    bio: "Un bloque dedicado a cómo se produce y se distribuye contenido hoy en el rubro. Qué funciona, qué se dejó de usar y cómo se sostiene sin un equipo enorme detrás.",
+    bio: "Orador confirmado para el bloque de contenido. Trabaja con marcas del rubro produciendo el material que después circula en redes.",
     charlas: ["La nueva forma de hacer contenido en las marcas gastronómicas"],
     stats: [{ valor: "45'", label: "de bloque" }],
   },
@@ -342,42 +344,45 @@ export const AGENDA = [
   },
 ];
 
-/** Estructura del día para cuando la agenda todavía no se publica. */
+/**
+ * Cómo se vive el día, mientras la grilla con horarios no se publica.
+ * Habla del ritmo y de la experiencia — el contenido de las charlas está en TEMAS.
+ */
 export const AGENDA_BLOQUES = [
   {
-    franja: "Mañana",
-    titulo: "El mercado y los datos",
+    franja: "Desde las 9",
+    titulo: "Llegada",
     items: [
-      "Puertas, acreditación con QR y recorrida por los stands",
-      "Apertura: el nuevo mercado gastronómico",
-      "Datos, tecnología e IA aplicados al negocio",
-      "La evolución de los sistemas POS, con demos en vivo",
+      "Acreditación con QR en la puerta",
+      "Café de bienvenida",
+      "Los stands abren antes de la primera charla",
     ],
   },
   {
-    franja: "Mediodía",
-    titulo: "Degustación y stands",
+    franja: "Desde las 10",
+    titulo: "Bloques de charla",
     items: [
-      "Ronda grande de degustación entre bloques",
-      "Recorrida por los stands de los partners",
-      "Networking abierto en el salón",
+      "45 minutos cada uno, con degustación entre medio",
+      "Demos en vivo montadas en el salón",
+      "Se puede entrar y salir: nadie controla la butaca",
     ],
   },
   {
-    franja: "Tarde",
-    titulo: "Contenido, conducción y ecosistema",
+    franja: "Al mediodía",
+    titulo: "Pausa larga",
     items: [
-      "La nueva forma de hacer contenido en marcas gastronómicas",
-      "Avanzia: ex-CEO de Dexter y ex-presidente de la CAME",
-      "Cómo se arma un ecosistema entre marcas, tecnología y proveedores",
+      "Ronda grande de degustación",
+      "Stands abiertos y recorrida sin apuro",
+      "Networking sin agenda, que es donde suele pasar lo bueno",
     ],
   },
   {
-    franja: "Cierre",
-    titulo: "La mesa redonda",
+    franja: "Hasta las 18",
+    titulo: "Cierre",
     items: [
-      "Todos los partners y speakers en el centro del salón",
-      "Networking final con vino, cerveza y café",
+      "Mesa redonda con todos los speakers juntos",
+      "Preguntas abiertas de la sala",
+      "Vino, cerveza y café hasta que se corta",
     ],
   },
 ];
@@ -424,9 +429,10 @@ export const PARTNERS = [
     aporte: "Dos oradores en escenario: el ex-CEO de Dexter y el ex-presidente de la CAME.",
   },
   {
-    nombre: "Rondas de degustación",
-    tipo: "Confirmado",
-    aporte: "Alfajores, aceitunas, humus y café entre charla y charla. Cuatro rondas más una larga.",
+    nombre: "La mesa de degustación",
+    tipo: "Proveedores confirmados",
+    aporte:
+      "Cuatro rondas entre charla y charla más una larga al mediodía. Alfajores, aceitunas, humus y café, y café con alfajores a media tarde.",
   },
 ];
 

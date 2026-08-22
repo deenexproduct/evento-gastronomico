@@ -13,60 +13,33 @@
       <div class="mt-12 grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <div class="space-y-5 text-[1.02rem] leading-[1.65] text-ink/70 sm:text-[1.1rem]">
           <p>
-            El 20 de septiembre arranca esa preparación. Hay un mercado gastronómico nuevo
-            formándose —con otra tecnología, otros datos y otra forma de hacer marketing— y hay una
-            manera concreta de entrar.
+            Se abrió una brecha entre los locales que ordenaron su tecnología y los que siguen
+            decidiendo de memoria. No es una brecha de tamaño ni de plata: es de información. El que
+            sabe qué pasa adentro de su negocio se mueve antes.
           </p>
           <p>
-            Este es el primer evento propio de Deenex. Una jornada entera pensada para el que
-            decide: el dueño de la marca y el dueño del restaurante.
+            El 20 de septiembre juntamos en una sala a los que ya cruzaron esa brecha para que
+            cuenten cómo lo hicieron. Un día, todo junto, sin tener que salir a buscarlo por
+            separado.
           </p>
-          <blockquote class="borde mt-8 bg-ink p-7 text-white">
-            <p class="titular text-[clamp(1.2rem,2.6vw,1.9rem)] leading-[1.15]">
-              “No vinimos a escuchar.<br /><span class="text-lima">Vinimos a armar algo juntos.”</span>
-            </p>
-            <footer class="kicker mt-5 text-white/50">Alan Tapia · Founder &amp; CEO de Deenex</footer>
-          </blockquote>
         </div>
 
-        <!-- Tres ejes -->
-        <div class="grid gap-[3px] bg-ink">
-          <div v-for="eje in EJES" :key="eje.n" class="bg-hueso p-7 sm:p-8">
-            <div class="flex items-baseline gap-5">
-              <span class="titular text-[2rem] text-fuego">{{ eje.n }}</span>
-              <div>
-                <h3 class="titular text-[clamp(1.3rem,2.6vw,1.8rem)]">{{ eje.titulo }}</h3>
-                <p class="mt-2.5 max-w-[42ch] text-[0.95rem] leading-[1.55] text-ink/65">
-                  {{ eje.texto }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <blockquote class="borde bg-ink p-8 text-white sm:p-10">
+          <p class="titular text-[clamp(1.3rem,2.8vw,2rem)] leading-[1.12]">
+            “Me cansé de ver dueños tomando decisiones de tecnología
+            <span class="text-lima">a ciegas.</span> Armé el evento que me hubiera servido tener.”
+          </p>
+          <footer class="mt-7 border-t-[3px] border-white/15 pt-6">
+            <p class="kicker text-lima">Alan Tapia</p>
+            <p class="mt-2 text-[0.92rem] leading-[1.55] text-white/55">
+              Founder &amp; CEO de Deenex, plataforma omnicanal para cadenas de foodservice y
+              gastronomía. Más de 350 marcas trabajan con ella hoy.
+            </p>
+          </footer>
+        </blockquote>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-const EJES = [
-  {
-    n: "01",
-    titulo: "Innovación",
-    texto:
-      "Qué se está usando de verdad en el rubro y qué viene. Lo que ya funciona en otros locales, no proyecciones.",
-  },
-  {
-    n: "02",
-    titulo: "Tecnología",
-    texto:
-      "Datos, inteligencia artificial y sistemas POS aplicados al negocio. La parte que decide el margen.",
-  },
-  {
-    n: "03",
-    titulo: "Marketing",
-    texto:
-      "La nueva forma de hacer contenido en las marcas gastronómicas. Qué mueve la aguja y qué se dejó de usar.",
-  },
-];
-</script>
+<script setup></script>

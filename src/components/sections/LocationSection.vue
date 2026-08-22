@@ -35,15 +35,15 @@
 import { EVENTO } from "@/data/evento";
 
 const DATOS = [
+  { label: "Dirección", valor: `${EVENTO.direccion}, Córdoba` },
   { label: "Fecha", valor: EVENTO.fechaLarga },
   { label: "Horario", valor: `${EVENTO.horario} · puertas 9:00` },
-  { label: "Salón", valor: `${EVENTO.salon} · 200 personas` },
   { label: "Entrada", valor: "Gratuita con registro previo" },
 ];
 
 // Mapa embebido sin API key: modo `q` de Google Maps.
 const mapaSrc =
   "https://www.google.com/maps?q=" +
-  encodeURIComponent(`${EVENTO.venue}, Córdoba, Argentina`) +
-  "&z=14&output=embed";
+  encodeURIComponent(`${EVENTO.venue}, ${EVENTO.direccion}, Córdoba, Argentina`) +
+  "&z=15&output=embed";
 </script>

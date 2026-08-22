@@ -5,9 +5,10 @@
       <h2 class="titular mt-6 max-w-[14ch] text-[clamp(2.4rem,8vw,6rem)]">
         Nueve horas,<br /><span class="contorno text-white">de punta</span> a punta.
       </h2>
-      <p class="mt-8 max-w-[52ch] text-[1.02rem] leading-[1.6] text-white/60">
-        Bloques de charla con degustación entre uno y otro. Puertas a las 9, primera charla a las
-        10, corte a las 18. No hay almuerzo servido: hay rondas de degustación, stands y networking.
+      <p class="mt-8 max-w-[54ch] text-[1.02rem] leading-[1.6] text-white/60">
+        Está armado para que entres cuando puedas y te quedes lo que te sirva. Sin almuerzo servido
+        ni butaca asignada: rondas de degustación entre bloques, stands abiertos todo el día y
+        networking de cierre.
       </p>
     </div>
 
