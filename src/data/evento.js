@@ -228,6 +228,71 @@ export const INVITACION =
   "Acá se reserva: https://deenexproduct.github.io/evento-gastronomico/";
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Recorridos — la objeción del domingo, resuelta en concreto.
+//
+// "Es domingo y trabajo" es la que más gente frena. En el FAQ está respondida
+// con texto; acá se muestra qué se lleva cada uno según cuándo pueda venir.
+// Se habla de franjas, no de horarios de orador: la grilla no está cerrada.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const RECORRIDOS = [
+  {
+    franja: "Solo a la mañana",
+    horario: "9 a 13 h",
+    titulo: "Y volvés para el servicio",
+    lleva: [
+      "Acreditación, café y recorrida por los stands",
+      "El estado real del mercado gastronómico",
+      "Datos e inteligencia artificial aplicados al local",
+      "Los sistemas POS, con las demos funcionando",
+    ],
+    nota: "Salís con lo más técnico del día y llegás a abrir al mediodía.",
+  },
+  {
+    franja: "El día entero",
+    horario: "9 a 18 h",
+    titulo: "Lo que recomendamos",
+    lleva: [
+      "Los seis bloques completos",
+      "Las cuatro rondas de degustación y la pausa larga",
+      "Los stands y el networking sin agenda",
+      "La mesa redonda de cierre con todos los oradores",
+    ],
+    nota: "Es el día completo, con el cierre que resume todo lo anterior.",
+    destacado: true,
+  },
+  {
+    franja: "Solo a la tarde",
+    horario: "14 a 18 h",
+    titulo: "Si la mañana la tenés ocupada",
+    lleva: [
+      "Contenido y marketing para marcas gastronómicas",
+      "Conducción y mercado, con los oradores de Avanzia",
+      "Cómo se arma un ecosistema entre marcas y proveedores",
+      "La mesa redonda y el networking de cierre",
+    ],
+    nota: "Agarrás el cierre, que es la parte más conversada del día.",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Por qué lo hacemos — el interés propio, dicho de frente.
+//
+// Un dueño desconfía de que una empresa de tecnología lo invite gratis un
+// domingo. Explicar el interés desarma la sospecha mejor que negarlo.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const TRANSPARENCIA = {
+  titulo: "Por qué armamos esto.",
+  parrafos: [
+    "Te lo digo derecho: a Deenex le conviene. No por lo que se venda ese día, porque ese día no se vende nada. Conviene porque cuando el rubro entiende mejor su propia tecnología, nos va mejor a todos los que trabajamos en esto.",
+    "Y porque prefiero que me conozcas por un día que te sirvió antes que por un mail frío. Si algún día necesitás lo que hacemos, quiero que ya sepas cómo pensamos.",
+    "Ese es todo el interés. No hay letra chica, no hay lista que se venda después y no vas a recibir llamados que no pediste.",
+  ],
+  firma: "Alan Tapia · Founder & CEO de Deenex",
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // La entrada como llave — los 3 pasos del QR
 // ─────────────────────────────────────────────────────────────────────────────
 

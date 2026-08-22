@@ -18,6 +18,7 @@
 
       <!-- DESEO: cómo es el día y qué te llevás -->
       <AgendaSection class="v-reveal" />
+      <RecorridosSection class="v-reveal" />
       <MesaRedondaSection class="v-reveal" />
 
       <!-- ACCIÓN: urgencia y formulario, a mitad de página -->
@@ -26,6 +27,7 @@
 
       <!-- REFUERZO: para el que todavía duda -->
       <ParaQuienSection class="v-reveal" />
+      <TransparenciaSection class="v-reveal" />
       <BrandsSection class="v-reveal" />
       <EntradaLlaveSection class="v-reveal" />
       <LocationSection class="v-reveal" />
@@ -52,11 +54,13 @@ import TemasSection from "@/components/sections/TemasSection.vue";
 import SpeakersSection from "@/components/sections/SpeakersSection.vue";
 import SalonSection from "@/components/sections/SalonSection.vue";
 import AgendaSection from "@/components/sections/AgendaSection.vue";
+import RecorridosSection from "@/components/sections/RecorridosSection.vue";
 import MesaRedondaSection from "@/components/sections/MesaRedondaSection.vue";
 import QuieroIrBanner from "@/components/sections/QuieroIrBanner.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import ManifestoSection from "@/components/sections/ManifestoSection.vue";
 import ParaQuienSection from "@/components/sections/ParaQuienSection.vue";
+import TransparenciaSection from "@/components/sections/TransparenciaSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import EntradaLlaveSection from "@/components/sections/EntradaLlaveSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
