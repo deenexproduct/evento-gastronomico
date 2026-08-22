@@ -10,7 +10,7 @@
 
         <p class="mt-7 max-w-[44ch] text-[1.02rem] leading-[1.6] text-ink/75">
           Entrada gratuita con registro previo obligatorio. Te llega el QR por email: con eso entrás
-          el 20/9 y se te desbloquea tu reunión de diagnóstico.
+          el 20/9 y se te abre la agenda completa del día.
         </p>
 
         <!-- Cupo -->
@@ -37,6 +37,14 @@
             {{ item }}
           </li>
         </ul>
+
+        <!-- Reducción de riesgo: las tres objeciones, respondidas donde se decide -->
+        <div class="mt-9 grid gap-[3px] border-[3px] border-ink bg-ink">
+          <div v-for="r in RIESGO" :key="r.q" class="bg-lima px-5 py-4">
+            <p class="titular text-[0.98rem]">{{ r.q }}</p>
+            <p class="mt-1.5 text-[0.88rem] leading-[1.5] text-ink/70">{{ r.a }}</p>
+          </div>
+        </div>
       </div>
 
       <!-- Formulario -->
@@ -64,9 +72,18 @@
 
         <!-- Form -->
         <form v-else novalidate @submit.prevent="onSubmit">
-          <h3 class="titular text-[clamp(1.4rem,3vw,2rem)]">Completá y quedás anotado</h3>
+          <div class="flex flex-wrap items-baseline justify-between gap-3">
+            <h3 class="titular text-[clamp(1.4rem,3vw,2rem)]">Completá y quedás anotado</h3>
+            <span class="kicker shrink-0 bg-lima px-2.5 py-1 text-ink">30 segundos</span>
+          </div>
           <p class="mt-3 text-[0.92rem] text-white/50">
-            Un minuto. Los datos de la marca nos sirven para armar la sala.
+            Los datos de la marca nos sirven para armar la sala.
+          </p>
+
+          <!-- Prueba social en el punto de decisión -->
+          <p class="mt-5 flex items-center gap-2.5 border-l-[3px] border-lima pl-4 text-[0.88rem] leading-snug text-white/60">
+            <span class="font-extrabold text-lima">{{ ocupados }} marcas</span>
+            ya reservaron su lugar en la sala.
           </p>
 
           <div class="mt-8 space-y-5">
@@ -152,20 +169,6 @@
               </div>
             </div>
 
-            <div>
-              <label class="etiqueta" for="reg-ciudad">
-                Ciudad <span class="opacity-40">(opcional)</span>
-              </label>
-              <input
-                id="reg-ciudad"
-                v-model.trim="form.ciudad"
-                type="text"
-                autocomplete="address-level2"
-                placeholder="Córdoba capital, Villa María…"
-                class="campo"
-              />
-            </div>
-
             <label
               class="flex cursor-pointer items-start gap-3 border-[3px] p-4 transition-colors"
               :class="errores.acepta ? 'border-fuego bg-fuego/10' : 'border-white/20 hover:border-white/40'"
@@ -203,6 +206,18 @@
           <p class="kicker mt-5 text-center text-white/35">
             Sin costo · Sin letra chica · El único requisito es que vengas
           </p>
+
+          <!-- Vía alterna para el que no llena formularios -->
+          <p class="mt-7 border-t-[3px] border-white/15 pt-6 text-center text-[0.85rem] text-white/45">
+            ¿Preferís por WhatsApp?
+            <a
+              :href="whatsappRegistro"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-lima underline underline-offset-4 hover:opacity-80"
+              >Escribinos y te anotamos nosotros</a
+            >
+          </p>
         </form>
       </div>
     </div>
@@ -211,20 +226,42 @@
 
 <script setup>
 import { computed } from "vue";
-import { EVENTO, ROLES, CANTIDAD_LOCALES } from "@/data/evento";
+import { EVENTO, ROLES, CANTIDAD_LOCALES, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRegistro } from "@/composables/useRegistro";
+
+const RIESGO = [
+  {
+    q: "No cuesta nada.",
+    a: "Entrada gratuita. El registro previo es lo único obligatorio, porque el cupo del salón es real.",
+  },
+  {
+    q: "No hay pitch de producto.",
+    a: "Son charlas de gente que labura del rubro. Si querés hablar con un partner, hablás; si no, escuchás y listo.",
+  },
+  {
+    q: "Si no podés venir, avisás.",
+    a: "Liberás el lugar para alguien de la lista de espera y no pasa nada. Un mensaje alcanza.",
+  },
+];
+
+const whatsappRegistro =
+  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
+  encodeURIComponent(
+    "Hola! Quiero reservar mi lugar en el evento de gastronomía y tecnología del 20 de septiembre en Córdoba. Mi nombre es ____ y mi marca es ____."
+  );
 
 const { total, ocupados, restantes, porcentaje, agotado, critico } = useCupo();
 const { form, errores, enviando, enviado, errorEnvio, codigo, tieneBackend, enviar, reiniciar } =
   useRegistro();
 
 const INCLUYE = [
-  "Tu reunión de diagnóstico, sin excepción",
+  "Los seis bloques de charla y las demos en vivo",
   "Los beneficios exclusivos de todos los partners",
-  "La jornada completa: charlas, demos y stands",
   "Cuatro rondas de degustación y networking de cierre",
+  "La mesa redonda de cierre con todos los speakers",
   "La grilla del evento con todos los beneficios",
+  "Tu diagnóstico, si lo solicitás ese día",
 ];
 
 const textoBoton = computed(() => {

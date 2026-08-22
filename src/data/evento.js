@@ -36,68 +36,109 @@ export const CUPO = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// La reunión de diagnóstico — LA promesa de toda la convocatoria.
+// Los temas del día — esto es lo que se viene a escuchar y lo que vende.
 //
-// Ojo: el formato, la duración y el plazo todavía no están definidos (pendiente
-// del brief). Acá se describe QUÉ se analiza, no cuánto dura ni cuándo es.
+// Cada tema abre una idea sin resolverla: el que la lee tiene que querer
+// escuchar el resto en la sala.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const DIAGNOSTICO = {
-  titular: "Te vas con un diagnóstico de tu negocio.",
-  bajada:
-    "No es una charla de pasillo ni una demo. Es una reunión técnica sobre tu marca: dónde estás parado hoy a nivel tecnológico, qué te está costando plata sin que lo veas, y cuál es el próximo paso concreto.",
-  puntos: [
-    {
-      titulo: "Dónde estás parado",
-      texto:
-        "Qué tecnología estás usando hoy, qué te falta y qué tenés de más. La foto real, sin diplomacia.",
-    },
-    {
-      titulo: "Qué te dicen tus datos",
-      texto:
-        "Qué información ya estás generando y no estás leyendo. Ahí suele estar el margen que falta.",
-    },
-    {
-      titulo: "Tu canal propio",
-      texto: "Cuánto de tu venta depende de terceros y qué haría falta para tener canal propio.",
-    },
-    {
-      titulo: "El próximo paso",
-      texto:
-        "Uno concreto, priorizado y con orden de magnitud. No una lista de treinta cosas para hacer.",
-    },
-  ],
-  cierre:
-    "Le corresponde a todo el que entra, sin excepción y sin costo. No se vende, no se consigue por otro canal y no hay lista especial: se desbloquea con tu QR el día del evento.",
-};
+export const TEMAS = [
+  {
+    n: "01",
+    tema: "El nuevo mercado gastronómico",
+    quien: "Alan Tapia · Deenex",
+    punta:
+      "Qué cambió en los últimos dos años y por qué el que no se movió ya está corriendo de atrás. La foto del mercado con números, no con impresiones.",
+  },
+  {
+    n: "02",
+    tema: "Datos e inteligencia artificial en tu negocio",
+    quien: "Alan Tapia · Deenex",
+    punta:
+      "Tu local ya está generando los datos. La pregunta es si alguien los está leyendo, y qué decisiones de margen se toman distinto cuando sí.",
+  },
+  {
+    n: "03",
+    tema: "La evolución de los sistemas POS",
+    quien: "CEO de Bistrosoft",
+    punta:
+      "El sistema con el que cobrás puede ser el que te diga qué comprar y cuándo. Con demos en vivo montadas en el salón, no en slides.",
+  },
+  {
+    n: "04",
+    tema: "La nueva forma de hacer contenido",
+    quien: "UGC y contenidos",
+    punta:
+      "Cómo se produce y se distribuye hoy el contenido de una marca gastronómica, sin un equipo de diez personas atrás.",
+  },
+  {
+    n: "05",
+    tema: "Conducción y mercado",
+    quien: "Avanzia",
+    punta:
+      "Dos oradores que ya condujeron una compañía grande y una cámara del sector, hablando del momento que atraviesa el rubro.",
+  },
+  {
+    n: "06",
+    tema: "Cómo se arma un ecosistema",
+    quien: "Alan Tapia · Deenex",
+    punta:
+      "Marcas, tecnología y proveedores trabajando juntos. Por qué solos no llegamos, y cómo se construye la red que sí llega.",
+  },
+];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Qué más se lleva el que viene (el diagnóstico tiene sección propia)
+// Qué se lleva el que viene
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const BENEFICIOS = [
   {
     n: "01",
+    kicker: "CONTENIDO",
+    titulo: "Lo que ya está funcionando.",
+    texto:
+      "Seis bloques sobre datos, inteligencia artificial, POS, contenido y ecosistema. Lo que ya funciona en otros locales, contado por los que lo hacen. No teoría.",
+  },
+  {
+    n: "02",
     kicker: "BENEFICIOS",
     titulo: "Condiciones que solo existen en la sala.",
     texto:
       "Cada partner llega con un beneficio exclusivo para los que están ese día. No se consiguen en otro momento ni por otro canal.",
   },
   {
-    n: "02",
-    kicker: "INNOVACIÓN",
-    titulo: "Lo que ya está funcionando.",
+    n: "03",
+    kicker: "CONTACTOS",
+    titulo: "Doscientos colegas en un día.",
     texto:
-      "Qué se está usando de verdad en el rubro y qué viene. Datos, IA, POS y contenido aplicados al negocio gastronómico. No teoría: lo que ya funciona en otros locales.",
+      "Degustaciones entre bloques, stands y networking de cierre. Una sala curada de dueños del rubro, no un auditorio de desconocidos.",
   },
   {
-    n: "03",
-    kicker: "MATERIAL",
-    titulo: "La grilla en la mano.",
+    n: "04",
+    kicker: "A PEDIDO",
+    titulo: "Un diagnóstico de tu negocio, si lo pedís.",
     texto:
-      "Te vas con todo el evento por escrito: los beneficios disponibles, quién los da y cómo encararlos.",
+      "Los que asisten pueden solicitar una reunión técnica sobre su marca: dónde está parada a nivel tecnológico y cuál es el próximo paso. Se solicita el día del evento.",
   },
 ];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// El diagnóstico — beneficio para quien lo solicite, no el gancho del evento.
+//
+// Ojo: el formato, la duración y el plazo todavía no están definidos (pendiente
+// del brief). Acá se describe QUÉ se mira, no cuánto dura ni cuándo es.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const DIAGNOSTICO = {
+  bajada:
+    "Si querés, podés pedir una reunión técnica sobre tu marca después del evento. Se solicita ese día y se coordina con el equipo de Deenex.",
+  puntos: [
+    "Qué tecnología usás hoy, qué te falta y qué tenés de más",
+    "Qué información ya estás generando y no estás leyendo",
+    "Cuánto de tu venta depende de terceros",
+    "Un próximo paso concreto y priorizado",
+  ],
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // La entrada como llave — los 3 pasos del QR
@@ -120,7 +161,7 @@ export const PASOS_ENTRADA = [
     n: 3,
     titulo: "Se te desbloquea lo de adentro",
     texto:
-      "Al escanear se te abre la agenda completa del día y tu reunión de diagnóstico, que agendás desde ahí mismo.",
+      "Al escanear se te abre la agenda completa del día y la grilla con los beneficios de todos los partners.",
   },
 ];
 
@@ -411,12 +452,16 @@ export const MARCAS_LOGOS = [
 
 export const FAQ = [
   {
-    q: "¿Qué es exactamente la reunión de diagnóstico?",
-    a: "Una reunión técnica sobre tu marca: dónde estás parado a nivel tecnológico, qué te está costando plata sin que lo veas y cuál es el próximo paso concreto. Le corresponde a todo el que entra, sin excepción y sin costo. Se desbloquea al escanear tu QR el día del evento.",
+    q: "¿De qué se habla exactamente?",
+    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en el local, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
-    a: "No. En todo el día no hay pitch de producto ni ronda comercial: hay charlas de gente que labura del rubro, demos que podés mirar si querés y un diagnóstico sobre tu negocio. Si después de eso querés seguir hablando, se habla. Si no, te vas con el diagnóstico igual.",
+    a: "No hay pitch de producto ni ronda comercial armada. Hay charlas de gente que labura del rubro y demos que mirás si te interesan. Si después querés seguir hablando con alguno de los partners, se habla; si no, te vas con lo que escuchaste y nada más.",
+  },
+  {
+    q: "Es domingo y trabajo. ¿Cómo hago?",
+    a: "Es la pregunta más repetida y por algo el evento dura todo el día: entrás cuando podés y te quedás lo que te sirva. Podés venir a la mañana y estar de vuelta en el local para el servicio, o llegar a la tarde y agarrar los últimos bloques más la mesa redonda. La grilla queda disponible para que elijas a qué venir. Y si no podés vos, mandá a tu socio o a tu gerente.",
   },
   {
     q: "¿Cuánto cuesta?",
@@ -428,19 +473,19 @@ export const FAQ = [
   },
   {
     q: "¿Tengo que saber de tecnología para aprovecharlo?",
-    a: "No. Hablamos de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
+    a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
   },
   {
     q: "¿Y si mi negocio es chico?",
-    a: `Entrás igual y te llevás lo mismo. El restaurante de un solo local pesa igual que la cadena de veinte: el diagnóstico se hace sobre tu negocio, sea del tamaño que sea.`,
+    a: "Entrás igual y te llevás lo mismo. El restaurante de un solo local pesa igual que la cadena de veinte, y buena parte de lo que se cuenta se aplica desde el primer local.",
   },
   {
-    q: "¿Qué me llevo si vengo?",
-    a: "Tu reunión de diagnóstico, los beneficios exclusivos de todos los partners, la jornada completa de charlas y demos, y la grilla con todo por escrito para poder encararlo el lunes.",
+    q: "¿Qué es el diagnóstico del que hablan?",
+    a: "Un beneficio para los que asisten: si lo solicitás el día del evento, coordinamos una reunión técnica sobre tu marca —dónde está parada a nivel tecnológico y cuál sería el próximo paso—. Es opcional y sin costo. No es el motivo del evento: es algo más que podés llevarte.",
   },
   {
     q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, y conviene. Cada persona necesita su propio registro y su propio QR porque el cupo se cuenta por persona, pero el diagnóstico se hace sobre la marca: venir con tu socio o tu gerente hace que la conversación rinda más.",
+    a: "Sí, y conviene. Cada persona necesita su propio registro y su propio QR porque el cupo se cuenta por persona. Venir con tu socio o tu gerente hace que lo que escuchan rinda más cuando vuelven al local.",
   },
   {
     q: "¿Dónde es exactamente?",

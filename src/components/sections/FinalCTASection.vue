@@ -2,14 +2,13 @@
   <section class="bg-ink px-5 py-20 text-center text-white sm:px-8 sm:py-28">
     <p class="kicker text-lima">{{ EVENTO.fechaCorta }} · Córdoba</p>
 
-    <h2 class="titular mx-auto mt-8 max-w-[16ch] text-[clamp(2.4rem,8.5vw,6.5rem)]">
-      El que no viene no se pierde una charla.
-      <span class="text-lima">Se pierde el acceso.</span>
+    <h2 class="titular mx-auto mt-8 max-w-[15ch] text-[clamp(2.4rem,8.5vw,6.5rem)]">
+      Un día para <span class="text-lima">volver al local con algo.</span>
     </h2>
 
     <p class="mx-auto mt-9 max-w-[54ch] text-[1.05rem] leading-[1.6] text-white/60">
-      La agenda completa, los beneficios de los partners y tu reunión de diagnóstico se desbloquean
-      cuando escaneás tu QR en la puerta. No hay otra forma de conseguirlos.
+      Seis bloques sobre gastronomía y tecnología, demos en vivo, doscientos colegas del rubro y los
+      beneficios de todos los partners. Un domingo, en Córdoba, sin costo.
     </p>
 
     <a href="#registro" class="btn-cartel mt-12 text-[1.05rem]" @click.prevent="ir('registro')">

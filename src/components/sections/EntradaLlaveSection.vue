@@ -9,10 +9,10 @@
       <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <p class="max-w-[46ch] text-[1.1rem] leading-[1.55] text-ink/80 sm:text-[1.25rem]">
           Registrarte te da el lugar. Escanear el QR en la puerta te abre lo que hay adentro: la
-          agenda completa del día y tu reunión de diagnóstico.
+          agenda completa del día y la grilla con los beneficios de todos los partners.
         </p>
         <p class="max-w-[46ch] self-end text-[1.1rem] font-bold leading-[1.4] sm:text-[1.35rem]">
-          El que no viene no se pierde una charla. Se pierde el acceso.
+          Son 200 lugares y el control en la puerta es real. Sin registro previo no se entra.
         </p>
       </div>
     </div>

@@ -8,7 +8,6 @@ const VACIO = {
   locales: "",
   whatsapp: "",
   email: "",
-  ciudad: "",
   acepta: false,
 };
 
@@ -64,7 +63,6 @@ export function useRegistro() {
         `Rol: ${form.rol}`,
         `Locales: ${form.locales}`,
         `Email: ${form.email}`,
-        form.ciudad ? `Ciudad: ${form.ciudad}` : "",
       ]
         .filter(Boolean)
         .join("\n")

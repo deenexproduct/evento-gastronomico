@@ -1,20 +1,24 @@
 <template>
   <section id="hero" class="relative bg-ink pt-[104px] text-white">
     <div class="px-5 pb-14 pt-12 sm:px-8 sm:pt-16">
+      <p class="kicker text-lima">Córdoba · {{ EVENTO.fechaCorta }} · {{ EVENTO.horario }}</p>
+
       <!-- Titular -->
-      <h1 class="titular text-[clamp(3.1rem,12.5vw,10.5rem)]">
-        <span class="block">No venís</span>
-        <span class="contorno block text-white">a escuchar</span>
-        <span class="block">charlas.</span>
+      <h1 class="titular mt-7 text-[clamp(2.7rem,10.6vw,9rem)]">
+        <span class="block">El evento de</span>
+        <span class="block">gastronomía</span>
+        <span class="contorno block text-lima">y tecnología.</span>
       </h1>
 
       <!-- Bajada + cupo -->
       <div class="mt-10 grid gap-8 lg:grid-cols-[1.3fr_.7fr] lg:items-end lg:gap-12">
         <div>
-          <p class="max-w-[46ch] text-[1.15rem] leading-[1.5] text-white/70 sm:text-[1.35rem]">
-            Te vas con un <strong class="font-extrabold text-lima">diagnóstico de tu negocio</strong>.
-            Una reunión técnica sobre tu marca: dónde estás parado, qué te cuesta plata sin que lo
-            veas y cuál es el próximo paso. Le corresponde a todo el que entra.
+          <p class="max-w-[48ch] text-[1.15rem] leading-[1.5] text-white/70 sm:text-[1.35rem]">
+            Un día entero de charlas, demos en vivo y networking para
+            <strong class="font-extrabold text-lima"
+              >dueños de marcas gastronómicas y restaurantes</strong
+            >. Seis bloques sobre lo que ya está cambiando el negocio: datos, inteligencia
+            artificial, POS, contenido y ecosistema.
           </p>
 
           <div class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5">
@@ -31,11 +35,11 @@
               </svg>
             </a>
             <a
-              href="#diagnostico"
+              href="#temas"
               class="kicker border-b-2 border-lima pb-1 text-lima transition-opacity hover:opacity-70"
-              @click.prevent="ir('diagnostico')"
+              @click.prevent="ir('temas')"
             >
-              Qué es el diagnóstico
+              Ver de qué se habla
             </a>
           </div>
         </div>
@@ -77,6 +81,7 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
+import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
 const { total, ocupados, restantes, porcentaje, agotado, critico } = useCupo();
@@ -85,7 +90,7 @@ const ancho = ref(0);
 const objetivo = computed(() => Math.max(porcentaje.value, 3));
 
 const DATOS = [
-  { valor: "1", label: "Diagnóstico por marca" },
+  { valor: "6", label: "Bloques de charla" },
   { valor: "9h", label: "De jornada" },
   { valor: "6+", label: "Voces en escenario" },
   { valor: "200", label: "Lugares, no más" },

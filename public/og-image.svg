@@ -4,33 +4,35 @@
   <!-- Franja superior -->
   <rect x="0" y="0" width="1200" height="54" fill="#E8FF4A"/>
   <text x="40" y="35" font-family="Archivo, system-ui, sans-serif" font-size="16"
-        font-weight="800" letter-spacing="2.6" fill="#101010">DOMINGO 20.09.2026 · CÓRDOBA</text>
+        font-weight="800" letter-spacing="2.6" fill="#101010">DOMINGO 20.09.2026 · CÓRDOBA · 9 A 18 H</text>
   <text x="1160" y="35" text-anchor="end" font-family="Archivo, system-ui, sans-serif"
         font-size="16" font-weight="800" letter-spacing="2.6" fill="#101010">ENTRADA GRATUITA</text>
 
   <!-- Titular -->
-  <text x="40" y="205" font-family="Archivo Black, Archivo, sans-serif" font-size="112"
-        font-weight="900" letter-spacing="-5" fill="#ffffff">NO VENÍS</text>
-  <text x="40" y="313" font-family="Archivo Black, Archivo, sans-serif" font-size="112"
-        font-weight="900" letter-spacing="-5" fill="none" stroke="#ffffff" stroke-width="2">A ESCUCHAR</text>
-  <text x="40" y="421" font-family="Archivo Black, Archivo, sans-serif" font-size="112"
-        font-weight="900" letter-spacing="-5" fill="#ffffff">CHARLAS.</text>
+  <text x="40" y="196" font-family="Archivo Black, Archivo, sans-serif" font-size="96"
+        font-weight="900" letter-spacing="-4.2" fill="#ffffff">EL EVENTO DE</text>
+  <text x="40" y="290" font-family="Archivo Black, Archivo, sans-serif" font-size="96"
+        font-weight="900" letter-spacing="-4.2" fill="#ffffff">GASTRONOMÍA</text>
+  <text x="40" y="384" font-family="Archivo Black, Archivo, sans-serif" font-size="96"
+        font-weight="900" letter-spacing="-4.2" fill="none" stroke="#E8FF4A" stroke-width="2">Y TECNOLOGÍA.</text>
 
   <!-- Bajada -->
-  <text x="40" y="492" font-family="Archivo, system-ui, sans-serif" font-size="27"
-        font-weight="600" fill="#E8FF4A">Te vas con un diagnóstico de tu negocio.</text>
-  <text x="40" y="532" font-family="Archivo, system-ui, sans-serif" font-size="21"
-        font-weight="500" fill="#ffffff" fill-opacity="0.55">Innovación, tecnología y marketing para el mercado gastronómico.</text>
+  <text x="40" y="456" font-family="Archivo, system-ui, sans-serif" font-size="25"
+        font-weight="600" fill="#E8FF4A">Un día entero de charlas, demos en vivo y networking.</text>
+  <text x="40" y="494" font-family="Archivo, system-ui, sans-serif" font-size="21"
+        font-weight="500" fill="#ffffff" fill-opacity="0.55">Para dueños de marcas gastronómicas y restaurantes.</text>
+  <text x="40" y="528" font-family="Archivo, system-ui, sans-serif" font-size="21"
+        font-weight="500" fill="#ffffff" fill-opacity="0.55">Datos · IA · Sistemas POS · Contenido · Ecosistema</text>
 
   <!-- Franja inferior -->
   <rect x="0" y="562" width="1200" height="68" fill="#E8FF4A"/>
   <text x="40" y="605" font-family="Archivo Black, Archivo, sans-serif" font-size="27"
         letter-spacing="-0.6" fill="#101010">EL EVENTO DE DEENEX</text>
   <text x="1160" y="605" text-anchor="end" font-family="Archivo Black, Archivo, sans-serif"
-        font-size="27" letter-spacing="-0.6" fill="#101010">HOTEL QUINTO CENTENARIO · 9 A 18 H</text>
+        font-size="27" letter-spacing="-0.6" fill="#101010">HOTEL QUINTO CENTENARIO</text>
 
   <!-- Bloque de cupo -->
-  <g transform="translate(905, 150)">
+  <g transform="translate(905, 130)">
     <rect width="255" height="215" fill="#FF4A2E"/>
     <text x="128" y="105" text-anchor="middle" font-family="Archivo Black, Archivo, sans-serif"
           font-size="94" letter-spacing="-4" fill="#ffffff">200</text>
