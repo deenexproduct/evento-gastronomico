@@ -92,9 +92,35 @@
               >
                 {{ codigo }}
               </p>
+              <div v-if="!agotado" class="mt-8 flex flex-wrap gap-3">
+                <a
+                  :href="CALENDARIO.google"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-linea text-[0.85rem]"
+                >
+                  Agendar en Google
+                </a>
+                <a :href="urlIcs" download="gastrotech.ics" class="btn-linea text-[0.85rem]">
+                  Apple o Outlook
+                </a>
+              </div>
+
+              <p class="mt-7 border-t border-linea pt-6 text-[0.9rem] leading-[1.6] text-gris">
+                ¿Conocés a alguien del rubro a quien le sirva?
+                <a
+                  :href="urlWhatsapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-semibold text-violeta-texto underline underline-offset-4"
+                  >Pasáselo por WhatsApp</a
+                >
+                — el mensaje ya está escrito.
+              </p>
+
               <button
                 type="button"
-                class="mt-8 block text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
+                class="mt-6 block text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
                 @click="reiniciar"
               >
                 Registrar a otra persona
@@ -274,7 +300,14 @@
 
 <script setup>
 import { computed } from "vue";
-import { EVENTO, ROLES, CANTIDAD_LOCALES, WHATSAPP_ORGANIZADOR } from "@/data/evento";
+import {
+  EVENTO,
+  ROLES,
+  CANTIDAD_LOCALES,
+  WHATSAPP_ORGANIZADOR,
+  CALENDARIO,
+  INVITACION,
+} from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRegistro } from "@/composables/useRegistro";
 
@@ -311,6 +344,9 @@ const whatsappRegistro =
   encodeURIComponent(
     "Hola! Quiero reservar mi lugar en el evento de gastronomía y tecnología del 20 de septiembre en Córdoba. Mi nombre es ____ y mi marca es ____."
   );
+
+const urlIcs = import.meta.env.BASE_URL + CALENDARIO.ics;
+const urlWhatsapp = `https://wa.me/?text=${encodeURIComponent(INVITACION)}`;
 
 const textoBoton = computed(() => {
   if (enviando.value) return "Guardando tu lugar…";

@@ -33,6 +33,7 @@
 
       <!-- BALANCE: todo lo que se lleva, en concreto -->
       <VolvesConSection class="v-reveal" />
+      <InvitarSection class="v-reveal" />
       <FinalCTASection class="v-reveal" />
     </main>
 
@@ -61,6 +62,7 @@ import EntradaLlaveSection from "@/components/sections/EntradaLlaveSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
 import VolvesConSection from "@/components/sections/VolvesConSection.vue";
+import InvitarSection from "@/components/sections/InvitarSection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
 let observer = null;

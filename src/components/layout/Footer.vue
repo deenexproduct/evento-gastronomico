@@ -80,6 +80,7 @@ const enlaces = [
   { id: "para-quien", label: "Para quién es" },
   { id: "lugar", label: "El lugar" },
   { id: "faq", label: "Preguntas" },
+  { id: "pasala", label: "Pasásela a un colega" },
 ];
 
 const whatsapp =

@@ -54,21 +54,39 @@
         </div>
       </div>
 
-      <!-- Cupo -->
-      <div class="mt-12 border-t border-linea pt-6">
-        <div class="flex items-baseline justify-between gap-4">
-          <p class="rotulo text-gris">Ocupación de la sala</p>
-          <p class="text-[0.85rem] font-medium text-gris">
-            <span class="text-[1.05rem] font-semibold text-tinta">{{ ocupados }}</span> de
-            {{ total }} lugares tomados
-          </p>
+      <!-- Los dos relojes: el que corre solo y el que corre por la gente -->
+      <div class="mt-12 grid gap-8 border-t border-linea pt-6 sm:grid-cols-2 sm:gap-12">
+        <div>
+          <div class="flex items-baseline justify-between gap-4">
+            <p class="rotulo text-gris">Falta para el evento</p>
+            <p class="text-[0.85rem] font-medium tabular-nums text-gris">
+              <span class="text-[1.05rem] font-semibold text-tinta">{{ dias }}</span>
+              {{ dias === 1 ? "día" : "días" }}
+            </p>
+          </div>
+          <div class="mt-3 h-[3px] w-full bg-linea">
+            <div
+              class="h-full bg-tinta transition-[width] duration-[1200ms] ease-out"
+              :style="{ width: anchoTiempo + '%' }"
+            ></div>
+          </div>
         </div>
-        <div class="mt-3 h-[3px] w-full bg-linea">
-          <div
-            class="h-full transition-[width] duration-[1200ms] ease-out"
-            :class="critico ? 'bg-[#C2410C]' : 'bg-violeta'"
-            :style="{ width: ancho + '%' }"
-          ></div>
+
+        <div>
+          <div class="flex items-baseline justify-between gap-4">
+            <p class="rotulo text-gris">Ocupación de la sala</p>
+            <p class="text-[0.85rem] font-medium tabular-nums text-gris">
+              <span class="text-[1.05rem] font-semibold text-tinta">{{ ocupados }}</span> de
+              {{ total }} tomados
+            </p>
+          </div>
+          <div class="mt-3 h-[3px] w-full bg-linea">
+            <div
+              class="h-full transition-[width] duration-[1200ms] ease-out"
+              :class="critico ? 'bg-[#C2410C]' : 'bg-violeta'"
+              :style="{ width: ancho + '%' }"
+            ></div>
+          </div>
         </div>
       </div>
 
@@ -98,6 +116,20 @@ const { total, ocupados, porcentaje, critico } = useCupo();
 const ancho = ref(0);
 const objetivo = computed(() => Math.max(porcentaje.value, 2));
 
+// Días que faltan, y cuánto se consumió de la ventana de convocatoria.
+// El arco arranca el 22 de agosto: es la referencia para llenar la barra.
+const ARRANQUE = new Date("2026-08-22T00:00:00-03:00").getTime();
+const EVENTO_MS = new Date(EVENTO.fechaISO).getTime();
+
+const dias = computed(() => Math.max(0, Math.ceil((EVENTO_MS - Date.now()) / 86400000)));
+
+const anchoTiempo = ref(0);
+const objetivoTiempo = computed(() => {
+  const total = EVENTO_MS - ARRANQUE;
+  const corrido = Date.now() - ARRANQUE;
+  return Math.min(100, Math.max(2, Math.round((corrido / total) * 100)));
+});
+
 const FICHA = [
   { rotulo: "Fecha", valor: `${EVENTO.fechaLarga} · ${EVENTO.horario}` },
   { rotulo: "Lugar", valor: `${EVENTO.venue}, ${EVENTO.direccion} · Córdoba` },
@@ -116,7 +148,12 @@ function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 
-onMounted(() => setTimeout(() => (ancho.value = objetivo.value), 400));
+onMounted(() =>
+  setTimeout(() => {
+    ancho.value = objetivo.value;
+    anchoTiempo.value = objetivoTiempo.value;
+  }, 400)
+);
 watch(objetivo, (v) => {
   if (ancho.value > 0) ancho.value = v;
 });

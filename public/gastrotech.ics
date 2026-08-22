@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Deenex//GastroTech 2026//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:gastrotech-cordoba-2026-09-20@deenex.tech
+DTSTAMP:20260822T120000Z
+DTSTART;TZID=America/Argentina/Cordoba:20260920T090000
+DTEND;TZID=America/Argentina/Cordoba:20260920T180000
+SUMMARY:GastroTech · Córdoba
+DESCRIPTION:Donde la gastronomía y la tecnología se juntan. Seis bloques de charla, demos en vivo y networking para dueños de marcas gastronómicas y restaurantes.\n\nEntrada gratuita con registro previo. Llevá tu QR.\n\nhttps://deenexproduct.github.io/evento-gastronomico/
+LOCATION:Hotel Quinto Centenario, Duarte Quirós 1300, Córdoba, Argentina
+URL:https://deenexproduct.github.io/evento-gastronomico/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana es GastroTech. No te olvides el QR.
+END:VALARM
+END:VEVENT
+END:VCALENDAR

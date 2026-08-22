@@ -197,6 +197,37 @@ export const VOLVES_CON = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Agendar y difundir
+//
+// Dos problemas distintos: que el que se anotó efectivamente venga (agenda),
+// y que cada visitante traiga a un colega (invitación). El brief es explícito
+// en que la invitación rinde cuando la manda un par, nunca la marca.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const CALENDARIO = {
+  ics: "gastrotech.ics",
+  google:
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + encodeURIComponent("GastroTech · Córdoba") +
+    "&dates=20260920T120000Z/20260920T210000Z" +
+    "&details=" +
+    encodeURIComponent(
+      "Donde la gastronomía y la tecnología se juntan. Seis bloques de charla, demos en vivo y networking.\n\nEntrada gratuita con registro previo. Llevá tu QR.\nhttps://deenexproduct.github.io/evento-gastronomico/"
+    ) +
+    "&location=" +
+    encodeURIComponent("Hotel Quinto Centenario, Duarte Quirós 1300, Córdoba, Argentina"),
+};
+
+/** Mensaje listo para reenviar. Escrito para WhatsApp, no copiado de Instagram. */
+export const INVITACION =
+  "Che, les paso algo que puede servir.\n\n" +
+  "El domingo 20 de septiembre hay un evento de gastronomía y tecnología en Córdoba, " +
+  "en el Hotel Quinto Centenario, de 9 a 18. Se llama GastroTech. Seis charlas sobre datos, " +
+  "sistemas de gestión, contenido y cómo está el mercado. Hay degustaciones entre medio y demos en vivo.\n\n" +
+  "Es gratis pero hay que anotarse, y son 200 lugares nada más.\n\n" +
+  "Acá se reserva: https://deenexproduct.github.io/evento-gastronomico/";
+
+// ─────────────────────────────────────────────────────────────────────────────
 // La entrada como llave — los 3 pasos del QR
 // ─────────────────────────────────────────────────────────────────────────────
 
