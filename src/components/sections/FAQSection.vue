@@ -14,7 +14,7 @@
             :href="whatsappConsultas"
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-4 inline-block text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
+            class="mt-2 inline-flex min-h-[44px] items-center text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
           >
             Preguntar por WhatsApp
           </a>
