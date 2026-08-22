@@ -15,7 +15,7 @@
       <div class="mt-12 flex items-end justify-center gap-4 sm:gap-6">
         <div>
           <p
-            class="font-black leading-[0.8] tabular-nums tracking-[-0.05em] text-acento text-[clamp(5rem,22vw,12rem)]"
+            class="late font-black leading-[0.8] tabular-nums tracking-[-0.05em] text-acento text-[clamp(5rem,22vw,12rem)]"
           >
             {{ String(dias).padStart(2, "0") }}
           </p>
@@ -42,3 +42,15 @@ function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 </script>
+
+<style scoped>
+/* El número late, como en el referente. */
+.late { animation: latir 2.6s ease-in-out infinite; }
+@keyframes latir {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .72; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .late { animation: none; }
+}
+</style>

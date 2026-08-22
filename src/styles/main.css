@@ -48,7 +48,7 @@ img, video { max-width: 100%; height: auto; display: block; }
 
   /* ── Superficies translúcidas ───────────────────────────────────────── */
   .tarjeta {
-    @apply border border-white/10 bg-white/5 transition-colors duration-200;
+    @apply rounded-xl border border-white/10 bg-white/5 transition-colors duration-200;
   }
   .tarjeta:hover { @apply border-white/20 bg-white/[0.08]; }
 
@@ -57,19 +57,20 @@ img, video { max-width: 100%; height: auto; display: block; }
 
   /* ── Botones ────────────────────────────────────────────────────────── */
   .btn {
-    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 bg-acento-boton
-           px-7 text-[15px] font-black uppercase tracking-[0.02em] text-white
-           transition-colors duration-150 hover:bg-[#D80047];
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full
+           bg-acento-boton px-8 text-[15px] font-black uppercase tracking-[0.02em] text-white
+           transition-all duration-150 hover:bg-[#D80047] hover:scale-[1.02];
   }
   .btn-linea {
-    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 border border-white/25
-           px-7 text-[15px] font-black uppercase tracking-[0.02em] text-white
-           transition-colors duration-150 hover:border-white/60 hover:bg-white/5;
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full
+           border border-white/25 bg-white/[0.06] px-8 text-[15px] font-black uppercase
+           tracking-[0.02em] text-white transition-all duration-150
+           hover:border-white/60 hover:bg-white/10;
   }
 
   .chip {
-    @apply inline-flex items-center gap-1.5 border border-white/15 bg-white/5 px-3 py-1.5
-           text-[12px] font-bold uppercase tracking-[0.1em];
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5
+           px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em];
   }
 }
 

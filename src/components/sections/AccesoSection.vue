@@ -18,7 +18,7 @@
         <article
           v-for="t in tramos"
           :key="t.titulo"
-          class="flex flex-col border p-7"
+          class="flex flex-col rounded-2xl border p-7"
           :class="
             t.estado === 'actual'
               ? 'border-acento bg-white/[0.06]'
@@ -34,7 +34,7 @@
             </span>
             <span
               v-if="t.estado === 'actual'"
-              class="bg-acento-boton px-2.5 py-1 text-[11px] font-black uppercase tracking-[0.1em] text-white"
+              class="rounded-full bg-acento-boton px-3 py-1 text-[11px] font-black uppercase tracking-[0.1em] text-white"
             >
               Abierto
             </span>
@@ -77,7 +77,7 @@
           >
           <p
             v-else
-            class="mt-7 border border-white/10 py-4 text-center text-[13px] font-black uppercase tracking-[0.12em] text-gris-2"
+            class="mt-7 rounded-xl border border-white/10 py-4 text-center text-[13px] font-black uppercase tracking-[0.12em] text-gris-2"
           >
             {{ t.estado === "completo" ? "Completo" : "Cuando se llene" }}
           </p>

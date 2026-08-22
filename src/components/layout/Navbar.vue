@@ -27,7 +27,7 @@
           </span>
           <a
             href="#registro"
-            class="bg-acento-boton px-5 py-2.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
+            class="rounded-full bg-acento-boton px-5 py-2.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
             @click.prevent="ir('registro')"
           >
             Reservar

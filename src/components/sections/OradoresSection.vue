@@ -49,7 +49,7 @@
         </article>
 
         <!-- Slot abierto: mecánica, no desprolijidad -->
-        <article class="flex flex-col justify-between border border-dashed border-white/15 p-6">
+        <article class="flex flex-col justify-between rounded-xl border border-dashed border-white/15 p-6">
           <span class="chip border-white/10 text-gris">Por anunciar</span>
           <div class="mt-6">
             <h3 class="text-[1.15rem] font-black leading-[1.15]">Se suman más voces</h3>

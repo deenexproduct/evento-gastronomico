@@ -31,16 +31,27 @@
 
       <!-- Escasez con razón física, no con fases de precio -->
       <div class="mt-10 max-w-[520px] tarjeta p-5 sm:p-6">
-        <div class="flex items-baseline justify-between gap-4">
-          <p class="rotulo text-acento-texto">{{ porcentaje }}% del salón tomado</p>
+        <!-- El punto que late: el referente lo usa como señal de "esto está vivo" -->
+        <p class="flex items-center gap-2 text-[13px] font-black uppercase tracking-[0.12em]">
+          <span class="relative flex h-2 w-2">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-acento opacity-70"
+            ></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-acento"></span>
+          </span>
+          <span class="text-acento-texto">Registro abierto</span>
+        </p>
+
+        <div class="mt-4 flex items-baseline justify-between gap-4">
+          <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
           <p class="text-[14px] font-bold tabular-nums text-gris">
             {{ ocupados }} / {{ total }}
           </p>
         </div>
 
-        <div class="mt-3 h-2 w-full overflow-hidden bg-white/10">
+        <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
           <div
-            class="h-full bg-acento transition-[width] duration-[1200ms] ease-out"
+            class="h-full rounded-full bg-acento transition-[width] duration-[1200ms] ease-out"
             :style="{ width: ancho + '%' }"
           ></div>
         </div>

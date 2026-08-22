@@ -30,7 +30,7 @@
           </p>
 
           <!-- Captura secundaria para el que igual no puede venir -->
-          <div class="mt-9 border border-white/15 p-6">
+          <div class="mt-9 rounded-xl border border-white/15 p-6">
             <p class="text-[16px] leading-[1.5] text-gris">
               ¿No llegás de ninguna manera? Dejanos tu mail y te mandamos el material del día.
             </p>
