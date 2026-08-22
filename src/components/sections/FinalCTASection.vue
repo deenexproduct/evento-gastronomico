@@ -24,7 +24,7 @@
       </svg>
     </a>
 
-    <p class="kicker mt-10 text-white/35">
+    <p class="kicker mt-10 text-white/60">
       Entrada gratuita · Registro obligatorio · No se transmite en vivo
     </p>
   </section>

@@ -11,7 +11,7 @@
     >
       <div class="flex items-center justify-between gap-4">
         <div class="min-w-0">
-          <p class="kicker truncate text-ink/60">
+          <p class="kicker truncate text-ink/70">
             {{ EVENTO.fechaCorta }} · Córdoba · Entrada gratuita
           </p>
           <p class="titular truncate text-[0.95rem] sm:text-[1.15rem]">

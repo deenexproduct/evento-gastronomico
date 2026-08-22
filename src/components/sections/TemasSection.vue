@@ -26,7 +26,7 @@
         <div class="grid gap-3 lg:grid-cols-[1.05fr_1fr] lg:items-start lg:gap-10">
           <div>
             <h3 class="titular text-[clamp(1.4rem,3.4vw,2.4rem)]">{{ t.tema }}</h3>
-            <p class="kicker mt-3 text-white/45 group-hover:text-ink/60">{{ t.quien }}</p>
+            <p class="kicker mt-3 text-white/60 group-hover:text-ink/70">{{ t.quien }}</p>
           </div>
           <p class="max-w-[52ch] text-[1rem] leading-[1.6] text-white/60 group-hover:text-ink/80">
             {{ t.punta }}

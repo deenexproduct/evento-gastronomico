@@ -22,19 +22,19 @@
       </div>
 
       <!-- No -->
-      <aside class="bg-fuego p-8 text-white">
+      <aside class="bg-fuego p-8 text-ink">
         <p class="kicker opacity-70">Para quién no</p>
         <ul class="mt-6 space-y-4">
           <li
             v-for="(item, i) in PUBLICO.no"
             :key="i"
-            class="flex gap-3 border-b border-white/25 pb-4 text-[0.95rem] font-semibold leading-snug last:border-0"
+            class="flex gap-3 border-b border-ink/25 pb-4 text-[0.95rem] font-semibold leading-snug last:border-0"
           >
             <span class="shrink-0 opacity-70">✕</span>
             {{ item }}
           </li>
         </ul>
-        <p class="mt-7 text-[0.88rem] leading-[1.55] text-white/80">
+        <p class="mt-7 text-[0.88rem] leading-[1.55] text-ink/85">
           El cupo es de 200 y es real. Preferimos la sala llena de gente que decide antes que llena
           a secas.
         </p>

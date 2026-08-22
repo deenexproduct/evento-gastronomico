@@ -10,7 +10,7 @@
 
         <dl class="mt-10 grid gap-[3px] bg-white/20">
           <div v-for="d in DATOS" :key="d.label" class="bg-ink py-5">
-            <dt class="kicker text-white/40">{{ d.label }}</dt>
+            <dt class="kicker text-white/60">{{ d.label }}</dt>
             <dd class="titular mt-2 text-[clamp(1.1rem,2.4vw,1.5rem)]">{{ d.valor }}</dd>
           </div>
         </dl>

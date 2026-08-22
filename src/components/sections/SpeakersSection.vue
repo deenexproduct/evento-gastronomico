@@ -3,7 +3,7 @@
     <div class="px-5 py-16 sm:px-8 sm:py-20">
       <p class="kicker opacity-50">Quiénes hablan</p>
       <h2 class="titular mt-6 max-w-[13ch] text-[clamp(2.4rem,8vw,6rem)]">
-        Las voces<br /><span class="text-fuego">confirmadas.</span>
+        Las voces<br /><span class="text-fuego-tinta">confirmadas.</span>
       </h2>
       <p class="mt-8 max-w-[54ch] text-[1.02rem] leading-[1.6] text-ink/65">
         Alan Tapia es el hilo conductor: abre, presenta a cada speaker, modera la mesa redonda y
@@ -37,7 +37,7 @@
         <p class="mt-7 max-w-[56ch] text-[0.96rem] leading-[1.6] text-white/60">{{ alan.bio }}</p>
 
         <div class="mt-9">
-          <p class="kicker text-white/40">Sus tres bloques</p>
+          <p class="kicker text-white/60">Sus tres bloques</p>
           <ol class="mt-4 grid gap-[3px] bg-white/20">
             <li
               v-for="(charla, i) in alan.charlas"
@@ -59,7 +59,7 @@
           <FotoSlot :src="fotos[s.id]" :alt="s.nombre" :etiqueta="`Foto · ${s.nombre}`" oscuro />
           <span
             class="absolute left-0 top-0 px-3 py-1.5 text-[0.62rem] font-black uppercase tracking-[0.16em]"
-            :class="i === 1 ? 'bg-fuego text-white' : 'bg-lima text-ink'"
+            :class="i === 1 ? 'bg-fuego text-ink' : 'bg-lima text-ink'"
           >
             Confirmado
           </span>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="border-t-[3px] border-ink bg-hueso px-5 py-8 text-center sm:px-8">
-      <p class="kicker text-fuego">
+      <p class="kicker text-fuego-tinta">
         ● Se están sumando más voces. Los anuncios salen a medida que se cierran.
       </p>
     </div>

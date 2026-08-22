@@ -3,7 +3,7 @@
     <div class="px-5 py-16 sm:px-8 sm:py-20">
       <p class="kicker opacity-50">Preguntas</p>
       <h2 class="titular mt-6 max-w-[13ch] text-[clamp(2.4rem,8vw,6rem)]">
-        Lo que siempre <span class="text-fuego">nos preguntan.</span>
+        Lo que siempre <span class="text-fuego-tinta">nos preguntan.</span>
       </h2>
     </div>
 
@@ -45,7 +45,7 @@
         :href="whatsappConsultas"
         target="_blank"
         rel="noopener noreferrer"
-        class="kicker shrink-0 border-b-2 border-fuego pb-1 text-fuego"
+        class="kicker inline-flex min-h-[44px] shrink-0 items-center border-b-2 border-fuego-tinta text-fuego-tinta"
       >
         Preguntar por WhatsApp →
       </a>

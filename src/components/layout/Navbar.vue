@@ -4,7 +4,7 @@
     <div
       class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b-[3px] border-ink bg-lima px-4 py-2 text-ink sm:px-6"
     >
-      <a href="#hero" class="kicker shrink-0" @click.prevent="arriba">El evento de Deenex</a>
+      <a href="#hero" class="kicker inline-flex min-h-[40px] shrink-0 items-center" @click.prevent="arriba">El evento de Deenex</a>
       <span class="kicker hidden sm:inline">{{ EVENTO.fechaCorta }} · Córdoba</span>
       <span class="kicker hidden lg:inline">{{ EVENTO.venue }}</span>
       <span class="kicker tabular-nums">{{ cuenta }}</span>
@@ -15,13 +15,13 @@
       class="flex items-center justify-between gap-4 border-b-[3px] border-ink bg-ink px-4 py-2.5 transition-colors sm:px-6"
     >
       <p class="kicker truncate text-white/55">
-        <span :class="critico ? 'text-fuego' : 'text-lima'">●</span>
+        <span :class="critico ? 'text-fuego-luz' : 'text-lima'">●</span>
         {{ agotado ? "Cupo completo" : `Quedan ${restantes} de ${total} lugares` }}
       </p>
 
       <a
         href="#registro"
-        class="shrink-0 bg-lima px-4 py-2 text-[0.72rem] font-black uppercase tracking-[-0.01em] text-ink transition-transform duration-150 hover:-translate-y-0.5 sm:px-5 sm:text-[0.8rem]"
+        class="flex min-h-[44px] shrink-0 items-center bg-lima px-4 text-[0.72rem] font-black uppercase tracking-[-0.01em] text-ink transition-transform duration-150 hover:-translate-y-0.5 sm:px-5 sm:text-[0.8rem]"
         @click.prevent="ir('registro')"
       >
         Reservar mi lugar

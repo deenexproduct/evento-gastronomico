@@ -16,7 +16,7 @@
         <!-- Cupo -->
         <div class="borde mt-9 bg-ink p-6 text-white">
           <div class="flex items-baseline justify-between gap-4">
-            <span class="titular text-[clamp(2.6rem,6vw,4rem)]" :class="critico ? 'text-fuego' : 'text-lima'">
+            <span class="titular text-[clamp(2.6rem,6vw,4rem)]" :class="critico ? 'text-fuego-luz' : 'text-lima'">
               {{ restantes }}
             </span>
             <span class="kicker text-right text-white/50">Lugares<br />disponibles</span>
@@ -28,12 +28,12 @@
               :style="{ width: Math.max(porcentaje, 3) + '%' }"
             ></div>
           </div>
-          <p class="kicker mt-3 text-white/40">{{ ocupados }} de {{ total }} tomados</p>
+          <p class="kicker mt-3 text-white/60">{{ ocupados }} de {{ total }} tomados</p>
         </div>
 
         <ul class="mt-8 space-y-3">
           <li v-for="(item, i) in INCLUYE" :key="i" class="flex gap-3 text-[0.94rem] font-semibold leading-snug">
-            <span class="shrink-0 text-fuego">✓</span>
+            <span class="shrink-0 text-fuego-tinta">✓</span>
             {{ item }}
           </li>
         </ul>
@@ -203,18 +203,18 @@
             {{ textoBoton }}
           </button>
 
-          <p class="kicker mt-5 text-center text-white/35">
+          <p class="kicker mt-5 text-center text-white/60">
             Sin costo · Sin letra chica · El único requisito es que vengas
           </p>
 
           <!-- Vía alterna para el que no llena formularios -->
-          <p class="mt-7 border-t-[3px] border-white/15 pt-6 text-center text-[0.85rem] text-white/45">
+          <p class="mt-7 border-t-[3px] border-white/15 pt-6 text-center text-[0.85rem] text-white/60">
             ¿Preferís por WhatsApp?
             <a
               :href="whatsappRegistro"
               target="_blank"
               rel="noopener noreferrer"
-              class="font-bold text-lima underline underline-offset-4 hover:opacity-80"
+              class="inline-flex min-h-[44px] items-center font-bold text-lima underline underline-offset-4 hover:opacity-80"
               >Escribinos y te anotamos nosotros</a
             >
           </p>

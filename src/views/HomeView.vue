@@ -1,8 +1,9 @@
 <template>
   <!-- pb: deja aire para que la barra fija no tape el pie -->
   <div class="bg-ink pb-[76px]">
+    <a href="#contenido" class="saltar">Saltar al contenido</a>
     <Navbar />
-    <main>
+    <main id="contenido">
       <!-- ATENCIÓN: qué es y para quién -->
       <HeroSection />
       <Marquesina :items="MARQUESINA_1" />

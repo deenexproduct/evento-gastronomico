@@ -19,7 +19,7 @@
       <circle cx="8.5" cy="10" r="1.5" />
       <path d="M21 16l-5-5-4 4-2-2-7 6" />
     </svg>
-    <span class="kicker text-white/40">{{ etiqueta }}</span>
+    <span class="kicker text-white/60">{{ etiqueta }}</span>
   </div>
 </template>
 

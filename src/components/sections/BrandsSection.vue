@@ -3,7 +3,7 @@
     <div class="px-5 py-16 sm:px-8 sm:py-20">
       <p class="kicker opacity-50">Partners</p>
       <h2 class="titular mt-6 max-w-[12ch] text-[clamp(2.4rem,8vw,6rem)]">
-        Los que ya están <span class="text-fuego">adentro.</span>
+        Los que ya están <span class="text-fuego-tinta">adentro.</span>
       </h2>
       <p class="mt-8 max-w-[52ch] text-[1.02rem] leading-[1.6] text-ink/65">
         Cada partner llega con un beneficio exclusivo para los que estén en la sala ese día. La
@@ -47,7 +47,7 @@
     <!-- Prueba social -->
     <div class="border-t-[3px] border-ink bg-hueso px-5 py-14 sm:px-8">
       <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-        <span class="titular text-[clamp(2.6rem,6vw,4rem)] text-fuego">+350</span>
+        <span class="titular text-[clamp(2.6rem,6vw,4rem)] text-fuego-tinta">+350</span>
         <p class="kicker max-w-[36ch] leading-[1.5] opacity-60">
           marcas ya trabajan con Deenex.<br />Estas son algunas.
         </p>

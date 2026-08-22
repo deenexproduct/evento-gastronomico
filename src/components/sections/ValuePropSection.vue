@@ -3,7 +3,7 @@
     <div class="px-5 py-16 sm:px-8 sm:py-20">
       <p class="kicker opacity-50">Qué te llevás</p>
       <h2 class="titular mt-6 max-w-[16ch] text-[clamp(2.2rem,7vw,5rem)]">
-        Lo que te llevás <span class="text-fuego">de la sala.</span>
+        Lo que te llevás <span class="text-fuego-tinta">de la sala.</span>
       </h2>
       <p class="mt-8 max-w-[54ch] text-[1.02rem] leading-[1.6] text-ink/65">
         Sin entrada premium ni lista especial: el que está en la sala accede exactamente a lo mismo
@@ -19,7 +19,7 @@
       >
         <div>
           <div class="flex items-baseline gap-4">
-            <span class="titular text-[2.2rem] text-fuego">{{ b.n }}</span>
+            <span class="titular text-[2.2rem] text-fuego-tinta">{{ b.n }}</span>
             <span class="kicker opacity-45">{{ b.kicker }}</span>
           </div>
           <h3 class="titular mt-5 text-[clamp(1.3rem,2.8vw,1.8rem)]">{{ b.titulo }}</h3>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="p-8 sm:p-10">
-        <p class="kicker text-white/40">Qué se mira</p>
+        <p class="kicker text-white/60">Qué se mira</p>
         <ul class="mt-5 grid gap-3 sm:grid-cols-2">
           <li
             v-for="(p, i) in DIAGNOSTICO.puntos"

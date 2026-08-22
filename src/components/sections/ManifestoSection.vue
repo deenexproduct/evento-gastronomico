@@ -6,7 +6,7 @@
       <h2 class="titular mt-6 max-w-[18ch] text-[clamp(2.2rem,7vw,5.2rem)]">
         El mercado se puso difícil.
       </h2>
-      <h2 class="titular mt-3 max-w-[22ch] text-[clamp(1.6rem,4.6vw,3.4rem)] text-fuego">
+      <h2 class="titular mt-3 max-w-[22ch] text-[clamp(1.6rem,4.6vw,3.4rem)] text-fuego-tinta">
         Los que salgan adelante no son los que aguanten. Son los que se preparen.
       </h2>
 

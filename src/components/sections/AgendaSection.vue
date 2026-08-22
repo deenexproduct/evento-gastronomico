@@ -62,7 +62,7 @@
       </div>
 
       <div class="border-t-[3px] border-white/20 bg-ink px-5 py-8 sm:px-8">
-        <p class="kicker text-fuego">Grilla con horarios · próximamente</p>
+        <p class="kicker text-lima">Grilla con horarios · próximamente</p>
         <p class="mt-3 max-w-[62ch] text-[0.98rem] leading-[1.6] text-white/60">
           Se están sumando más voces al escenario, así que el orden todavía se mueve.
           <span class="font-bold text-white">Los que estén registrados la reciben primero.</span>

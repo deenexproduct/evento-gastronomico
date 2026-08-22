@@ -6,7 +6,13 @@ export default {
       colors: {
         ink: "#101010", // negro base
         lima: "#E8FF4A", // acento principal
-        fuego: "#FF4A2E", // urgencia: cupo, cuenta regresiva
+        // Solo como FONDO de bloque, siempre con texto ink encima (5.6:1).
+        // Como color de texto no llega a contraste en ningún fondo del sistema.
+        fuego: "#FF4A2E",
+        // La versión para texto de acento sobre fondo claro (4.8:1 sobre hueso).
+        "fuego-tinta": "#C7300F",
+        // Y la versión para texto de urgencia sobre fondo oscuro (7.4:1 sobre ink).
+        "fuego-luz": "#FF7A5E",
         hueso: "#F2F0E9", // fondo claro
       },
       fontFamily: {

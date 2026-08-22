@@ -1,5 +1,5 @@
 <template>
-  <section id="mesa-redonda" class="bg-fuego text-white">
+  <section id="mesa-redonda" class="bg-fuego text-ink">
     <div class="grid lg:grid-cols-[1.15fr_.85fr]">
       <div class="border-b-[3px] border-ink p-8 sm:p-12 lg:border-b-0 lg:border-r-[3px]">
         <p class="kicker opacity-70">El cierre de la jornada</p>
@@ -7,14 +7,14 @@
           Todos los partners y speakers, en el centro del salón.
         </h2>
 
-        <p class="mt-8 max-w-[50ch] text-[1.05rem] leading-[1.6] text-white/85">
+        <p class="mt-8 max-w-[50ch] text-[1.05rem] leading-[1.6] text-ink/80">
           Una hora de mesa redonda sobre cómo se construye un ecosistema gastronómico entre
           nosotros, y cómo apoyarnos para conseguir clientes serios. Con preguntas de la sala.
         </p>
 
-        <p class="mt-5 max-w-[50ch] text-[1.05rem] leading-[1.6] text-white/85">
+        <p class="mt-5 max-w-[50ch] text-[1.05rem] leading-[1.6] text-ink/80">
           Es la única parte del día en la que
-          <strong class="font-extrabold text-ink"
+          <strong class="font-extrabold text-ink underline decoration-2 underline-offset-4"
             >todos los que hablaron están sentados juntos</strong
           >
           y se les puede preguntar cualquier cosa.

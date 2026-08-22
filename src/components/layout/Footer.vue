@@ -11,12 +11,12 @@
 
       <nav class="flex flex-wrap gap-x-12 gap-y-7">
         <div>
-          <p class="kicker text-white/35">El evento</p>
-          <ul class="mt-4 space-y-2.5">
+          <p class="kicker text-white/60">El evento</p>
+          <ul class="mt-2">
             <li v-for="l in enlaces" :key="l.id">
               <a
                 :href="`#${l.id}`"
-                class="text-[0.9rem] font-semibold text-white/70 transition-colors hover:text-lima"
+                class="inline-flex min-h-[40px] items-center text-[0.9rem] font-semibold text-white/70 transition-colors hover:text-lima"
                 @click.prevent="ir(l.id)"
                 >{{ l.label }}</a
               >
@@ -24,14 +24,14 @@
           </ul>
         </div>
         <div>
-          <p class="kicker text-white/35">Contacto</p>
-          <ul class="mt-4 space-y-2.5">
+          <p class="kicker text-white/60">Contacto</p>
+          <ul class="mt-2">
             <li>
               <a
                 :href="whatsapp"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[0.9rem] font-semibold text-white/70 transition-colors hover:text-lima"
+                class="inline-flex min-h-[40px] items-center text-[0.9rem] font-semibold text-white/70 transition-colors hover:text-lima"
                 >WhatsApp</a
               >
             </li>
@@ -40,7 +40,7 @@
                 href="https://deenex.tech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[0.9rem] font-semibold text-white/70 transition-colors hover:text-lima"
+                class="inline-flex min-h-[40px] items-center text-[0.9rem] font-semibold text-white/70 transition-colors hover:text-lima"
                 >deenex.tech</a
               >
             </li>
@@ -56,8 +56,8 @@
     <div
       class="flex flex-col items-center justify-between gap-3 border-t-[3px] border-white/15 px-8 py-6 sm:flex-row"
     >
-      <span class="kicker text-white/35">© {{ anio }} Deenex Technologies · Córdoba</span>
-      <span class="kicker text-white/35">{{ EVENTO.fechaCorta }}</span>
+      <span class="kicker text-white/60">© {{ anio }} Deenex Technologies · Córdoba</span>
+      <span class="kicker text-white/60">{{ EVENTO.fechaCorta }}</span>
     </div>
   </footer>
 </template>

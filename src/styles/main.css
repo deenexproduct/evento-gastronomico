@@ -84,6 +84,40 @@ img, video {
   }
 }
 
+/* ── Foco de teclado ────────────────────────────────────────────────────
+   Los botones de cartel definen box-shadow para la sombra dura, así que el
+   foco no puede depender de ella: va por outline, que además se ve sobre
+   cualquiera de los cuatro fondos del sistema. */
+:focus-visible {
+  outline: 3px solid var(--lima);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+/* Sobre lima, el amarillo no se distingue: ahí el foco va en negro. */
+.bg-lima :focus-visible,
+.bg-fuego :focus-visible {
+  outline-color: var(--ink);
+}
+
+/* Salto al contenido, primero en el orden de tabulación */
+.saltar {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 200;
+  background: var(--lima);
+  color: var(--ink);
+  padding: 12px 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  transition: top 0.15s;
+}
+.saltar:focus {
+  top: 8px;
+}
+
 /* ── Marquesina ─────────────────────────────────────────────────────── */
 .marquesina {
   display: flex;

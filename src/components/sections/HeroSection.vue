@@ -36,7 +36,7 @@
             </a>
             <a
               href="#temas"
-              class="kicker border-b-2 border-lima pb-1 text-lima transition-opacity hover:opacity-70"
+              class="kicker inline-flex min-h-[44px] items-center border-b-2 border-lima text-lima transition-opacity hover:opacity-70"
               @click.prevent="ir('temas')"
             >
               Ver de qué se habla
@@ -46,7 +46,7 @@
 
         <!-- Contador de cupo -->
         <div class="borde-claro p-6" :class="critico ? 'border-fuego' : ''">
-          <div class="titular text-[clamp(3.5rem,9vw,5.5rem)]" :class="critico ? 'text-fuego' : 'text-lima'">
+          <div class="titular text-[clamp(3.5rem,9vw,5.5rem)]" :class="critico ? 'text-fuego-luz' : 'text-lima'">
             {{ restantes }}
           </div>
           <p class="kicker mt-2 leading-[1.5]">
