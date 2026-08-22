@@ -104,10 +104,10 @@ export const TEMAS = [
 
 /** Los cuatro tipos de bloque, con su pictograma y su tinte. */
 export const TIPOS_BLOQUE = {
-  charla: { label: "Charla", clase: "border-white/15 text-white" },
-  demo: { label: "Demo en vivo", clase: "border-violeta/50 text-violeta" },
-  mesa: { label: "Mesa redonda", clase: "border-violeta bg-violeta-solido text-white" },
-  pausa: { label: "Degustación", clase: "border-white/10 text-gris" },
+  charla: { label: "Charla", icono: "charla", clase: "border-white/15 text-white" },
+  demo: { label: "Demo en vivo", icono: "demo", clase: "border-acento/50 text-acento-texto" },
+  mesa: { label: "Mesa redonda", icono: "mesa", clase: "border-acento bg-acento-boton text-white" },
+  pausa: { label: "Degustación", icono: "degustacion", clase: "border-white/10 text-gris" },
 };
 
 /**

@@ -81,8 +81,25 @@ import FAQSection from "@/components/sections/FAQSection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
 let observer = null;
+let respaldo = null;
+
+function revelarTodo() {
+  document.querySelectorAll(".v-reveal").forEach((el) => el.classList.add("v-reveal-visible"));
+}
 
 onMounted(() => {
+  const objetivos = [...document.querySelectorAll(".v-reveal")];
+
+  // Sin soporte de IntersectionObserver, el contenido se muestra y listo.
+  if (!("IntersectionObserver" in window)) {
+    revelarTodo();
+    return;
+  }
+
+  // Recién acá se habilita el estado oculto: si el script no llegó hasta
+  // este punto, el CSS nunca esconde nada.
+  document.documentElement.classList.add("reveal-listo");
+
   observer = new IntersectionObserver(
     (entradas) => {
       entradas.forEach((e) => {
@@ -94,8 +111,16 @@ onMounted(() => {
     },
     { threshold: 0.04, rootMargin: "0px 0px -30px 0px" }
   );
-  document.querySelectorAll(".v-reveal").forEach((el) => observer.observe(el));
+  objetivos.forEach((el) => observer.observe(el));
+
+  // Red de seguridad: si en dos segundos algo no se reveló —observer que no
+  // dispara, pestaña en segundo plano, motor sin composición—, se muestra
+  // igual. Nunca se deja contenido invisible.
+  respaldo = setTimeout(revelarTodo, 2000);
 });
 
-onUnmounted(() => observer?.disconnect());
+onUnmounted(() => {
+  observer?.disconnect();
+  if (respaldo) clearTimeout(respaldo);
+});
 </script>

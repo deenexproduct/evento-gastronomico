@@ -44,6 +44,7 @@
 
           <div class="sm:pt-3">
             <span class="chip" :class="TIPOS_BLOQUE[t.tipo].clase">
+              <Pictograma :nombre="TIPOS_BLOQUE[t.tipo].icono" :tam="15" :grosor="2" />
               {{ TIPOS_BLOQUE[t.tipo].label }}
             </span>
 
@@ -73,6 +74,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { TEMAS, TIPOS_BLOQUE } from "@/data/evento";
+import Pictograma from "@/components/ui/Pictograma.vue";
 
 const lista = ref(null);
 const dibujada = ref(false);

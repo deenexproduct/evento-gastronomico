@@ -85,11 +85,15 @@ img, video { max-width: 100%; height: auto; display: block; }
 .saltar:focus { top: 8px; }
 
 /* ── Motion: dos momentos, nada más ─────────────────────────────────── */
-.v-reveal {
-  opacity: 0; transform: translateY(14px);
+/* El estado oculto SOLO se aplica cuando el script confirmó que puede
+   revelarlo. Sin la clase `reveal-listo` en el html, todo se ve: una
+   animación de entrada no puede dejar la página en blanco si algo falla. */
+.reveal-listo .v-reveal {
+  opacity: 0;
+  transform: translateY(14px);
   transition: opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1);
 }
-.v-reveal-visible { opacity: 1; transform: none; }
+.reveal-listo .v-reveal-visible { opacity: 1; transform: none; }
 
 .linea-dia { transform-origin: top; transform: scaleY(0); transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
 .linea-dia-visible { transform: scaleY(1); }

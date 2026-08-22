@@ -15,10 +15,10 @@
           </p>
 
           <!-- Cupo -->
-          <div class="tarjeta mt-9 p-6">
+          <div ref="anclaCupo" class="tarjeta mt-9 p-6">
             <div class="flex items-baseline justify-between gap-4">
               <span class="text-[3rem] font-black leading-none tabular-nums text-acento-texto">
-                {{ restantes }}
+                {{ cupoContado }}
               </span>
               <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
                 lugares<br />disponibles
@@ -272,8 +272,12 @@ import { computed } from "vue";
 import { ROLES, CANTIDAD_LOCALES, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRegistro } from "@/composables/useRegistro";
+import { useContador } from "@/composables/useContador";
 
 const { total, ocupados, restantes, porcentaje, agotado } = useCupo();
+
+// El contador que sube al entrar en pantalla: uno de los dos momentos de motion.
+const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.value);
 const {
   form, errores, paso, enviando, enviado, errorEnvio, codigo,
   tieneBackend, siguiente, volver, enviar, reiniciar,

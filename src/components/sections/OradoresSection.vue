@@ -25,6 +25,7 @@
         >
           <div class="flex items-center justify-between gap-3">
             <span class="chip" :class="t.tipo === 'mesa' ? 'border-acento/40 text-acento-texto' : ''">
+              <Pictograma :nombre="TIPOS_BLOQUE[t.tipo].icono" :tam="14" :grosor="2" />
               {{ TIPOS_BLOQUE[t.tipo].label }}
             </span>
             <span class="hora text-[1.6rem] text-acento-texto">{{ t.hora }}</span>
@@ -65,4 +66,5 @@
 
 <script setup>
 import { TEMAS, TIPOS_BLOQUE } from "@/data/evento";
+import Pictograma from "@/components/ui/Pictograma.vue";
 </script>
