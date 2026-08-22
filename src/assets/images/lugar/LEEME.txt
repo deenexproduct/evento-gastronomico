@@ -1,0 +1,4 @@
+Fotos del lugar y del evento.
+
+Dejá el archivo acá y poné su nombre en FOTOS de src/data/evento.js.
+Mientras el nombre esté vacío, la landing muestra un hueco marcado.

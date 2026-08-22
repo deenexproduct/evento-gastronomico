@@ -1,51 +1,81 @@
 <template>
-  <div>
+  <!-- pb: deja aire para que la barra fija no tape el pie -->
+  <div class="pb-[76px]">
+    <a href="#contenido" class="saltar">Saltar al contenido</a>
     <Navbar />
-    <main>
+
+    <main id="contenido">
+      <!-- ATENCIÓN: qué es, cuándo y para quién -->
       <HeroSection />
-      <ValuePropSection class="v-reveal" />
-      <ManifestoSection class="v-reveal" />
+
+      <!-- INTERÉS: de qué se habla, quién lo dice, dónde pasa -->
+      <TemasSection class="v-reveal" />
       <SpeakersSection class="v-reveal" />
+      <SalonSection class="v-reveal" />
+
+      <!-- DESEO: cómo es el día y qué te llevás -->
       <AgendaSection class="v-reveal" />
+      <MesaRedondaSection class="v-reveal" />
+      <ValuePropSection class="v-reveal" />
+
+      <!-- ACCIÓN: urgencia y formulario, a mitad de página -->
+      <QuieroIrBanner />
+      <RegistroSection />
+
+      <!-- REFUERZO: para el que todavía duda -->
+      <ManifestoSection class="v-reveal" />
+      <ParaQuienSection class="v-reveal" />
       <BrandsSection class="v-reveal" />
+      <EntradaLlaveSection class="v-reveal" />
       <LocationSection class="v-reveal" />
-      <QuieroIrBanner class="v-reveal" />
       <FAQSection class="v-reveal" />
-      <SponsorCTASection class="v-reveal" />
       <FinalCTASection class="v-reveal" />
     </main>
+
     <Footer />
+    <BarraFija />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
+import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
-import ManifestoSection from "@/components/sections/ManifestoSection.vue";
+import TemasSection from "@/components/sections/TemasSection.vue";
 import SpeakersSection from "@/components/sections/SpeakersSection.vue";
+import SalonSection from "@/components/sections/SalonSection.vue";
 import AgendaSection from "@/components/sections/AgendaSection.vue";
+import MesaRedondaSection from "@/components/sections/MesaRedondaSection.vue";
 import ValuePropSection from "@/components/sections/ValuePropSection.vue";
-import BrandsSection from "@/components/sections/BrandsSection.vue";
-import LocationSection from "@/components/sections/LocationSection.vue";
 import QuieroIrBanner from "@/components/sections/QuieroIrBanner.vue";
+import RegistroSection from "@/components/sections/RegistroSection.vue";
+import ManifestoSection from "@/components/sections/ManifestoSection.vue";
+import ParaQuienSection from "@/components/sections/ParaQuienSection.vue";
+import BrandsSection from "@/components/sections/BrandsSection.vue";
+import EntradaLlaveSection from "@/components/sections/EntradaLlaveSection.vue";
+import LocationSection from "@/components/sections/LocationSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
-import SponsorCTASection from "@/components/sections/SponsorCTASection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
+let observer = null;
+
 onMounted(() => {
-  const observer = new IntersectionObserver(
+  observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("v-reveal-visible");
+          observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
   );
 
   document.querySelectorAll(".v-reveal").forEach((el) => observer.observe(el));
 });
+
+onUnmounted(() => observer?.disconnect());
 </script>

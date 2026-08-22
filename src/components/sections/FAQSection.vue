@@ -1,57 +1,60 @@
 <template>
-  <section id="faq" class="py-32 sm:py-40 px-6 sm:px-12 overflow-hidden">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
-        <div>
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-4"
-          >
-            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-            Preguntas frecuentes
-          </div>
-          <h2
-            class="font-heading text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold tracking-tighter leading-[1.05] text-slate-900"
-          >
-            Lo que <span class="text-primary italic font-light">seguro</span> te estás preguntando.
+  <section id="faq" class="border-b border-linea py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">Preguntas</p>
+          <h2 class="titular mt-5 max-w-[14ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
+            Lo que siempre nos preguntan.
           </h2>
-        </div>
-        <div class="hidden lg:block max-w-[260px] text-right relative lg:ml-auto">
-          <div class="absolute -left-10 top-0 bottom-0 w-px bg-slate-200/60"></div>
-          <p class="text-slate-400 text-sm leading-relaxed pr-2">
-            "Si tenés una duda que no está acá, escribinos por WhatsApp."
+          <p class="mt-6 text-[0.95rem] leading-[1.6] text-gris">
+            ¿Te quedó algo afuera? Escribinos y te lo respondemos.
           </p>
-        </div>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-4">
-        <div
-          v-for="(item, i) in faqs"
-          :key="i"
-          class="border border-slate-200 rounded-2xl bg-white overflow-hidden cursor-pointer group hover:border-primary/30 transition-colors duration-300"
-          @click="toggle(i)"
-        >
-          <button class="w-full flex items-start justify-between gap-4 p-5 text-left">
-            <span
-              class="font-heading text-[clamp(0.95rem,1.4vw,1.05rem)] font-bold text-slate-900 leading-snug group-hover:text-primary transition-colors"
-            >
-              {{ item.q }}
-            </span>
-            <span
-              class="flex-shrink-0 w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300"
-              :class="open === i ? 'bg-primary border-primary text-white rotate-45' : 'text-slate-400'"
-            >
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg>
-            </span>
-          </button>
-          <div
-            class="overflow-hidden transition-all duration-300 ease-in-out"
-            :class="open === i ? 'max-h-72 pb-5' : 'max-h-0'"
+          <a
+            :href="whatsappConsultas"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-block text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
           >
-            <p class="px-5 text-[0.92rem] text-slate-500 leading-relaxed">
-              {{ item.a }}
-            </p>
+            Preguntar por WhatsApp
+          </a>
+        </div>
+
+        <div class="lg:col-span-9">
+          <div class="border-t border-linea">
+            <div v-for="(item, i) in FAQ" :key="i" class="border-b border-linea">
+              <h3>
+                <button
+                  type="button"
+                  class="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors hover:text-violeta-texto"
+                  :aria-expanded="abierto === i"
+                  :aria-controls="`faq-panel-${i}`"
+                  @click="toggle(i)"
+                >
+                  <span class="text-[1rem] font-semibold tracking-[-0.02em] sm:text-[1.08rem]">
+                    {{ item.q }}
+                  </span>
+                  <span
+                    class="mt-0.5 shrink-0 text-[1.3rem] leading-none text-violeta-texto transition-transform duration-300"
+                    :class="abierto === i ? 'rotate-45' : ''"
+                    aria-hidden="true"
+                    >+</span
+                  >
+                </button>
+              </h3>
+
+              <div
+                :id="`faq-panel-${i}`"
+                class="grid transition-all duration-300 ease-out"
+                :class="abierto === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+              >
+                <div class="overflow-hidden">
+                  <p class="max-w-[70ch] pb-6 pr-8 text-[0.97rem] leading-[1.68] text-gris">
+                    {{ item.a }}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -61,44 +64,15 @@
 
 <script setup>
 import { ref } from "vue";
+import { FAQ, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 
-const open = ref(null);
+const abierto = ref(0);
+
 function toggle(i) {
-  open.value = open.value === i ? null : i;
+  abierto.value = abierto.value === i ? -1 : i;
 }
 
-const faqs = [
-  {
-    q: "¿Cuánto cuesta la entrada?",
-    a: "Es gratis. Pero hay solo 30 marcas en la mesa y el acceso es por invitación. Tu registro queda sujeto a aprobación de los organizadores.",
-  },
-  {
-    q: "¿Cómo me anoto?",
-    a: "Apretás el botón \"Anotarme\", completás el formulario con los datos de tu marca y te avisamos por mail si quedaste seleccionado. Tarda menos de un minuto.",
-  },
-  {
-    q: "¿Quién puede asistir?",
-    a: "Dueños de cadenas, gerentes comerciales, e-commerce managers, equipos de marketing y emprendedores dentro de la industria del retail (supermercados, farmacia, indumentaria, gastronomía y afines). No participan proveedores ni competencia directa de los organizadores.",
-  },
-  {
-    q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, podés venir con todo tu equipo sin problema. Contamos por marca, no por persona: cada marca aprobada puede traer a quien necesite (gerentes, marketing, operaciones). Solo pedimos que nos digas cuántos van a venir cuando confirmes, para preparar el espacio.",
-  },
-  {
-    q: "¿Va a haber grabación?",
-    a: "Sí, es un evento producido y vamos a generar contenido del escenario y del networking. Si preferís no aparecer en cámara, avisanos al confirmar y lo coordinamos.",
-  },
-  {
-    q: "¿Por qué solo 30 marcas?",
-    a: "Porque queremos que el networking del cierre funcione de verdad. Más allá de 30 marcas, las conversaciones después del evento se diluyen y los contactos quedan superficiales.",
-  },
-  {
-    q: "¿Hay estacionamiento?",
-    a: "La sede está en el centro de Córdoba, con varias opciones de cocheras a metros. Te enviamos la guía exacta junto con la confirmación.",
-  },
-  {
-    q: "¿Voy a poder hacer preguntas y conocer a los founders?",
-    a: "Sí. Después de cada charla hay tiempo para preguntas del público y al cierre hay un debate abierto entre los tres. Y al final, networking con tragos en el que vas a poder hablar 1-a-1 con Alan, Matías y Gabriel sin filtros.",
-  },
-];
+const whatsappConsultas =
+  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
+  encodeURIComponent("Hola! Tengo una consulta sobre el evento de Deenex del 20 de septiembre.");
 </script>

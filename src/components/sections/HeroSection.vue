@@ -1,332 +1,113 @@
 <template>
-  <section
-    id="hero"
-    :class="{ 'hero-ready': ready }"
-    class="hero-section relative flex min-h-[100svh] flex-col overflow-hidden pt-32 pb-20 sm:pt-40"
-  >
-    <!-- Background -->
-    <div class="pointer-events-none absolute inset-0 z-0">
-      <div class="hero-dot-grid absolute inset-0 z-0"></div>
-      <div class="orb orb-1 absolute rounded-full bg-primary/10 blur-[120px]"></div>
-      <div class="orb orb-2 absolute rounded-full bg-violet-400/10 blur-[140px]"></div>
-      <div class="orb orb-3 absolute rounded-full bg-indigo-300/8 blur-[100px]"></div>
-    </div>
+  <section id="hero" class="border-b border-linea pt-[68px]">
+    <div class="contenedor">
+      <!-- Ficha del evento, en reglas -->
+      <dl class="pt-12 sm:pt-16">
+        <div v-for="d in FICHA" :key="d.rotulo" class="fila-rotulo pb-5">
+          <dt class="rotulo text-violeta-texto">{{ d.rotulo }}</dt>
+          <dd class="text-[0.95rem] text-tinta">{{ d.valor }}</dd>
+        </div>
+      </dl>
 
-    <div
-      class="relative z-10 mx-auto flex w-full max-w-[1240px] flex-1 flex-col px-6 sm:px-8"
-    >
-      <!-- FOMO pills -->
-      <div
-        :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mb-7 flex flex-wrap items-center justify-center gap-2.5"
-        style="animation-delay: 0.05s"
-      >
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 backdrop-blur-sm px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-semibold tracking-wide text-slate-600"
-        >
-          Córdoba · Argentina
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 backdrop-blur-sm px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-semibold tracking-wide text-slate-600"
-        >
-          Sábado 16.05.2026 · 17 hs
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-bold tracking-wide text-primary"
-        >
-          Solo 30 marcas
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-bold tracking-wide text-emerald-700"
-        >
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-          100% Gratis
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 sm:px-3.5 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.72rem] font-bold tracking-wide text-rose-500"
-        >
-          <span class="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-          Cupos disponibles
-        </span>
-      </div>
-
-      <!-- Headline -->
-      <h1
-        :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="text-center font-heading text-[clamp(2rem,5.2vw,4.2rem)] leading-[1.08] tracking-tighter text-slate-900 max-w-5xl mx-auto"
-        style="animation-delay: 0.15s"
-      >
-        <span class="block font-extrabold">
-          Cómo
-          <em class="font-light italic text-primary">vender</em>,
-          <em class="font-light italic text-primary">mover</em>
-        </span>
-        <span class="block font-extrabold">
-          y hacer <em class="font-light italic text-primary">crecer</em>.
-        </span>
-        <span
-          class="block mt-6 text-[clamp(1rem,1.6vw,1.5rem)] font-medium leading-snug text-slate-500 tracking-tight"
-        >
-          Tu cadena gastronómica en 2026.
-        </span>
+      <!-- Titular -->
+      <h1 class="titular mt-14 max-w-[16ch] text-[clamp(2.5rem,6.6vw,5.6rem)]">
+        El evento de gastronomía <span class="text-violeta-texto">y tecnología</span>.
       </h1>
 
-      <!-- Sub -->
-      <p
-        :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mx-auto mt-7 max-w-[640px] text-center text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-slate-500"
-        style="animation-delay: 0.28s"
-      >
-        Tres founders argentinos del nuevo retail
-        <span class="font-semibold text-slate-900">en un mismo escenario</span>.
-        Sábado 16 de mayo, centro de Córdoba.
-      </p>
+      <!-- Bajada + acción -->
+      <div class="mt-12 grid gap-10 border-t border-linea pt-8 lg:grid-cols-12 lg:gap-8">
+        <p class="text-[1.05rem] leading-[1.65] text-gris lg:col-span-6 lg:col-start-1">
+          Un día entero de charlas, demos en vivo y networking para dueños de marcas gastronómicas y
+          restaurantes. Seis bloques sobre lo que ya está cambiando el negocio: datos, inteligencia
+          artificial, sistemas POS, contenido y ecosistema.
+        </p>
 
-      <!-- CTAs -->
-      <div
-        :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mt-9 flex items-center justify-center gap-3 sm:gap-4"
-        style="animation-delay: 0.4s"
-      >
-        <a
-          :href="signupWhatsapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary group inline-flex items-center gap-2 bg-primary text-white font-semibold rounded-xl px-5 py-3 sm:px-6 sm:py-3.5 text-[0.9rem] sm:text-[0.95rem] transition-all hover:bg-[#5346c7] shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 relative overflow-hidden"
-        >
-          <span class="btn-shimmer"></span>
-          Anotarme
-          <span
-            class="inline-flex items-center justify-center w-5 h-5 rounded-lg bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5"
-          >
-            <svg width="10" height="10" viewBox="0 0 13 13" fill="none">
-              <path
-                d="M2 6.5h9M7.5 3l3.5 3.5L7.5 10"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        </a>
-
-        <a
-          href="#speakers"
-          class="group inline-flex items-center gap-2 px-3 py-3 sm:px-4 sm:py-3.5 text-[0.9rem] sm:text-[0.95rem] font-semibold text-slate-600 hover:text-primary transition-colors"
-        >
-          Conocer a los founders
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 13 13"
-            fill="none"
-            class="transition-transform duration-300 group-hover:translate-x-0.5"
-          >
-            <path
-              d="M2 6.5h9M7.5 3l3.5 3.5L7.5 10"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </a>
-      </div>
-
-      <!-- Scarcity meter -->
-      <div
-        :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mx-auto mt-12 w-full max-w-[460px]"
-        style="animation-delay: 0.5s"
-      >
-        <div
-          class="flex items-center justify-between mb-2.5 font-mono text-[0.68rem] uppercase tracking-[0.14em]"
-        >
-          <span class="text-slate-400">Marcas inscriptas</span>
-          <span class="text-primary font-bold">{{ occupied }} / 30</span>
-        </div>
-        <div class="h-1 bg-slate-200 rounded-full overflow-hidden">
-          <div class="scarcity-fill h-full bg-gradient-to-r from-primary to-violet-400 rounded-full"></div>
+        <div class="lg:col-span-4 lg:col-start-9">
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="#registro" class="btn" @click.prevent="ir('registro')">
+              Reservar mi lugar
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="M2 8h11M9 3.5L13.5 8 9 12.5"
+                  stroke="currentColor"
+                  stroke-width="1.9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <a href="#temas" class="btn-linea" @click.prevent="ir('temas')">Ver el programa</a>
+          </div>
+          <p class="mt-4 text-[0.85rem] text-gris">
+            Entrada gratuita · Registro previo obligatorio
+          </p>
         </div>
       </div>
 
-      <!-- Stats -->
-      <div
-        :class="{ 'animate-rise': ready, 'opacity-0': !ready }"
-        class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-4 pt-10 border-t border-slate-200/70"
-        style="animation-delay: 0.6s"
-        ref="statsRef"
-      >
-        <div
-          v-for="(stat, i) in stats"
-          :key="i"
-          class="text-center"
-          :class="{ 'stat-active': hasAnimated }"
-        >
+      <!-- Cupo -->
+      <div class="mt-12 border-t border-linea pt-6">
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="rotulo text-gris">Ocupación de la sala</p>
+          <p class="text-[0.85rem] font-medium text-gris">
+            <span class="text-[1.05rem] font-semibold text-tinta">{{ ocupados }}</span> de
+            {{ total }} lugares tomados
+          </p>
+        </div>
+        <div class="mt-3 h-[3px] w-full bg-linea">
           <div
-            class="font-heading font-black text-primary text-[clamp(2rem,4vw,2.8rem)] leading-none tracking-tighter mb-1.5"
-          >
-            <span v-if="stat.prefix" class="text-[0.65em] opacity-75">{{ stat.prefix }}</span>
-            <span class="tabular-nums">{{ displayValues[i] }}</span>
-            <span v-if="stat.suffix" class="text-[0.65em] opacity-75">{{ stat.suffix }}</span>
-          </div>
-          <div class="text-[0.7rem] uppercase tracking-[0.14em] text-slate-500 font-bold">
-            {{ stat.label }}
-          </div>
+            class="h-full transition-[width] duration-[1200ms] ease-out"
+            :class="critico ? 'bg-[#C2410C]' : 'bg-violeta'"
+            :style="{ width: ancho + '%' }"
+          ></div>
         </div>
       </div>
+
+      <!-- Datos duros -->
+      <dl class="mt-12 grid grid-cols-2 border-t border-linea pb-16 sm:pb-20 lg:grid-cols-4">
+        <div
+          v-for="(d, i) in DATOS"
+          :key="d.label"
+          class="border-linea py-8 pr-6"
+          :class="[i % 2 === 1 ? 'border-l pl-6 lg:border-l' : '', i === 2 ? 'lg:border-l lg:pl-6' : '', i < 2 ? 'border-b lg:border-b-0' : '']"
+        >
+          <dd class="titular text-[clamp(1.9rem,3.6vw,2.7rem)] text-violeta-texto">{{ d.valor }}</dd>
+          <dt class="rotulo mt-2.5 text-gris">{{ d.label }}</dt>
+        </div>
+      </dl>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
+import { EVENTO } from "@/data/evento";
+import { useCupo } from "@/composables/useCupo";
 
-const ready = ref(false);
-const statsRef = ref(null);
-const hasAnimated = ref(false);
-const occupied = ref(18); // PLACEHOLDER: actualizar manualmente
+const { total, ocupados, porcentaje, critico } = useCupo();
 
-// WhatsApp Alan Tapia (organizador) — single funnel for signups
-const signupWhatsapp =
-  "https://wa.me/5491154596266?text=" +
-  encodeURIComponent(
-    "Hola Alan! Quiero anotarme al evento del 16 de mayo en Córdoba. Mi nombre es ____ y mi marca es ____."
-  );
+const ancho = ref(0);
+const objetivo = computed(() => Math.max(porcentaje.value, 2));
 
-const stats = [
-  { prefix: "+", value: 1500, suffix: "", label: "Marcas trabajadas" },
-  { prefix: "+", value: 1, suffix: "M", label: "Envíos / mes" },
-  { prefix: "", value: 3, suffix: "", label: "CEOs fundadores" },
-  { prefix: "", value: 100, suffix: "%", label: "Decisores en la mesa" },
+const FICHA = [
+  { rotulo: "Fecha", valor: `${EVENTO.fechaLarga} · ${EVENTO.horario}` },
+  { rotulo: "Lugar", valor: `${EVENTO.venue}, ${EVENTO.direccion} · Córdoba` },
+  { rotulo: "Para quién", valor: "Dueños de marcas gastronómicas y de restaurantes" },
 ];
 
-const displayValues = reactive(stats.map(() => 0));
+// Voces confirmadas: Alan, CEO de Bistrosoft, orador de UGC y los dos de Avanzia.
+const DATOS = [
+  { valor: "6", label: "Bloques de charla" },
+  { valor: "5+", label: "Voces en escenario" },
+  { valor: "9h", label: "De jornada" },
+  { valor: "200", label: "Lugares, no más" },
+];
 
-function animateCounter(index, target, duration = 1800) {
-  const startTime = performance.now();
-  function step(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-    const value = Math.round(target * eased);
-    displayValues[index] = value >= 1000 ? value.toLocaleString("es-AR") : String(value);
-    if (progress < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+function ir(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 
-let observer = null;
-
-onMounted(() => {
-  setTimeout(() => {
-    ready.value = true;
-  }, 200);
-
-  observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting && !hasAnimated.value) {
-        hasAnimated.value = true;
-        stats.forEach((stat, i) => {
-          setTimeout(() => animateCounter(i, stat.value), i * 120);
-        });
-        observer.disconnect();
-      }
-    },
-    { threshold: 0.3 }
-  );
-  if (statsRef.value) observer.observe(statsRef.value);
-});
-
-onUnmounted(() => {
-  if (observer) observer.disconnect();
+onMounted(() => setTimeout(() => (ancho.value = objetivo.value), 400));
+watch(objetivo, (v) => {
+  if (ancho.value > 0) ancho.value = v;
 });
 </script>
-
-<style scoped>
-.hero-section {
-  background: #f8f9fb;
-}
-
-.hero-dot-grid {
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 100%);
-}
-
-.orb {
-  position: absolute;
-}
-.orb-1 {
-  width: 600px;
-  height: 600px;
-  left: -8%;
-  top: -5%;
-  animation: orbDrift 20s ease-in-out infinite alternate;
-}
-.orb-2 {
-  width: 700px;
-  height: 700px;
-  right: -12%;
-  top: 20%;
-  animation: orbDrift 25s ease-in-out 3s infinite alternate-reverse;
-}
-.orb-3 {
-  width: 400px;
-  height: 400px;
-  left: 30%;
-  bottom: 10%;
-  animation: orbDrift 18s ease-in-out 5s infinite alternate;
-}
-
-@keyframes orbDrift {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(30px, -20px) scale(1.05); }
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.98);
-    filter: blur(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-.animate-rise {
-  animation: rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.scarcity-fill {
-  width: 0;
-  animation: fillBar 2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards;
-}
-@keyframes fillBar {
-  to { width: 60%; }
-}
-
-.btn-primary {
-  isolation: isolate;
-}
-.btn-shimmer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.2) 50%,
-    transparent 60%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 3s ease-in-out infinite;
-}
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-</style>

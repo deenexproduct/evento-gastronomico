@@ -1,44 +1,44 @@
 <template>
-  <section id="manifesto" class="py-32 sm:py-40 px-6 sm:px-12 bg-white border-y border-slate-100">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-20 items-start">
-        <div>
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-4"
-          >
-            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-            El cruce
-          </div>
-          <h2
-            class="font-heading text-[clamp(1.8rem,3.6vw,2.6rem)] font-extrabold tracking-tighter leading-[1.05] text-slate-900"
-          >
-            Por qué <span class="text-primary italic font-light">este evento</span>.
-          </h2>
+  <section id="por-que" class="border-b border-linea py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">Por qué ahora</p>
         </div>
 
-        <div class="space-y-6 font-heading text-[clamp(1.15rem,1.8vw,1.5rem)] leading-[1.45] text-slate-700 font-light">
-          <p>
-            El retail argentino se juega hoy en
-            <span class="text-primary italic font-medium">tres canchas</span>: la venta
-            directa, la logística y las plataformas.
-          </p>
-          <p>
-            Hasta ahora, cada cadena las jugaba por separado.
-            <span class="text-primary italic font-medium">Ya no.</span>
-          </p>
-          <p>
-            Por primera vez, los founders detrás de Deenex, Puni y Pimentón comparten
-            escenario en el corazón de Córdoba para contar qué está pasando — y qué
-            viene.
-          </p>
-          <p class="text-slate-500 text-[clamp(1rem,1.4vw,1.2rem)] pt-2">
-            Tres founders, tres charlas, un debate y networking de cierre. 30 marcas
-            curadas en la sala. Datos concretos, no humo.
-          </p>
+        <div class="lg:col-span-5">
+          <h2 class="titular max-w-[20ch] text-[clamp(1.9rem,3.8vw,3rem)]">
+            El mercado se puso difícil. Los que salgan adelante no son los que aguanten.
+          </h2>
+          <div class="mt-8 space-y-5 text-[1rem] leading-[1.7] text-gris">
+            <p>
+              Se abrió una brecha entre los locales que ordenaron su tecnología y los que siguen
+              decidiendo de memoria. No es una brecha de tamaño ni de plata: es de información. El
+              que sabe qué pasa adentro de su negocio se mueve antes.
+            </p>
+            <p>
+              El 20 de septiembre juntamos en una sala a los que ya cruzaron esa brecha para que
+              cuenten cómo lo hicieron. Un día, todo junto, sin tener que salir a buscarlo por
+              separado.
+            </p>
+          </div>
         </div>
+
+        <blockquote class="border-t border-linea pt-7 lg:col-span-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <p class="titular text-[clamp(1.2rem,2.2vw,1.6rem)] leading-[1.25]">
+            “Me cansé de ver dueños tomando decisiones de tecnología
+            <span class="text-violeta-texto">a ciegas</span>. Armé el evento que me hubiera servido
+            tener.”
+          </p>
+          <footer class="mt-6 border-t border-linea pt-5">
+            <p class="rotulo text-violeta-texto">Alan Tapia</p>
+            <p class="mt-2 text-[0.9rem] leading-[1.6] text-gris">
+              Founder &amp; CEO de Deenex, plataforma omnicanal para cadenas de foodservice y
+              gastronomía. Más de 350 marcas trabajan con ella hoy.
+            </p>
+          </footer>
+        </blockquote>
       </div>
     </div>
   </section>
 </template>
-
-<script setup></script>

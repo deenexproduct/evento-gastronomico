@@ -1,101 +1,106 @@
 <template>
-  <section id="agenda" class="py-32 sm:py-40 px-6 sm:px-12 overflow-hidden">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
-        <div>
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-4"
-          >
-            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-            Cómo se va a desarrollar
-          </div>
-          <h2
-            class="font-heading text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold tracking-tighter leading-[1.05] text-slate-900"
-          >
-            La <span class="text-primary italic font-light">jornada</span>.
-          </h2>
+  <section id="jornada" class="border-b border-linea bg-papel-2 py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-8 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">La jornada</p>
         </div>
-        <div class="hidden lg:block max-w-[280px] text-right relative lg:ml-auto">
-          <div class="absolute -left-10 top-0 bottom-0 w-px bg-slate-200/60"></div>
-          <p class="text-slate-400 text-sm leading-relaxed pr-2">
-            "Tres horas y media de conversación continua. Sin coffee break formal."
+        <div class="lg:col-span-9">
+          <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
+            Entrás cuando podés, te quedás lo que te sirve.
+          </h2>
+          <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
+            Nueve horas de punta a punta, sin butaca asignada ni almuerzo servido: rondas de
+            degustación entre bloques, stands abiertos todo el día y networking de cierre.
           </p>
         </div>
       </div>
 
-      <div class="border-t border-slate-200">
-        <div
-          v-for="(block, i) in blocks"
+      <!-- Grilla con horarios, cuando esté cerrada -->
+      <ol v-if="AGENDA_PUBLICA" class="mt-14 border-t border-linea">
+        <li
+          v-for="(item, i) in AGENDA"
           :key="i"
-          class="agenda-row group grid grid-cols-[80px_1fr_auto] sm:grid-cols-[140px_1fr_auto] gap-4 sm:gap-8 py-6 sm:py-7 border-b border-slate-200 transition-all duration-300 hover:bg-primary/[0.03] hover:px-3 cursor-default"
+          class="grid gap-x-8 gap-y-2 border-b border-linea py-6 lg:grid-cols-12"
+          :class="item.tipo === 'destacado' ? 'bg-violeta-tinte/60' : ''"
         >
-          <div class="font-mono text-[0.85rem] sm:text-[0.95rem] text-primary font-bold tracking-wide pt-1">
-            {{ block.time }}
+          <div class="lg:col-span-2">
+            <p class="text-[0.95rem] font-semibold tabular-nums">{{ item.hora }}</p>
+            <p class="rotulo mt-1 text-gris">{{ item.dur }}</p>
           </div>
-          <div>
-            <h3
-              class="font-heading text-[clamp(1.05rem,1.7vw,1.4rem)] font-extrabold tracking-tight text-slate-900 leading-snug"
-            >
-              <span v-if="block.bold" class="text-primary italic font-light">{{ block.bold }} </span>{{ block.title }}
-            </h3>
-            <p class="text-[0.85rem] text-slate-500 mt-1 leading-relaxed">
-              {{ block.note }}
+          <div class="lg:col-span-10">
+            <p v-if="item.quien" class="rotulo text-violeta-texto">{{ item.quien }}</p>
+            <h3 class="titular mt-1 text-[1.15rem]">{{ item.titulo }}</h3>
+            <p v-if="item.detalle" class="mt-1.5 max-w-[58ch] text-[0.93rem] leading-[1.6] text-gris">
+              {{ item.detalle }}
             </p>
           </div>
-          <div
-            class="hidden sm:flex items-start font-mono text-[0.7rem] uppercase tracking-[0.14em] text-slate-400 pt-2"
-          >
-            {{ block.duration }}
-          </div>
+        </li>
+      </ol>
+
+      <!-- Línea de tiempo del día, mientras el orden no se cierra -->
+      <ol v-else class="relative mt-14 pl-8 sm:pl-10">
+        <span class="absolute left-[5px] top-3 bottom-3 w-px bg-linea" aria-hidden="true"></span>
+
+        <li v-for="(b, i) in AGENDA_BLOQUES" :key="b.franja" class="relative pb-11 last:pb-0">
+          <span
+            class="absolute -left-8 top-1.5 h-[11px] w-[11px] rounded-full border-2 sm:-left-10"
+            :class="i < 2 ? 'border-violeta bg-violeta' : 'border-violeta bg-white'"
+            aria-hidden="true"
+          ></span>
+
+          <p class="rotulo text-violeta-texto">{{ b.franja }}</p>
+          <h3 class="titular mt-2 text-[clamp(1.2rem,2.2vw,1.6rem)]">{{ b.titulo }}</h3>
+          <ul class="mt-3 space-y-1.5">
+            <li
+              v-for="(item, j) in b.items"
+              :key="j"
+              class="max-w-[56ch] text-[0.95rem] leading-[1.6] text-gris"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <p
+        v-if="!AGENDA_PUBLICA"
+        class="mt-10 max-w-[62ch] border-t border-linea pt-6 text-[0.93rem] leading-[1.6] text-gris"
+      >
+        <span class="font-semibold text-tinta">La grilla con horarios se publica cuando esté cerrada.</span>
+        Se están sumando más voces al escenario, así que el orden todavía se mueve. Los que estén
+        registrados la reciben primero.
+      </p>
+
+      <dl class="mt-12 grid gap-x-8 border-t border-linea sm:grid-cols-3">
+        <div v-for="(d, i) in DETALLES" :key="d.titulo" class="border-linea py-8" :class="i > 0 ? 'sm:border-l sm:pl-8' : ''">
+          <dd class="titular text-[clamp(1.6rem,3vw,2.2rem)] text-violeta-texto">{{ d.numero }}</dd>
+          <dt class="rotulo mt-2.5">{{ d.titulo }}</dt>
+          <p class="mt-2 text-[0.92rem] leading-[1.6] text-gris">{{ d.texto }}</p>
         </div>
-      </div>
+      </dl>
     </div>
   </section>
 </template>
 
 <script setup>
-const blocks = [
+import { AGENDA, AGENDA_BLOQUES, AGENDA_PUBLICA } from "@/data/evento";
+
+const DETALLES = [
   {
-    time: "17:00",
-    bold: "",
-    title: "Acreditación & bienvenida",
-    note: "Llegada, café y primer contacto entre los 30 invitados.",
-    duration: "20 min",
+    numero: "4+1",
+    titulo: "Rondas de degustación",
+    texto: "Entre charla y charla, más una ronda larga al mediodía. Proveedores confirmados.",
   },
   {
-    time: "17:20",
-    bold: "01 / Vender —",
-    title: "Alan Tapia (Deenex)",
-    note: "Contexto económico, innovación y canal propio.",
-    duration: "30 min",
+    numero: "45'",
+    titulo: "Por bloque de charla",
+    texto: "Tiempo real para desarrollar un tema, no una ronda de presentaciones.",
   },
   {
-    time: "17:50",
-    bold: "02 / Mover —",
-    title: "Matías Yoma (Puni)",
-    note: "Logística, última milla y la cadena cordobesa.",
-    duration: "30 min",
-  },
-  {
-    time: "18:20",
-    bold: "03 / Crecer —",
-    title: "Gabriel Chayle (Pimentón)",
-    note: "El juego adentro de las apps de delivery.",
-    duration: "30 min",
-  },
-  {
-    time: "18:50",
-    bold: "",
-    title: "Debate abierto entre los tres",
-    note: "Se tocan todos los temas. Sin filtros, sin moderador.",
-    duration: "45 min",
-  },
-  {
-    time: "19:35",
-    bold: "",
-    title: "Networking",
-    note: "Tragos, charlas y cierre.",
-    duration: "hasta cierre",
+    numero: "18h",
+    titulo: "Networking de cierre",
+    texto: "Vino, cerveza y café con todos los que estuvieron en la sala.",
   },
 ];
 </script>
