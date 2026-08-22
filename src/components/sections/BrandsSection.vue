@@ -1,67 +1,66 @@
 <template>
-  <section id="partners" class="bg-hueso text-ink">
-    <div class="px-5 py-16 sm:px-8 sm:py-20">
-      <p class="kicker opacity-50">Partners</p>
-      <h2 class="titular mt-6 max-w-[12ch] text-[clamp(2.4rem,8vw,6rem)]">
-        Los que ya están <span class="text-fuego-tinta">adentro.</span>
-      </h2>
-      <p class="mt-8 max-w-[52ch] text-[1.02rem] leading-[1.6] text-ink/65">
-        Cada partner llega con un beneficio exclusivo para los que estén en la sala ese día. La
-        lista sigue abierta: se anuncian a medida que se cierran.
-      </p>
-    </div>
-
-    <div class="grid gap-[3px] border-t-[3px] border-ink bg-ink md:grid-cols-3">
-      <article v-for="p in PARTNERS" :key="p.nombre" class="flex flex-col justify-between bg-hueso p-8 sm:p-9">
-        <div>
-          <span class="inline-block bg-ink px-3 py-1.5 text-[0.62rem] font-black uppercase tracking-[0.16em] text-lima">
-            {{ p.tipo }}
-          </span>
-          <h3 class="titular mt-6 text-[clamp(1.7rem,3.6vw,2.4rem)]">{{ p.nombre }}</h3>
+  <section id="partners" class="border-b border-linea py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-8 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">Partners</p>
         </div>
-        <p class="mt-6 text-[0.95rem] leading-[1.6] text-ink/65">{{ p.aporte }}</p>
-      </article>
-    </div>
-
-    <!-- Slot abierto -->
-    <div
-      class="flex flex-col gap-6 border-t-[3px] border-ink bg-ink p-8 text-white sm:flex-row sm:items-center sm:justify-between sm:p-10"
-    >
-      <div>
-        <h3 class="titular text-[clamp(1.4rem,3vw,2rem)]">Hay más partners en camino.</h3>
-        <p class="mt-2.5 max-w-[54ch] text-[0.95rem] leading-[1.55] text-white/60">
-          Stands, activaciones y beneficios que se suman semana a semana. ¿Querés que tu marca esté
-          en la sala?
-        </p>
-      </div>
-      <a
-        :href="whatsappPartners"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-cartel shrink-0 self-start text-[0.85rem]"
-      >
-        Quiero ser partner
-      </a>
-    </div>
-
-    <!-- Prueba social -->
-    <div class="border-t-[3px] border-ink bg-hueso px-5 py-14 sm:px-8">
-      <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-        <span class="titular text-[clamp(2.6rem,6vw,4rem)] text-fuego-tinta">+350</span>
-        <p class="kicker max-w-[36ch] leading-[1.5] opacity-60">
-          marcas ya trabajan con Deenex.<br />Estas son algunas.
-        </p>
+        <div class="lg:col-span-9">
+          <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">
+            Los que ya están adentro.
+          </h2>
+          <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
+            Cada partner llega con un beneficio exclusivo para los que estén en la sala ese día. La
+            lista sigue abierta: se anuncian a medida que se cierran.
+          </p>
+        </div>
       </div>
 
-      <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-8 sm:gap-x-14">
-        <img
-          v-for="logo in logos"
-          :key="logo.src"
-          :src="logo.src"
-          :alt="logo.alt"
-          class="h-8 w-auto max-w-[130px] object-contain opacity-40 grayscale transition-all duration-200 hover:opacity-100 hover:grayscale-0 sm:h-10"
-          loading="lazy"
-        />
+      <div class="mt-14 grid gap-x-8 border-t border-linea md:grid-cols-3">
+        <article
+          v-for="(p, i) in PARTNERS"
+          :key="p.nombre"
+          class="border-linea py-9"
+          :class="i > 0 ? 'md:border-l md:pl-8' : ''"
+        >
+          <p class="rotulo text-violeta-texto">{{ p.tipo }}</p>
+          <h3 class="titular mt-4 text-[1.35rem]">{{ p.nombre }}</h3>
+          <p class="mt-3 max-w-[38ch] text-[0.93rem] leading-[1.62] text-gris">{{ p.aporte }}</p>
+        </article>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-6 border-t border-linea py-8">
+        <div>
+          <h3 class="titular text-[1.2rem]">Hay más partners en camino.</h3>
+          <p class="mt-2 max-w-[54ch] text-[0.93rem] leading-[1.6] text-gris">
+            Stands, activaciones y beneficios que se suman semana a semana. ¿Querés que tu marca
+            esté en la sala?
+          </p>
+        </div>
+        <a :href="whatsappPartners" target="_blank" rel="noopener noreferrer" class="btn-linea shrink-0">
+          Quiero ser partner
+        </a>
+      </div>
+
+      <!-- Prueba social -->
+      <div class="border-t border-linea pt-12">
+        <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <span class="titular text-[clamp(2rem,4vw,3rem)] text-violeta-texto">+350</span>
+          <p class="max-w-[40ch] text-[0.97rem] leading-[1.6] text-gris">
+            marcas ya trabajan con Deenex. Estas son algunas.
+          </p>
+        </div>
+
+        <div class="mt-10 flex flex-wrap items-center gap-x-12 gap-y-9">
+          <img
+            v-for="logo in logos"
+            :key="logo.src"
+            :src="logo.src"
+            :alt="logo.alt"
+            class="h-7 w-auto max-w-[120px] object-contain opacity-55 grayscale transition-all duration-200 hover:opacity-100 hover:grayscale-0 sm:h-9"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   </section>

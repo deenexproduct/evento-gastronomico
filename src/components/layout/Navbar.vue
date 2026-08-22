@@ -1,31 +1,39 @@
 <template>
-  <header class="fixed inset-x-0 top-0 z-[100]">
-    <!-- Franja de datos -->
-    <div
-      class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b-[3px] border-ink bg-lima px-4 py-2 text-ink sm:px-6"
-    >
-      <a href="#hero" class="kicker inline-flex min-h-[40px] shrink-0 items-center" @click.prevent="arriba">El evento de Deenex</a>
-      <span class="kicker hidden sm:inline">{{ EVENTO.fechaCorta }} · Córdoba</span>
-      <span class="kicker hidden lg:inline">{{ EVENTO.venue }}</span>
-      <span class="kicker tabular-nums">{{ cuenta }}</span>
-    </div>
+  <header
+    class="fixed inset-x-0 top-0 z-[100] border-b transition-colors duration-300"
+    :class="scrolled ? 'border-linea bg-white/90 backdrop-blur-md' : 'border-transparent bg-white'"
+  >
+    <div class="contenedor">
+      <div class="flex items-center justify-between gap-6 py-3.5">
+        <a href="#hero" class="flex min-w-0 items-baseline gap-3" @click.prevent="arriba">
+          <span class="text-[0.95rem] font-semibold tracking-[-0.02em]">El evento de Deenex</span>
+          <span class="rotulo hidden text-gris sm:inline">{{ EVENTO.fechaNumerica }} · Córdoba</span>
+        </a>
 
-    <!-- Barra de acción -->
-    <div
-      class="flex items-center justify-between gap-4 border-b-[3px] border-ink bg-ink px-4 py-2.5 transition-colors sm:px-6"
-    >
-      <p class="kicker truncate text-white/55">
-        <span :class="critico ? 'text-fuego-luz' : 'text-lima'">●</span>
-        {{ agotado ? "Cupo completo" : `Quedan ${restantes} de ${total} lugares` }}
-      </p>
+        <nav class="hidden items-center gap-7 lg:flex" aria-label="Secciones">
+          <a
+            v-for="l in enlaces"
+            :key="l.id"
+            :href="`#${l.id}`"
+            class="text-[0.85rem] font-medium text-gris transition-colors hover:text-tinta"
+            @click.prevent="ir(l.id)"
+            >{{ l.label }}</a
+          >
+        </nav>
 
-      <a
-        href="#registro"
-        class="flex min-h-[44px] shrink-0 items-center bg-lima px-4 text-[0.72rem] font-black uppercase tracking-[-0.01em] text-ink transition-transform duration-150 hover:-translate-y-0.5 sm:px-5 sm:text-[0.8rem]"
-        @click.prevent="ir('registro')"
-      >
-        Reservar mi lugar
-      </a>
+        <div class="flex items-center gap-5">
+          <span class="rotulo hidden text-gris md:inline">
+            {{ agotado ? "Cupo completo" : `${restantes} lugares` }}
+          </span>
+          <a
+            href="#registro"
+            class="bg-violeta px-5 py-2.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#5348C9]"
+            @click.prevent="ir('registro')"
+          >
+            Reservar
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 </template>
@@ -35,23 +43,20 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, restantes, agotado, critico } = useCupo();
+const { restantes, agotado } = useCupo();
+const scrolled = ref(false);
 
-const objetivo = new Date(EVENTO.fechaISO).getTime();
-const cuenta = ref("--");
+const enlaces = [
+  { id: "temas", label: "Programa" },
+  { id: "speakers", label: "Oradores" },
+  { id: "jornada", label: "La jornada" },
+  { id: "lugar", label: "Lugar" },
+  { id: "faq", label: "Preguntas" },
+];
 
-function tick() {
-  const diff = objetivo - Date.now();
-  if (diff <= 0) {
-    cuenta.value = "Es hoy";
-    return;
-  }
-  const dias = Math.floor(diff / 86400000);
-  const hs = Math.floor((diff / 3600000) % 24);
-  const min = Math.floor((diff / 60000) % 60);
-  cuenta.value = `Faltan ${dias}d ${String(hs).padStart(2, "0")}h ${String(min).padStart(2, "0")}m`;
+function onScroll() {
+  scrolled.value = window.scrollY > 24;
 }
-
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
@@ -59,10 +64,9 @@ function arriba() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-let interval = null;
 onMounted(() => {
-  tick();
-  interval = setInterval(tick, 30000);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 });
-onUnmounted(() => clearInterval(interval));
+onUnmounted(() => window.removeEventListener("scroll", onScroll));
 </script>

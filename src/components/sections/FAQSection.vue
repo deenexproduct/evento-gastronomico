@@ -1,54 +1,63 @@
 <template>
-  <section id="faq" class="bg-hueso text-ink">
-    <div class="px-5 py-16 sm:px-8 sm:py-20">
-      <p class="kicker opacity-50">Preguntas</p>
-      <h2 class="titular mt-6 max-w-[13ch] text-[clamp(2.4rem,8vw,6rem)]">
-        Lo que siempre <span class="text-fuego-tinta">nos preguntan.</span>
-      </h2>
-    </div>
-
-    <div class="border-t-[3px] border-ink">
-      <div v-for="(item, i) in FAQ" :key="i" class="border-b-[3px] border-ink">
-        <button
-          type="button"
-          class="flex w-full items-start justify-between gap-6 px-5 py-6 text-left transition-colors sm:px-8"
-          :class="abierto === i ? 'bg-lima' : 'hover:bg-ink/[0.04]'"
-          :aria-expanded="abierto === i"
-          :aria-controls="`faq-panel-${i}`"
-          @click="toggle(i)"
-        >
-          <span class="titular text-[clamp(1.05rem,2.6vw,1.7rem)]">{{ item.q }}</span>
-          <span
-            class="mt-1 shrink-0 text-[1.5rem] leading-none transition-transform duration-300"
-            :class="abierto === i ? 'rotate-45' : ''"
-            >+</span
+  <section id="faq" class="border-b border-linea py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">Preguntas</p>
+          <h2 class="titular mt-5 max-w-[14ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
+            Lo que siempre nos preguntan.
+          </h2>
+          <p class="mt-6 text-[0.95rem] leading-[1.6] text-gris">
+            ¿Te quedó algo afuera? Escribinos y te lo respondemos.
+          </p>
+          <a
+            :href="whatsappConsultas"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-block text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
           >
-        </button>
+            Preguntar por WhatsApp
+          </a>
+        </div>
 
-        <div
-          :id="`faq-panel-${i}`"
-          class="grid transition-all duration-300 ease-out"
-          :class="abierto === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
-        >
-          <div class="overflow-hidden">
-            <p class="max-w-[70ch] px-5 pb-7 text-[1rem] leading-[1.65] text-ink/70 sm:px-8">
-              {{ item.a }}
-            </p>
+        <div class="lg:col-span-9">
+          <div class="border-t border-linea">
+            <div v-for="(item, i) in FAQ" :key="i" class="border-b border-linea">
+              <h3>
+                <button
+                  type="button"
+                  class="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors hover:text-violeta-texto"
+                  :aria-expanded="abierto === i"
+                  :aria-controls="`faq-panel-${i}`"
+                  @click="toggle(i)"
+                >
+                  <span class="text-[1rem] font-semibold tracking-[-0.02em] sm:text-[1.08rem]">
+                    {{ item.q }}
+                  </span>
+                  <span
+                    class="mt-0.5 shrink-0 text-[1.3rem] leading-none text-violeta-texto transition-transform duration-300"
+                    :class="abierto === i ? 'rotate-45' : ''"
+                    aria-hidden="true"
+                    >+</span
+                  >
+                </button>
+              </h3>
+
+              <div
+                :id="`faq-panel-${i}`"
+                class="grid transition-all duration-300 ease-out"
+                :class="abierto === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+              >
+                <div class="overflow-hidden">
+                  <p class="max-w-[70ch] pb-6 pr-8 text-[0.97rem] leading-[1.68] text-gris">
+                    {{ item.a }}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="flex flex-col gap-5 px-5 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-      <p class="text-[1rem] font-semibold">¿Te quedó algo afuera? Escribinos.</p>
-      <a
-        :href="whatsappConsultas"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="kicker inline-flex min-h-[44px] shrink-0 items-center border-b-2 border-fuego-tinta text-fuego-tinta"
-      >
-        Preguntar por WhatsApp →
-      </a>
     </div>
   </section>
 </template>

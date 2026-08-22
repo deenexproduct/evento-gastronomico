@@ -1,12 +1,12 @@
 <template>
   <!-- pb: deja aire para que la barra fija no tape el pie -->
-  <div class="bg-ink pb-[76px]">
+  <div class="pb-[76px]">
     <a href="#contenido" class="saltar">Saltar al contenido</a>
     <Navbar />
+
     <main id="contenido">
-      <!-- ATENCIÓN: qué es y para quién -->
+      <!-- ATENCIÓN: qué es, cuándo y para quién -->
       <HeroSection />
-      <Marquesina :items="MARQUESINA_1" />
 
       <!-- INTERÉS: de qué se habla, quién lo dice, dónde pasa -->
       <TemasSection class="v-reveal" />
@@ -27,11 +27,11 @@
       <ParaQuienSection class="v-reveal" />
       <BrandsSection class="v-reveal" />
       <EntradaLlaveSection class="v-reveal" />
-      <Marquesina :items="MARQUESINA_2" oscuro rapida />
       <LocationSection class="v-reveal" />
       <FAQSection class="v-reveal" />
       <FinalCTASection class="v-reveal" />
     </main>
+
     <Footer />
     <BarraFija />
   </div>
@@ -42,7 +42,6 @@ import { onMounted, onUnmounted } from "vue";
 import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 import BarraFija from "@/components/layout/BarraFija.vue";
-import Marquesina from "@/components/ui/Marquesina.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import TemasSection from "@/components/sections/TemasSection.vue";
 import SpeakersSection from "@/components/sections/SpeakersSection.vue";
@@ -60,24 +59,6 @@ import LocationSection from "@/components/sections/LocationSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
 import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
-const MARQUESINA_1 = [
-  "Gastronomía",
-  "Tecnología",
-  "Datos e IA",
-  "Sistemas POS",
-  "Contenido",
-  "Ecosistema",
-  "Córdoba 20.09",
-];
-
-const MARQUESINA_2 = [
-  "200 dueños en una sala",
-  "Seis bloques",
-  "Demos en vivo",
-  "Degustación entre charlas",
-  "Entrada gratuita",
-];
-
 let observer = null;
 
 onMounted(() => {
@@ -90,7 +71,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: 0.06, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
   );
 
   document.querySelectorAll(".v-reveal").forEach((el) => observer.observe(el));

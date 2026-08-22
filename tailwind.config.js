@@ -4,27 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#101010", // negro base
-        lima: "#E8FF4A", // acento principal
-        // Solo como FONDO de bloque, siempre con texto ink encima (5.6:1).
-        // Como color de texto no llega a contraste en ningún fondo del sistema.
-        fuego: "#FF4A2E",
-        // La versión para texto de acento sobre fondo claro (4.8:1 sobre hueso).
-        "fuego-tinta": "#C7300F",
-        // Y la versión para texto de urgencia sobre fondo oscuro (7.4:1 sobre ink).
-        "fuego-luz": "#FF7A5E",
-        hueso: "#F2F0E9", // fondo claro
+        // Violeta Deenex. Como FONDO de bloque o para piezas grandes.
+        violeta: "#695EDE",
+        // La versión para TEXTO sobre blanco: 5.9:1, pasa AA en cuerpo chico.
+        "violeta-texto": "#5348C9",
+        "violeta-claro": "#8F84F0",
+        "violeta-tinte": "#EFEDFC",
+        tinta: "#15132A", // texto principal
+        gris: "#5F5C73", // texto secundario, 6.1:1 sobre blanco
+        linea: "#E4E2EE", // reglas de la grilla
+        papel: "#FFFFFF",
+        "papel-2": "#FAFAFC",
       },
       fontFamily: {
-        sans: ["Archivo", "system-ui", "sans-serif"],
-        black: ["'Archivo Black'", "Archivo", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
       },
-      boxShadow: {
-        // Sombra dura de cartel: sin blur, desplazada.
-        cartel: "8px 8px 0 #101010",
-        "cartel-lima": "8px 8px 0 #E8FF4A",
-        "cartel-fuego": "8px 8px 0 #FF4A2E",
-        "cartel-sm": "5px 5px 0 #101010",
+      maxWidth: {
+        contenido: "1180px",
       },
     },
   },

@@ -1,31 +1,36 @@
 <template>
-  <section id="lugar" class="bg-ink text-white">
-    <div class="grid lg:grid-cols-[.9fr_1.1fr]">
-      <!-- Datos -->
-      <div class="border-b-[3px] border-white/20 p-8 sm:p-12 lg:border-b-0 lg:border-r-[3px]">
-        <p class="kicker text-lima">Cómo llegar</p>
-        <h2 class="titular mt-6 text-[clamp(2rem,5.4vw,3.6rem)]">
-          {{ EVENTO.venue }},<br /><span class="text-lima">Córdoba.</span>
-        </h2>
+  <section id="lugar" class="border-b border-linea py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">Cómo llegar</p>
+        </div>
 
-        <dl class="mt-10 grid gap-[3px] bg-white/20">
-          <div v-for="d in DATOS" :key="d.label" class="bg-ink py-5">
-            <dt class="kicker text-white/60">{{ d.label }}</dt>
-            <dd class="titular mt-2 text-[clamp(1.1rem,2.4vw,1.5rem)]">{{ d.valor }}</dd>
+        <div class="lg:col-span-4">
+          <h2 class="titular text-[clamp(1.7rem,3.2vw,2.5rem)]">
+            {{ EVENTO.venue }}, Córdoba.
+          </h2>
+
+          <dl class="mt-8 border-t border-linea">
+            <div v-for="d in DATOS" :key="d.label" class="border-b border-linea py-4">
+              <dt class="rotulo text-gris">{{ d.label }}</dt>
+              <dd class="mt-1.5 text-[0.98rem] font-medium">{{ d.valor }}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="h-full min-h-[340px] w-full border border-linea">
+            <iframe
+              :src="mapaSrc"
+              class="h-full min-h-[340px] w-full"
+              style="border: 0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación del evento en Córdoba"
+            ></iframe>
           </div>
-        </dl>
-      </div>
-
-      <!-- Mapa -->
-      <div class="relative min-h-[420px]">
-        <iframe
-          :src="mapaSrc"
-          class="absolute inset-0 h-full w-full"
-          style="border: 0"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Ubicación del evento en Córdoba"
-        ></iframe>
+        </div>
       </div>
     </div>
   </section>

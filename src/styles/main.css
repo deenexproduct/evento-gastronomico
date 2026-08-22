@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --ink: #101010;
-  --lima: #E8FF4A;
-  --fuego: #FF4A2E;
-  --hueso: #F2F0E9;
+  --violeta: #695EDE;
+  --violeta-texto: #5348C9;
+  --tinta: #15132A;
+  --linea: #E4E2EE;
 }
 
 html {
@@ -19,10 +19,11 @@ html, body {
 }
 
 body {
-  font-family: 'Archivo', system-ui, sans-serif;
-  background: var(--ink);
-  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #fff;
+  color: var(--tinta);
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
 }
 
 img, video {
@@ -31,72 +32,44 @@ img, video {
   display: block;
 }
 
-/* ── Tipografía de cartel ──────────────────────────────────────────────
-   Titulares en Archivo Black, caja alta y tracking muy cerrado. El peso
-   lo da el tamaño, no el color. */
+/* ── Sistema tipográfico ───────────────────────────────────────────────
+   Suizo: pocos tamaños, tracking negativo en titulares, un solo acento
+   de color. El peso lo da la escala y el espacio, nunca la decoración. */
 @layer components {
   .titular {
-    @apply font-black uppercase leading-[0.88] tracking-[-0.04em];
+    @apply font-semibold leading-[1.04] tracking-[-0.042em];
   }
-  .kicker {
-    @apply text-[0.68rem] font-extrabold uppercase tracking-[0.16em];
+  .rotulo {
+    @apply text-[0.66rem] font-bold uppercase tracking-[0.16em];
   }
-  /* Contorno: se usa para partir un titular en dos pesos visuales. */
-  .contorno {
-    -webkit-text-stroke: 2px currentColor;
-    color: transparent;
-  }
-  @media (max-width: 640px) {
-    .contorno {
-      -webkit-text-stroke-width: 1.5px;
-    }
+  /* Bloque de sección: rótulo a la izquierda, contenido a la derecha. */
+  .fila-rotulo {
+    @apply grid gap-x-6 gap-y-3 border-t border-linea pt-5 sm:grid-cols-[140px_1fr];
   }
 
-  .btn-cartel {
-    @apply inline-flex items-center gap-3 bg-lima px-8 py-5 font-black uppercase
-           tracking-[-0.01em] text-ink transition-transform duration-150;
-    box-shadow: 8px 8px 0 var(--ink);
+  .btn {
+    @apply inline-flex items-center justify-center gap-2.5 bg-violeta px-7 py-4 text-[0.92rem]
+           font-semibold text-white transition-colors duration-150 hover:bg-[#5348C9];
   }
-  .btn-cartel:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 11px 11px 0 var(--ink);
+  .btn-linea {
+    @apply inline-flex items-center justify-center gap-2.5 border border-violeta px-7 py-4
+           text-[0.92rem] font-semibold text-violeta-texto transition-colors duration-150
+           hover:bg-violeta hover:text-white;
   }
-  .btn-cartel:active {
-    transform: translate(2px, 2px);
-    box-shadow: 5px 5px 0 var(--ink);
-  }
-
-  .btn-cartel-inv {
-    @apply inline-flex items-center gap-3 bg-ink px-8 py-5 font-black uppercase
-           tracking-[-0.01em] text-lima transition-transform duration-150;
-    box-shadow: 8px 8px 0 var(--lima);
-  }
-  .btn-cartel-inv:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 11px 11px 0 var(--lima);
-  }
-
-  .borde {
-    @apply border-[3px] border-ink;
-  }
-  .borde-claro {
-    @apply border-[3px] border-white;
+  .contenedor {
+    @apply mx-auto w-full max-w-contenido px-6 sm:px-10;
   }
 }
 
-/* ── Foco de teclado ────────────────────────────────────────────────────
-   Los botones de cartel definen box-shadow para la sombra dura, así que el
-   foco no puede depender de ella: va por outline, que además se ve sobre
-   cualquiera de los cuatro fondos del sistema. */
+/* ── Foco de teclado ─────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 3px solid var(--lima);
+  outline: 2px solid var(--violeta);
   outline-offset: 3px;
-  border-radius: 1px;
 }
-/* Sobre lima, el amarillo no se distingue: ahí el foco va en negro. */
-.bg-lima :focus-visible,
-.bg-fuego :focus-visible {
-  outline-color: var(--ink);
+/* Sobre violeta pleno el foco violeta no se ve: ahí va blanco. */
+.bg-violeta :focus-visible,
+.bg-tinta :focus-visible {
+  outline-color: #fff;
 }
 
 /* Salto al contenido, primero en el orden de tabulación */
@@ -105,39 +78,22 @@ img, video {
   left: 8px;
   top: -60px;
   z-index: 200;
-  background: var(--lima);
-  color: var(--ink);
+  background: var(--violeta);
+  color: #fff;
   padding: 12px 20px;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  font-size: 0.85rem;
   transition: top 0.15s;
 }
 .saltar:focus {
   top: 8px;
 }
 
-/* ── Marquesina ─────────────────────────────────────────────────────── */
-.marquesina {
-  display: flex;
-  width: max-content;
-  animation: correr 34s linear infinite;
-}
-.marquesina-rapida {
-  animation-duration: 22s;
-}
-@keyframes correr {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* ── Reveal on scroll ───────────────────────────────────────────────── */
 .v-reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  transform: translateY(18px);
+  transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
   will-change: opacity, transform;
 }
 .v-reveal-visible {
@@ -147,18 +103,15 @@ img, video {
 
 /* ── Placeholder de foto pendiente ──────────────────────────────────── */
 .foto-pendiente {
+  background-color: #F3F2F8;
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.05) 0 14px,
-    transparent 14px 28px
+    rgba(105, 94, 222, 0.07) 0 10px,
+    transparent 10px 20px
   );
 }
 
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquesina { animation: none; }
   .v-reveal { opacity: 1; transform: none; transition: none; }
 }

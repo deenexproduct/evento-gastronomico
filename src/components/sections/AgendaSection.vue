@@ -1,82 +1,84 @@
 <template>
-  <section id="jornada" class="bg-ink text-white">
-    <div class="px-5 py-16 sm:px-8 sm:py-20">
-      <p class="kicker text-lima">La jornada</p>
-      <h2 class="titular mt-6 max-w-[14ch] text-[clamp(2.4rem,8vw,6rem)]">
-        Nueve horas,<br /><span class="contorno text-white">de punta</span> a punta.
-      </h2>
-      <p class="mt-8 max-w-[54ch] text-[1.02rem] leading-[1.6] text-white/60">
-        Está armado para que entres cuando puedas y te quedes lo que te sirva. Sin almuerzo servido
-        ni butaca asignada: rondas de degustación entre bloques, stands abiertos todo el día y
-        networking de cierre.
-      </p>
-    </div>
-
-    <!-- Grilla con horarios (cuando esté cerrada) -->
-    <ol v-if="AGENDA_PUBLICA" class="grid gap-[3px] bg-white/20">
-      <li
-        v-for="(item, i) in AGENDA"
-        :key="i"
-        class="grid grid-cols-[76px_1fr] gap-5 px-5 py-5 sm:grid-cols-[120px_1fr] sm:gap-8 sm:px-8"
-        :class="item.tipo === 'destacado' ? 'bg-lima text-ink' : 'bg-ink'"
-      >
-        <div>
-          <div class="titular text-[1.3rem] tabular-nums">{{ item.hora }}</div>
-          <div class="kicker mt-1 opacity-45">{{ item.dur }}</div>
+  <section id="jornada" class="border-b border-linea bg-papel-2 py-20 sm:py-28">
+    <div class="contenedor">
+      <div class="grid gap-8 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="rotulo text-violeta-texto">La jornada</p>
         </div>
-        <div>
-          <p v-if="item.quien" class="kicker" :class="item.tipo === 'destacado' ? '' : 'text-lima'">
-            {{ item.quien }}
-          </p>
-          <h3 class="titular mt-1 text-[clamp(1.1rem,2.4vw,1.6rem)]">{{ item.titulo }}</h3>
-          <p v-if="item.detalle" class="mt-2 max-w-[54ch] text-[0.92rem] leading-[1.55] opacity-60">
-            {{ item.detalle }}
+        <div class="lg:col-span-9">
+          <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
+            Entrás cuando podés, te quedás lo que te sirve.
+          </h2>
+          <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
+            Nueve horas de punta a punta, sin butaca asignada ni almuerzo servido: rondas de
+            degustación entre bloques, stands abiertos todo el día y networking de cierre.
           </p>
         </div>
-      </li>
-    </ol>
+      </div>
 
-    <!-- Estructura del día (mientras el orden no está cerrado) -->
-    <template v-else>
-      <div class="grid gap-[3px] bg-white/20 sm:grid-cols-2 lg:grid-cols-4">
-        <article
-          v-for="(bloque, i) in AGENDA_BLOQUES"
-          :key="bloque.franja"
-          class="flex min-h-[300px] flex-col p-8"
-          :class="i === 3 ? 'bg-lima text-ink' : 'bg-ink text-white'"
+      <!-- Grilla con horarios, cuando esté cerrada -->
+      <ol v-if="AGENDA_PUBLICA" class="mt-14 border-t border-linea">
+        <li
+          v-for="(item, i) in AGENDA"
+          :key="i"
+          class="grid gap-x-8 gap-y-2 border-b border-linea py-6 lg:grid-cols-12"
+          :class="item.tipo === 'destacado' ? 'bg-violeta-tinte/60' : ''"
         >
-          <p class="kicker" :class="i === 3 ? 'opacity-60' : 'text-lima'">{{ bloque.franja }}</p>
-          <h3 class="titular mt-4 text-[clamp(1.4rem,3vw,2rem)]">{{ bloque.titulo }}</h3>
-          <ul class="mt-6 space-y-3.5">
+          <div class="lg:col-span-2">
+            <p class="text-[0.95rem] font-semibold tabular-nums">{{ item.hora }}</p>
+            <p class="rotulo mt-1 text-gris">{{ item.dur }}</p>
+          </div>
+          <div class="lg:col-span-10">
+            <p v-if="item.quien" class="rotulo text-violeta-texto">{{ item.quien }}</p>
+            <h3 class="titular mt-1 text-[1.15rem]">{{ item.titulo }}</h3>
+            <p v-if="item.detalle" class="mt-1.5 max-w-[58ch] text-[0.93rem] leading-[1.6] text-gris">
+              {{ item.detalle }}
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Línea de tiempo del día, mientras el orden no se cierra -->
+      <ol v-else class="relative mt-14 pl-8 sm:pl-10">
+        <span class="absolute left-[5px] top-3 bottom-3 w-px bg-linea" aria-hidden="true"></span>
+
+        <li v-for="(b, i) in AGENDA_BLOQUES" :key="b.franja" class="relative pb-11 last:pb-0">
+          <span
+            class="absolute -left-8 top-1.5 h-[11px] w-[11px] rounded-full border-2 sm:-left-10"
+            :class="i < 2 ? 'border-violeta bg-violeta' : 'border-violeta bg-white'"
+            aria-hidden="true"
+          ></span>
+
+          <p class="rotulo text-violeta-texto">{{ b.franja }}</p>
+          <h3 class="titular mt-2 text-[clamp(1.2rem,2.2vw,1.6rem)]">{{ b.titulo }}</h3>
+          <ul class="mt-3 space-y-1.5">
             <li
-              v-for="(item, j) in bloque.items"
+              v-for="(item, j) in b.items"
               :key="j"
-              class="flex gap-3 text-[0.92rem] leading-[1.5]"
-              :class="i === 3 ? 'text-ink/75' : 'text-white/60'"
+              class="max-w-[56ch] text-[0.95rem] leading-[1.6] text-gris"
             >
-              <span class="mt-[7px] h-[6px] w-[6px] shrink-0" :class="i === 3 ? 'bg-ink' : 'bg-lima'"></span>
               {{ item }}
             </li>
           </ul>
-        </article>
-      </div>
+        </li>
+      </ol>
 
-      <div class="border-t-[3px] border-white/20 bg-ink px-5 py-8 sm:px-8">
-        <p class="kicker text-lima">Grilla con horarios · próximamente</p>
-        <p class="mt-3 max-w-[62ch] text-[0.98rem] leading-[1.6] text-white/60">
-          Se están sumando más voces al escenario, así que el orden todavía se mueve.
-          <span class="font-bold text-white">Los que estén registrados la reciben primero.</span>
-        </p>
-      </div>
-    </template>
+      <p
+        v-if="!AGENDA_PUBLICA"
+        class="mt-10 max-w-[62ch] border-t border-linea pt-6 text-[0.93rem] leading-[1.6] text-gris"
+      >
+        <span class="font-semibold text-tinta">La grilla con horarios se publica cuando esté cerrada.</span>
+        Se están sumando más voces al escenario, así que el orden todavía se mueve. Los que estén
+        registrados la reciben primero.
+      </p>
 
-    <!-- Datos de la jornada -->
-    <div class="grid gap-[3px] border-t-[3px] border-white/20 bg-white/20 sm:grid-cols-3">
-      <div v-for="d in DETALLES" :key="d.titulo" class="bg-ink p-8">
-        <div class="titular text-[clamp(2rem,4.6vw,3rem)] text-lima">{{ d.numero }}</div>
-        <h3 class="kicker mt-3">{{ d.titulo }}</h3>
-        <p class="mt-2 text-[0.9rem] leading-[1.55] text-white/55">{{ d.texto }}</p>
-      </div>
+      <dl class="mt-12 grid gap-x-8 border-t border-linea sm:grid-cols-3">
+        <div v-for="(d, i) in DETALLES" :key="d.titulo" class="border-linea py-8" :class="i > 0 ? 'sm:border-l sm:pl-8' : ''">
+          <dd class="titular text-[clamp(1.6rem,3vw,2.2rem)] text-violeta-texto">{{ d.numero }}</dd>
+          <dt class="rotulo mt-2.5">{{ d.titulo }}</dt>
+          <p class="mt-2 text-[0.92rem] leading-[1.6] text-gris">{{ d.texto }}</p>
+        </div>
+      </dl>
     </div>
   </section>
 </template>

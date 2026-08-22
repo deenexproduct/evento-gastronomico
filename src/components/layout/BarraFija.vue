@@ -1,31 +1,32 @@
 <template>
   <!--
-    Barra de conversión siempre visible.
-    Aparece recién pasado el hero para no competir con el titular, y se esconde
-    cuando el formulario está en pantalla (ahí ya no aporta y tapa campos).
+    Barra de conversión persistente. Aparece pasado el hero y se esconde
+    cuando el formulario está en pantalla, donde ya no aporta y tapa campos.
   -->
   <Transition name="subir">
-    <div
-      v-if="visible"
-      class="fixed inset-x-0 bottom-0 z-[90] border-t-[3px] border-ink bg-lima px-4 py-3 sm:px-6"
-    >
-      <div class="flex items-center justify-between gap-4">
-        <div class="min-w-0">
-          <p class="kicker truncate text-ink/70">
-            {{ EVENTO.fechaCorta }} · Córdoba · Entrada gratuita
-          </p>
-          <p class="titular truncate text-[0.95rem] sm:text-[1.15rem]">
-            {{ agotado ? "Cupo completo · lista de espera" : `Quedan ${restantes} de ${total} lugares` }}
-          </p>
-        </div>
+    <div v-if="visible" class="fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-white">
+      <div class="contenedor">
+        <div class="flex items-center justify-between gap-5 py-3">
+          <div class="min-w-0">
+            <p class="rotulo truncate text-gris">
+              {{ EVENTO.fechaCorta }} · {{ EVENTO.venue }}
+            </p>
+            <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
+              <template v-if="agotado">Cupo completo · lista de espera</template>
+              <template v-else>
+                Quedan <span class="text-violeta-texto">{{ restantes }}</span> de {{ total }} lugares
+              </template>
+            </p>
+          </div>
 
-        <a
-          href="#registro"
-          class="shrink-0 bg-ink px-5 py-3 text-[0.78rem] font-black uppercase tracking-[-0.01em] text-lima transition-transform duration-150 hover:-translate-y-0.5 sm:px-7 sm:text-[0.9rem]"
-          @click.prevent="ir"
-        >
-          Reservar
-        </a>
+          <a
+            href="#registro"
+            class="shrink-0 bg-violeta px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#5348C9]"
+            @click.prevent="ir"
+          >
+            Reservar mi lugar
+          </a>
+        </div>
       </div>
     </div>
   </Transition>
@@ -45,9 +46,8 @@ const visible = ref(false);
 function recalcular() {
   visible.value = pasoElHero.value && !formEnPantalla.value;
 }
-
 function onScroll() {
-  pasoElHero.value = window.scrollY > window.innerHeight * 0.75;
+  pasoElHero.value = window.scrollY > window.innerHeight * 0.7;
   recalcular();
 }
 
