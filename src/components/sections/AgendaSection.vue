@@ -1,9 +1,9 @@
 <template>
-  <section id="jornada" class="border-b border-linea bg-papel-2 py-20 sm:py-28">
+  <section id="jornada" class="border-b border-linea bg-white/5 py-20 sm:py-28">
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">La jornada</p>
+          <p class="rotulo text-violeta">La jornada</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
@@ -22,14 +22,14 @@
           v-for="(item, i) in AGENDA"
           :key="i"
           class="grid gap-x-8 gap-y-2 border-b border-linea py-6 lg:grid-cols-12"
-          :class="item.tipo === 'destacado' ? 'bg-violeta-tinte/60' : ''"
+          :class="item.tipo === 'destacado' ? 'bg-white/5/60' : ''"
         >
           <div class="lg:col-span-2">
             <p class="text-[0.95rem] font-semibold tabular-nums">{{ item.hora }}</p>
             <p class="rotulo mt-1 text-gris">{{ item.dur }}</p>
           </div>
           <div class="lg:col-span-10">
-            <p v-if="item.quien" class="rotulo text-violeta-texto">{{ item.quien }}</p>
+            <p v-if="item.quien" class="rotulo text-violeta">{{ item.quien }}</p>
             <h3 class="titular mt-1 text-[1.15rem]">{{ item.titulo }}</h3>
             <p v-if="item.detalle" class="mt-1.5 max-w-[58ch] text-[0.93rem] leading-[1.6] text-gris">
               {{ item.detalle }}
@@ -49,7 +49,7 @@
             aria-hidden="true"
           ></span>
 
-          <p class="rotulo text-violeta-texto">{{ b.franja }}</p>
+          <p class="rotulo text-violeta">{{ b.franja }}</p>
           <h3 class="titular mt-2 text-[clamp(1.2rem,2.2vw,1.6rem)]">{{ b.titulo }}</h3>
           <ul class="mt-3 space-y-1.5">
             <li
@@ -67,14 +67,14 @@
         v-if="!AGENDA_PUBLICA"
         class="mt-10 max-w-[62ch] border-t border-linea pt-6 text-[0.93rem] leading-[1.6] text-gris"
       >
-        <span class="font-semibold text-tinta">La grilla con horarios se publica cuando esté cerrada.</span>
+        <span class="font-semibold text-white">La grilla con horarios se publica cuando esté cerrada.</span>
         Se están sumando más voces al escenario, así que el orden todavía se mueve. Los que estén
         registrados la reciben primero.
       </p>
 
       <dl class="mt-12 grid gap-x-8 border-t border-linea sm:grid-cols-3">
         <div v-for="(d, i) in DETALLES" :key="d.titulo" class="border-linea py-8" :class="i > 0 ? 'sm:border-l sm:pl-8' : ''">
-          <dd class="titular text-[clamp(1.6rem,3vw,2.2rem)] text-violeta-texto">{{ d.numero }}</dd>
+          <dd class="titular text-[clamp(1.6rem,3vw,2.2rem)] text-violeta">{{ d.numero }}</dd>
           <dt class="rotulo mt-2.5">{{ d.titulo }}</dt>
           <p class="mt-2 text-[0.92rem] leading-[1.6] text-gris">{{ d.texto }}</p>
         </div>

@@ -1,9 +1,9 @@
 <template>
-  <section id="tu-entrada" class="border-b border-linea bg-papel-2 py-20 sm:py-28">
+  <section id="tu-entrada" class="border-b border-linea bg-white/5 py-20 sm:py-28">
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">Tu entrada</p>
+          <p class="rotulo text-violeta">Tu entrada</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[20ch] text-[clamp(1.9rem,4vw,3.2rem)]">
@@ -22,7 +22,7 @@
           class="border-linea py-9"
           :class="i > 0 ? 'md:border-l md:pl-8' : ''"
         >
-          <p class="titular text-[2rem] text-violeta-texto">0{{ paso.n }}</p>
+          <p class="titular text-[2rem] text-violeta">0{{ paso.n }}</p>
           <h3 class="titular mt-4 text-[1.15rem]">{{ paso.titulo }}</h3>
           <p class="mt-3 max-w-[38ch] text-[0.93rem] leading-[1.62] text-gris">{{ paso.texto }}</p>
         </li>
@@ -30,7 +30,7 @@
 
       <p class="mt-4 max-w-[62ch] border-t border-linea pt-6 text-[0.95rem] leading-[1.6] text-gris">
         El QR llega a tu email apenas te registrás.
-        <span class="font-semibold text-tinta">Guardalo en el celular</span> — no hace falta
+        <span class="font-semibold text-white">Guardalo en el celular</span> — no hace falta
         imprimirlo, y con eso ya tenés todo resuelto en la puerta.
       </p>
     </div>

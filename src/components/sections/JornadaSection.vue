@@ -7,7 +7,7 @@
   -->
   <section id="jornada" class="border-b border-linea py-16 sm:py-24">
     <div class="contenedor">
-      <p class="rotulo text-violeta-texto">La jornada</p>
+      <p class="rotulo text-violeta">La jornada</p>
       <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5vw,3.2rem)]">
         Nueve horas, de punta a punta.
       </h2>
@@ -20,7 +20,7 @@
       <ol ref="lista" class="relative mt-14">
         <!-- La línea que se dibuja al entrar: uno de los dos únicos motions -->
         <span
-          class="linea-dia absolute left-0 top-2 hidden w-[2px] bg-violeta sm:block"
+          class="linea-dia absolute left-0 top-2 hidden w-[2px] bg-violeta-solido sm:block"
           :class="{ 'linea-dia-visible': dibujada }"
           style="bottom: 2rem"
           aria-hidden="true"
@@ -36,7 +36,7 @@
           <div>
             <div
               class="hora text-[clamp(3.5rem,13vw,8rem)]"
-              :class="t.tipo === 'mesa' ? 'text-violeta' : 'text-violeta-texto'"
+              :class="t.tipo === 'mesa' ? 'text-violeta' : 'text-violeta'"
             >
               {{ t.hora.split(":")[0] }}<span class="text-[0.42em] align-top">{{ t.hora.split(":")[1] }}</span>
             </div>
@@ -51,7 +51,7 @@
               {{ t.titulo }}
             </h3>
 
-            <p class="mt-3 text-[15px] font-bold uppercase tracking-[0.05em] text-violeta-texto sm:text-[16px]">
+            <p class="mt-3 text-[15px] font-bold uppercase tracking-[0.05em] text-violeta sm:text-[16px]">
               {{ t.quien }}
             </p>
 
@@ -64,7 +64,7 @@
 
       <p class="mt-8 text-[16px] text-gris">
         Puertas y acreditación desde las 8:30. La grilla con el orden final se publica cuando cierre
-        — <span class="font-bold text-tinta">los inscriptos la reciben primero</span>.
+        — <span class="font-bold text-white">los inscriptos la reciben primero</span>.
       </p>
     </div>
   </section>

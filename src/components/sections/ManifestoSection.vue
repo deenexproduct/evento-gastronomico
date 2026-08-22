@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">Por qué ahora</p>
+          <p class="rotulo text-violeta">Por qué ahora</p>
         </div>
 
         <div class="lg:col-span-5">
@@ -27,11 +27,11 @@
         <blockquote class="border-t border-linea pt-7 lg:col-span-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
           <p class="titular text-[clamp(1.2rem,2.2vw,1.6rem)] leading-[1.25]">
             “Me cansé de ver dueños tomando decisiones de tecnología
-            <span class="text-violeta-texto">a ciegas</span>. Armé el evento que me hubiera servido
+            <span class="text-violeta">a ciegas</span>. Armé el evento que me hubiera servido
             tener.”
           </p>
           <footer class="mt-6 border-t border-linea pt-5">
-            <p class="rotulo text-violeta-texto">Alan Tapia</p>
+            <p class="rotulo text-violeta">Alan Tapia</p>
             <p class="mt-2 text-[0.9rem] leading-[1.6] text-gris">
               Founder &amp; CEO de Deenex, plataforma omnicanal para cadenas de foodservice y
               gastronomía. Más de 350 marcas trabajan con ella hoy.

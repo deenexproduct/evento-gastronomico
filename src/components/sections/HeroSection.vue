@@ -1,58 +1,80 @@
 <template>
   <!--
-    El hero tiene que cerrar solo: 64% del tráfico móvil no pasa de este
-    viewport. Fecha, hora, sede, formato, precio y CTA tienen que estar acá.
+    Estructura del referente: tira de fecha y sede sobre el título, título
+    gigante en peso 900, bajada corta, barra de progreso de cupo y dos CTAs.
+    La diferencia: su barra empuja fases de precio y la nuestra empuja el
+    límite físico del salón, que es un dato y no un recurso de venta.
   -->
-  <section id="hero" class="border-b border-linea pt-[92px]">
-    <div class="contenedor py-12 sm:py-16">
-      <p class="rotulo text-violeta-texto">Jornada de gastronomía y tecnología · Edición 01</p>
+  <section id="hero" class="relative overflow-hidden pt-[104px]">
+    <!-- Halo del acento, contenido y barato: sin JS ni imágenes -->
+    <div
+      class="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[130px]"
+      style="background: radial-gradient(circle, #7B6EF6 0%, transparent 70%)"
+      aria-hidden="true"
+    ></div>
 
-      <h1 class="display mt-6 max-w-[15ch] text-[clamp(2.5rem,8.4vw,5.5rem)]">
-        Nueve horas para bajar costos y vender más.
-      </h1>
+    <div class="contenedor relative py-14 sm:py-20">
+      <p class="rotulo text-violeta">Edición 01 · Jornada de gastronomía y tecnología</p>
 
-      <!-- Tira de logística: todo lo que decide el registro, en una línea -->
-      <div
-        class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-linea py-4 text-[15px] font-semibold sm:text-[17px]"
-      >
-        <span>Domingo 20 de septiembre</span>
-        <span class="text-gris/40" aria-hidden="true">·</span>
-        <span>9 a 18 h</span>
-        <span class="text-gris/40" aria-hidden="true">·</span>
-        <span>{{ EVENTO.venue }}, Córdoba</span>
-        <span class="text-gris/40" aria-hidden="true">·</span>
-        <span class="text-violeta-texto">Presencial</span>
-      </div>
-
-      <p class="lectura mt-7 text-gris">
-        Seis charlas y una mesa redonda sobre lo que ya está cambiando el negocio gastronómico:
-        costos, datos, sistemas de venta y contenido. Para dueños de marcas y restaurantes.
+      <p class="mt-7 text-[14px] font-bold uppercase tracking-[0.14em] text-gris sm:text-[16px]">
+        20 de septiembre 2026 &nbsp;|&nbsp; {{ EVENTO.venue }}, Córdoba
       </p>
 
-      <div class="mt-9 flex flex-wrap items-center gap-4">
-        <a href="#registro" class="btn" @click.prevent="ir('registro')">Quiero mi lugar</a>
-        <a
-          href="#domingo"
-          class="inline-flex min-h-[52px] items-center text-[16px] font-semibold text-violeta-texto underline underline-offset-4"
-          @click.prevent="ir('domingo')"
-        >
-          ¿Por qué un domingo?
-        </a>
+      <h1 class="display mt-4 max-w-[13ch] text-[clamp(2.6rem,9vw,5.8rem)]">
+        Gastronomía y tecnología
+      </h1>
+
+      <p class="mt-6 max-w-[46ch] text-[18px] font-semibold text-gris sm:text-[21px]">
+        Nueve horas para bajar costos, ordenar la operación y vender más.
+        <span class="text-white">Para dueños de marcas y restaurantes.</span>
+      </p>
+
+      <!-- Escasez con razón física, no con fases de precio -->
+      <div class="mt-10 max-w-[520px] tarjeta p-5 sm:p-6">
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="rotulo text-violeta">{{ porcentaje }}% del salón tomado</p>
+          <p class="text-[14px] font-bold tabular-nums text-gris">
+            {{ ocupados }} / {{ total }}
+          </p>
+        </div>
+
+        <div class="mt-3 h-2 w-full overflow-hidden bg-white/10">
+          <div
+            class="h-full bg-violeta-solido transition-[width] duration-[1200ms] ease-out"
+            :style="{ width: ancho + '%' }"
+          ></div>
+        </div>
+
+        <p class="mt-3 text-[15px] leading-[1.45] text-gris">
+          El cupo es el del salón, no una fase de venta. Cuando entren
+          {{ total }}, se cierra el registro.
+        </p>
       </div>
 
-      <!-- Clarificador debajo del botón: +9% de conversión -->
-      <p class="mt-4 text-[15px] text-gris">
-        Gratis con inscripción previa · {{ total }} lugares · El código de acceso te llega por mail
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href="#registro" class="btn" @click.prevent="ir('registro')">Quiero mi lugar</a>
+        <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
+      </div>
+
+      <p class="mt-5 text-[15px] text-gris">
+        Entrada sin costo con inscripción previa · El código de acceso te llega por mail
       </p>
     </div>
   </section>
 </template>
 
 <script setup>
+import { ref, onMounted, watch } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { total } = useCupo();
+const { total, ocupados, porcentaje } = useCupo();
+
+const ancho = ref(0);
+onMounted(() => setTimeout(() => (ancho.value = Math.max(porcentaje.value, 3)), 400));
+watch(porcentaje, (v) => {
+  if (ancho.value > 0) ancho.value = Math.max(v, 3);
+});
 
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

@@ -1,133 +1,100 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Familjen+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --papel: #FBFAF8;
-  --tinta: #171420;
-  --violeta: #695EDE;
-  --violeta-texto: #5348C9;
-  --violeta-claro: #9C92F5;
-  --linea: #E5E1DA;
+  --noche: #161616;
+  --violeta: #9C92F5;
+  --violeta-solido: #695EDE;
+  --gris: #A5A1B5;
+  --linea: #2E2E33;
 }
 
 html { scroll-behavior: smooth; }
 html, body { overflow-x: hidden; }
 
 body {
-  font-family: "Familjen Grotesk", system-ui, sans-serif;
-  background: var(--papel);
-  color: var(--tinta);
-  /* 18px en móvil: piso de legibilidad para lectura a una mano. */
-  font-size: 18px;
-  line-height: 1.55;
+  font-family: "Archivo", system-ui, sans-serif;
+  background: var(--noche);
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-@media (min-width: 768px) {
-  body { font-size: 19px; }
-}
+@media (min-width: 768px) { body { font-size: 18px; } }
 
 img, video { max-width: 100%; height: auto; display: block; }
 
 @layer components {
-  /* ── Escala tipográfica: cinco tamaños y nada más ──────────────────── */
+  /* ── Titulares: peso 900 y caja alta, como el referente ─────────────── */
   .display {
-    font-family: "Bricolage Grotesque", Georgia, serif;
-    @apply font-extrabold leading-[1.03] tracking-[-0.03em];
-    font-variation-settings: "opsz" 96;
+    @apply font-black uppercase leading-[0.95] tracking-[-0.02em];
   }
   .titulo {
-    font-family: "Bricolage Grotesque", Georgia, serif;
-    @apply font-bold leading-[1.12] tracking-[-0.025em];
-    font-variation-settings: "opsz" 48;
+    @apply font-black uppercase leading-[1.02] tracking-[-0.02em];
   }
   .rotulo {
-    @apply text-[13px] font-bold uppercase tracking-[0.08em] sm:text-[14px];
+    @apply text-[12px] font-bold uppercase tracking-[0.16em] sm:text-[13px];
   }
 
-  /* La hora como sistema gráfico: es el elemento visual dominante de la
-     página y lo que la separa de cualquier landing del rubro. */
+  /* La hora como sistema gráfico propio: es lo que el referente no tiene
+     y lo que hace que nuestra jornada no se lea como una grilla más. */
   .hora {
-    font-family: "Bricolage Grotesque", Georgia, serif;
-    @apply font-extrabold leading-[0.85] tracking-[-0.045em] tabular-nums;
-    font-variation-settings: "opsz" 96;
+    @apply font-black leading-[0.85] tracking-[-0.04em] tabular-nums;
   }
 
-  .contenedor {
-    @apply mx-auto w-full max-w-contenido px-5 sm:px-8;
+  /* ── Superficies translúcidas ───────────────────────────────────────── */
+  .tarjeta {
+    @apply border border-white/10 bg-white/5 transition-colors duration-200;
   }
-  .lectura {
-    @apply max-w-lectura;
-  }
+  .tarjeta:hover { @apply border-white/20 bg-white/[0.08]; }
 
-  /* ── Botones: etiqueta idéntica en toda la página, sin gradiente ───── */
+  .contenedor { @apply mx-auto w-full max-w-contenido px-5 sm:px-8; }
+  .lectura { @apply max-w-lectura; }
+
+  /* ── Botones ────────────────────────────────────────────────────────── */
   .btn {
-    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 bg-violeta px-7
-           text-[17px] font-bold text-white transition-colors duration-150 hover:bg-[#5348C9];
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 bg-violeta-solido
+           px-7 text-[15px] font-black uppercase tracking-[0.02em] text-white
+           transition-colors duration-150 hover:bg-[#5B4FD0];
   }
   .btn-linea {
-    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 border-2 border-tinta
-           px-7 text-[17px] font-bold text-tinta transition-colors duration-150
-           hover:bg-tinta hover:text-papel;
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 border border-white/25
+           px-7 text-[15px] font-black uppercase tracking-[0.02em] text-white
+           transition-colors duration-150 hover:border-white/60 hover:bg-white/5;
   }
 
-  /* ── Chips de tipo de bloque ───────────────────────────────────────── */
   .chip {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-[13px] font-bold
-           uppercase tracking-[0.06em];
+    @apply inline-flex items-center gap-1.5 border border-white/15 bg-white/5 px-3 py-1.5
+           text-[12px] font-bold uppercase tracking-[0.1em];
   }
 }
 
-/* ── Foco de teclado ────────────────────────────────────────────────── */
-:focus-visible {
-  outline: 3px solid var(--violeta-texto);
-  outline-offset: 3px;
-}
-.bg-violeta :focus-visible,
-.bg-tinta :focus-visible {
-  outline-color: #fff;
-}
+/* ── Foco ───────────────────────────────────────────────────────────── */
+:focus-visible { outline: 3px solid var(--violeta); outline-offset: 3px; }
 
 .saltar {
-  position: absolute;
-  left: 8px;
-  top: -60px;
-  z-index: 200;
-  background: var(--violeta);
-  color: #fff;
-  padding: 14px 22px;
-  font-weight: 700;
-  transition: top .15s;
+  position: absolute; left: 8px; top: -60px; z-index: 200;
+  background: var(--violeta-solido); color: #fff;
+  padding: 14px 22px; font-weight: 800; transition: top .15s;
 }
 .saltar:focus { top: 8px; }
 
-/* ── Motion: exactamente dos momentos en toda la página ─────────────────
-   1) el contador de inscriptos      2) la línea del timeline al scrollear
-   Nada más. Solo transform y opacity. */
+/* ── Motion: dos momentos, nada más ─────────────────────────────────── */
 .v-reveal {
-  opacity: 0;
-  transform: translateY(14px);
+  opacity: 0; transform: translateY(14px);
   transition: opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1);
 }
 .v-reveal-visible { opacity: 1; transform: none; }
 
-.linea-dia {
-  transform-origin: top;
-  transform: scaleY(0);
-  transition: transform 1.1s cubic-bezier(.16,1,.3,1);
-}
+.linea-dia { transform-origin: top; transform: scaleY(0); transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
 .linea-dia-visible { transform: scaleY(1); }
 
-/* Placeholder de foto: marca el hueco sin romper el sistema. */
 .foto-pendiente {
-  background-color: var(--violeta-tinte, #EEEBFB);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(105, 94, 222, .10) 0 10px,
-    transparent 10px 20px
-  );
+  background-color: rgba(255,255,255,.04);
+  background-image: repeating-linear-gradient(135deg, rgba(123,110,246,.14) 0 10px, transparent 10px 20px);
 }
 
 @media (prefers-reduced-motion: reduce) {

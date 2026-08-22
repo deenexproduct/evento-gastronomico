@@ -1,10 +1,10 @@
 <template>
-  <section id="registro" class="border-b border-linea bg-papel-2 py-20 sm:py-28">
+  <section id="registro" class="border-b border-linea bg-white/5 py-20 sm:py-28">
     <div class="contenedor">
       <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <!-- Argumento -->
         <div class="lg:col-span-5">
-          <p class="rotulo text-violeta-texto">Reservá tu lugar</p>
+          <p class="rotulo text-violeta">Reservá tu lugar</p>
           <h2 class="titular mt-5 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.9rem)]">
             Son {{ total }} lugares. Este puede ser el tuyo.
           </h2>
@@ -18,7 +18,7 @@
             <div class="flex items-baseline justify-between gap-4">
               <span
                 class="titular text-[clamp(2.2rem,4.4vw,3rem)]"
-                :class="critico ? 'text-[#C2410C]' : 'text-violeta-texto'"
+                :class="critico ? 'text-[#C2410C]' : 'text-violeta'"
               >
                 {{ restantes }}
               </span>
@@ -40,7 +40,7 @@
               :key="i"
               class="flex gap-3.5 border-b border-linea py-3 text-[0.93rem] leading-snug"
             >
-              <span class="shrink-0 text-violeta-texto" aria-hidden="true">—</span>
+              <span class="shrink-0 text-violeta" aria-hidden="true">—</span>
               {{ item }}
             </li>
           </ul>
@@ -56,10 +56,10 @@
 
         <!-- Formulario -->
         <div class="lg:col-span-6 lg:col-start-7">
-          <div class="border border-linea bg-white p-7 sm:p-9">
+          <div class="border border-linea bg-white/5 p-7 sm:p-9">
             <!-- Éxito -->
             <div v-if="enviado" class="py-8">
-              <p class="rotulo text-violeta-texto">Listo</p>
+              <p class="rotulo text-violeta">Listo</p>
               <h3 class="titular mt-4 text-[clamp(1.6rem,3vw,2.2rem)]">Tu lugar quedó reservado.</h3>
               <p class="mt-5 max-w-[44ch] text-[0.97rem] leading-[1.65] text-gris">
                 <template v-if="tieneBackend">
@@ -79,7 +79,7 @@
               </p>
               <button
                 type="button"
-                class="mt-8 block text-[0.9rem] font-semibold text-violeta-texto underline underline-offset-4"
+                class="mt-8 block text-[0.9rem] font-semibold text-violeta underline underline-offset-4"
                 @click="reiniciar"
               >
                 Registrar a otra persona
@@ -94,7 +94,7 @@
               </div>
 
               <p class="mt-4 border-l-2 border-violeta pl-4 text-[0.88rem] leading-snug text-gris">
-                <span class="font-semibold text-tinta">{{ ocupados }} marcas</span> ya reservaron su
+                <span class="font-semibold text-white">{{ ocupados }} marcas</span> ya reservaron su
                 lugar en la sala.
               </p>
 
@@ -237,7 +237,7 @@
                   :href="whatsappRegistro"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="font-semibold text-violeta-texto underline underline-offset-4"
+                  class="font-semibold text-violeta underline underline-offset-4"
                   >Escribinos y te anotamos nosotros</a
                 >
               </p>
@@ -309,27 +309,27 @@ async function onSubmit() {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #5f5c73;
+  color: #A5A1B5;
 }
 .campo {
   width: 100%;
-  border: 1px solid #e4e2ee;
-  background: #fff;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.05);
   padding: 0.8rem 0.9rem;
   font-size: 0.95rem;
-  color: #15132a;
+  color: #FFFFFF;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 .campo::placeholder {
-  color: #9c99ad;
+  color: #74707F;
 }
 .campo:focus {
   outline: none;
-  border-color: #695ede;
+  border-color: #9C92F5;
   box-shadow: 0 0 0 3px rgba(105, 94, 222, 0.13);
 }
 .campo-error {
-  border-color: #c2410c;
+  border-color: #FF7A6B;
   background: #fef7f5;
 }
 select.campo {
@@ -343,6 +343,6 @@ select.campo {
   margin-top: 0.4rem;
   font-size: 0.78rem;
   font-weight: 500;
-  color: #9a3412;
+  color: #FF9385;
 }
 </style>

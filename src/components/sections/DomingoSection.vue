@@ -5,11 +5,11 @@
     Alimentaria de lunes a miércoles. Es nuestra mayor barrera y también
     lo único que le da punto de vista a la página.
   -->
-  <section id="domingo" class="border-b border-linea bg-tinta py-16 text-papel sm:py-24">
+  <section id="domingo" class="border-b border-linea bg-noche-2 py-16 text-white sm:py-24">
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
         <div>
-          <p class="rotulo text-violeta-claro">La pregunta que todos hacen</p>
+          <p class="rotulo text-violeta">La pregunta que todos hacen</p>
           <h2 class="titulo mt-5 max-w-[17ch] text-[clamp(1.9rem,5vw,3.2rem)]">
             {{ DOMINGO.titulo }}
           </h2>
@@ -19,7 +19,7 @@
           <p
             v-for="(p, i) in DOMINGO.cuerpo"
             :key="i"
-            class="lectura text-[17px] leading-[1.6] text-papel/75"
+            class="lectura text-[17px] leading-[1.6] text-gris"
             :class="i > 0 ? 'mt-5' : ''"
           >
             {{ p }}
@@ -31,14 +31,14 @@
 
           <!-- Captura secundaria para el que igual no puede venir -->
           <div class="mt-9 border border-white/15 p-6">
-            <p class="text-[16px] leading-[1.5] text-papel/70">
+            <p class="text-[16px] leading-[1.5] text-gris">
               ¿No llegás de ninguna manera? Dejanos tu mail y te mandamos el material del día.
             </p>
             <a
               :href="whatsappMaterial"
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-4 inline-flex min-h-[48px] items-center text-[16px] font-bold text-violeta-claro underline underline-offset-4"
+              class="mt-4 inline-flex min-h-[48px] items-center text-[16px] font-bold text-violeta underline underline-offset-4"
             >
               Avisame por WhatsApp
             </a>

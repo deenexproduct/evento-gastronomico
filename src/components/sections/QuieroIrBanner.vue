@@ -1,9 +1,9 @@
 <template>
-  <section class="border-b border-linea bg-violeta-tinte py-12">
+  <section class="border-b border-linea bg-white/5 py-12">
     <div class="contenedor">
       <div class="flex flex-wrap items-center justify-between gap-8">
         <div>
-          <p class="rotulo text-violeta-texto">
+          <p class="rotulo text-violeta">
             {{ agotado ? "Cupo completo" : `Quedan ${restantes} de ${total} lugares` }}
           </p>
           <h2 class="titular mt-3 max-w-[24ch] text-[clamp(1.4rem,2.8vw,2.1rem)]">

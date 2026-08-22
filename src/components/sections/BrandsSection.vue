@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">Partners</p>
+          <p class="rotulo text-violeta">Partners</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">
@@ -23,7 +23,7 @@
           class="border-linea py-9"
           :class="i > 0 ? 'md:border-l md:pl-8' : ''"
         >
-          <p class="rotulo text-violeta-texto">{{ p.tipo }}</p>
+          <p class="rotulo text-violeta">{{ p.tipo }}</p>
           <h3 class="titular mt-4 text-[1.35rem]">{{ p.nombre }}</h3>
           <p class="mt-3 max-w-[38ch] text-[0.93rem] leading-[1.62] text-gris">{{ p.aporte }}</p>
         </article>
@@ -45,7 +45,7 @@
       <!-- Prueba social -->
       <div class="border-t border-linea pt-12">
         <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-          <span class="titular text-[clamp(2rem,4vw,3rem)] text-violeta-texto">+350</span>
+          <span class="titular text-[clamp(2rem,4vw,3rem)] text-violeta">+350</span>
           <p class="max-w-[40ch] text-[0.97rem] leading-[1.6] text-gris">
             marcas ya trabajan con Deenex. Estas son algunas.
           </p>

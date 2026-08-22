@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">El salón</p>
+          <p class="rotulo text-violeta">El salón</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="mt-12 aspect-[16/7] w-full overflow-hidden bg-papel-2">
+      <div class="mt-12 aspect-[16/7] w-full overflow-hidden bg-white/5">
         <FotoSlot
           :src="fotoSalon"
           :alt="`Salón del ${EVENTO.venue}, sede del evento`"
@@ -27,7 +27,7 @@
           class="border-linea py-8"
           :class="i > 0 ? 'sm:border-l sm:pl-8' : ''"
         >
-          <dd class="titular text-[clamp(1.5rem,2.8vw,2rem)] text-violeta-texto">{{ d.dato }}</dd>
+          <dd class="titular text-[clamp(1.5rem,2.8vw,2rem)] text-violeta">{{ d.dato }}</dd>
           <dt class="rotulo mt-2.5">{{ d.titulo }}</dt>
           <p class="mt-2 max-w-[36ch] text-[0.92rem] leading-[1.6] text-gris">{{ d.texto }}</p>
         </div>

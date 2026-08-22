@@ -4,7 +4,7 @@
     cuando el formulario está en pantalla, donde ya no aporta y tapa campos.
   -->
   <Transition name="subir">
-    <div v-if="visible" class="fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-white">
+    <div v-if="visible" class="fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-white/5">
       <div class="contenedor">
         <div class="flex items-center justify-between gap-5 py-3">
           <div class="min-w-0">
@@ -14,14 +14,14 @@
             <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
               <template v-if="agotado">Cupo completo · lista de espera</template>
               <template v-else>
-                Quedan <span class="text-violeta-texto">{{ restantes }}</span> de {{ total }} lugares
+                Quedan <span class="text-violeta">{{ restantes }}</span> de {{ total }} lugares
               </template>
             </p>
           </div>
 
           <a
             href="#registro"
-            class="shrink-0 bg-violeta px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#5348C9]"
+            class="shrink-0 bg-violeta-solido px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#5B4FD0]"
             @click.prevent="ir"
           >
             Reservar mi lugar

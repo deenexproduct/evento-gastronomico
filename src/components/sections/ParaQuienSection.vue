@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">Para quién es</p>
+          <p class="rotulo text-violeta">Para quién es</p>
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">Una sala de decisores.</h2>
@@ -29,14 +29,14 @@
           </div>
 
           <p class="mt-8 max-w-[60ch] border-t border-linea pt-6 text-[0.97rem] leading-[1.65] text-gris">
-            Hablamos de <span class="font-semibold text-tinta">margen, tiempo y decisiones</span>. No
+            Hablamos de <span class="font-semibold text-white">margen, tiempo y decisiones</span>. No
             es una charla introductoria sobre digitalización ni una feria de comida: es un evento de
             negocios.
           </p>
         </div>
 
         <aside class="lg:col-span-4">
-          <div class="border border-linea bg-papel-2 p-7">
+          <div class="border border-linea bg-white/5 p-7">
             <p class="rotulo text-gris">Para quién no</p>
             <ul class="mt-5">
               <li

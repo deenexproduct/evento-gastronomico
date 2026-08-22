@@ -1,12 +1,12 @@
 <template>
   <header
     class="fixed inset-x-0 top-0 z-[100] border-b transition-colors duration-300"
-    :class="scrolled ? 'border-linea bg-white/90 backdrop-blur-md' : 'border-transparent bg-white'"
+    :class="scrolled ? 'border-white/10 bg-noche/90 backdrop-blur-md' : 'border-transparent bg-noche'"
   >
     <div class="contenedor">
       <div class="flex items-center justify-between gap-6 py-3.5">
         <a href="#hero" class="flex min-h-[44px] min-w-0 items-center gap-3" @click.prevent="arriba">
-          <span class="text-[0.95rem] font-semibold tracking-[-0.02em]">El evento de Deenex</span>
+          <span class="text-[0.95rem] font-black uppercase tracking-[-0.01em] text-white">El evento de Deenex</span>
           <span class="rotulo hidden text-gris sm:inline">{{ EVENTO.fechaNumerica }} · Córdoba</span>
         </a>
 
@@ -15,7 +15,7 @@
             v-for="l in enlaces"
             :key="l.id"
             :href="`#${l.id}`"
-            class="text-[0.85rem] font-medium text-gris transition-colors hover:text-tinta"
+            class="text-[0.85rem] font-medium text-gris transition-colors hover:text-white"
             @click.prevent="ir(l.id)"
             >{{ l.label }}</a
           >
@@ -27,7 +27,7 @@
           </span>
           <a
             href="#registro"
-            class="bg-violeta px-5 py-2.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#5348C9]"
+            class="bg-violeta-solido px-5 py-2.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#5B4FD0]"
             @click.prevent="ir('registro')"
           >
             Reservar

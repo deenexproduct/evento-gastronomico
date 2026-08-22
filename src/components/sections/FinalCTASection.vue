@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <p class="rotulo text-violeta-texto">{{ EVENTO.fechaCorta }} · Córdoba</p>
+          <p class="rotulo text-violeta">{{ EVENTO.fechaCorta }} · Córdoba</p>
         </div>
 
         <div class="lg:col-span-9">

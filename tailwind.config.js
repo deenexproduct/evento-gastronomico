@@ -4,26 +4,26 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Base neutra apenas cálida. No crema: un blanco con temperatura,
-        // para que el violeta no se enfríe encima.
-        papel: "#FBFAF8",
-        "papel-2": "#F3F1EC",
-        // Tinta con sesgo violeta mínimo: base y acento de la misma familia.
-        tinta: "#171420",
-        gris: "#5A5566", // 6.6:1 sobre papel
-        linea: "#E5E1DA",
+        // Base oscura, en el registro de Food Delivery Day (#1A1A1A).
+        noche: "#161616",
+        "noche-2": "#1F1F1F",
+        // Superficies translúcidas: el recurso que sostiene toda su grilla.
+        // Se aplican con bg-white/5 y bg-white/10.
 
-        // Acento único: el violeta de Deenex.
-        violeta: "#695EDE", // fondos de bloque y botones sólidos
-        "violeta-texto": "#5348C9", // 6.0:1 sobre papel — texto y números
-        "violeta-claro": "#9C92F5", // sobre tinta
-        "violeta-tinte": "#EEEBFB", // superficies suaves
+        // Acento único saturado. Ellos usan magenta #FF0054; acá va el
+        // violeta de Deenex en ese mismo rol, para no confundirse con ellos.
+        violeta: "#9C92F5", // 6.3:1 sobre las superficies oscuras — texto
+        "violeta-solido": "#695EDE", // botones y fondos plenos
+        "violeta-tinte": "#EEEBFB",
+
+        papel: "#FFFFFF",
+        gris: "#A5A1B5", // 7.4:1 sobre noche
+        linea: "#2E2E33",
       },
       fontFamily: {
-        // Fuera Inter: es el marcador nº1 de plantilla según el análisis de
-        // 2.248 landings. Display con carácter + grotesca de x-height alta.
-        display: ["'Bricolage Grotesque'", "Georgia", "serif"],
-        sans: ["'Familjen Grotesk'", "system-ui", "sans-serif"],
+        // Grotesca con peso 900 real: es lo que da el golpe visual del
+        // referente. No es Inter, Poppins ni Montserrat.
+        sans: ["Archivo", "system-ui", "sans-serif"],
       },
       maxWidth: {
         contenido: "1200px",
