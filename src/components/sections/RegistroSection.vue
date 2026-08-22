@@ -4,13 +4,22 @@
       <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <!-- Argumento -->
         <div class="lg:col-span-5">
-          <p class="rotulo text-violeta-texto">Reservá tu lugar</p>
+          <p class="rotulo text-violeta-texto">
+            {{ agotado ? "Lista de espera" : "Reservá tu lugar" }}
+          </p>
           <h2 class="titular mt-5 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.9rem)]">
-            Son {{ total }} lugares. Este puede ser el tuyo.
+            <template v-if="agotado">La sala se llenó. Anotate igual.</template>
+            <template v-else>Son {{ total }} lugares. Este puede ser el tuyo.</template>
           </h2>
           <p class="mt-6 max-w-[44ch] text-[1rem] leading-[1.65] text-gris">
-            Entrada gratuita con registro previo obligatorio. Te llega el QR por email: con eso
-            entrás el 20/9 y se te abre la agenda completa del día.
+            <template v-if="agotado">
+              Los {{ total }} lugares están tomados. Siempre hay gente que avisa que no puede venir,
+              y cuando se libera un lugar avisamos por orden de lista. Dejanos tus datos.
+            </template>
+            <template v-else>
+              Entrada gratuita con registro previo obligatorio. Te llega el QR por email: con eso
+              entrás el 20/9 y se te abre la agenda completa del día.
+            </template>
           </p>
 
           <!-- Cupo -->
@@ -60,9 +69,15 @@
             <!-- Éxito -->
             <div v-if="enviado" class="py-8">
               <p class="rotulo text-violeta-texto">Listo</p>
-              <h3 class="titular mt-4 text-[clamp(1.6rem,3vw,2.2rem)]">Tu lugar quedó reservado.</h3>
+              <h3 class="titular mt-4 text-[clamp(1.6rem,3vw,2.2rem)]">
+                {{ agotado ? "Quedaste en la lista." : "Tu lugar quedó reservado." }}
+              </h3>
               <p class="mt-5 max-w-[44ch] text-[0.97rem] leading-[1.65] text-gris">
-                <template v-if="tieneBackend">
+                <template v-if="agotado">
+                  Te escribimos apenas se libere un lugar. Se avisa por orden de anotación, así que
+                  cuanto antes entres a la lista, mejor.
+                </template>
+                <template v-else-if="tieneBackend">
                   Te llega el QR por email. Guardalo: con eso entrás el 20/9 y se te abre la agenda
                   completa del día.
                 </template>
@@ -89,13 +104,21 @@
             <!-- Formulario -->
             <form v-else novalidate @submit.prevent="onSubmit">
               <div class="flex flex-wrap items-baseline justify-between gap-3">
-                <h3 class="titular text-[1.35rem]">Completá y quedás anotado</h3>
+                <h3 class="titular text-[1.35rem]">
+                  {{ agotado ? "Dejanos tus datos" : "Completá y quedás anotado" }}
+                </h3>
                 <span class="rotulo shrink-0 text-gris">30 segundos</span>
               </div>
 
               <p class="mt-4 border-l-2 border-violeta pl-4 text-[0.88rem] leading-snug text-gris">
-                <span class="font-semibold text-tinta">{{ ocupados }} marcas</span> ya reservaron su
-                lugar en la sala.
+                <template v-if="agotado">
+                  <span class="font-semibold text-tinta">{{ total }} marcas</span> ya tomaron su
+                  lugar. Entrás a la lista por orden de anotación.
+                </template>
+                <template v-else>
+                  <span class="font-semibold text-tinta">{{ ocupados }} marcas</span> ya reservaron
+                  su lugar en la sala.
+                </template>
               </p>
 
               <div class="mt-7 space-y-5">
@@ -216,7 +239,7 @@
 
               <button
                 type="submit"
-                :disabled="enviando || agotado"
+                :disabled="enviando"
                 class="btn mt-7 w-full disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <span
@@ -257,7 +280,7 @@ import { useRegistro } from "@/composables/useRegistro";
 
 const { total, ocupados, restantes, porcentaje, agotado, critico } = useCupo();
 const { form, errores, enviando, enviado, errorEnvio, codigo, tieneBackend, enviar, reiniciar } =
-  useRegistro();
+  useRegistro(agotado);
 
 const INCLUYE = [
   "Los seis bloques de charla y las demos en vivo",
@@ -291,7 +314,7 @@ const whatsappRegistro =
 
 const textoBoton = computed(() => {
   if (enviando.value) return "Guardando tu lugar…";
-  if (agotado.value) return "Cupo completo";
+  if (agotado.value) return "Sumarme a la lista de espera";
   return "Reservar mi lugar";
 });
 

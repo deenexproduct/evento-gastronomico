@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://deenexproduct.github.io/evento-gastronomico/sitemap.xml

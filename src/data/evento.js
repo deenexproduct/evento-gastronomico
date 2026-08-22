@@ -503,7 +503,7 @@ export const MARCAS_LOGOS = [
   "emplatame.webp",
   "ayres.webp",
   "Maxirest.webp",
-  "sportclub.png",
+  "sportclub.webp",
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────

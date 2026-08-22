@@ -19,7 +19,7 @@ const VACIO = {
  * Sin endpoint cae a WhatsApp con el mensaje precargado, así la landing
  * convierte desde el día uno.
  */
-export function useRegistro() {
+export function useRegistro(esperaRef) {
   const form = reactive({ ...VACIO });
   const errores = reactive({});
   const enviando = ref(false);
@@ -56,7 +56,9 @@ export function useRegistro() {
   function mensajeWhatsapp() {
     return encodeURIComponent(
       [
-        "Hola Alan! Quiero mi lugar en el evento del 20 de septiembre en Córdoba.",
+        esperaRef?.value
+          ? "Hola! El cupo de GastroTech está completo. Quiero quedar en lista de espera para el 20 de septiembre."
+          : "Hola! Quiero mi lugar en GastroTech, el 20 de septiembre en Córdoba.",
         "",
         `Nombre: ${form.nombre}`,
         `Marca: ${form.marca}`,
@@ -91,7 +93,9 @@ export function useRegistro() {
         body: JSON.stringify({
           ...form,
           whatsapp: limpiarTelefono(form.whatsapp),
-          evento: "deenex-cordoba-2026-09-20",
+          evento: "gastrotech-cordoba-2026-09-20",
+          // Con la sala llena el registro entra como lista de espera, no se pierde.
+          lista: esperaRef?.value ? "espera" : "confirmado",
           origen: window.location.href,
         }),
       });
