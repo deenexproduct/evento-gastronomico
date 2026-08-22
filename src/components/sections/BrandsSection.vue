@@ -10,8 +10,8 @@
             Los que ya están adentro.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
-            Cada partner llega con un beneficio exclusivo para los que estén en la sala ese día. La
-            lista sigue abierta: se anuncian a medida que se cierran.
+            Cada partner de GastroTech llega con un beneficio exclusivo para los que estén en la
+            sala ese día. La lista sigue abierta: se anuncian a medida que se cierran.
           </p>
         </div>
       </div>

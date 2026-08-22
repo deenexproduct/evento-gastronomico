@@ -247,8 +247,8 @@ export const SPEAKERS = [
     rol: "FOUNDER & CEO · DEENEX",
     foto: "alan-tapia.jpg",
     frase:
-      "Hay un mercado gastronómico nuevo formándose. Vengo a mostrar cómo se entra, con datos y sin humo.",
-    bio: "Founder de Deenex, la plataforma omnicanal con la que trabajan más de 350 marcas de foodservice y gastronomía. Da tres de los seis bloques del día.",
+      "Vengo con lo que veo todos los día en los locales que ya se movieron. Con datos, no con impresiones.",
+    bio: "Da tres de los seis bloques del día: abre con el estado del mercado, sigue con datos e inteligencia artificial, y cierra con el ecosistema.",
     charlas: [
       "El nuevo mercado gastronómico y por qué este es el momento",
       "Datos, tecnología e inteligencia artificial aplicados al negocio",
@@ -266,7 +266,7 @@ export const SPEAKERS = [
     nombre: "CEO de Bistrosoft",
     rol: "PARTNER OFICIAL · SISTEMAS POS",
     frase: "La evolución de los sistemas POS.",
-    bio: "Partner oficial del evento. Llega con equipo propio y monta demos en vivo en el salón: se ve funcionando, no en slides.",
+    bio: "Partner oficial de GastroTech. Llega con equipo propio y monta demos en vivo en el salón: se ve funcionando, no en slides.",
     charlas: ["La evolución de los sistemas POS"],
     stats: [
       { valor: "Demos", label: "en vivo" },
@@ -434,7 +434,7 @@ export const AGENDA_BLOQUES = [
     franja: "Hasta las 18",
     titulo: "Cierre",
     items: [
-      "Mesa redonda con todos los speakers juntos",
+      "Mesa redonda con todos los oradores juntos",
       "Preguntas abiertas de la sala",
       "Vino, cerveza y café hasta que se corta",
     ],
@@ -479,14 +479,14 @@ export const PARTNERS = [
   },
   {
     nombre: "Avanzia",
-    tipo: "Partner de contenido",
+    tipo: "Partner de programa",
     aporte: "Dos oradores en escenario: el ex-CEO de Dexter y el ex-presidente de la CAME.",
   },
   {
     nombre: "La mesa de degustación",
     tipo: "Proveedores confirmados",
     aporte:
-      "Cuatro rondas entre charla y charla más una larga al mediodía. Alfajores, aceitunas, humus y café, y café con alfajores a media tarde.",
+      "Cuatro rondas entre charla y charla, más una larga al mediodía: alfajores, aceitunas, humus y café. A media tarde, coffee break.",
   },
 ];
 
@@ -513,7 +513,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en el local, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
+    a: "GastroTech es un evento de gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en el local, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
@@ -525,7 +525,7 @@ export const FAQ = [
   },
   {
     q: "¿Cuánto cuesta?",
-    a: "Nada. La entrada es gratuita, pero el registro previo es obligatorio y el cupo es real: 200 personas. Sin registro no hay ingreso.",
+    a: "Nada. Entrar a GastroTech es gratis, pero el registro previo es obligatorio y el cupo es real: 200 personas. Sin registro no hay ingreso.",
   },
   {
     q: "¿Por qué solo 200 lugares?",
@@ -549,7 +549,7 @@ export const FAQ = [
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio de 200 m² del ${EVENTO.venue}, en Córdoba, de ${EVENTO.horario}. Está dentro de ${EVENTO.eventoMadre}, un evento multisala por el que circulan unas ${EVENTO.eventoMadreCirculacion} personas a lo largo del día.`,
+    a: `GastroTech es en un salón propio de 200 m² del ${EVENTO.venue}, en Córdoba, de ${EVENTO.horario}. Está dentro de ${EVENTO.eventoMadre}, un evento multisala por el que circulan unas ${EVENTO.eventoMadreCirculacion} personas a lo largo del día.`,
   },
 ];
 

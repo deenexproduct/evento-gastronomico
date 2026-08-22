@@ -10,7 +10,8 @@
             Cómo funciona el ingreso.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
-            Son 200 lugares y la puerta se controla. El que llega sin haberse registrado, no entra.
+            GastroTech tiene 200 lugares y la puerta se controla. El que llega sin haberse
+            registrado, no entra.
           </p>
         </div>
       </div>

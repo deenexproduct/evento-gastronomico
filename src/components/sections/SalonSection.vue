@@ -53,7 +53,7 @@ const CONTEXTO = [
   {
     dato: "200 m²",
     titulo: "Una sala propia y cerrada",
-    texto: "No compartimos salón con nadie. El cupo del evento es, literalmente, el del salón.",
+    texto: "GastroTech no comparte salón con nadie. El cupo del evento es, literalmente, el del salón.",
   },
   {
     dato: EVENTO.eventoMadreCirculacion,

@@ -17,9 +17,9 @@
               que sabe qué pasa adentro de su negocio se mueve antes.
             </p>
             <p>
-              El 20 de septiembre juntamos en una sala a los que ya cruzaron esa brecha para que
-              cuenten cómo lo hicieron. Un día, todo junto, sin tener que salir a buscarlo por
-              separado.
+              Cruzarla no es cuestión de presupuesto. Es saber qué mirar, en qué orden y qué esperar
+              de cada paso. Eso hoy se aprende preguntándole al que ya lo hizo, y no hay muchas
+              instancias donde estén todos juntos.
             </p>
           </div>
         </div>
