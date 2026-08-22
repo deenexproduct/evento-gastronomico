@@ -1,63 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f8f9fb"/>
-      <stop offset="100%" stop-color="#ece9fb"/>
-    </linearGradient>
-    <radialGradient id="orb" cx="20%" cy="80%" r="50%">
-      <stop offset="0%" stop-color="#695EDE" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#695EDE" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="orb2" cx="85%" cy="20%" r="40%">
-      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.16"/>
-      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+  <rect width="1200" height="630" fill="#101010"/>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#orb)"/>
-  <rect width="1200" height="630" fill="url(#orb2)"/>
+  <!-- Franja superior -->
+  <rect x="0" y="0" width="1200" height="54" fill="#E8FF4A"/>
+  <text x="40" y="35" font-family="Archivo, system-ui, sans-serif" font-size="16"
+        font-weight="800" letter-spacing="2.6" fill="#101010">DOMINGO 20.09.2026 · CÓRDOBA</text>
+  <text x="1160" y="35" text-anchor="end" font-family="Archivo, system-ui, sans-serif"
+        font-size="16" font-weight="800" letter-spacing="2.6" fill="#101010">ENTRADA GRATUITA</text>
 
-  <!-- Pill -->
-  <g transform="translate(72, 68)">
-    <rect width="330" height="36" rx="18" fill="#695EDE" fill-opacity="0.1" stroke="#695EDE" stroke-opacity="0.25"/>
-    <circle cx="20" cy="18" r="3" fill="#695EDE"/>
-    <text x="34" y="23" font-family="Inter, sans-serif" font-size="12" font-weight="700"
-          letter-spacing="2" fill="#695EDE">DOMINGO 20.09.2026 · CÓRDOBA</text>
-  </g>
+  <!-- Titular -->
+  <text x="40" y="205" font-family="Archivo Black, Archivo, sans-serif" font-size="112"
+        font-weight="900" letter-spacing="-5" fill="#ffffff">NO VENÍS</text>
+  <text x="40" y="313" font-family="Archivo Black, Archivo, sans-serif" font-size="112"
+        font-weight="900" letter-spacing="-5" fill="none" stroke="#ffffff" stroke-width="2">A ESCUCHAR</text>
+  <text x="40" y="421" font-family="Archivo Black, Archivo, sans-serif" font-size="112"
+        font-weight="900" letter-spacing="-5" fill="#ffffff">CHARLAS.</text>
 
-  <!-- Headline -->
-  <text x="72" y="190" font-family="DM Sans, system-ui, sans-serif" font-size="66"
-        font-weight="800" letter-spacing="-2.5" fill="#1B1B1B">No venís a
-    <tspan font-weight="300" font-style="italic" fill="#94a3b8">escuchar charlas</tspan>.
-  </text>
+  <!-- Bajada -->
+  <text x="40" y="492" font-family="Archivo, system-ui, sans-serif" font-size="27"
+        font-weight="600" fill="#E8FF4A">Te vas con un diagnóstico de tu negocio.</text>
+  <text x="40" y="532" font-family="Archivo, system-ui, sans-serif" font-size="21"
+        font-weight="500" fill="#ffffff" fill-opacity="0.55">Innovación, tecnología y marketing para el mercado gastronómico.</text>
 
-  <text x="72" y="272" font-family="DM Sans, system-ui, sans-serif" font-size="66"
-        font-weight="800" letter-spacing="-2.5" fill="#1B1B1B">Te vas con un
-    <tspan font-weight="300" font-style="italic" fill="#695EDE">diagnóstico</tspan>
-  </text>
+  <!-- Franja inferior -->
+  <rect x="0" y="562" width="1200" height="68" fill="#E8FF4A"/>
+  <text x="40" y="605" font-family="Archivo Black, Archivo, sans-serif" font-size="27"
+        letter-spacing="-0.6" fill="#101010">EL EVENTO DE DEENEX</text>
+  <text x="1160" y="605" text-anchor="end" font-family="Archivo Black, Archivo, sans-serif"
+        font-size="27" letter-spacing="-0.6" fill="#101010">HOTEL QUINTO CENTENARIO · 9 A 18 H</text>
 
-  <text x="72" y="354" font-family="DM Sans, system-ui, sans-serif" font-size="66"
-        font-weight="800" letter-spacing="-2.5" fill="#1B1B1B">de tu negocio.</text>
-
-  <!-- Subline -->
-  <text x="72" y="424" font-family="Inter, sans-serif" font-size="26" font-weight="500"
-        fill="#475569">Innovación, tecnología y marketing para el mercado gastronómico.</text>
-  <text x="72" y="462" font-family="Inter, sans-serif" font-size="26" font-weight="500"
-        fill="#475569">Hotel Quinto Centenario · 9 a 18 hs.</text>
-
-  <!-- Footer -->
-  <text x="72" y="540" font-family="Inter, sans-serif" font-size="13" font-weight="700"
-        letter-spacing="3" fill="#94a3b8">ENTRADA GRATUITA · REGISTRO OBLIGATORIO</text>
-  <text x="72" y="574" font-family="DM Sans, system-ui, sans-serif" font-size="24"
-        font-weight="800" fill="#1B1B1B">El evento de Deenex</text>
-
-  <!-- Cupo -->
-  <g transform="translate(985, 465)" opacity="0.95">
-    <rect width="140" height="96" rx="14" fill="#695EDE"/>
-    <text x="70" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="11"
-          font-weight="700" letter-spacing="2" fill="#ffffff" fill-opacity="0.7">SOLO</text>
-    <text x="70" y="74" text-anchor="middle" font-family="DM Sans, sans-serif"
-          font-size="34" font-weight="800" font-style="italic" fill="#ffffff">200 lugares</text>
+  <!-- Bloque de cupo -->
+  <g transform="translate(905, 150)">
+    <rect width="255" height="215" fill="#FF4A2E"/>
+    <text x="128" y="105" text-anchor="middle" font-family="Archivo Black, Archivo, sans-serif"
+          font-size="94" letter-spacing="-4" fill="#ffffff">200</text>
+    <text x="128" y="146" text-anchor="middle" font-family="Archivo, system-ui, sans-serif"
+          font-size="16" font-weight="800" letter-spacing="2.6" fill="#ffffff">LUGARES</text>
+    <text x="128" y="176" text-anchor="middle" font-family="Archivo, system-ui, sans-serif"
+          font-size="16" font-weight="800" letter-spacing="2.6" fill="#ffffff" fill-opacity="0.75">NO MÁS</text>
   </g>
 </svg>

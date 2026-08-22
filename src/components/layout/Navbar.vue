@@ -1,145 +1,68 @@
 <template>
-  <div class="fixed top-3 sm:top-4 left-0 right-0 z-[100] flex flex-col items-center px-3 sm:px-4">
-    <nav
-      class="w-full max-w-6xl transition-all duration-500 px-3 sm:px-4 py-2 sm:py-2.5"
-      :class="scrolled ? 'nav-scrolled' : 'nav-top'"
+  <header class="fixed inset-x-0 top-0 z-[100]">
+    <!-- Franja de datos -->
+    <div
+      class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b-[3px] border-ink bg-lima px-4 py-2 text-ink sm:px-6"
     >
-      <div class="flex items-center justify-between gap-2 sm:gap-4 min-h-[44px]">
-        <!-- Brand -->
-        <a
-          href="#hero"
-          @click.prevent="scrollToTop"
-          class="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0 py-2 -my-2"
-        >
-          <span
-            class="w-2 h-2 rounded-full transition-colors shrink-0 animate-pulse"
-            :class="scrolled ? 'bg-white' : 'bg-primary'"
-          ></span>
-          <span
-            class="font-heading font-extrabold text-[0.78rem] sm:text-[0.95rem] tracking-tight transition-colors truncate"
-            :class="scrolled ? 'text-white' : 'text-slate-900'"
-          >
-            El evento de Deenex
-          </span>
-          <span
-            class="hidden lg:inline text-[0.72rem] font-mono tracking-widest transition-colors shrink-0"
-            :class="scrolled ? 'text-white/60' : 'text-slate-400'"
-          >
-            CBA · {{ EVENTO.fechaNumerica }}
-          </span>
-        </a>
+      <a href="#hero" class="kicker shrink-0" @click.prevent="arriba">El evento de Deenex</a>
+      <span class="kicker hidden sm:inline">{{ EVENTO.fechaCorta }} · Córdoba</span>
+      <span class="kicker hidden lg:inline">{{ EVENTO.venue }}</span>
+      <span class="kicker tabular-nums">{{ cuenta }}</span>
+    </div>
 
-        <!-- Countdown -->
-        <div class="hidden md:flex items-center gap-3 font-mono text-[0.72rem] tracking-wider">
-          <div
-            v-for="unit in units"
-            :key="unit.label"
-            class="flex flex-col items-center leading-tight"
-          >
-            <span
-              class="font-bold text-[0.95rem] transition-colors"
-              :class="scrolled ? 'text-white' : 'text-primary'"
-              >{{ unit.value }}</span
-            >
-            <span
-              class="text-[0.55rem] uppercase tracking-[0.18em] transition-colors"
-              :class="scrolled ? 'text-white/60' : 'text-slate-400'"
-              >{{ unit.label }}</span
-            >
-          </div>
-        </div>
+    <!-- Barra de acción -->
+    <div
+      class="flex items-center justify-between gap-4 border-b-[3px] border-ink bg-ink px-4 py-2.5 transition-colors sm:px-6"
+    >
+      <p class="kicker truncate text-white/55">
+        <span :class="critico ? 'text-fuego' : 'text-lima'">●</span>
+        {{ agotado ? "Cupo completo" : `Quedan ${restantes} de ${total} lugares` }}
+      </p>
 
-        <!-- CTA -->
-        <a
-          href="#registro"
-          @click.prevent="irARegistro"
-          class="inline-flex items-center gap-1.5 sm:gap-2 text-[0.78rem] sm:text-[0.82rem] font-bold px-3.5 sm:px-4 py-2.5 rounded-xl transition-all duration-300 shrink-0 min-h-[40px]"
-          :class="
-            scrolled
-              ? 'bg-white text-primary hover:bg-slate-50'
-              : 'bg-primary text-white hover:bg-[#5346c7] shadow-md shadow-primary/25'
-          "
-        >
-          Reservar mi lugar
-          <svg width="10" height="10" viewBox="0 0 13 13" fill="none">
-            <path
-              d="M2 6.5h9M7.5 3l3.5 3.5L7.5 10"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </a>
-      </div>
-    </nav>
-  </div>
+      <a
+        href="#registro"
+        class="shrink-0 bg-lima px-4 py-2 text-[0.72rem] font-black uppercase tracking-[-0.01em] text-ink transition-transform duration-150 hover:-translate-y-0.5 sm:px-5 sm:text-[0.8rem]"
+        @click.prevent="ir('registro')"
+      >
+        Reservar mi lugar
+      </a>
+    </div>
+  </header>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, reactive } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
+import { useCupo } from "@/composables/useCupo";
 
-const scrolled = ref(false);
-const target = new Date(EVENTO.fechaISO).getTime();
+const { total, restantes, agotado, critico } = useCupo();
 
-const units = reactive([
-  { label: "días", value: "--" },
-  { label: "hs", value: "--" },
-  { label: "min", value: "--" },
-  { label: "seg", value: "--" },
-]);
-
-const pad = (n) => String(n).padStart(2, "0");
+const objetivo = new Date(EVENTO.fechaISO).getTime();
+const cuenta = ref("--");
 
 function tick() {
-  const diff = target - Date.now();
+  const diff = objetivo - Date.now();
   if (diff <= 0) {
-    units.forEach((u) => (u.value = "00"));
+    cuenta.value = "Es hoy";
     return;
   }
-  units[0].value = pad(Math.floor(diff / 86400000));
-  units[1].value = pad(Math.floor((diff / 3600000) % 24));
-  units[2].value = pad(Math.floor((diff / 60000) % 60));
-  units[3].value = pad(Math.floor((diff / 1000) % 60));
+  const dias = Math.floor(diff / 86400000);
+  const hs = Math.floor((diff / 3600000) % 24);
+  const min = Math.floor((diff / 60000) % 60);
+  cuenta.value = `Faltan ${dias}d ${String(hs).padStart(2, "0")}h ${String(min).padStart(2, "0")}m`;
 }
 
-function onScroll() {
-  scrolled.value = window.scrollY > 60;
+function ir(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
-
-function scrollToTop() {
+function arriba() {
   window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function irARegistro() {
-  document.getElementById("registro")?.scrollIntoView({ behavior: "smooth" });
 }
 
 let interval = null;
 onMounted(() => {
   tick();
-  interval = setInterval(tick, 1000);
-  window.addEventListener("scroll", onScroll, { passive: true });
+  interval = setInterval(tick, 30000);
 });
-onUnmounted(() => {
-  if (interval) clearInterval(interval);
-  window.removeEventListener("scroll", onScroll);
-});
+onUnmounted(() => clearInterval(interval));
 </script>
-
-<style scoped>
-.nav-top {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1.25rem;
-  border: 1.5px solid rgba(105, 94, 222, 0.35);
-  box-shadow: 0 4px 24px -8px rgba(105, 94, 222, 0.18);
-}
-.nav-scrolled {
-  background: var(--primary);
-  border-radius: 1rem;
-  border: 1px solid transparent;
-}
-</style>

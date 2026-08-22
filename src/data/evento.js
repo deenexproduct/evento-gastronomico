@@ -125,6 +125,21 @@ export const PASOS_ENTRADA = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Fotos
+//
+// Todo lo que está en "" es un hueco marcado en la landing (ver FotoSlot.vue).
+// Para enchufar una foto: dejarla en src/assets/images/ y poner acá el nombre
+// del archivo tal cual, con extensión.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const FOTOS = {
+  /** El salón del hotel. El brief lo marca como argumento, no como detalle. */
+  salon: "",
+  /** Sala llena en un evento anterior, para prueba social. */
+  sala: "",
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Speakers — SOLO CERRADOS
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -150,6 +165,7 @@ export const SPEAKERS = [
   },
   {
     id: "bistrosoft",
+    foto: "", // ← Foto del CEO de Bistrosoft
     nombre: "CEO de Bistrosoft",
     rol: "PARTNER OFICIAL · SISTEMAS POS",
     frase: "La evolución de los sistemas POS.",
@@ -162,6 +178,7 @@ export const SPEAKERS = [
   },
   {
     id: "avanzia",
+    foto: "", // ← Fotos de los oradores de Avanzia
     nombre: "Avanzia",
     rol: "DOS ORADORES EN ESCENARIO",
     frase: "La visión de quienes ya condujeron compañías y cámaras del sector.",
@@ -174,6 +191,7 @@ export const SPEAKERS = [
   },
   {
     id: "ugc",
+    foto: "", // ← Foto del orador de UGC
     nombre: "UGC y contenidos",
     rol: "LA NUEVA FORMA DE HACER CONTENIDO",
     frase: "Cómo se hace hoy el contenido que mueve una marca gastronómica.",

@@ -1,64 +1,49 @@
 <template>
-  <section id="por-que" class="relative overflow-hidden bg-slate-900 py-24 sm:py-32">
-    <!-- Background -->
-    <div class="pointer-events-none absolute inset-0">
-      <div
-        class="absolute -left-32 top-0 h-[500px] w-[500px] rounded-full bg-primary/20 blur-[130px]"
-      ></div>
-      <div
-        class="absolute -right-24 bottom-0 h-[420px] w-[420px] rounded-full bg-violet-500/15 blur-[120px]"
-      ></div>
-      <div class="manifesto-grid absolute inset-0"></div>
-    </div>
+  <section id="por-que" class="bg-hueso text-ink">
+    <div class="px-5 py-16 sm:px-8 sm:py-24">
+      <p class="kicker opacity-50">Por qué ahora</p>
 
-    <div class="relative z-10 mx-auto w-full max-w-[1240px] px-6 sm:px-8">
-      <span
-        class="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-primary-light font-bold mb-7"
-      >
-        Por qué ahora
-      </span>
-
-      <h2
-        class="max-w-4xl font-heading text-[clamp(1.7rem,3.7vw,3.1rem)] font-extrabold leading-[1.15] tracking-tight text-white"
-      >
-        El mercado se puso difícil. Los que salgan adelante
-        <em class="font-light italic text-primary-light">no son los que aguanten</em>, son los que
-        se preparen.
+      <h2 class="titular mt-6 max-w-[18ch] text-[clamp(2.2rem,7vw,5.2rem)]">
+        El mercado se puso difícil.
+      </h2>
+      <h2 class="titular mt-3 max-w-[22ch] text-[clamp(1.6rem,4.6vw,3.4rem)] text-fuego">
+        Los que salgan adelante no son los que aguanten. Son los que se preparen.
       </h2>
 
-      <p class="mt-8 max-w-2xl text-[1.05rem] leading-[1.75] text-slate-400">
-        El 20 de septiembre arranca esa preparación. Hay un mercado gastronómico nuevo formándose
-        —con otra tecnología, otros datos y otra forma de hacer marketing— y hay una manera concreta
-        de entrar.
-      </p>
+      <div class="mt-12 grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+        <div class="space-y-5 text-[1.02rem] leading-[1.65] text-ink/70 sm:text-[1.1rem]">
+          <p>
+            El 20 de septiembre arranca esa preparación. Hay un mercado gastronómico nuevo
+            formándose —con otra tecnología, otros datos y otra forma de hacer marketing— y hay una
+            manera concreta de entrar.
+          </p>
+          <p>
+            Este es el primer evento propio de Deenex. Una jornada entera pensada para el que
+            decide: el dueño de la marca y el dueño del restaurante.
+          </p>
+          <blockquote class="borde mt-8 bg-ink p-7 text-white">
+            <p class="titular text-[clamp(1.2rem,2.6vw,1.9rem)] leading-[1.15]">
+              “No vinimos a escuchar.<br /><span class="text-lima">Vinimos a armar algo juntos.”</span>
+            </p>
+            <footer class="kicker mt-5 text-white/50">Alan Tapia · Founder &amp; CEO de Deenex</footer>
+          </blockquote>
+        </div>
 
-      <p class="mt-5 max-w-2xl text-[1.05rem] leading-[1.75] text-slate-400">
-        Este es el primer evento propio de Deenex. Una jornada entera de innovación, tecnología y
-        marketing, pensada para el que decide: el dueño de la marca y el dueño del restaurante.
-      </p>
-
-      <!-- Tres ejes -->
-      <div class="mt-16 grid gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-3">
-        <div v-for="eje in EJES" :key="eje.n" class="bg-slate-900 p-7 sm:p-8">
-          <span class="font-mono text-[0.7rem] font-bold tracking-widest text-primary-light">{{
-            eje.n
-          }}</span>
-          <h3 class="mt-4 font-heading text-[1.15rem] font-bold tracking-tight text-white">
-            {{ eje.titulo }}
-          </h3>
-          <p class="mt-3 text-[0.92rem] leading-[1.65] text-slate-400">{{ eje.texto }}</p>
+        <!-- Tres ejes -->
+        <div class="grid gap-[3px] bg-ink">
+          <div v-for="eje in EJES" :key="eje.n" class="bg-hueso p-7 sm:p-8">
+            <div class="flex items-baseline gap-5">
+              <span class="titular text-[2rem] text-fuego">{{ eje.n }}</span>
+              <div>
+                <h3 class="titular text-[clamp(1.3rem,2.6vw,1.8rem)]">{{ eje.titulo }}</h3>
+                <p class="mt-2.5 max-w-[42ch] text-[0.95rem] leading-[1.55] text-ink/65">
+                  {{ eje.texto }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Cita -->
-      <blockquote
-        class="mt-16 max-w-3xl border-l-2 border-primary pl-6 sm:pl-8 font-heading text-[clamp(1.15rem,2vw,1.6rem)] font-medium italic leading-[1.5] text-white/90"
-      >
-        “No vinimos a escuchar. Vinimos a armar algo juntos.”
-        <footer class="mt-4 not-italic font-sans text-[0.8rem] font-bold uppercase tracking-[0.14em] text-slate-500">
-          Alan Tapia · Founder & CEO de Deenex
-        </footer>
-      </blockquote>
     </div>
   </section>
 </template>
@@ -85,13 +70,3 @@ const EJES = [
   },
 ];
 </script>
-
-<style scoped>
-.manifesto-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 100%);
-}
-</style>
