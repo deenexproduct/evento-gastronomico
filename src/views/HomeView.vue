@@ -13,6 +13,9 @@
       <!-- Hero · fondo base -->
       <HeroSection />
 
+      <!-- Barra de partners: prueba social apenas termina el hero -->
+      <BarraPartners />
+
       <!-- Quiénes van a estar · negro medio -->
       <OradoresSection class="v-reveal bg-noche-2" />
 
@@ -28,8 +31,6 @@
       <!-- Cuenta regresiva -->
       <CuentaSection class="v-reveal" />
 
-      <!-- Sí, es domingo · la objeción, antes de pedir nada -->
-      <DomingoSection class="v-reveal" />
 
       <!-- Con qué volvés al local -->
       <ElLunesSection class="v-reveal bg-noche-2" />
@@ -46,12 +47,10 @@
       <!-- Dónde es -->
       <LocationSection class="v-reveal bg-noche-2" />
 
-      <!-- Para quién es y preguntas -->
-      <ParaQuienSection class="v-reveal bg-noche" />
-      <FAQSection class="v-reveal bg-noche-2" />
 
-      <!-- Cierre -->
-      <FinalCTASection class="v-reveal bg-noche-3" />
+      <!-- Preguntas -->
+      <FAQSection class="v-reveal bg-noche" />
+
     </main>
 
     <Footer />
@@ -65,20 +64,18 @@ import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
+import BarraPartners from "@/components/sections/BarraPartners.vue";
 import OradoresSection from "@/components/sections/OradoresSection.vue";
 import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
 import CuentaSection from "@/components/sections/CuentaSection.vue";
-import DomingoSection from "@/components/sections/DomingoSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import PruebaSection from "@/components/sections/PruebaSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
-import ParaQuienSection from "@/components/sections/ParaQuienSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
-import FinalCTASection from "@/components/sections/FinalCTASection.vue";
 
 let observer = null;
 let respaldo = null;

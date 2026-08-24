@@ -305,7 +305,7 @@ const textoBoton = computed(() => {
 const whatsappRegistro =
   `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
   encodeURIComponent(
-    "Hola! Quiero reservar mi lugar en el evento de gastronomía y tecnología del 20 de septiembre en Córdoba."
+    "Hola! Quiero reservar mi lugar en GastroTech del 20 de septiembre en Córdoba."
   );
 
 async function onSubmit() {

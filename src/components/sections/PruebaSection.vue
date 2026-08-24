@@ -7,13 +7,14 @@
   -->
   <section class="bg-noche py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-acento-texto">Quién organiza</p>
+      <p class="rotulo text-acento-texto">Sobre Deenex</p>
       <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(2rem,6vw,3.5rem)]">
-        Es el primer evento propio de Deenex
+        Quién está detrás de GastroTech
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        No hay edición anterior que mostrar. Lo que hay es la plataforma con la que ya trabajan las
-        marcas que están abajo, y tres años de escuchar el mismo problema en cada local.
+        Deenex es la plataforma omnicanal con la que trabajan las marcas de acá abajo. GastroTech es
+        su primer evento propio: tres años escuchando el mismo problema en cada local, puestos en un
+        solo día.
       </p>
 
       <div ref="grilla" class="mt-12 grid gap-4 sm:grid-cols-3">
@@ -28,7 +29,7 @@
 
       <!-- Logos -->
       <p class="mt-16 text-[13px] font-black uppercase tracking-[0.16em] text-gris-2">
-        Algunas de las marcas que trabajan con Deenex
+        Clientes de Deenex
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-7 sm:gap-x-14">
         <img

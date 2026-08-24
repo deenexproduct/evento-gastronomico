@@ -1,0 +1,6 @@
+Logotipos de los partners del evento (Bistrosoft, Avanzia, etc.).
+
+Dejar el archivo aca y poner su nombre en PARTNERS.logo dentro de
+src/data/evento.js. Preferentemente PNG o SVG con fondo transparente.
+
+Mientras el campo este vacio se muestra el nombre en tipografia.

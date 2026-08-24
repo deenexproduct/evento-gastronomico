@@ -6,10 +6,10 @@
   -->
   <section class="bg-noche py-seccion">
     <div class="contenedor text-center">
-      <p class="rotulo text-acento-texto">La jornada es el 20 de septiembre</p>
+      <p class="rotulo text-acento-texto">Domingo 20 de septiembre · Córdoba</p>
 
       <h2 class="titulo mx-auto mt-6 max-w-[20ch] text-[clamp(1.6rem,4.6vw,2.8rem)]">
-        El evento de gastronomía y tecnología vuelve a Córdoba
+        Falta cada vez menos para GastroTech
       </h2>
 
       <div class="mt-12 flex items-end justify-center gap-4 sm:gap-6">

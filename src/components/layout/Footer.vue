@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="text-[1rem] font-semibold tracking-[-0.02em]">El evento de Deenex</p>
+          <p class="text-[1rem] font-semibold tracking-[-0.02em]">GastroTech</p>
           <p class="mt-3 max-w-[40ch] text-[0.9rem] leading-[1.65] text-gris">
             Un día de gastronomía y tecnología para dueños de marcas gastronómicas y restaurantes.
             {{ EVENTO.fechaLarga }}, {{ EVENTO.venue }}, Córdoba.
@@ -70,10 +70,10 @@
       -->
       <div class="mt-14 border-t border-white/10 pt-10">
         <h2 class="text-[13px] font-black uppercase tracking-[0.14em] text-gris">
-          Sobre el evento de gastronomía y tecnología
+          Sobre GastroTech
         </h2>
         <p class="mt-4 max-w-[80ch] text-[15px] leading-[1.7] text-gris">
-          El evento de gastronomía y tecnología de Deenex es una jornada de negocios para dueños de
+          GastroTech de Deenex es una jornada de negocios para dueños de
           marcas gastronómicas y restaurantes, que se realiza el domingo 20 de septiembre de 2026 de
           9 a 18 horas en el Hotel Quinto Centenario de Córdoba, Argentina. La programación reúne
           siete bloques sobre el estado del mercado gastronómico, datos e inteligencia artificial
@@ -106,7 +106,7 @@ const enlaces = [
 
 const whatsapp =
   `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent("Hola! Tengo una consulta sobre el evento de Deenex del 20 de septiembre.");
+  encodeURIComponent("Hola! Tengo una consulta sobre GastroTech del 20 de septiembre.");
 
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

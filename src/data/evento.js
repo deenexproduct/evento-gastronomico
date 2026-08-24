@@ -10,6 +10,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const EVENTO = {
+  nombre: "GastroTech",
   fechaISO: "2026-09-20T09:00:00-03:00",
   fechaLarga: "Domingo 20 de septiembre de 2026",
   fechaCorta: "Domingo 20.09.2026",
@@ -527,22 +528,39 @@ export const PUBLICO = {
 // Partners — SOLO CERRADOS
 // ─────────────────────────────────────────────────────────────────────────────
 
+/**
+ * Partners confirmados.
+ *
+ * `logo`: nombre del archivo dentro de src/assets/images/partners/. Con el
+ * campo vacío se muestra el nombre en tipografía, que es mejor que un hueco.
+ * `quien`: la persona concreta que viene, que es lo que hace creíble al partner.
+ * `empresa`: a qué se dedica, para el que no la conoce.
+ */
 export const PARTNERS = [
   {
     nombre: "Bistrosoft",
+    logo: "",
     tipo: "Partner oficial",
-    aporte: "Charla del CEO sobre la evolución del POS, equipo propio y demos en vivo en el salón.",
+    empresa:
+      "Sistema de gestión y punto de venta para gastronomía. Trabaja con locales de todo el país.",
+    quien: "Viene el CEO",
+    aporte: "Da la charla sobre la evolución del POS y monta demos en vivo con equipo propio.",
   },
   {
     nombre: "Avanzia",
+    logo: "",
     tipo: "Partner de contenido",
-    aporte: "Dos oradores en escenario: el ex-CEO de Dexter y el ex-presidente de la CAME.",
+    empresa: "Consultora de gestión y desarrollo de negocios para empresas del rubro.",
+    quien: "Traen dos oradores",
+    aporte: "El ex-CEO de Dexter y el ex-presidente de la CAME, sobre conducción y mercado.",
   },
   {
     nombre: "La mesa de degustación",
+    logo: "",
     tipo: "Proveedores confirmados",
-    aporte:
-      "Cuatro rondas entre charla y charla más una larga al mediodía. Alfajores, aceitunas, humus y café, y café con alfajores a media tarde.",
+    empresa: "Los proveedores que ponen lo que se come y se toma durante toda la jornada.",
+    quien: "Cuatro rondas más una larga",
+    aporte: "Alfajores, aceitunas, humus y café entre bloque y bloque, y coffee break a la tarde.",
   },
 ];
 

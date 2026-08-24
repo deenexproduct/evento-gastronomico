@@ -14,15 +14,18 @@
     ></div>
 
     <div class="contenedor relative py-14 sm:py-20">
-      <p class="rotulo text-acento-texto">Edición 01 · Jornada de gastronomía y tecnología</p>
+      <p class="rotulo text-acento-texto">Edición 01 · Deenex</p>
 
       <p class="mt-7 text-[14px] font-bold uppercase tracking-[0.14em] text-gris sm:text-[16px]">
         20 de septiembre 2026 &nbsp;|&nbsp; {{ EVENTO.venue }}, Córdoba
       </p>
 
-      <h1 class="display mt-4 max-w-[13ch] text-[clamp(2.6rem,9vw,5.8rem)]">
-        Gastronomía y tecnología
+      <h1 class="display mt-4 text-[clamp(3.2rem,13vw,8.5rem)]">
+        {{ EVENTO.nombre }}
       </h1>
+      <p class="mt-3 max-w-[24ch] text-[clamp(1.1rem,3.2vw,1.7rem)] font-black uppercase leading-[1.1] tracking-[-0.02em] text-acento-texto">
+        La jornada de gastronomía y tecnología
+      </p>
 
       <p class="mt-6 max-w-[46ch] text-[18px] font-semibold text-gris sm:text-[21px]">
         Nueve horas para bajar costos, ordenar la operación y vender más.

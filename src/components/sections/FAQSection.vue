@@ -74,5 +74,5 @@ function toggle(i) {
 
 const whatsappConsultas =
   `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent("Hola! Tengo una consulta sobre el evento de Deenex del 20 de septiembre.");
+  encodeURIComponent("Hola! Tengo una consulta sobre GastroTech del 20 de septiembre.");
 </script>
