@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mensajeReserva, linkWaReserva, WHATSAPP_ORGANIZADOR } from "@/data/evento";
+import { mensajeReserva, linkWaReserva, WHATSAPP_ORGANIZADOR, TERMOMETRO, TEMAS } from "@/data/evento";
 
 /**
  * El mensaje de WhatsApp es todo lo que queda del formulario de registro.
@@ -40,6 +40,51 @@ describe("el mensaje de reserva", () => {
   it("no le pregunta el tema a quien no entra", () => {
     expect(mensajeReserva()).toContain("Me interesaría que se hable de:");
     expect(mensajeReserva({ agotado: true })).not.toContain("Me interesaría");
+  });
+
+  it("escribe el tema que la persona marcó, en vez de dejar el renglón en blanco", () => {
+    // Hoy ese renglón llega vacío en el 100% de los mensajes: nadie tipea un
+    // tema libre desde el teléfono. Es el único dato de intención que la
+    // página puede pasar sin formulario.
+    const m = mensajeReserva({ temas: ["comparar mis locales entre sí", "unificar el sistema de cobro"] });
+    expect(m).toContain("Me interesaría que se hable de: comparar mis locales entre sí · unificar el sistema de cobro");
+    // Y sin nada marcado el mensaje tiene que ser EXACTAMENTE el de siempre.
+    expect(mensajeReserva({ temas: [] })).toBe(mensajeReserva());
+  });
+
+  it("no le pregunta el tema a quien no entra, ni aunque haya marcado", () => {
+    // Marcar temas no puede saltarse la regla: al que queda afuera no se le
+    // pregunta qué le gustaría escuchar.
+    expect(mensajeReserva({ temas: ["lo que sea"], agotado: true })).not.toContain("Me interesaría");
+    expect(mensajeReserva({ temas: ["lo que sea"], agotado: true })).not.toContain("lo que sea");
+  });
+
+  it("escribe cuántos van, y solo cuando son más de uno", () => {
+    // Con cupo duro de 200, doscientos mensajes no son doscientas personas.
+    expect(mensajeReserva({ personas: 3 })).toContain("Vamos 3 (yo + 2 de mi equipo)");
+    // "Vamos 1" no informa nada y se come la primera pantalla del chat.
+    expect(mensajeReserva({ personas: 1 })).not.toContain("Vamos");
+    expect(mensajeReserva()).not.toContain("Vamos");
+    // En la lista de espera SÍ va: son tres lugares que hay que liberar.
+    expect(mensajeReserva({ personas: 2, agotado: true })).toContain("Vamos 2");
+  });
+
+  it("lo resuelto va antes de lo que hay que completar", () => {
+    // En el celular WhatsApp muestra las primeras líneas y el resto hay que
+    // scrollearlo. Si "Vamos 3" cae debajo de los renglones en blanco, la
+    // persona lo borra creyendo que es parte de lo que tiene que llenar.
+    const l = mensajeReserva({ locales: "6 a 15 locales", personas: 3 }).split("\n");
+    expect(l.findIndex((x) => x.startsWith("Vamos"))).toBeLessThan(l.indexOf("Nombre:"));
+    expect(l.findIndex((x) => x.startsWith("Locales:"))).toBeLessThan(l.indexOf("Nombre:"));
+  });
+
+  it("cada afirmación del termómetro apunta a un bloque que existe", () => {
+    // Un id mal escrito no rompe nada a la vista: simplemente resta un bloque
+    // del resultado y una hora de la promesa. No lo atrapa mirando la página.
+    const huerfanos = TERMOMETRO.filter((t) => !TEMAS.some((b) => b.id === t.tema)).map((t) => t.id);
+    expect(huerfanos).toEqual([]);
+    // Y ningún `corto` vacío: sería un separador suelto en medio del renglón.
+    expect(TERMOMETRO.filter((t) => !t.corto?.trim())).toEqual([]);
   });
 
   it("arma un enlace al número del organizador y sobrevive a la codificación", () => {

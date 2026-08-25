@@ -26,7 +26,7 @@
               <h3>
                 <button
                   type="button"
-                  class="flex w-full items-start justify-between gap-4 py-5 text-left sm:gap-6 transition-colors hover:text-acento-texto"
+                  class="presionable flex w-full items-start justify-between gap-4 py-5 text-left sm:gap-6 transition-colors hover:text-acento-texto"
                   :aria-expanded="abierto === i"
                   :aria-controls="`faq-panel-${i}`"
                   @click="toggle(i)"

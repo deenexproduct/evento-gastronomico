@@ -57,6 +57,39 @@ test("el selector se puede deshacer y el mensaje vuelve atrás", async ({ page }
   expect(decodeURIComponent(await enlaceReserva(page))).toContain("Cuántos locales tengo:");
 });
 
+test("lo que se marca arriba llega escrito en el mensaje de abajo", async ({ page }) => {
+  // Es la tesis entera de la pieza en un test: el termómetro está catorce
+  // pantallas más arriba que el botón. Si esto se cae, la interacción volvió
+  // a ser decoración y el renglón del tema vuelve a llegar en blanco, que es
+  // lo que pasa hoy en el 100% de los mensajes.
+  await page.goto("/");
+  const antes = decodeURIComponent(await enlaceReserva(page));
+  expect(antes).toContain("Me interesaría que se hable de:");
+
+  const fila = page.locator("#termometro li").first();
+  const etiqueta = (await fila.locator("p").first().innerText()).trim();
+  await fila.getByRole("button", { name: "No", exact: true }).click();
+
+  const texto = decodeURIComponent((await enlaceReserva(page)).split("text=")[1]);
+  // El renglón dejó de estar vacío.
+  expect(texto).toMatch(/Me interesaría que se hable de: .+/);
+  expect(etiqueta.length).toBeGreaterThan(10);
+});
+
+test("el cuántos van escribe las sillas en el mensaje y se puede deshacer", async ({ page }) => {
+  // Con cupo duro de 200, doscientos mensajes no son doscientas personas.
+  await page.goto("/#registro");
+  expect(decodeURIComponent(await enlaceReserva(page))).not.toContain("Vamos");
+
+  const tres = page.locator('#registro [role="group"] button').nth(2);
+  await tres.click();
+  await expect(tres).toHaveAttribute("aria-pressed", "true");
+  expect(decodeURIComponent(await enlaceReserva(page))).toContain("Vamos 3");
+
+  await page.locator('#registro [role="group"] button').first().click();
+  expect(decodeURIComponent(await enlaceReserva(page))).not.toContain("Vamos");
+});
+
 test("el enlace se abre en otra pestaña y avisa que lo hace", async ({ page }) => {
   await page.goto("/#registro");
   const boton = page.locator('#registro a[href*="wa.me"]').first();

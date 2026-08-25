@@ -41,3 +41,7 @@ playwright-report/
 
 # Artefactos de medición y capturas de auditoría: no son del proyecto.
 .medicion/
+
+# Revisión de la tarjeta social: variante oscura y miniaturas para mirar
+# antes de publicar. No son del proyecto.
+herramientas/_revision/

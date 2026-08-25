@@ -2,9 +2,11 @@
   <!--
     Los siete bloques como cuadrados iguales, todos a la vista al mismo tiempo.
 
-    El detalle NO se abre dentro de la grilla: se abre en un panel debajo. Si
-    se expandiera en el lugar, la grilla cambiaría de alto y dejaría de verse
-    entera — que es justamente lo que se pide. Así la grilla queda quieta.
+    El detalle NO se abre DENTRO de un cuadrado: si se expandiera en el lugar,
+    ese cuadrado cambiaría de proporción y la grilla de alto, y dejaría de
+    verse entera — que es justamente lo que se pide. El detalle es un panel
+    aparte que se COLOCA dentro de la grilla (ver .panel-jornada): los siete
+    cuadrados nunca cambian de tamaño.
 
     OJO CON LA VARIANTE CLARA (?claro):
     · border-linea ya está pisado en el tema claro, así que sirve; los
@@ -74,8 +76,30 @@
       </div>
 
       <!-- ── Los siete cuadrados ──────────────────────────────────────── -->
-      <ul class="mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
-        <li v-for="b in TEMAS" :key="b.id">
+      <!--
+        El panel de detalle es una CELDA MÁS de esta grilla, no un hermano de
+        abajo. Sigue estando fuera de los cuadrados —ninguno cambia de alto ni
+        de proporción al elegir, el aspect-ratio 1/1 no se toca— pero se
+        coloca donde se lo puede ver:
+
+        · Debajo de 1280 ocupa una fila entera JUSTO DEBAJO de la fila del
+          cuadrado tocado: la respuesta nace a 10px del borde de lo que el dedo
+          acaba de tocar, en vez de 736px por debajo del pliegue. La sección no
+          cambia de alto total: el panel ya ocupaba ese alto, antes al final.
+        · De 1280 para arriba se va a la quinta columna y se queda al lado. Ahí
+          los siete cuadrados Y la respuesta entran juntos en una pantalla —el
+          pedido del cliente cumplido de verdad por primera vez— y la sección
+          pasa de 1314px a 892px.
+
+        El orden lo da `order` (ver ordenPanel): la colocación automática de
+        CSS Grid respeta el orden modificado por `order`, así que un elemento
+        a ancho completo empuja al que sigue a una fila nueva sin que haya que
+        calcular filas a mano.
+      -->
+      <ul
+        class="grilla-jornada mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:gap-3 md:grid-cols-3 lg:grid-cols-4"
+      >
+        <li v-for="(b, i) in TEMAS" :key="b.id" :style="{ order: i * 2 }">
           <button
             type="button"
             class="cuadro"
@@ -98,7 +122,7 @@
                 <span
                   class="text-[11px] font-black tabular-nums tracking-[0.1em] text-gris-2 sm:text-[12px]"
                   aria-hidden="true"
-                  >{{ String(TEMAS.indexOf(b) + 1).padStart(2, "0") }}</span
+                  >{{ String(i + 1).padStart(2, "0") }}</span
                 >
                 <time
                   :datetime="iso(b.hora)"
@@ -130,10 +154,19 @@
               </span>
               <!-- `quien` en gris y no en magenta: el acento es de la hora. Con
                    siete nombres pintados también, el color deja de señalar.
-                   Oculto en teléfono: en un cuadro de 163px no entra junto al
-                   título y desbordaba. Ahí el nombre vive en el detalle. -->
+
+                   SE OCULTA EN LOS DOS EXTREMOS, Y LAS DOS VECES POR LA MISMA
+                   RAZÓN MEDIDA: no entra. Debajo de 640px el cuadrado mide
+                   163px. De 1280 para arriba mide 195, porque la quinta
+                   columna se lleva el ancho del panel, y ahí los bloques 5 y 7
+                   recortaban 47 y 19px de este renglón — el nombre salía
+                   cortado a la mitad de una palabra.
+                   No se pierde nada: el nombre vive en el panel de detalle, y
+                   de 1280 para arriba ese panel está SIEMPRE a la vista, al
+                   lado de la grilla. Los dos lugares están atados: si alguna
+                   vez se saca del panel, hay que devolverlo acá. -->
               <span
-                class="mt-2 hidden text-[11px] font-bold uppercase leading-[1.3] tracking-[0.04em] text-gris sm:block sm:text-[12px]"
+                class="mt-2 hidden text-[11px] font-bold uppercase leading-[1.3] tracking-[0.04em] text-gris sm:block sm:text-[12px] xl:hidden"
               >
                 {{ b.quien }}
               </span>
@@ -147,7 +180,7 @@
           desde que se sacó la línea de contexto no figuraban en ningún lado.
           Sin borde sólido ni fondo: no es un bloque que se toque.
         -->
-        <li class="hidden lg:block">
+        <li class="hidden lg:block" :style="{ order: 99 }">
           <div class="cuadro-puntas">
             <div v-for="b in [BORDES.apertura, BORDES.cierre]" :key="b.id" class="flex gap-3">
               <Pictograma
@@ -166,14 +199,17 @@
             </div>
           </div>
         </li>
-      </ul>
-
-      <!-- ── El detalle del elegido, fuera de la grilla ────────────────── -->
-      <div
-        class="tarjeta mt-2.5 p-5 sm:mt-3 sm:p-7"
-        aria-live="polite"
-        :aria-label="`Detalle del bloque de las ${actual.hora}`"
-      >
+        <!-- ── El detalle del elegido: fuera de los cuadrados, dentro de la
+             grilla. `order` lo manda a la fila del cuadrado tocado; el
+             min-height evita que la grilla salte de alto al cambiar de
+             bloque, porque las puntas van de 12 a 35 palabras. -->
+        <li
+          ref="panel"
+          class="panel-jornada tarjeta p-5 sm:p-7"
+          :style="{ order: ordenPanel }"
+          aria-live="polite"
+          :aria-label="`Detalle del bloque de las ${actual.hora}`"
+        >
         <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <time :datetime="iso(actual.hora)" class="hora text-[1.15rem] text-acento-texto">{{
             actual.hora
@@ -188,11 +224,12 @@
           un cuadro de 163px no entra: sin esto, abajo de 640px no había un
           solo nombre de orador en toda la página antes de pedir el contacto.
         -->
-        <p class="rotulo mt-3 text-gris">{{ actual.quien }}</p>
-        <p class="mt-3 max-w-[68ch] text-[15px] leading-[1.55] text-gris sm:text-[16px]">
-          {{ actual.punta }}
-        </p>
-      </div>
+          <p class="rotulo mt-3 text-gris">{{ actual.quien }}</p>
+          <p class="mt-3 max-w-[68ch] text-[15px] leading-[1.55] text-gris sm:text-[16px]">
+            {{ actual.punta }}
+          </p>
+        </li>
+      </ul>
 
       <p class="mt-4 text-[13px] leading-[1.45] text-gris lg:hidden">
         Track único, sin salas paralelas. Tocá cualquier bloque para ver de qué va.
@@ -207,7 +244,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { EVENTO, TEMAS, PAUSAS, BORDES, TIPOS_BLOQUE } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
@@ -257,9 +294,95 @@ TEMAS.forEach((t, i) => {
   if (h) cinta.push({ id: h.id, tipo: "pausa", min: h.min });
 });
 
-// El detalle vive en un panel único debajo de la grilla, así la grilla no
-// cambia de alto al elegir y se sigue viendo entera.
+// El detalle vive en un panel único, fuera de los cuadrados: ninguno cambia
+// de alto ni de proporción al elegir, así la grilla se sigue viendo entera.
 const elegido = ref(TEMAS[0].id);
 const actual = computed(() => TEMAS.find((t) => t.id === elegido.value) || TEMAS[0]);
-const elegir = (id) => (elegido.value = id);
+const panel = ref(null);
+
+function elegir(id) {
+  elegido.value = id;
+  acercar();
+}
+
+/**
+ * El acercamiento mínimo, y sólo cuando hace falta.
+ *
+ * Con el panel dentro de la grilla la respuesta nace 10px debajo de la fila
+ * tocada. Pero si esa fila estaba al pie de la pantalla, nace justo afuera:
+ * medido a 393x664, tocando un bloque de la tercera fila el panel queda
+ * 196px por debajo del pliegue. Esto lo corrige, acotado a propósito:
+ *
+ * · No corre de 1280 para arriba: ahí el panel ya está al lado y quieto.
+ * · No corre si ya se ve más de la mitad. Que la página se mueva sola bajo
+ *   el pulgar es el movimiento con peor prensa que existe; se usa cuando es
+ *   la diferencia entre ver la respuesta y no verla.
+ * · Nunca desplaza más que el alto del propio panel. Un scrollIntoView acá
+ *   puede recorrer media sección y dejar al que tocó mirando pasar la
+ *   página — es el mismo motivo por el que el router usa 'auto' y no
+ *   'smooth' cuando se entra de afuera.
+ * · Con prefers-reduced-motion salta sin animar, pero SALTA: no mostrar lo
+ *   que la persona acaba de pedir no es una mejora de accesibilidad. Hay que
+ *   consultarlo a mano porque un behavior:"smooth" explícito le gana al
+ *   `scroll-behavior: auto` que main.css declara en esa media query.
+ */
+async function acercar() {
+  if (typeof window === "undefined") return;
+  if (window.matchMedia("(min-width: 1280px)").matches) return;
+  await nextTick();
+  const el = panel.value;
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+  if (r.height === 0 || visible / r.height > 0.5) return;
+  const falta = Math.min(Math.round(r.bottom - window.innerHeight + 16), Math.round(r.height));
+  if (falta <= 0) return;
+  const suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollBy({ top: falta, behavior: suave ? "smooth" : "auto" });
+}
+
+/**
+ * Cuántas columnas tiene la grilla ahora mismo. Se lee de matchMedia y no del
+ * ancho de la ventana: son exactamente los mismos cortes que declara Tailwind
+ * en las clases de arriba (grid-cols-2 / md:grid-cols-3 / lg:grid-cols-4), y
+ * si se mueve uno hay que mover el otro. Dos listeners de media query, sin
+ * listener de resize: no se dispara en cada píxel al arrastrar la ventana.
+ *
+ * Arranca en 2 (teléfono) porque es el caso del 100% del público que llega
+ * por el link de WhatsApp, y porque en SSR/primer render no hay window.
+ */
+const columnas = ref(2);
+const consultas = [];
+function medirColumnas() {
+  const [md, lg] = consultas;
+  columnas.value = lg.matches ? 4 : md.matches ? 3 : 2;
+}
+onMounted(() => {
+  consultas.push(window.matchMedia("(min-width: 768px)"), window.matchMedia("(min-width: 1024px)"));
+  medirColumnas();
+  consultas.forEach((c) => c.addEventListener("change", medirColumnas));
+});
+onBeforeUnmount(() => consultas.forEach((c) => c.removeEventListener("change", medirColumnas)));
+
+/**
+ * Dónde se coloca el panel dentro de la grilla.
+ *
+ * Cada cuadrado lleva `order: i * 2`, así queda un número impar libre entre
+ * uno y el siguiente. El panel toma el impar que sigue al ÚLTIMO cuadrado de
+ * la fila del elegido, de modo que la colocación automática de CSS Grid —que
+ * respeta el orden modificado por `order`— lo baje a una fila nueva a ancho
+ * completo y empuje al resto hacia abajo.
+ *
+ * De lg para arriba el panel se coloca a mano en la quinta columna (ver
+ * .panel-jornada en main.css), así que este número deja de importar.
+ */
+const ordenPanel = computed(() => {
+  const i = Math.max(
+    0,
+    TEMAS.findIndex((t) => t.id === elegido.value)
+  );
+  const fila = Math.floor(i / columnas.value);
+  const ultimo = Math.min((fila + 1) * columnas.value - 1, TEMAS.length - 1);
+  return ultimo * 2 + 1;
+});
 </script>

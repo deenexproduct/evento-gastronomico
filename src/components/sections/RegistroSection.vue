@@ -54,12 +54,20 @@
                   lugares<br />disponibles
                 </span>
               </div>
-              <div class="mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10">
-                <div
-                  class="h-full rounded-full bg-acento transition-[width] duration-1000"
-                  :style="{ width: Math.max(porcentaje, 3) + '%' }"
-                ></div>
-              </div>
+              <!--
+                El salón, silla por silla, en vez de una barra de progreso de
+                8px. El argumento central de la página —"el cupo es el del
+                salón, no una fase de venta"— se afirma con palabras en una
+                docena de lugares y se ilustraba con una barra que trae
+                cualquier plantilla. Dibujado es literalmente cierto: cada
+                celda es una butaca, y son doscientas.
+              -->
+              <Salon
+                class="mt-5"
+                :total="total"
+                :tomadas="ocupados"
+                :rotulo="`Plano del salón: ${ocupados} de ${total} butacas tomadas`"
+              />
               <p class="mt-3 text-[14px] text-gris">{{ ocupados }} de {{ total }} ya tomados</p>
             </template>
 
@@ -134,6 +142,79 @@
                  las dos reglas tienen la misma especificidad y las dos llevan
                  !important, así que ganaría la que esté escrita después. Por
                  eso la geometría va en utilidades y solo el color se condiciona. -->
+            <!--
+              TU DOMINGO. Cierra el circuito: lo que la persona marcó catorce
+              pantallas más arriba, en el termómetro, llega escrito en el chat.
+              El renglón "Me interesaría que se hable de:" llega en blanco en el
+              100% de los mensajes porque nadie tipea un tema libre desde el
+              teléfono. Acá se ve que ya está escrito, así que el que llegó
+              hasta el botón sabe qué está mandando antes de mandarlo.
+
+              No lleva chips en estado activo: por definición estos son los ya
+              elegidos y la cruz los saca. Así no hace falta combinar .chip con
+              bg-acento-boton, que es la combinación prohibida (misma
+              especificidad, las dos con !important: gana la escrita después).
+              min-h-[44px] escrito a mano porque .chip de fábrica mide 33px y
+              el test de mínimo táctil audita todo <button> visible.
+            -->
+            <div v-if="hayEleccion && !agotado" class="mt-8 rounded-xl border border-acento/40 p-5">
+              <p class="rotulo text-acento-texto">Tu domingo</p>
+              <ul class="mt-3 flex flex-wrap gap-1.5">
+                <li v-for="t in elegidos" :key="t.id">
+                  <button
+                    type="button"
+                    class="chip min-h-[44px] normal-case tracking-[0.02em]"
+                    @click="marcar(t.id)"
+                  >
+                    {{ t.corto }}<span aria-hidden="true"> ×</span>
+                    <span class="sr-only"> (sacar de tu mensaje)</span>
+                  </button>
+                </li>
+              </ul>
+              <p class="mt-3 text-[13px] leading-[1.45] text-gris">
+                Va escrito en el mensaje: no lo tenés que tipear.
+              </p>
+            </div>
+
+            <!--
+              CUÁNTOS VAN. Con cupo duro de 200 es el dato operativo que más
+              falta y que hoy no se pregunta en ningún lado: sin esto, 200
+              mensajes son 200 personas y en la puerta aparecen 260.
+
+              Va como <div role="group"> y NO como <fieldset>, a propósito:
+              tests/e2e/registro.spec.js ubica el selector de locales con
+              `#registro fieldset button` .first(). Un segundo fieldset acá
+              arriba se lo roba y el test falla sin que la página esté rota.
+              El grupo se nombra con aria-labelledby, que cumple lo mismo.
+
+              Sigue sin haber un solo campo: son botones, como los locales. El
+              test que verifica que no quede ningún input/textarea/select
+              dentro de #registro sigue cubriendo.
+            -->
+            <div class="mt-8" role="group" aria-labelledby="cuantos-van">
+              <p id="cuantos-van" class="text-[12px] font-black uppercase tracking-[0.12em] text-gris">
+                ¿Cuántos van?
+                <span class="text-gris-2">Para saber cuántas sillas guardar</span>
+              </p>
+              <div class="mt-3.5 flex flex-wrap gap-2">
+                <button
+                  v-for="n in [1, 2, 3, 4]"
+                  :key="n"
+                  type="button"
+                  :aria-pressed="personas === n"
+                  class="presionable inline-flex min-h-[44px] items-center rounded-full border px-4 text-[13px] font-bold uppercase tracking-[0.06em] transition-colors"
+                  :class="
+                    personas === n
+                      ? 'border-transparent bg-acento-boton'
+                      : 'border-white/15 bg-white/5 text-gris hover:border-white/40'
+                  "
+                  @click="cuantos(n)"
+                >
+                  {{ n === 1 ? "Solo yo" : n }}<span class="sr-only"> personas</span>
+                </button>
+              </div>
+            </div>
+
             <fieldset v-if="!agotado" class="mt-8 min-w-0 border-0 p-0">
               <legend class="text-[12px] font-black uppercase tracking-[0.12em] text-gris">
                 ¿Cuántos locales tenés?
@@ -208,16 +289,25 @@
 import { computed, ref } from "vue";
 import { CANTIDAD_LOCALES, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
+import { useTuDomingo } from "@/composables/useTuDomingo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
+import Salon from "@/components/ui/Salon.vue";
 
 const { total, ocupados, restantes, porcentaje, agotado, mostrarCupo } = useCupo();
 const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.value);
 const { google, urlIcs, nombreArchivo } = useCalendario();
 
+const { elegidos, temas, hayEleccion, personas, marcar, cuantos } = useTuDomingo();
+
 const locales = ref("");
 const enlaceReserva = computed(() =>
-  linkWaReserva({ locales: locales.value, agotado: agotado.value })
+  linkWaReserva({
+    locales: locales.value,
+    temas: temas.value,
+    personas: personas.value,
+    agotado: agotado.value,
+  })
 );
 
 const INCLUYE = [

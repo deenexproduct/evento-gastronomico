@@ -547,7 +547,7 @@ export const PUBLICO = {
 export const PARTNERS = [
   {
     nombre: "Bistrosoft",
-    logo: "",
+    logo: "_t-mono.svg",
     tipo: "Partner oficial",
     empresa:
       "Sistema de gestión y punto de venta para gastronomía. Trabaja con locales de todo el país.",
@@ -556,7 +556,7 @@ export const PARTNERS = [
   },
   {
     nombre: "Avanzia",
-    logo: "",
+    logo: "_t-knockout.svg",
     tipo: "Partner de contenido",
     empresa: "Consultora de gestión y desarrollo de negocios para empresas del rubro.",
     quien: "Traen dos oradores",
@@ -694,6 +694,65 @@ export const REELS = [
   // { archivo: "17-el-salon.mp4", poster: "17.jpg", titulo: "Este es el salón" },
 ];
 
+/**
+ * Seis cosas que un dueño de cadena o tiene resueltas o no.
+ *
+ * `tema` apunta al id del bloque de TEMAS donde se habla de eso: el resultado
+ * se DERIVA, no se escribe. Si mañana se cae un bloque, la afirmación que lo
+ * señalaba deja de ofrecer un bloque inexistente en vez de mentir.
+ *
+ * `corto` es lo que viaja al mensaje de WhatsApp. Va en minúscula y sin punto
+ * final porque se pega detrás de "Me interesaría que se hable de:".
+ *
+ * Regla de redacción: se pregunta por un HECHO verificable de la operación
+ * ("puedo decir hoy..."), nunca por una intención ("me gustaría..."). Un dueño
+ * contesta la primera con honestidad y la segunda con lo que queda bien.
+ *
+ * BORRADOR: los textos los tiene que firmar Alan antes de publicar.
+ */
+export const TERMOMETRO = [
+  {
+    id: "t1",
+    tema: "comparar",
+    corto: "comparar mis locales entre sí",
+    afirmacion:
+      "Puedo decir hoy, sin pedirle el dato a nadie, cuál de mis locales tuvo peor margen la semana pasada.",
+  },
+  {
+    id: "t2",
+    tema: "pos",
+    corto: "unificar el sistema de cobro",
+    afirmacion:
+      "Mis sucursales reportan todas al mismo sistema y el número consolidado no lo arma nadie a mano.",
+  },
+  {
+    id: "t3",
+    tema: "mercado",
+    corto: "qué cambió en el mercado",
+    afirmacion: "Sé qué hicieron distinto este año las cadenas de mi tamaño que crecieron.",
+  },
+  {
+    id: "t4",
+    tema: "contenido",
+    corto: "sostener la marca en varios puntos",
+    afirmacion:
+      "Mi marca suena igual en todos mis locales sin que yo tenga que revisar cada posteo.",
+  },
+  {
+    id: "t5",
+    tema: "conduccion",
+    corto: "conducir con el mercado duro",
+    afirmacion:
+      "Cuando tengo que tomar una decisión grande de estructura, tengo con quién consultarla.",
+  },
+  {
+    id: "t6",
+    tema: "ecosistema",
+    corto: "qué pedirle a un proveedor",
+    afirmacion: "Sé qué pedirle a un proveedor cuando compro para varios locales, y lo negocio así.",
+  },
+];
+
 export const WHATSAPP_ORGANIZADOR = "5491154596266";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -717,7 +776,7 @@ export const WHATSAPP_ORGANIZADOR = "5491154596266";
  * · publicar — se pregunta en la conversación, que deja el sí por escrito con
  *              nombre y fecha: mejor consentimiento que un checkbox.
  */
-export function mensajeReserva({ locales = "", agotado = false } = {}) {
+export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado = false } = {}) {
   const lineas = agotado
     ? [
         "GASTROTECH · LISTA DE ESPERA",
@@ -735,6 +794,11 @@ export function mensajeReserva({ locales = "", agotado = false } = {}) {
   // Lo ya resuelto va primero: se ve sin scrollear y le prueba a la persona
   // que el selector de la página sirvió para algo.
   if (locales) lineas.push(`Locales: ${locales}`);
+  // Cuántos van. Con cupo duro de 200 es el dato operativo que hoy no se
+  // pregunta en ningún lado: sin esto, 200 mensajes son 200 personas y en la
+  // puerta aparecen 260. Solo se escribe si no es 1, que es el default: un
+  // renglón "Vamos 1" no informa nada y ocupa la primera pantalla del chat.
+  if (personas > 1) lineas.push(`Vamos ${personas} (yo + ${personas - 1} de mi equipo)`);
 
   lineas.push(
     "Nombre:",
@@ -750,7 +814,18 @@ export function mensajeReserva({ locales = "", agotado = false } = {}) {
   // El tema es el renglón que convierte una plantilla en una conversación. No
   // entra en la lista de espera: preguntarle el tema a alguien que no entra es
   // una falta de respeto.
-  if (!agotado) lineas.push("", "Me interesaría que se hable de:");
+  // El renglón del tema llega en blanco en el 100% de los mensajes: nadie
+  // tipea un tema libre desde el teléfono. Si la persona marcó algo arriba,
+  // sale escrito. El prefijo NO cambia —los tests lo verifican por toContain—
+  // y con la lista vacía el string es idéntico al de siempre.
+  if (!agotado) {
+    lineas.push(
+      "",
+      temas.length
+        ? `Me interesaría que se hable de: ${temas.join(" · ")}`
+        : "Me interesaría que se hable de:"
+    );
+  }
 
   return lineas.join("\n");
 }

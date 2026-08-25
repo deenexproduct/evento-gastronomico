@@ -28,7 +28,7 @@
           </span>
           <a
             href="#registro"
-            class="inline-flex min-h-[44px] items-center rounded-full bg-acento-boton px-5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
+            class="presionable inline-flex min-h-[44px] items-center rounded-full bg-acento-boton px-5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
             @click.prevent="ir('registro')"
           >
             Reservar
