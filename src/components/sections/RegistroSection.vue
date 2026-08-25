@@ -4,14 +4,23 @@
       <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-14">
         <!-- Argumento -->
         <div>
-          <p class="rotulo text-acento-texto">Reservá tu lugar</p>
+          <p class="rotulo text-acento-texto">
+            {{ agotado ? "Lista de espera" : "Reservá tu lugar" }}
+          </p>
           <h2 class="titulo mt-4 text-[clamp(2rem,5.6vw,3.4rem)]">
-            Son {{ total }} lugares. Este puede ser el tuyo.
+            <template v-if="agotado">La sala se llenó. Anotate igual.</template>
+            <template v-else>Son {{ total }} lugares. Este puede ser el tuyo.</template>
           </h2>
 
           <p class="mt-6 max-w-[46ch] text-[17px] text-gris">
-            Entrada sin costo con registro previo. El código de acceso te llega por mail: con eso
-            entrás el 20/9.
+            <template v-if="agotado">
+              Los {{ total }} lugares están tomados. Siempre hay gente que avisa que no puede venir:
+              cuando se libera uno, avisamos por orden de lista.
+            </template>
+            <template v-else>
+              Entrada sin costo con registro previo. El código de acceso te llega por mail: con eso
+              entrás el 20/9.
+            </template>
           </p>
 
           <!-- Cupo -->
@@ -121,8 +130,12 @@
 
             <!-- ── Paso 1: lo mínimo ── -->
             <div v-if="paso === 1" class="mt-7">
-              <h3 class="text-[1.5rem] font-black uppercase leading-[1.1]">Empecemos</h3>
-              <p class="mt-2 text-[15px] text-gris">Dos datos y ya tenés el lugar apartado.</p>
+              <h3 class="text-[1.5rem] font-black uppercase leading-[1.1]">
+                {{ agotado ? "Entrá a la lista" : "Empecemos" }}
+              </h3>
+              <p class="mt-2 text-[15px] text-gris">
+                {{ agotado ? "Dos datos y quedás en orden de espera." : "Dos datos y ya tenés el lugar apartado." }}
+              </p>
 
               <div class="mt-7 space-y-5">
                 <div>
@@ -273,7 +286,7 @@
                 {{ errorEnvio }}
               </div>
 
-              <button type="submit" :disabled="enviando || agotado" class="btn mt-8 w-full disabled:opacity-50">
+              <button type="submit" :disabled="enviando" class="btn mt-8 w-full disabled:opacity-50">
                 <span
                   v-if="enviando"
                   class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
@@ -332,8 +345,10 @@ const RIESGO = [
 ];
 
 const textoBoton = computed(() => {
-  if (enviando.value) return "Guardando tu lugar…";
-  if (agotado.value) return "Cupo completo";
+  if (enviando.value) return agotado.value ? "Guardando…" : "Guardando tu lugar…";
+  // Con la sala llena el formulario sigue abierto, pero para lista de espera:
+  // bloquearlo perdería contactos que sí quieren venir si se libera un lugar.
+  if (agotado.value) return "Anotarme en la lista";
   return "Confirmar mi lugar";
 });
 

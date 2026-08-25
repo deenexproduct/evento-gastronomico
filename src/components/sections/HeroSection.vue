@@ -42,7 +42,7 @@
             ></span>
             <span class="relative inline-flex h-2 w-2 rounded-full bg-acento"></span>
           </span>
-          <span class="text-acento-texto">Registro abierto</span>
+          <span class="text-acento-texto">{{ agotado ? "Lista de espera" : "Registro abierto" }}</span>
         </p>
 
         <div class="mt-4 flex items-baseline justify-between gap-4">
@@ -60,13 +60,19 @@
         </div>
 
         <p class="mt-3 text-[15px] leading-[1.45] text-gris">
-          El cupo es el del salón, no una fase de venta. Cuando entren
-          {{ total }}, se cierra el registro.
+          <template v-if="agotado">
+            La sala se llenó: entraron los {{ total }}. Podés dejar tus datos en la lista de espera
+            por si se libera un lugar.
+          </template>
+          <template v-else>
+            El cupo es el del salón, no una fase de venta. Cuando entren {{ total }}, se cierra el
+            registro.
+          </template>
         </p>
       </div>
 
       <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href="#registro" class="btn" @click.prevent="ir('registro')">Quiero mi lugar</a>
+        <a href="#registro" class="btn" @click.prevent="ir('registro')">{{ agotado ? "Entrar a la lista" : "Quiero mi lugar" }}</a>
         <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
       </div>
 
@@ -82,7 +88,7 @@ import { ref, onMounted, watch } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, ocupados, porcentaje } = useCupo();
+const { total, ocupados, porcentaje, agotado } = useCupo();
 
 const ancho = ref(0);
 onMounted(() => setTimeout(() => (ancho.value = Math.max(porcentaje.value, 3)), 400));
