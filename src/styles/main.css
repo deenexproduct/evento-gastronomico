@@ -83,11 +83,19 @@ img, video { max-width: 100%; height: auto; display: block; }
            px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em];
   }
 
-  /* Fila de costura de la jornada: apertura, pausas grandes entre tramos y
-     cierre. Una sola clase para las cuatro, asi no pueden divergir. */
-  .costura {
-    @apply flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-white/10 py-3.5
-           text-[12px] font-bold uppercase tracking-[0.1em] text-gris;
+  /* Cuadro de la jornada. Cuadrado de verdad: con 4/5 las dos filas median
+     700px y la grilla ya no entraba en una pantalla de 800, que es justo lo
+     que se pide. El hover es de BORDE y no de fondo: html.claro pisa
+     bg-white/N por substring y un hover con fondo quedaria aplicado siempre
+     en claro, no solo al pasar el mouse. */
+  .cuadro {
+    @apply flex h-full w-full flex-col rounded-xl border border-white/10 bg-white/[0.03]
+           p-3.5 text-left transition-colors duration-150
+           hover:border-white/30 sm:p-4;
+    aspect-ratio: 1 / 1;
+  }
+  .cuadro-activo {
+    @apply border-acento;
   }
 
   /* La cinta del dia. Los tintes NO pueden salir de bg-white/N ni de
@@ -184,10 +192,13 @@ html.claro .text-acento-texto { color: #C7003F !important; }
 /* Las superficies translúcidas se apoyaban en blanco sobre negro: ahora
    tienen que ser negro sobre blanco o desaparecen. */
 html.claro .tarjeta,
+html.claro .cuadro,
 html.claro [class*="bg-white/"] { background-color: rgba(0, 0, 0, .035) !important; }
 html.claro .tarjeta,
-html.claro .costura,
+html.claro .cuadro,
 html.claro [class*="border-white/"] { border-color: rgba(0, 0, 0, .12) !important; }
+/* El elegido tiene que ganarle a la regla de arriba. */
+html.claro .cuadro-activo { border-color: #E00049 !important; }
 html.claro .bg-acento,
 html.claro .bg-acento-boton { background-color: #E00049 !important; color: #fff !important; }
 html.claro .btn { color: #fff !important; }
@@ -196,7 +207,7 @@ html.claro .btn-linea { color: #1A1A1A !important; border-color: rgba(0,0,0,.25)
 /* La landing se imprime y se pasa en PDF. Sin esto, los paneles cerrados de
    la jornada salen como siete filas vacias. */
 @media print {
-  [id^="bloque-"] { grid-template-rows: 1fr !important; }
+  .cuadro { aspect-ratio: auto; }
   .cinta { transform: none !important; }
 }
 
