@@ -125,9 +125,9 @@ export const VOLVES_CON = [
   },
   {
     n: "05",
-    titulo: "Una sala llena de marcas",
+    titulo: "Una sala llena de dueños",
     texto:
-      "Hasta doscientas marcas gastronómicas en el mismo salón, y varias ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
+      "Hasta doscientos dueños de marcas gastronómicas en el mismo salón, y varios ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
   },
   {
     n: "06",
@@ -168,7 +168,7 @@ export const CALENDARIO = {
 /** Mensaje listo para reenviar. Escrito para WhatsApp, no copiado de Instagram. */
 export const INVITACION =
   "Che, les paso algo que puede servir.\n\n" +
-  "El domingo 20 de septiembre hay un evento de gastronomía y tecnología para marcas gastronómicas, en Córdoba, " +
+  "El domingo 20 de septiembre hay un evento de gastronomía y tecnología para dueños de marcas gastronómicas, en Córdoba, " +
   "en el Hotel Quinto Centenario, de 9 a 18. Se llama GastroTech. Seis charlas sobre datos, " +
   "sistemas de gestión, contenido y cómo está el mercado. Hay degustaciones entre medio y demos en vivo.\n\n" +
   "Es gratis pero hay que anotarse, y son 200 lugares nada más.\n\n" +
@@ -491,25 +491,26 @@ export const AGENDA_BLOQUES = [
 export const PUBLICO = {
   si: [
     {
-      titulo: "Marcas con varios locales",
+      titulo: "Dueños de cadenas",
       texto:
-        "Cadenas que necesitan que los datos, el stock y la venta hablen el mismo idioma en todas las sucursales.",
+        "El que necesita que los datos, el stock y la venta hablen el mismo idioma en todas sus sucursales.",
     },
     {
-      titulo: "Marcas de un solo local",
+      titulo: "Dueños de una sola marca",
       texto:
-        "El que tiene uno pero lo piensa como marca: identidad, canal propio y decisiones con números. Acá no pesa el tamaño.",
+        "Tenés un local pero lo pensás como marca: identidad, canal propio y decisiones con números. Acá no pesa el tamaño.",
     },
     {
-      titulo: "Franquiciantes y grupos multimarca",
+      titulo: "Franquiciantes y socios de grupos",
       texto:
-        "Los que manejan varias marcas a la vez y necesitan que cada una escale sin volver a empezar de cero.",
+        "El que maneja varias marcas a la vez y necesita que cada una escale sin volver a empezar de cero.",
     },
   ],
   no: [
-    "Empleados sin decisión sobre el negocio",
-    "Proveedores buscando vender en la sala",
-    "Público general o consumidores",
+    "Empleados que no deciden sobre la marca",
+    "Proveedores que vienen a vender en la sala",
+    "Público general y consumidores",
+    "Curiosos del rubro sin un negocio propio",
   ],
 };
 
@@ -583,7 +584,7 @@ export const FAQ = [
   },
   {
     q: "Tengo un solo local. ¿Es para mí?",
-    a: "Sí, y es el mejor momento para venir. GastroTech está pensado para marcas gastronómicas, y una marca puede tener un local o veinte: lo que define no es el tamaño sino que la pienses como marca. Casi todo lo que se cuenta se aplica desde el primer local, y ordenarlo temprano es mucho más barato que hacerlo con diez sucursales abiertas.",
+    a: "Sí, y es el mejor momento para venir. GastroTech es para dueños de marcas gastronómicas, y una marca puede tener un local o veinte: lo que define no es el tamaño sino que la decisión pase por vos. Casi todo lo que se cuenta se aplica desde el primer local, y ordenarlo temprano es mucho más barato que hacerlo con diez sucursales abiertas.",
   },
   {
     q: "¿Qué es el diagnóstico del que hablan?",

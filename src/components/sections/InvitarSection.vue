@@ -44,11 +44,11 @@
 
         <!-- Invitar -->
         <div class="border-t border-linea pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
-          <p class="rotulo text-gris">02 · Pasásela a otra marca</p>
-          <h3 class="titular mt-4 text-[1.3rem]">A la marca que le sirve de verdad.</h3>
+          <p class="rotulo text-gris">02 · Pasáselo a otro dueño</p>
+          <h3 class="titular mt-4 text-[1.3rem]">Al dueño que le sirve de verdad.</h3>
           <p class="mt-4 max-w-[42ch] text-[0.95rem] leading-[1.65] text-gris">
-            Si conocés otra marca gastronómica que está peleando lo mismo que vos, mandáselo. El
-            mensaje ya está escrito: solo elegís a quién.
+            Si conocés a otro dueño que está peleando lo mismo que vos, mandáselo. Viene de un
+            colega y no de una marca, que es lo que hace que se lea. El mensaje ya está escrito.
           </p>
 
           <blockquote

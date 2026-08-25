@@ -107,7 +107,7 @@
               </div>
 
               <p class="mt-7 border-t border-linea pt-6 text-[0.9rem] leading-[1.6] text-gris">
-                ¿Conocés otra marca a la que le sirva?
+                ¿Conocés a otro dueño a quien le sirva?
                 <a
                   :href="urlWhatsapp"
                   target="_blank"

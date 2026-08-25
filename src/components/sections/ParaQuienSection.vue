@@ -7,12 +7,12 @@
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
-            Una sala de marcas, no de curiosos.
+            Dueños de marcas. No curiosos.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
-            GastroTech es para quien decide sobre una marca gastronómica. Puede tener un local o
-            veinte: lo que importa es que lo piense como marca y pueda tomar la decisión. Córdoba
-            capital y provincia.
+            GastroTech es para el dueño de una marca gastronómica: el que firma, el que decide y el
+            que después tiene que aplicarlo. Puede tener un local o veinte — lo que importa es que
+            la decisión pase por vos. Córdoba capital y provincia.
           </p>
         </div>
       </div>

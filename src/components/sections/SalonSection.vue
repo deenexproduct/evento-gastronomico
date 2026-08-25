@@ -7,7 +7,7 @@
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
-            Una sala propia para doscientas marcas.
+            Una sala propia para doscientos dueños.
           </h2>
         </div>
       </div>
