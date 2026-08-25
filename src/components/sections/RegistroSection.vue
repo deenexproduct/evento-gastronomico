@@ -107,7 +107,7 @@
               </div>
 
               <p class="mt-7 border-t border-linea pt-6 text-[0.9rem] leading-[1.6] text-gris">
-                ¿Conocés a alguien del rubro a quien le sirva?
+                ¿Conocés otra marca a la que le sirva?
                 <a
                   :href="urlWhatsapp"
                   target="_blank"
@@ -163,13 +163,13 @@
                 </div>
 
                 <div>
-                  <label class="etiqueta" for="reg-marca">Marca o negocio</label>
+                  <label class="etiqueta" for="reg-marca">Tu marca</label>
                   <input
                     id="reg-marca"
                     v-model.trim="form.marca"
                     type="text"
                     autocomplete="organization"
-                    placeholder="El nombre de tu marca"
+                    placeholder="Cómo se llama"
                     class="campo"
                     :class="{ 'campo-error': errores.marca }"
                   />
@@ -191,7 +191,7 @@
                     <p v-if="errores.rol" class="error">{{ errores.rol }}</p>
                   </div>
                   <div>
-                    <label class="etiqueta" for="reg-locales">Locales</label>
+                    <label class="etiqueta" for="reg-locales">Locales de la marca</label>
                     <select
                       id="reg-locales"
                       v-model="form.locales"

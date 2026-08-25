@@ -26,9 +26,9 @@
             forma de hacer marketing.
           </p>
           <p class="mt-4 text-[1.02rem] leading-[1.65] text-gris">
-            El 20 de septiembre juntamos en una sala a los que ya entraron, para que cuenten cómo lo
-            hicieron. Seis bloques de charla, demos en vivo y doscientos dueños de marcas
-            gastronómicas y restaurantes.
+            El 20 de septiembre juntamos en una sala a las marcas que ya entraron, para que cuenten
+            cómo lo hicieron. Seis bloques de charla, demos en vivo y hasta doscientas marcas
+            gastronómicas de Córdoba.
           </p>
         </div>
 
@@ -133,7 +133,7 @@ const objetivoTiempo = computed(() => {
 const FICHA = [
   { rotulo: "Fecha", valor: `${EVENTO.fechaLarga} · ${EVENTO.horario}` },
   { rotulo: "Lugar", valor: `${EVENTO.venue}, ${EVENTO.direccion} · Córdoba` },
-  { rotulo: "Para quién", valor: "Dueños de marcas gastronómicas y de restaurantes" },
+  { rotulo: "Para quién", valor: "Quien decide sobre una marca gastronómica" },
 ];
 
 // Voces confirmadas: Alan, CEO de Bistrosoft, orador de UGC y los dos de Avanzia.
@@ -141,7 +141,7 @@ const DATOS = [
   { valor: "6", label: "Bloques de charla" },
   { valor: "5+", label: "Voces en escenario" },
   { valor: "9h", label: "De jornada" },
-  { valor: "200", label: "Lugares, no más" },
+  { valor: "200", label: "Marcas en la sala" },
 ];
 
 function ir(id) {

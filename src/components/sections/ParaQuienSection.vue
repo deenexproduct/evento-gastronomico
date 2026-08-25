@@ -6,10 +6,13 @@
           <p class="rotulo text-violeta-texto">Para quién es</p>
         </div>
         <div class="lg:col-span-9">
-          <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">Una sala de decisores.</h2>
+          <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
+            Una sala de marcas, no de curiosos.
+          </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
-            Dueños de marcas gastronómicas y dueños de restaurantes, con el mismo peso: la cadena de
-            varios locales y el restaurante de uno solo. Córdoba capital y provincia.
+            GastroTech es para quien decide sobre una marca gastronómica. Puede tener un local o
+            veinte: lo que importa es que lo piense como marca y pueda tomar la decisión. Córdoba
+            capital y provincia.
           </p>
         </div>
       </div>

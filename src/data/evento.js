@@ -52,21 +52,21 @@ export const TEMAS = [
     tema: "El nuevo mercado gastronómico",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Qué cambió en los últimos dos años y por qué el que no se movió ya está corriendo de atrás. La foto del mercado con números, no con impresiones.",
+      "Qué cambió en los últimos dos años para las marcas del rubro, y por qué la que no se movió ya está corriendo de atrás. La foto del mercado con números, no con impresiones.",
   },
   {
     n: "02",
-    tema: "Datos e inteligencia artificial en tu negocio",
+    tema: "Datos e inteligencia artificial en tu marca",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Tu local ya está generando los datos. La pregunta es si alguien los está leyendo, y qué decisiones de margen se toman distinto cuando sí.",
+      "Tu marca ya está generando los datos, tenga un local o veinte. La pregunta es si alguien los está leyendo, y qué decisiones de margen se toman distinto cuando sí.",
   },
   {
     n: "03",
     tema: "La evolución de los sistemas POS",
     quien: "CEO de Bistrosoft",
     punta:
-      "El sistema con el que cobrás puede ser el que te diga qué comprar y cuándo. Con demos en vivo montadas en el salón, no en slides.",
+      "El sistema con el que cobrás puede ser el que te diga qué comprar y cuándo, y en qué sucursal. Con demos en vivo montadas en el salón, no en slides.",
   },
   {
     n: "04",
@@ -87,17 +87,10 @@ export const TEMAS = [
     tema: "Cómo se arma un ecosistema",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Marcas, tecnología y proveedores trabajando juntos. Por qué solos no llegamos, y cómo se construye la red que sí llega.",
+      "Marcas, tecnología y proveedores trabajando juntos. Por qué una marca sola no llega, y cómo se construye la red que sí llega.",
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Qué se lleva el que viene
-// ─────────────────────────────────────────────────────────────────────────────
-// El diagnóstico — beneficio para quien lo solicite, no el gancho del evento.
-//
-// Ojo: el formato, la duración y el plazo todavía no están definidos (pendiente
-// del brief). Acá se describe QUÉ se mira, no cuánto dura ni cuándo es.
 // ─────────────────────────────────────────────────────────────────────────────
 // Con qué volvés al local — el inventario de valor, al cierre de la página.
 //
@@ -132,9 +125,9 @@ export const VOLVES_CON = [
   },
   {
     n: "05",
-    titulo: "Una sala llena de colegas",
+    titulo: "Una sala llena de marcas",
     texto:
-      "Hasta doscientos dueños del rubro, y varios ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
+      "Hasta doscientas marcas gastronómicas en el mismo salón, y varias ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
   },
   {
     n: "06",
@@ -175,7 +168,7 @@ export const CALENDARIO = {
 /** Mensaje listo para reenviar. Escrito para WhatsApp, no copiado de Instagram. */
 export const INVITACION =
   "Che, les paso algo que puede servir.\n\n" +
-  "El domingo 20 de septiembre hay un evento de gastronomía y tecnología en Córdoba, " +
+  "El domingo 20 de septiembre hay un evento de gastronomía y tecnología para marcas gastronómicas, en Córdoba, " +
   "en el Hotel Quinto Centenario, de 9 a 18. Se llama GastroTech. Seis charlas sobre datos, " +
   "sistemas de gestión, contenido y cómo está el mercado. Hay degustaciones entre medio y demos en vivo.\n\n" +
   "Es gratis pero hay que anotarse, y son 200 lugares nada más.\n\n" +
@@ -498,16 +491,19 @@ export const AGENDA_BLOQUES = [
 export const PUBLICO = {
   si: [
     {
-      titulo: "Dueños de marcas gastronómicas",
-      texto: "La cadena con varios locales que necesita ordenar tecnología y datos.",
+      titulo: "Marcas con varios locales",
+      texto:
+        "Cadenas que necesitan que los datos, el stock y la venta hablen el mismo idioma en todas las sucursales.",
     },
     {
-      titulo: "Dueños de restaurantes",
-      texto: "El local único que quiere crecer sin romper el margen. Mismo peso que la cadena.",
+      titulo: "Marcas de un solo local",
+      texto:
+        "El que tiene uno pero lo piensa como marca: identidad, canal propio y decisiones con números. Acá no pesa el tamaño.",
     },
     {
       titulo: "Franquiciantes y grupos multimarca",
-      texto: "Los que manejan varias marcas y necesitan que todo hable el mismo idioma.",
+      texto:
+        "Los que manejan varias marcas a la vez y necesitan que cada una escale sin volver a empezar de cero.",
     },
   ],
   no: [
@@ -586,8 +582,8 @@ export const FAQ = [
     a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
   },
   {
-    q: "¿Y si mi negocio es chico?",
-    a: "Entrás igual y te llevás lo mismo. El restaurante de un solo local pesa igual que la cadena de veinte, y buena parte de lo que se cuenta se aplica desde el primer local.",
+    q: "Tengo un solo local. ¿Es para mí?",
+    a: "Sí, y es el mejor momento para venir. GastroTech está pensado para marcas gastronómicas, y una marca puede tener un local o veinte: lo que define no es el tamaño sino que la pienses como marca. Casi todo lo que se cuenta se aplica desde el primer local, y ordenarlo temprano es mucho más barato que hacerlo con diez sucursales abiertas.",
   },
   {
     q: "¿Qué es el diagnóstico del que hablan?",

@@ -22,9 +22,9 @@
 
   <!-- Bajada -->
   <text x="64" y="512" font-family="Inter, system-ui, sans-serif" font-size="22"
-        font-weight="400" fill="#5F5C73">Un día entero de charlas, demos en vivo y networking para dueños de</text>
+        font-weight="400" fill="#5F5C73">Un día entero de charlas, demos en vivo y networking</text>
   <text x="64" y="544" font-family="Inter, system-ui, sans-serif" font-size="22"
-        font-weight="400" fill="#5F5C73">marcas gastronómicas y restaurantes. Hotel Quinto Centenario, 9 a 18 h.</text>
+        font-weight="400" fill="#5F5C73">para marcas gastronómicas. Hotel Quinto Centenario, 9 a 18 h.</text>
 
   <text x="64" y="596" font-family="Inter, system-ui, sans-serif" font-size="16"
         font-weight="700" letter-spacing="2.2" fill="#5348C9">ENTRADA GRATUITA · REGISTRO PREVIO · 200 LUGARES</text>
