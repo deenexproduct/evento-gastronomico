@@ -77,6 +77,7 @@ const enlaces = [
   { id: "temas", label: "Programa" },
   { id: "speakers", label: "Oradores" },
   { id: "jornada", label: "La jornada" },
+  { id: "por-que-lo-hacemos", label: "Por qué lo hacemos" },
   { id: "para-quien", label: "Para quién es" },
   { id: "lugar", label: "El lugar" },
   { id: "faq", label: "Preguntas" },
