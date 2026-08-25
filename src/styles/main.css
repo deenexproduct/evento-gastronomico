@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
+/* La fuente se pide desde index.html con preconnect: un @import acá obliga
+   al navegador a bajar y parsear este CSS antes de siquiera enterarse de que
+   existe, y encadena dos conexiones más antes de dibujar el primer texto. */
 
 @tailwind base;
 @tailwind components;

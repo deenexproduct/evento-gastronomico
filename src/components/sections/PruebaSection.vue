@@ -32,16 +32,21 @@
         Clientes de Deenex
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6 sm:gap-x-10">
-        <!-- Caja de tamaño fijo: reserva el espacio antes de que cargue el logo -->
+        <!--
+          La caja reserva el espacio antes de que cargue el logo, así la página
+          no salta. El alto va repetido en píxeles sobre la imagen y no como
+          max-h-full: dentro de una grilla ese porcentaje no resuelve contra el
+          área y los logos se salían de la caja a 132 px, cuatro veces su medida.
+        -->
         <div
           v-for="logo in logos"
           :key="logo.src"
-          class="grid h-9 w-[120px] place-items-center sm:h-11 sm:w-[140px]"
+          class="grid h-7 w-[120px] place-items-center sm:h-9"
         >
           <img
             :src="logo.src"
             :alt="logo.alt"
-            class="max-h-full max-w-full object-contain opacity-45 brightness-0 invert transition-opacity duration-200 hover:opacity-100"
+            class="h-7 w-auto max-w-[120px] object-contain opacity-45 brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-9"
             loading="lazy"
           />
         </div>
