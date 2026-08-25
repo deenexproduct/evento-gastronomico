@@ -202,7 +202,27 @@ html.claro .cuadro-activo { border-color: #E00049 !important; }
 html.claro .bg-acento,
 html.claro .bg-acento-boton { background-color: #E00049 !important; color: #fff !important; }
 html.claro .btn { color: #fff !important; }
-html.claro .btn-linea { color: #1A1A1A !important; border-color: rgba(0,0,0,.25) !important; }
+html.claro .btn-linea {
+  color: #1A1A1A !important;
+  border-color: rgba(0, 0, 0, .25) !important;
+  background-color: rgba(0, 0, 0, .04) !important;
+}
+html.claro .btn-linea:hover {
+  border-color: rgba(0, 0, 0, .6) !important;
+  background-color: rgba(0, 0, 0, .08) !important;
+}
+html.claro .chip {
+  background-color: rgba(0, 0, 0, .04) !important;
+  border-color: rgba(0, 0, 0, .15) !important;
+}
+html.claro .cuadro:hover { border-color: rgba(0, 0, 0, .35) !important; }
+
+/* Sobre negro la caja de foto pendiente era blanco al 4%; sobre blanco hay que
+   darla vuelta o el hueco no se ve. */
+html.claro .foto-pendiente {
+  background-color: rgba(0, 0, 0, .05);
+  background-image: repeating-linear-gradient(135deg, rgba(224, 0, 73, .16) 0 10px, transparent 10px 20px);
+}
 
 /* La landing se imprime y se pasa en PDF. Sin esto, los paneles cerrados de
    la jornada salen como siete filas vacias. */
@@ -226,7 +246,19 @@ html.claro .bg-acento-boton .titulo { color: #fff !important; }
 
 /* Las etiquetas del formulario definen su color en un style scoped. */
 html.claro .etiqueta { color: #55535C !important; }
-html.claro .campo { color: #1A1A1A !important; border-color: rgba(0,0,0,.2) !important; }
+html.claro .campo {
+  color: #1A1A1A !important;
+  border-color: rgba(0, 0, 0, .2) !important;
+  background-color: rgba(0, 0, 0, .035) !important;
+}
+html.claro .campo:focus {
+  border-color: #E00049 !important;
+  background-color: #fff !important;
+}
+html.claro .campo-error {
+  border-color: #C7003F !important;
+  background-color: rgba(224, 0, 73, .06) !important;
+}
 html.claro .campo::placeholder { color: #8A8892 !important; }
 
 /* Los logos venían invertidos para verse sobre negro. */

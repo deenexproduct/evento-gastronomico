@@ -50,9 +50,12 @@ describe("metadatos del sitio", () => {
   });
 
   it("el color de la barra del navegador es el fondo real de la página", () => {
-    // Quedó en el violeta del diseño anterior una vez: pinta el cromo del
-    // navegador de un color que ya no existe en ningún lado de la página.
-    expect(meta("theme-color").toUpperCase()).toBe("#1A1A1A");
+    // Quedó en el violeta del diseño anterior una vez, y después en el negro:
+    // pinta el cromo del navegador de un color que ya no existe en la página.
+    // Se compara contra la clase de tema que declara el propio <html> en vez
+    // de contra una constante, así el test sigue atrapando el olvido.
+    const esClaro = (html.match(/<html[^>]*>/) || [""])[0].includes('class="claro"');
+    expect(meta("theme-color").toUpperCase()).toBe(esClaro ? "#FFFFFF" : "#1A1A1A");
   });
 
   it("no promete nada que el evento no vaya a cumplir", () => {

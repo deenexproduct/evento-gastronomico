@@ -3,9 +3,11 @@ import App from "./router/App.vue";
 import router from "./router";
 import "./styles/main.css";
 
-// Prueba de fondo claro: se activa con ?claro en la URL.
-if (new URLSearchParams(location.search).has("claro")) {
-  document.documentElement.classList.add("claro");
+// El fondo claro es el modo real y la clase viene puesta desde index.html,
+// para que no haya un destello de negro antes de que arranque Vue. ?oscuro
+// queda para poder comparar contra la version anterior.
+if (new URLSearchParams(location.search).has("oscuro")) {
+  document.documentElement.classList.remove("claro");
 }
 
 const app = createApp(App);
