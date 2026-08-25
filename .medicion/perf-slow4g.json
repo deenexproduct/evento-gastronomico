@@ -1,0 +1,100 @@
+{
+  "url": "https://deenexproduct.github.io/evento-gastronomico/",
+  "perfil": "slow4g",
+  "cpu": 4,
+  "viewport": {
+    "ancho": 412,
+    "alto": 839,
+    "dpr": 2.625
+  },
+  "paginaAltura": 21735,
+  "ms": {
+    "ttfb": 1348,
+    "fcp": 8284,
+    "lcp": 8284,
+    "domInteractive": 1778,
+    "dcl": 7990,
+    "load": 8290,
+    "tbt": 1623,
+    "interactivoAprox": 9957,
+    "relojPared_load": 8331
+  },
+  "cls": 0.002,
+  "clsEventos": 1,
+  "clsFuentes": [
+    {
+      "t": 10071,
+      "v": 0.002,
+      "nodos": [
+        ".",
+        ".",
+        "P.pb-1 text-[13px] font-black uppercase tracking-[0.2em] text-",
+        ".",
+        "DIV.flex items-center gap-5"
+      ]
+    }
+  ],
+  "lcpElemento": {
+    "tag": "P",
+    "cls": "mt-5 max-w-[44ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]",
+    "id": null,
+    "texto": "Bajar costos, ordenar la operación y vender más. Gastronomía y tecnología, con gente que ya lo resolvió en varios locale",
+    "rect": {
+      "x": 20,
+      "y": 313.875,
+      "width": 372,
+      "height": 76.5,
+      "top": 313.875,
+      "right": 392,
+      "bottom": 390.375,
+      "left": 20
+    },
+    "seccion": "hero"
+  },
+  "lcpUrl": null,
+  "bytes": {
+    "totalTransferido": 73267,
+    "documento": 2235,
+    "porRecurso": [
+      {
+        "url": "https://deenexproduct.github.io/evento-gastronomico/assets/index-BiDpig0V.js",
+        "tipo": "script",
+        "transfer": 62336,
+        "codificado": 62036,
+        "decodificado": 170621,
+        "inicio": 1712,
+        "fin": 2333,
+        "dur": 621,
+        "render_blocking": "non-blocking"
+      },
+      {
+        "url": "https://deenexproduct.github.io/evento-gastronomico/assets/index-DENbRclW.css",
+        "tipo": "link",
+        "transfer": 7797,
+        "codificado": 7497,
+        "decodificado": 34130,
+        "inicio": 1720,
+        "fin": 2046,
+        "dur": 326,
+        "render_blocking": "blocking"
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap",
+        "tipo": "link",
+        "transfer": 899,
+        "codificado": 599,
+        "decodificado": 8190,
+        "inicio": 1701,
+        "fin": 2057,
+        "dur": 355,
+        "render_blocking": "blocking"
+      }
+    ]
+  },
+  "tareasLargas": [
+    {
+      "i": 8281,
+      "d": 1676
+    }
+  ]
+}

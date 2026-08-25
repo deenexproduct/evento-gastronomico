@@ -90,19 +90,69 @@ img, video { max-width: 100%; height: auto; display: block; }
            px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em];
   }
 
-  /* Cuadro de la jornada. Cuadrado de verdad: con 4/5 las dos filas median
-     700px y la grilla ya no entraba en una pantalla de 800, que es justo lo
-     que se pide. El hover es de BORDE y no de fondo: html.claro pisa
-     bg-white/N por substring y un hover con fondo quedaria aplicado siempre
-     en claro, no solo al pasar el mouse. */
+  /* Cuadro de la jornada.
+     Cuadrado de verdad: con 4/5 las dos filas median 700px y la grilla no
+     entraba en una pantalla, que es lo que se pide.
+
+     El hover mueve el cuadro, no su fondo: html.claro pisa bg-white/N por
+     substring, así que un hover con fondo quedaría aplicado siempre en claro
+     y no solo al pasar el mouse. Levantarlo un pixel es más barato y no
+     depende del tema. */
   .cuadro {
-    @apply flex h-full w-full flex-col rounded-xl border border-white/10 bg-white/[0.03]
-           p-3.5 text-left transition-colors duration-150
-           hover:border-white/30 sm:p-4;
+    /* El padding de 16px estiraba el cuadro en teléfono: aspect-ratio es un
+       mínimo, no un límite, y un título de cuatro líneas lo empuja. 14px hasta
+       sm, que es donde el ancho ya da para respirar. */
+    @apply relative flex h-full w-full flex-col overflow-hidden rounded-2xl border
+           border-white/10 bg-white/[0.03] p-3.5 text-left sm:p-5;
     aspect-ratio: 1 / 1;
+    transition: transform .18s cubic-bezier(.16,1,.3,1), border-color .18s, box-shadow .18s;
   }
+  .cuadro:hover {
+    transform: translateY(-3px);
+  }
+
+  /* El elegido: no alcanza con un borde de un pixel — en la grilla de siete
+     no se ve cuál está abierto. Suma superficie y un filete grueso al costado
+     que lo ata visualmente al panel de detalle de abajo. */
   .cuadro-activo {
     @apply border-acento;
+    box-shadow: inset 4px 0 0 0 var(--acento);
+  }
+
+  /* La hora de fondo. Es el sistema gráfico de la sección y acá cumple dos
+     funciones: llena el hueco que dejaba el cuadrado —la hora arriba, el
+     título abajo y un vacío en el medio— y hace que la grilla se lea como una
+     línea de tiempo aunque cada pieza esté suelta.
+     aria-hidden en el markup: es la misma hora que ya anuncia el <time>. */
+  .cuadro-hora-fondo {
+    /* En un cuadro de 163px no hay aire de sobra y la hora de fondo pelea con
+       el título en vez de acompañarlo. Aparece recién cuando el cuadro crece. */
+    display: none;
+    position: absolute;
+    inset-inline: 0;
+    top: 26%;
+    text-align: center;
+    font-weight: 900;
+    line-height: .78;
+    letter-spacing: -.06em;
+    font-size: clamp(2.9rem, 8.5vw, 4.2rem);
+    color: var(--acento);
+    opacity: .1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .cuadro-activo .cuadro-hora-fondo { opacity: .18; }
+  @media (min-width: 640px) {
+    .cuadro-hora-fondo { display: block; }
+  }
+
+  /* La celda que completa la última fila. No es un bloque: son las dos puntas
+     del día, que si no no figuran en ninguna parte de la sección. Va sin
+     borde ni fondo para que no se confunda con los siete que sí se tocan. */
+  .cuadro-puntas {
+    @apply flex h-full w-full flex-col justify-center gap-4 rounded-2xl border border-dashed
+           border-white/15 p-4 text-left sm:p-5;
+    aspect-ratio: 1 / 1;
   }
 
   /* La cinta del dia. Los tintes NO pueden salir de bg-white/N ni de
@@ -194,6 +244,10 @@ img, video { max-width: 100%; height: auto; display: block; }
 html.claro {
   --noche: #FFFFFF;
   --gris: #55535C;
+  /* El magenta de superficie también cambia por tema: el del oscuro vibra de
+     más sobre blanco. Lo consume todo lo que usa var(--acento). */
+  --acento: #E00049;
+  --acento-texto: #C7003F;
 }
 html.claro body {
   background: #FFFFFF;

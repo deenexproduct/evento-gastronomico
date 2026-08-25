@@ -1,0 +1,119 @@
+{
+  "url": "https://deenexproduct.github.io/evento-gastronomico/",
+  "perfil": "slow4g",
+  "cpu": 4,
+  "dispositivo": "Pixel 7",
+  "viewport": {
+    "ancho": 412,
+    "alto": 839
+  },
+  "alturaPagina": 21735,
+  "ms": {
+    "ttfb": 71,
+    "primerPintado": 2476,
+    "fcp": 2476,
+    "lcp": 2476,
+    "domInteractive": 279,
+    "dcl": 2387,
+    "load": 2480,
+    "tbt": 428,
+    "interactivo": 2954
+  },
+  "cls": {
+    "antesScroll": 0.002,
+    "total": 0.002,
+    "eventos": 1,
+    "fuentes": [
+      {
+        "t": 2982,
+        "v": 0.002,
+        "nodos": [
+          ".",
+          ".",
+          "P.pb-1 text-[13px] font-black uppercase tracking-[0.",
+          ".",
+          "DIV.flex items-center gap-5"
+        ]
+      }
+    ]
+  },
+  "lcpElemento": {
+    "tag": "P",
+    "cls": "mt-5 max-w-[44ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]",
+    "id": null,
+    "texto": "Bajar costos, ordenar la operación y vender más. Gastronomía y tecnología, con gente que ya lo resolvió en varios locales a la vez.",
+    "rect": {
+      "x": 20,
+      "y": 313.875,
+      "width": 372,
+      "height": 76.5,
+      "top": 313.875,
+      "right": 392,
+      "bottom": 390.375,
+      "left": 20
+    },
+    "seccion": "hero"
+  },
+  "lcpUrl": null,
+  "bytes": {
+    "sinScroll": 108831,
+    "conScroll": 108831
+  },
+  "peticiones": {
+    "sinScroll": 5,
+    "conScroll": 5
+  },
+  "recursos": [
+    {
+      "url": "https://deenexproduct.github.io/evento-gastronomico/assets/index-BiDpig0V.js",
+      "tipo": "Script",
+      "mime": "application/javascript",
+      "status": 200,
+      "transferido": 62236,
+      "fallo": null,
+      "enc": "gzip"
+    },
+    {
+      "url": "https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxKsv4Rn.woff2",
+      "tipo": "Font",
+      "mime": "font/woff2",
+      "status": 200,
+      "transferido": 35490,
+      "fallo": null,
+      "enc": null
+    },
+    {
+      "url": "https://deenexproduct.github.io/evento-gastronomico/assets/index-DENbRclW.css",
+      "tipo": "Stylesheet",
+      "mime": "text/css",
+      "status": 200,
+      "transferido": 7676,
+      "fallo": null,
+      "enc": "gzip"
+    },
+    {
+      "url": "https://deenexproduct.github.io/evento-gastronomico/",
+      "tipo": "Document",
+      "mime": "text/html",
+      "status": 200,
+      "transferido": 2357,
+      "fallo": null,
+      "enc": "gzip"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap",
+      "tipo": "Stylesheet",
+      "mime": "text/css",
+      "status": 200,
+      "transferido": 1072,
+      "fallo": null,
+      "enc": "gzip"
+    }
+  ],
+  "tareasLargas": [
+    {
+      "i": 2472,
+      "d": 482
+    }
+  ]
+}
