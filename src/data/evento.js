@@ -11,6 +11,7 @@
 
 export const EVENTO = {
   nombre: "GastroTech",
+  organiza: "Deenex",
   fechaISO: "2026-09-20T09:00:00-03:00",
   fechaLarga: "Domingo 20 de septiembre de 2026",
   fechaCorta: "Domingo 20.09.2026",

@@ -16,6 +16,9 @@
       <!-- Barra de partners: prueba social apenas termina el hero -->
       <BarraPartners />
 
+      <!-- Qué es: responde la primera pregunta del que llega de un anuncio -->
+      <QueEsSection class="v-reveal" />
+
       <!-- Quiénes van a estar · negro medio -->
       <OradoresSection class="v-reveal bg-noche-2" />
 
@@ -65,6 +68,7 @@ import Footer from "@/components/layout/Footer.vue";
 import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
+import QueEsSection from "@/components/sections/QueEsSection.vue";
 import OradoresSection from "@/components/sections/OradoresSection.vue";
 import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
