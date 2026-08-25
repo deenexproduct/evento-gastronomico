@@ -264,6 +264,22 @@
                 </label>
                 <p v-if="errores.acepta" class="error -mt-3">{{ errores.acepta }}</p>
 
+                <div>
+                  <label class="etiqueta" for="reg-tema">
+                    ¿Qué te gustaría que se hable? <span class="text-gris-2">Opcional</span>
+                  </label>
+                  <input
+                    id="reg-tema"
+                    v-model.trim="form.tema"
+                    type="text"
+                    placeholder="Lo que hoy más te está costando resolver"
+                    class="campo"
+                  />
+                  <p class="mt-2 text-[13px] leading-snug text-gris-2">
+                    Se lo pasamos a los oradores antes del evento.
+                  </p>
+                </div>
+
                 <label
                   class="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 p-4 transition-colors hover:border-white/25"
                 >

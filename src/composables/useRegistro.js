@@ -10,6 +10,7 @@ const VACIO = {
   whatsapp: "",
   acepta: false,
   publicar: false,
+  tema: "",
 };
 
 /**
