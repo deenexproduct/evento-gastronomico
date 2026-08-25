@@ -67,10 +67,15 @@
 
         <!-- Mapa -->
         <div class="relative min-h-[420px] overflow-hidden rounded-2xl border border-white/10 lg:min-h-full">
+          <!--
+            El filtro va por clase y no inline: inline no lo alcanza ningún
+            selector, así que el mapa se quedaba invertido —o sea negro— sobre
+            fondo claro, siendo la superficie más grande del cuerpo de la
+            página. Ver .mapa en main.css.
+          -->
           <iframe
             :src="mapaSrc"
-            class="absolute inset-0 h-full w-full"
-            style="border: 0; filter: grayscale(1) invert(0.92) contrast(0.9)"
+            class="mapa absolute inset-0 h-full w-full border-0"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             title="Ubicación del evento en Córdoba"

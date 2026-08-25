@@ -163,13 +163,22 @@ img, video { max-width: 100%; height: auto; display: block; }
   .animate-ping { opacity: .5; }
 }
 
-/* ── Prueba: variante en claro ──────────────────────────────────────────
-   Se activa agregando ?claro a la URL. Los componentes usan los tokens
-   noche / noche-2 / noche-3 y las superficies translúcidas de blanco, así
-   que invirtiendo los tokens y el sentido de esas transparencias la página
-   entera cambia de fondo sin tocar un solo componente.
+/* ── El tema claro ──────────────────────────────────────────────────────
+   Es el diseño real: la clase viene puesta desde index.html y ?oscuro la
+   saca para comparar contra la versión anterior.
 
-   Es una prueba para comparar, no una segunda identidad mantenida. */
+   ATENCIÓN antes de agregar una regla acá. Los componentes siguen escritos
+   en clases de tema oscuro y este bloque las pisa con !important, lo que
+   falla de tres maneras distintas y silenciosas:
+   1. Un color que entra por @apply se inlinea en la regla del componente,
+      así que no lo alcanza ningún selector que apunte a la utilidad.
+   2. Las variantes con opacidad son otra clase: .bg-noche no matchea
+      bg-noche/90, .bg-acento no matchea bg-acento/10.
+   3. Una declaración !important de reposo le gana a la variante de estado,
+      que no lo lleva: cada override de color mata el hover del elemento
+      que cubre, y hay que reponerlo a mano.
+   Lo correcto sería invertir los tokens en la fuente. Mientras eso no pase,
+   toda clase nueva nace rota en claro y solo se descubre mirándola. */
 html.claro {
   --noche: #FFFFFF;
   --gris: #55535C;
@@ -272,8 +281,39 @@ html.claro .campo-error {
 }
 html.claro .campo::placeholder { color: #8A8892 !important; }
 
-/* Los logos venían invertidos para verse sobre negro. */
-html.claro .invert { filter: none !important; }
+/* El mapa. En oscuro se invierte para que no sea un rectángulo blanco; en
+   claro se deja claro y solo se le baja el color. Vive acá y no en un style
+   inline del iframe porque a un inline no lo alcanza ningún selector. */
+.mapa { filter: grayscale(1) invert(0.92) contrast(0.9); }
+html.claro .mapa { filter: grayscale(1) contrast(1.05); }
+
+/* Los logos venían con brightness-0 + invert para verse blancos sobre negro.
+   En claro hay que dejarlos NEGROS, no devolverlos a su color: doce logos a
+   todo color al 45% se leen como un collage. */
+html.claro img.invert { filter: brightness(0) !important; opacity: .55 !important; }
+html.claro img.invert:hover { opacity: 1 !important; }
+
+/* Regresiones que causó este mismo bloque: una declaración !important de
+   reposo le gana a la variante de estado, que no lo lleva. Cada override de
+   color mató el hover del elemento que cubría. */
+html.claro .bg-acento-boton:hover { background-color: #D80047 !important; }
+html.claro .tarjeta:hover { border-color: rgba(0, 0, 0, .28) !important; }
+html.claro .chip[class*="border-acento/"] { border-color: rgba(224, 0, 73, .5) !important; }
+html.claro [class*="text-acento-texto/"] { color: #C7003F !important; }
+html.claro .hover\:text-acento-texto:hover { color: #C7003F !important; }
+html.claro .hover\:text-white:hover { color: #000 !important; }
+html.claro [class*="hover:border-white/"]:hover { border-color: rgba(0, 0, 0, .35) !important; }
+
+/* Las rejillas de un píxel y los rieles de barra usaban bg-white/10: sobre
+   blanco desaparecían y la grilla quedaba sin líneas. */
+html.claro .bg-linea { background-color: rgba(0, 0, 0, .12) !important; }
+
+/* El texto de error de los dos formularios vive en un <style scoped>. */
+html.claro .error { color: #C7003F !important; }
+
+/* Las opciones de un <select> las pinta el sistema operativo: sin esto queda
+   texto blanco sobre desplegable blanco. */
+html.claro select.campo option { background: #fff !important; color: #1A1A1A !important; }
 
 /* La cinta en claro: el magenta de superficie queda igual de legible, pero el
    blanco translucido de las pausas desaparece sobre fondo blanco. */

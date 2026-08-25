@@ -7,8 +7,8 @@
     entera — que es justamente lo que se pide. Así la grilla queda quieta.
 
     OJO CON LA VARIANTE CLARA (?claro):
-    · Los divisores van con border-white/10, nunca border-linea: border-linea
-      no está pisado en html.claro y queda casi negro sobre blanco.
+    · border-linea ya está pisado en el tema claro, así que sirve; los
+      divisores de acá quedaron en border-white/10 y funcionan igual.
     · Prohibido hover:bg-white/N. La regla html.claro [class*="bg-white/"]
       matchea por substring y no entiende de variantes: el fondo quedaría
       aplicado siempre, no solo al pasar el mouse. Acá el hover es de borde.

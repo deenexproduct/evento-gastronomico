@@ -30,7 +30,7 @@
       <!-- El programa completo, con las horas como sistema -->
       <JornadaSection class="v-reveal bg-noche" />
 
-      <!-- Asegurá tu lugar · negro profundo -->
+      <!-- Asegurá tu lugar · el fondo más marcado de los tres -->
       <AccesoSection class="v-reveal" />
 
 
@@ -43,7 +43,7 @@
       <!-- Registro -->
       <RegistroSection />
 
-      <!-- Partners · negro profundo -->
+      <!-- Partners · el fondo más marcado de los tres -->
       <BrandsSection class="v-reveal bg-noche-3" />
 
       <!-- Quién organiza + logos -->
