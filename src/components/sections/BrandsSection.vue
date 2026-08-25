@@ -10,7 +10,7 @@
         abierta: se anuncian a medida que se cierran.
       </p>
 
-      <div class="mt-12 grid gap-4 md:grid-cols-3">
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <article v-for="p in partners" :key="p.nombre" class="tarjeta flex flex-col p-7">
           <!-- Logo, o el nombre en tipografía si todavía no llegó -->
           <div class="flex h-14 items-center">
@@ -53,7 +53,7 @@
             Hay lugar para más marcas
           </h3>
           <p class="mt-2 max-w-[52ch] text-[15px] leading-[1.5] text-gris">
-            Stands, demos y beneficios para los 200 dueños de la sala. Quedan espacios.
+            Stands, demos y beneficios para los 200 dueños de cadenas de la sala. Quedan espacios.
           </p>
         </div>
         <a

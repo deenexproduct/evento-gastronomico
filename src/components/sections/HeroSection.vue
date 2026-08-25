@@ -20,7 +20,7 @@
         20 de septiembre 2026 &nbsp;|&nbsp; {{ EVENTO.venue }}, Córdoba
       </p>
 
-      <h1 class="display mt-4 text-[clamp(3.2rem,13vw,8.5rem)]">
+      <h1 class="display mt-4 text-[clamp(2.3rem,12vw,8.5rem)]">
         {{ EVENTO.nombre }}
       </h1>
       <p class="mt-3 max-w-[24ch] text-[clamp(1.1rem,3.2vw,1.7rem)] font-black uppercase leading-[1.1] tracking-[-0.02em] text-acento-texto">
@@ -29,7 +29,7 @@
 
       <p class="mt-6 max-w-[46ch] text-[18px] font-semibold text-gris sm:text-[21px]">
         Nueve horas para bajar costos, ordenar la operación y vender más.
-        <span class="text-white">Para dueños de marcas y restaurantes.</span>
+        <span class="text-white">Para dueños de cadenas gastronómicas.</span>
       </p>
 
       <!-- Escasez con razón física, no con fases de precio -->

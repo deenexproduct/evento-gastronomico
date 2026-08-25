@@ -17,7 +17,7 @@
         <div>
           <p class="text-[clamp(1.15rem,2.6vw,1.6rem)] font-bold leading-[1.35]">
             Un día entero en Córdoba donde
-            <span class="text-acento-texto">dueños de bares y restaurantes</span>
+            <span class="text-acento-texto">dueños de cadenas gastronómicas</span>
             escuchan a los que ya resolvieron lo que ellos están peleando:
             costos, datos, sistemas y contenido.
           </p>
@@ -86,8 +86,8 @@ const CLAVES = [
   {
     icono: "gente",
     pregunta: "Para quién",
-    respuesta: "Dueños del rubro",
-    detalle: "Marcas gastronómicas y restaurantes. Decisores, no público general.",
+    respuesta: "Dueños de cadenas",
+    detalle: "Cadenas con más de un local. El que decide, no el que ejecuta.",
   },
   {
     icono: "entrada",

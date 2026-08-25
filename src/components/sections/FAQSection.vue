@@ -26,16 +26,16 @@
               <h3>
                 <button
                   type="button"
-                  class="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors hover:text-acento-texto"
+                  class="flex w-full items-start justify-between gap-4 py-5 text-left sm:gap-6 transition-colors hover:text-acento-texto"
                   :aria-expanded="abierto === i"
                   :aria-controls="`faq-panel-${i}`"
                   @click="toggle(i)"
                 >
-                  <span class="text-[1rem] font-semibold tracking-[-0.02em] sm:text-[1.08rem]">
+                  <span class="min-w-0 text-[1rem] font-semibold tracking-[-0.02em] sm:text-[1.08rem]">
                     {{ item.q }}
                   </span>
                   <span
-                    class="mt-0.5 shrink-0 text-[1.3rem] leading-none text-acento-texto transition-transform duration-300"
+                    class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center text-[1.3rem] leading-none text-acento-texto transition-transform duration-300"
                     :class="abierto === i ? 'rotate-45' : ''"
                     aria-hidden="true"
                     >+</span

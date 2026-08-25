@@ -123,7 +123,7 @@ export const BENTO = [
   { dato: "9 a 18", label: "de jornada", peso: "chico" },
   { dato: "5", label: "degustaciones", peso: "chico" },
   { dato: "200", label: "dueños en la sala", peso: "medio",
-    detalle: "Sala curada de decisores del rubro. Sin público general." },
+    detalle: "Dueños de cadenas del rubro, no público general." },
   { dato: "Demos", label: "montadas en vivo", peso: "chico" },
   { dato: "$0", label: "la entrada", peso: "chico" },
 ];
@@ -134,7 +134,7 @@ export const EL_LUNES = [
   "Qué datos ya estás generando y dónde se leen",
   "Herramientas probadas en vivo, con lo que hacen y lo que cuestan",
   "Los proveedores del rubro comparados en un día en vez de en tres meses",
-  "Los números reales de otros dueños de Córdoba, dichos en voz alta",
+  "Los números reales de otras cadenas de Córdoba, dichos en voz alta",
   "La grilla del evento con todos los beneficios de partners por escrito",
 ];
 
@@ -449,19 +449,20 @@ export const AGENDA_BLOQUES = [
 export const PUBLICO = {
   si: [
     {
-      titulo: "Dueños de marcas gastronómicas",
-      texto: "La cadena con varios locales que necesita ordenar tecnología y datos.",
-    },
-    {
-      titulo: "Dueños de restaurantes",
-      texto: "El local único que quiere crecer sin romper el margen. Mismo peso que la cadena.",
+      titulo: "Dueños de cadenas gastronómicas",
+      texto: "Varios locales de una misma marca, con la operación ya en escala.",
     },
     {
       titulo: "Franquiciantes y grupos multimarca",
       texto: "Los que manejan varias marcas y necesitan que todo hable el mismo idioma.",
     },
+    {
+      titulo: "Socios y gerentes generales",
+      texto: "El que decide sobre tecnología, compras y personal de toda la cadena.",
+    },
   ],
   no: [
+    "Locales únicos sin planes de abrir otro",
     "Empleados sin decisión sobre el negocio",
     "Proveedores buscando vender en la sala",
     "Público general o consumidores",
@@ -547,15 +548,15 @@ export const FAQ = [
   },
   {
     q: "¿Por qué solo 200 lugares?",
-    a: "Porque es lo que entra en el salón y porque a partir de ahí deja de ser una sala de trabajo. Preferimos 200 dueños que puedan hablar entre ellos antes que un auditorio lleno donde nadie se cruza con nadie.",
+    a: "Porque es lo que entra en el salón y porque a partir de ahí deja de ser una sala de trabajo. Preferimos 200 dueños de cadenas que puedan hablar entre ellos antes que un auditorio lleno donde nadie se cruza con nadie.",
   },
   {
     q: "¿Tengo que saber de tecnología para aprovecharlo?",
     a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
   },
   {
-    q: "¿Y si mi negocio es chico?",
-    a: "Entrás igual y te llevás lo mismo. El restaurante de un solo local pesa igual que la cadena de veinte, y buena parte de lo que se cuenta se aplica desde el primer local.",
+    q: "Tengo un solo local. ¿Igual me sirve?",
+    a: "La jornada está armada para cadenas: casi todo lo que se cuenta —costos comparados entre locales, sistemas que unifican varias sucursales, cómo se sostiene una marca en varios puntos— asume que ya tenés más de uno. Si estás por abrir el segundo, te va a servir. Si no está en tus planes, preferimos ser honestos: hay eventos que te van a rendir más.",
   },
   {
     q: "¿Qué es el diagnóstico del que hablan?",
@@ -585,11 +586,11 @@ export const ROLES = [
 ];
 
 export const CANTIDAD_LOCALES = [
-  "1 local",
   "2 a 5 locales",
   "6 a 15 locales",
-  "Más de 15 locales",
-  "Todavía no abrí",
+  "16 a 30 locales",
+  "Más de 30 locales",
+  "Uno, pero estoy por abrir el segundo",
 ];
 
 /** WhatsApp de Alan — fallback cuando no hay endpoint conectado. */

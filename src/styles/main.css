@@ -32,9 +32,12 @@ img, video { max-width: 100%; height: auto; display: block; }
   /* ── Titulares: peso 900 y caja alta, como el referente ─────────────── */
   .display {
     @apply font-black uppercase leading-[0.95] tracking-[-0.02em];
+    /* Una palabra larga nunca debe desbordar su caja en pantallas chicas. */
+    overflow-wrap: break-word;
   }
   .titulo {
     @apply font-black uppercase leading-[1.02] tracking-[-0.02em];
+    overflow-wrap: break-word;
   }
   .rotulo {
     @apply text-[12px] font-bold uppercase tracking-[0.16em] sm:text-[13px];

@@ -5,7 +5,7 @@
         <div class="lg:col-span-4">
           <p class="text-[1rem] font-semibold tracking-[-0.02em]">GastroTech</p>
           <p class="mt-3 max-w-[40ch] text-[0.9rem] leading-[1.65] text-gris">
-            Un día de gastronomía y tecnología para dueños de marcas gastronómicas y restaurantes.
+            Un día de gastronomía y tecnología para dueños de cadenas gastronómicas.
             {{ EVENTO.fechaLarga }}, {{ EVENTO.venue }}, Córdoba.
           </p>
         </div>
@@ -74,7 +74,7 @@
         </h2>
         <p class="mt-4 max-w-[80ch] text-[15px] leading-[1.7] text-gris">
           GastroTech de Deenex es una jornada de negocios para dueños de
-          marcas gastronómicas y restaurantes, que se realiza el domingo 20 de septiembre de 2026 de
+          cadenas gastronómicas, que se realiza el domingo 20 de septiembre de 2026 de
           9 a 18 horas en el Hotel Quinto Centenario de Córdoba, Argentina. La programación reúne
           siete bloques sobre el estado del mercado gastronómico, datos e inteligencia artificial
           aplicados al negocio, la evolución de los sistemas de punto de venta con demostraciones en
