@@ -12,9 +12,9 @@
           </h2>
           <div class="mt-8 space-y-5 text-[1rem] leading-[1.7] text-gris">
             <p>
-              Se abrió una brecha entre los locales que ordenaron su tecnología y los que siguen
+              Se abrió una brecha entre las marcas que ordenaron su tecnología y las que siguen
               decidiendo de memoria. No es una brecha de tamaño ni de plata: es de información. El
-              que sabe qué pasa adentro de su negocio se mueve antes.
+              dueño que sabe qué pasa adentro de su marca se mueve antes.
             </p>
             <p>
               Cruzarla no es cuestión de presupuesto. Es saber qué mirar, en qué orden y qué esperar

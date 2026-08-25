@@ -7,7 +7,7 @@
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[18ch] text-[clamp(1.9rem,4vw,3.2rem)]">
-            Una sala propia para doscientos dueños.
+            Doscientos dueños, un solo salón.
           </h2>
         </div>
       </div>
@@ -52,7 +52,7 @@ const fotoSalon = computed(() => {
 const CONTEXTO = [
   {
     dato: "200 m²",
-    titulo: "Una sala propia y cerrada",
+    titulo: "Propio y cerrado",
     texto: "GastroTech no comparte salón con nadie. El cupo del evento es, literalmente, el del salón.",
   },
   {

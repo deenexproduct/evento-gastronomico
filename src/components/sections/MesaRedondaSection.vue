@@ -18,8 +18,8 @@
 
           <p class="mt-5 max-w-[54ch] text-[1.05rem] leading-[1.65] text-white/90">
             Es la única parte del día en la que
-            <span class="font-semibold text-white">todos los que hablaron están juntos</span> y se
-            les puede preguntar cualquier cosa.
+            <span class="font-semibold text-white">todos los que hablaron están juntos</span> y las
+            preguntas salen de la sala.
           </p>
 
           <a

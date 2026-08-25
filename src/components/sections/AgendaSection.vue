@@ -136,41 +136,10 @@
         </div>
       </div>
 
-      <!-- Datos de la jornada -->
-      <dl class="mt-14 grid gap-x-8 border-t border-linea sm:grid-cols-3">
-        <div
-          v-for="(d, i) in DETALLES"
-          :key="d.titulo"
-          class="border-linea py-8"
-          :class="i > 0 ? 'sm:border-l sm:pl-8' : ''"
-        >
-          <dd class="titular text-[clamp(1.6rem,3vw,2.2rem)] text-violeta-texto">{{ d.numero }}</dd>
-          <dt class="rotulo mt-2.5">{{ d.titulo }}</dt>
-          <p class="mt-2 text-[0.92rem] leading-[1.6] text-gris">{{ d.texto }}</p>
-        </div>
-      </dl>
     </div>
   </section>
 </template>
 
 <script setup>
 import { AGENDA, AGENDA_BLOQUES, AGENDA_PUBLICA, RECORRIDOS } from "@/data/evento";
-
-const DETALLES = [
-  {
-    numero: "4+1",
-    titulo: "Rondas de degustación",
-    texto: "Entre charla y charla, más una ronda larga al mediodía. Proveedores confirmados.",
-  },
-  {
-    numero: "45'",
-    titulo: "Por bloque de charla",
-    texto: "Tiempo real para desarrollar un tema, no una ronda de presentaciones.",
-  },
-  {
-    numero: "18h",
-    titulo: "Networking de cierre",
-    texto: "Vino, cerveza y café con todos los que estuvieron en la sala.",
-  },
-];
 </script>

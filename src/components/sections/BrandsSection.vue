@@ -10,8 +10,8 @@
             Cada partner llega con algo que solo existe ese día.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
-            Cada partner de GastroTech llega con un beneficio exclusivo para los que estén en la
-            sala ese día. La lista sigue abierta: se anuncian a medida que se cierran.
+            No vienen a poner un logo: cada uno trae una charla, una demo o un beneficio que solo
+            corre ese día. La lista sigue abierta y se anuncian a medida que se cierran.
           </p>
         </div>
       </div>

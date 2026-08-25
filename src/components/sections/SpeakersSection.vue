@@ -7,7 +7,7 @@
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">
-            Los que ya cruzaron esa brecha vienen a contarlo.
+            Cinco voces que ya pasaron por esto.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
             Alan Tapia es el hilo conductor: abre, presenta a cada orador, modera la mesa redonda y
@@ -42,7 +42,7 @@
 
           <ol class="mt-8 border-t border-linea">
             <li
-              v-for="(charla, i) in alan.charlas"
+              v-for="(charla, i) in CHARLAS_DE_ALAN"
               :key="i"
               class="flex gap-5 border-b border-linea py-3.5 text-[0.95rem]"
             >
@@ -76,7 +76,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { SPEAKERS } from "@/data/evento";
+import { SPEAKERS, CHARLAS_DE_ALAN } from "@/data/evento";
 import FotoSlot from "@/components/ui/FotoSlot.vue";
 
 const archivos = import.meta.glob("@/assets/images/speakers/*", { eager: true, import: "default" });

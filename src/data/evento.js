@@ -77,10 +77,10 @@ export const TEMAS = [
   },
   {
     n: "05",
-    tema: "Conducción y mercado",
+    tema: "Cómo se conduce una marca cuando el mercado se mueve",
     quien: "Avanzia",
     punta:
-      "Dos oradores que ya condujeron una compañía grande y una cámara del sector, hablando del momento que atraviesa el rubro.",
+      "Qué se hace distinto cuando hay que decidir con el piso moviéndose. Lo cuentan dos que ya estuvieron ahí: el ex-CEO de Dexter y el ex-presidente de la CAME.",
   },
   {
     n: "06",
@@ -90,6 +90,11 @@ export const TEMAS = [
       "Marcas, tecnología y proveedores trabajando juntos. Por qué una marca sola no llega, y cómo se construye la red que sí llega.",
   },
 ];
+
+/** Los bloques que da Alan salen del programa: una sola fuente, sin desfasajes. */
+export const CHARLAS_DE_ALAN = TEMAS.filter((t) => t.quien.startsWith("Alan Tapia")).map(
+  (t) => t.tema
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Con qué volvés al local — el inventario de valor, al cierre de la página.
@@ -190,7 +195,7 @@ export const RECORRIDOS = [
     lleva: [
       "Acreditación, café y recorrida por los stands",
       "El estado real del mercado gastronómico",
-      "Datos e inteligencia artificial aplicados al local",
+      "Datos e inteligencia artificial en tu marca",
       "Los sistemas POS, con las demos funcionando",
     ],
     nota: "Salís con lo más técnico del día y llegás a abrir al mediodía.",
@@ -213,8 +218,8 @@ export const RECORRIDOS = [
     horario: "14 a 18 h",
     titulo: "Si la mañana la tenés ocupada",
     lleva: [
-      "Contenido y marketing para marcas gastronómicas",
-      "Conducción y mercado, con los oradores de Avanzia",
+      "La nueva forma de hacer contenido",
+      "Cómo se conduce una marca cuando el mercado se mueve",
       "Cómo se arma un ecosistema entre marcas y proveedores",
       "La mesa redonda y el networking de cierre",
     ],
@@ -248,19 +253,19 @@ export const PASOS_ENTRADA = [
     n: 1,
     titulo: "Te registrás",
     texto:
-      "Completás el formulario y el lugar queda a tu nombre. Es gratis, pero el cupo es real: 200 personas y no entra nadie más.",
+      "Un minuto de formulario y el lugar queda a tu nombre. El QR te llega al email en el momento.",
   },
   {
     n: 2,
     titulo: "Escaneás tu QR en la puerta",
     texto:
-      "El 20/9 llegás con tu código. Se escanea en la entrada y quedás acreditado. Sin QR no hay ingreso.",
+      "El 20/9 llegás con el código en el celular. Se escanea en la entrada y quedás acreditado en segundos.",
   },
   {
     n: 3,
-    titulo: "Se te desbloquea lo de adentro",
+    titulo: "Se te abre lo de adentro",
     texto:
-      "Al escanear se te abre la agenda completa del día y la grilla con los beneficios de todos los partners.",
+      "Con el escaneo se te habilita la agenda completa del día y la grilla con los beneficios de todos los partners.",
   },
 ];
 
@@ -290,13 +295,8 @@ export const SPEAKERS = [
     rol: "FOUNDER & CEO · DEENEX",
     foto: "alan-tapia.jpg",
     frase:
-      "Vengo con lo que veo todos los día en los locales que ya se movieron. Con datos, no con impresiones.",
+      "Vengo con lo que veo en las marcas que ya se movieron. Con números, no con impresiones.",
     bio: "Da tres de los seis bloques del día: abre con el estado del mercado, sigue con datos e inteligencia artificial, y cierra con el ecosistema.",
-    charlas: [
-      "El nuevo mercado gastronómico y por qué este es el momento",
-      "Datos, tecnología e inteligencia artificial aplicados al negocio",
-      "Cómo se arma un ecosistema: marcas, tecnología y proveedores",
-    ],
     stats: [
       { valor: "+350", label: "clientes" },
       { valor: "3", label: "charlas" },
@@ -479,7 +479,7 @@ export const AGENDA_BLOQUES = [
     items: [
       "Mesa redonda con todos los oradores juntos",
       "Preguntas abiertas de la sala",
-      "Vino, cerveza y café hasta que se corta",
+      "Networking abierto hasta que se corta",
     ],
   },
 ];

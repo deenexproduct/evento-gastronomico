@@ -10,8 +10,8 @@
             Seis bloques, todo aplicado al negocio.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
-            Nada de charlas motivacionales ni de digitalización en abstracto. Cada bloque es un tema
-            concreto del negocio gastronómico, contado por alguien que lo hace todos los días.
+            Ningún bloque es una charla motivacional. Cada uno toma un problema concreto de una
+            marca gastronómica y lo abre con quien lo resuelve para vivir.
           </p>
         </div>
       </div>

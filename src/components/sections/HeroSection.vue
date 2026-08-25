@@ -28,7 +28,7 @@
           <p class="mt-4 text-[1.02rem] leading-[1.65] text-gris">
             El 20 de septiembre juntamos en una sala a los dueños que ya entraron, para que cuenten
             cómo lo hicieron. Seis bloques de charla, demos en vivo y hasta doscientos dueños de
-            marcas gastronómicas de Córdoba.
+            marcas gastronómicas en la misma sala.
           </p>
         </div>
 
@@ -133,7 +133,7 @@ const objetivoTiempo = computed(() => {
 const FICHA = [
   { rotulo: "Fecha", valor: `${EVENTO.fechaLarga} · ${EVENTO.horario}` },
   { rotulo: "Lugar", valor: `${EVENTO.venue}, ${EVENTO.direccion} · Córdoba` },
-  { rotulo: "Para quién", valor: "Dueños de marcas gastronómicas de Córdoba" },
+  { rotulo: "Para quién", valor: "Dueños de marcas gastronómicas · capital y provincia" },
 ];
 
 // Voces confirmadas: Alan, CEO de Bistrosoft, orador de UGC y los dos de Avanzia.
