@@ -63,7 +63,7 @@
         </li>
       </ol>
 
-      <p class="mt-8 text-[16px] text-gris">
+      <p class="mt-8 max-w-[68ch] text-[16px] text-gris">
         Puertas y acreditación desde las 8:30. La grilla con el orden final se publica cuando cierre
         — <span class="font-bold text-white">los inscriptos la reciben primero</span>.
       </p>

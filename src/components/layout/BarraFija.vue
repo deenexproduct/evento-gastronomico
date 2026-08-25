@@ -4,7 +4,7 @@
     cuando el formulario está en pantalla, donde ya no aporta y tapa campos.
   -->
   <Transition name="subir">
-    <div v-if="visible" class="fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-white/5">
+    <div v-if="visible" class="barra-fija fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-white/5">
       <div class="contenedor">
         <div class="flex items-center justify-between gap-5 py-3">
           <div class="min-w-0">
@@ -81,6 +81,11 @@ function ir() {
 </script>
 
 <style scoped>
+/* Pantalla baja (celular acostado): la barra ocupa demasiado y se oculta. */
+@media (max-height: 500px) {
+  .barra-fija { display: none; }
+}
+
 .subir-enter-active,
 .subir-leave-active {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;

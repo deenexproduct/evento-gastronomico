@@ -48,7 +48,7 @@
           <div class="mt-9 grid gap-3">
             <div v-for="r in RIESGO" :key="r.q" class="tarjeta px-5 py-4">
               <p class="text-[15px] font-black uppercase tracking-[0.02em]">{{ r.q }}</p>
-              <p class="mt-1.5 text-[14px] leading-[1.45] text-gris">{{ r.a }}</p>
+              <p class="mt-1.5 max-w-[60ch] text-[14px] leading-[1.45] text-gris">{{ r.a }}</p>
             </div>
           </div>
         </div>
@@ -76,9 +76,28 @@
             >
               {{ codigo }}
             </p>
+            <div class="mt-8 border-t border-white/10 pt-7">
+              <p class="text-[13px] font-black uppercase tracking-[0.12em] text-gris">
+                Agendalo ahora y no te lo olvidás
+              </p>
+              <div class="mt-4 flex flex-wrap gap-3">
+                <a
+                  :href="google"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-linea text-[13px]"
+                >
+                  Google Calendar
+                </a>
+                <a :href="urlIcs" :download="nombreArchivo" class="btn-linea text-[13px]">
+                  Apple u Outlook
+                </a>
+              </div>
+            </div>
+
             <button
               type="button"
-              class="mt-8 block min-h-[44px] text-[15px] font-bold text-acento-texto underline underline-offset-4"
+              class="mt-7 block min-h-[44px] text-[15px] font-bold text-acento-texto underline underline-offset-4"
               @click="reiniciar"
             >
               Registrar a otra persona
@@ -231,6 +250,20 @@
                   </span>
                 </label>
                 <p v-if="errores.acepta" class="error -mt-3">{{ errores.acepta }}</p>
+
+                <label
+                  class="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 p-4 transition-colors hover:border-white/25"
+                >
+                  <input
+                    v-model="form.publicar"
+                    type="checkbox"
+                    class="mt-0.5 h-4 w-4 shrink-0 accent-acento"
+                  />
+                  <span class="text-[14px] leading-[1.5] text-gris">
+                    Pueden publicar el nombre de mi marca en la lista de confirmados.
+                    <span class="text-gris-2">Opcional.</span>
+                  </span>
+                </label>
               </div>
 
               <div
@@ -272,12 +305,14 @@ import { computed } from "vue";
 import { ROLES, CANTIDAD_LOCALES, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRegistro } from "@/composables/useRegistro";
+import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
 
 const { total, ocupados, restantes, porcentaje, agotado } = useCupo();
 
 // El contador que sube al entrar en pantalla: uno de los dos momentos de motion.
 const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.value);
+const { google, urlIcs, nombreArchivo } = useCalendario();
 const {
   form, errores, paso, enviando, enviado, errorEnvio, codigo,
   tieneBackend, siguiente, volver, enviar, reiniciar,

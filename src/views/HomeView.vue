@@ -38,6 +38,9 @@
       <!-- Con qué volvés al local -->
       <ElLunesSection class="v-reveal bg-noche-2" />
 
+      <!-- Quiénes ya confirmaron: empuja al formulario que viene abajo -->
+      <AnotadasSection class="v-reveal" />
+
       <!-- Registro -->
       <RegistroSection />
 
@@ -50,6 +53,9 @@
       <!-- Dónde es -->
       <LocationSection class="v-reveal bg-noche-2" />
 
+
+      <!-- Captura secundaria, para el que llegó hasta acá y no se registró -->
+      <AvisameSection class="v-reveal" />
 
       <!-- Preguntas -->
       <FAQSection class="v-reveal bg-noche" />
@@ -75,7 +81,9 @@ import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
 import CuentaSection from "@/components/sections/CuentaSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
+import AnotadasSection from "@/components/sections/AnotadasSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
+import AvisameSection from "@/components/sections/AvisameSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import PruebaSection from "@/components/sections/PruebaSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";

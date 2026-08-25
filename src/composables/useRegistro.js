@@ -9,6 +9,7 @@ const VACIO = {
   locales: "",
   whatsapp: "",
   acepta: false,
+  publicar: false,
 };
 
 /**

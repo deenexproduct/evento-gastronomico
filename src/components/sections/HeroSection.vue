@@ -70,7 +70,7 @@
         <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
       </div>
 
-      <p class="mt-5 text-[15px] text-gris">
+      <p class="mt-5 max-w-[60ch] text-[15px] text-gris">
         Entrada sin costo con inscripción previa · El código de acceso te llega por mail
       </p>
     </div>

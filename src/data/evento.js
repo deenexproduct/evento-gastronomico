@@ -593,6 +593,26 @@ export const CANTIDAD_LOCALES = [
   "Uno, pero estoy por abrir el segundo",
 ];
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Marcas ya anotadas.
+//
+// Para un dueño de cadena, enterarse de que va un par respetado es el
+// argumento más fuerte de la página. Solo entran las que dieron el opt-in en
+// el formulario. Con la lista vacía la sección no se renderiza: mostrar dos
+// nombres en un espacio pensado para veinte se lee como fracaso.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const MARCAS_ANOTADAS = [
+  // { nombre: "Nombre de la cadena", locales: "8 locales" },
+];
+
+/**
+ * El contador de anotados se enciende recién a partir de este número. Por
+ * debajo, decir "van 12 de 200" destruye más de lo que construye.
+ */
+export const MINIMO_PARA_MOSTRAR_CUPO = 60;
+
 /** WhatsApp de Alan — fallback cuando no hay endpoint conectado. */
 
 // ─────────────────────────────────────────────────────────────────────────────
