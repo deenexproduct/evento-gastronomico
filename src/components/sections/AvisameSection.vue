@@ -46,6 +46,7 @@
               ref="campo"
               v-model.trim="email"
               type="email"
+              maxlength="120"
               inputmode="email"
               autocomplete="email"
               placeholder="tumail@tumarca.com"

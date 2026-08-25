@@ -58,6 +58,9 @@ test("las opciones de locales corresponden a cadenas", async ({ page }) => {
   await registro.locator("#reg-email").fill("alan@deenex.tech");
   await registro.getByRole("button", { name: /continuar/i }).click();
 
+  // allTextContents no espera: sin esta línea devuelve [] si el paso 2 todavía
+  // no se pintó, y el test falla de forma intermitente solo en mobile.
+  await expect(registro.locator("#reg-locales")).toBeVisible();
   const opciones = await registro.locator("#reg-locales option").allTextContents();
   // El público es de cadenas: "1 local" no puede seguir siendo una opción.
   expect(opciones.some((o) => /^1 local$/i.test(o.trim()))).toBe(false);
