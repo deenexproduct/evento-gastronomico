@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 
 /**
  * Cuenta hacia arriba cuando el elemento entra en pantalla.
@@ -13,32 +13,51 @@ export function useContador(destino, { duracion = 1400 } = {}) {
   let observer = null;
   let raf = null;
   let respaldo = null;
+  let animando = false;
+  let arranco = false;
 
   const objetivo = () => (typeof destino === "function" ? destino() : destino);
 
   /** Escribe el valor final sin animar. */
   function mostrarFinal() {
+    animando = false;
+    arranco = true;
+    if (raf) cancelAnimationFrame(raf);
     valor.value = objetivo();
   }
 
   function correr() {
-    const fin = objetivo();
-
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      valor.value = fin;
+      mostrarFinal();
       return;
     }
 
+    animando = true;
+    arranco = true;
     const inicio = performance.now();
     const paso = (ahora) => {
       const t = Math.min((ahora - inicio) / duracion, 1);
       // easing de salida: arranca rápido y frena, que es como se lee un número
       const e = 1 - Math.pow(1 - t, 3);
-      valor.value = Math.round(fin * e);
+      // El objetivo se relee en cada cuadro y no se captura al arrancar: el
+      // cupo puede llegar de un endpoint en el medio de la animación.
+      valor.value = Math.round(objetivo() * e);
       if (t < 1) raf = requestAnimationFrame(paso);
+      else animando = false;
     };
     raf = requestAnimationFrame(paso);
   }
+
+  /**
+   * El cupo real llega por fetch y puede resolverse después de que el contador
+   * terminó. Sin esto quedaba clavado en el valor estático, y en la misma
+   * tarjeta se leía "115 lugares disponibles" al lado de "160 de 200 ya
+   * tomados": el número sobre el que se apoya todo el argumento de escasez,
+   * contradiciéndose solo.
+   */
+  watch(objetivo, (nuevo) => {
+    if (arranco && !animando) valor.value = nuevo;
+  });
 
   onMounted(() => {
     if (!ancla.value) return;

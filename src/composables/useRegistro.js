@@ -54,14 +54,18 @@ export function useRegistro() {
   }
 
   function validarPaso2() {
-    limpiarErrores(["marca", "rol", "locales", "whatsapp", "acepta"]);
+    const propios = ["marca", "rol", "locales", "whatsapp", "acepta"];
+    limpiarErrores(propios);
     if (form.marca.trim().length < 2) errores.marca = "¿Cuál es tu marca o negocio?";
     if (!form.rol) errores.rol = "Elegí tu rol.";
     if (!form.locales) errores.locales = "Elegí cuántos locales tenés.";
     if (limpiarTelefono(form.whatsapp).length < 8)
       errores.whatsapp = "Necesitamos un WhatsApp válido.";
     if (!form.acepta) errores.acepta = "Necesitamos tu confirmación para guardarte el lugar.";
-    return !Object.keys(errores).length;
+    // Solo los errores de este paso. Mirando el objeto entero, un error del
+    // paso 1 que quedara colgado bloquearía el envío sin mostrar nada: los
+    // campos que lo causaron ya no están en pantalla.
+    return !propios.some((k) => errores[k]);
   }
 
   /** Guarda el contacto apenas termina el paso 1, antes de pedir nada más. */
