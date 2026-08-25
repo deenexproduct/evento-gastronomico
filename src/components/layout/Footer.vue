@@ -94,7 +94,6 @@ const anio = new Date().getFullYear();
 
 const enlaces = [
   { id: "jornada", label: "Programa" },
-  { id: "oradores", label: "Oradores" },
   { id: "lugar", label: "El lugar" },
   { id: "faq", label: "Preguntas" },
 ];

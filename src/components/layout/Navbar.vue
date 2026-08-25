@@ -48,7 +48,6 @@ const scrolled = ref(false);
 
 const enlaces = [
   { id: "jornada", label: "Programa" },
-  { id: "oradores", label: "Oradores" },
   { id: "lugar", label: "Lugar" },
   { id: "faq", label: "Preguntas" },
 ];

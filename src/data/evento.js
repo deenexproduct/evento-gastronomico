@@ -47,6 +47,9 @@ export const CUPO = {
 
 export const TEMAS = [
   {
+    id: "mercado",
+    tramo: "manana",
+    dur: 45,
     hora: "10:00",
     tipo: "charla",
     titulo: "Qué cambió en el mercado y qué hace distinto el que creció este año",
@@ -55,6 +58,9 @@ export const TEMAS = [
       "La foto del rubro con números, no con impresiones. Qué hicieron distinto las cadenas que crecieron este año, y por qué la brecha que se abrió no es de tamaño ni de plata.",
   },
   {
+    id: "comparar",
+    tramo: "manana",
+    dur: 45,
     hora: "11:00",
     tipo: "charla",
     titulo: "Qué ves cuando comparás tus locales entre sí",
@@ -63,6 +69,9 @@ export const TEMAS = [
       "Tus locales ya generan la información. Qué aparece cuando se los mira juntos: quién rinde, quién arrastra y por qué el mismo plato deja distinto en cada sucursal.",
   },
   {
+    id: "pos",
+    tramo: "manana",
+    dur: 45,
     hora: "12:00",
     tipo: "demo",
     titulo: "Hasta dónde llega hoy el sistema con el que cobrás",
@@ -71,6 +80,9 @@ export const TEMAS = [
       "Qué cambia cuando todas tus sucursales reportan al mismo lugar y dejás de armar el número a mano. Con demos montadas en el salón.",
   },
   {
+    id: "contenido",
+    tramo: "tarde",
+    dur: 45,
     hora: "13:45",
     tipo: "charla",
     titulo: "Cómo se sostiene una marca en varios locales a la vez",
@@ -79,6 +91,9 @@ export const TEMAS = [
       "Qué se graba, con qué frecuencia y cómo se mantiene una sola voz cuando la marca está en cinco puntos. Sin un equipo de diez personas.",
   },
   {
+    id: "conduccion",
+    tramo: "tarde",
+    dur: 45,
     hora: "14:45",
     tipo: "charla",
     titulo: "Cómo se conduce una estructura grande cuando el mercado se endurece",
@@ -87,6 +102,9 @@ export const TEMAS = [
       "Dos que ya condujeron compañías con cientos de empleados, contando cómo se decide cuando hay gente y plata en juego.",
   },
   {
+    id: "ecosistema",
+    tramo: "cierre",
+    dur: 45,
     hora: "16:00",
     tipo: "charla",
     titulo: "Por qué solos no llegamos: marcas, tecnología y proveedores",
@@ -95,6 +113,9 @@ export const TEMAS = [
       "Cómo se construye la red que sí llega: qué le pedís a un proveedor cuando comprás para varios locales y qué te tiene que dar la tecnología para acompañar la escala.",
   },
   {
+    id: "mesa",
+    tramo: "cierre",
+    dur: 60,
     hora: "17:00",
     tipo: "mesa",
     titulo: "Cuatro voces del día dicen lo que nadie dice en público",
@@ -110,6 +131,62 @@ export const TIPOS_BLOQUE = {
   demo: { label: "Demo en vivo", icono: "demo", clase: "border-acento/50 text-acento-texto" },
   mesa: { label: "Mesa redonda", icono: "mesa", clase: "border-acento bg-acento-boton text-white" },
   pausa: { label: "Degustación", icono: "degustacion", clase: "border-white/10 text-gris" },
+  apertura: { label: "Puertas", icono: "entrada", clase: "border-white/10 text-gris" },
+  cierre: { label: "Networking", icono: "gente", clase: "border-white/10 text-gris" },
+};
+
+/**
+ * Los tres tramos del día.
+ *
+ * NO contiene la lista de bloques: el vínculo vive en TEMAS[i].tramo y los
+ * grupos se arman agrupando TEMAS en orden. Con una lista paralela acá, un
+ * bloque nuevo que nadie agregue a la lista desaparece de la página sin
+ * error; así, a lo sumo aparece con el rótulo vacío, que se ve.
+ */
+export const TRAMOS = [
+  { id: "manana", rotulo: "Mañana", nombre: "Dónde estás parado" },
+  { id: "tarde", rotulo: "Tarde", nombre: "Cómo se conduce" },
+  { id: "cierre", rotulo: "Cierre", nombre: "Con quién se crece" },
+];
+
+/**
+ * Solo los huecos que tienen nombre propio, indexados por la hora que el
+ * componente CALCULA. Los que no figuran caen al default "Degustación".
+ *
+ * La duración nunca se declara acá: se resta entre el fin de un bloque y el
+ * arranque del siguiente. Si mañana se mueve un horario, la pausa se
+ * recalcula sola y la sección no puede mentir.
+ */
+export const PAUSAS = {
+  "12:45": {
+    titulo: "Pausa larga",
+    detalle: "Ronda grande de degustación, stands y networking sin apuro.",
+  },
+  "15:30": {
+    titulo: "Coffee break",
+    detalle: "Café y algo dulce antes del último tramo.",
+  },
+};
+
+/**
+ * Las dos puntas del día. Estas sí publican hora: 8:30 y 18:00 ya están al
+ * aire en la sección del lugar y en EVENTO.horario.
+ */
+export const BORDES = {
+  apertura: {
+    id: "apertura",
+    tipo: "apertura",
+    hora: "8:30",
+    titulo: "Puertas y acreditación",
+    detalle: "Acreditación con el código, café de bienvenida y los stands ya abiertos.",
+  },
+  cierre: {
+    id: "cierre",
+    tipo: "cierre",
+    hora: "18:00",
+    titulo: "Networking de cierre",
+    detalle: "La sala queda abierta hasta que se corta el evento.",
+  },
 };
 
 /**

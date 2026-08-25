@@ -1,9 +1,9 @@
 <template>
   <!--
     Orden y ritmo del referente (fooddeliveryday.com.ar):
-    hero → oradores → acceso → cuenta regresiva → partners → prueba →
-    comunidad → pie. La alternancia de los tres negros es lo que le da
-    profundidad sección a sección, sin un solo borde.
+    hero → qué es → quién organiza → la jornada → acceso → registro →
+    partners → prueba → lugar → preguntas → pie. La alternancia de los tres
+    negros es lo que le da profundidad sección a sección, sin un solo borde.
   -->
   <div class="pb-[80px]">
     <a href="#contenido" class="saltar">Saltar al contenido</a>
