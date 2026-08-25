@@ -18,6 +18,11 @@
 html { scroll-behavior: smooth; }
 html, body { overflow-x: hidden; }
 
+/* El nav mide 73 px y está fijo arriba. Sin este margen, cada salto de ancla
+   —el menú, los botones de reservar, un link compartido con #registro— deja
+   el título de la sección escondido debajo de la barra. */
+section[id], main[id] { scroll-margin-top: 88px; }
+
 body {
   font-family: "Archivo", system-ui, sans-serif;
   background: var(--noche);

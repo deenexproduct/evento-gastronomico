@@ -147,7 +147,9 @@ function ir(id) {
   color: #74747c;
 }
 .campo:focus {
-  outline: none;
+  /* Sin `outline: none`: el borde rosa es el mismo que usa el estado de
+     error, así que por sí solo no distingue "enfocado" de "mal cargado".
+     El anillo de :focus-visible que define main.css tiene que sobrevivir. */
   border-color: #ff5c87;
   background: rgba(255, 255, 255, 0.08);
 }
