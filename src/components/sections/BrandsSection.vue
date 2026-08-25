@@ -7,7 +7,7 @@
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">
-            Los que ya están adentro.
+            Cada partner llega con algo que solo existe ese día.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
             Cada partner de GastroTech llega con un beneficio exclusivo para los que estén en la

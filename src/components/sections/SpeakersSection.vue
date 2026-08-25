@@ -7,7 +7,7 @@
         </div>
         <div class="lg:col-span-9">
           <h2 class="titular max-w-[16ch] text-[clamp(1.9rem,4vw,3.2rem)]">
-            Las voces confirmadas.
+            Los que ya cruzaron esa brecha vienen a contarlo.
           </h2>
           <p class="mt-6 max-w-[58ch] text-[1.02rem] leading-[1.65] text-gris">
             Alan Tapia es el hilo conductor: abre, presenta a cada orador, modera la mesa redonda y

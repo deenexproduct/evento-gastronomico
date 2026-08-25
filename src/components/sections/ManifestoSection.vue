@@ -8,7 +8,7 @@
 
         <div class="lg:col-span-5">
           <h2 class="titular max-w-[20ch] text-[clamp(1.9rem,3.8vw,3rem)]">
-            El mercado se puso difícil. Los que salgan adelante no son los que aguanten.
+            El mercado se puso difícil. Gana el que se prepara, no el que aguanta.
           </h2>
           <div class="mt-8 space-y-5 text-[1rem] leading-[1.7] text-gris">
             <p>

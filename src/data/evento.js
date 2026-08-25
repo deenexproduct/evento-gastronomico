@@ -94,56 +94,10 @@ export const TEMAS = [
 // ─────────────────────────────────────────────────────────────────────────────
 // Qué se lleva el que viene
 // ─────────────────────────────────────────────────────────────────────────────
-
-export const BENEFICIOS = [
-  {
-    n: "01",
-    kicker: "CONTENIDO",
-    titulo: "Cosas que podés aplicar el lunes.",
-    texto:
-      "Cada bloque cierra con algo concreto para hacer, no con una conclusión inspiradora. Lo que ya funciona en otros locales, contado por los que lo hacen.",
-  },
-  {
-    n: "02",
-    kicker: "BENEFICIOS",
-    titulo: "Condiciones que solo existen en la sala.",
-    texto:
-      "Cada partner llega con un beneficio exclusivo para los que están ese día. No se consiguen en otro momento ni por otro canal.",
-  },
-  {
-    n: "03",
-    kicker: "CONTACTOS",
-    titulo: "Doscientos colegas en un día.",
-    texto:
-      "Degustaciones entre bloques, stands y networking de cierre. Una sala curada de dueños del rubro, no un auditorio de desconocidos.",
-  },
-  {
-    n: "04",
-    kicker: "A PEDIDO",
-    titulo: "Un diagnóstico de tu negocio, si lo pedís.",
-    texto:
-      "Los que asisten pueden solicitar una reunión técnica sobre su marca: dónde está parada a nivel tecnológico y cuál es el próximo paso. Se solicita el día del evento.",
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
 // El diagnóstico — beneficio para quien lo solicite, no el gancho del evento.
 //
 // Ojo: el formato, la duración y el plazo todavía no están definidos (pendiente
 // del brief). Acá se describe QUÉ se mira, no cuánto dura ni cuándo es.
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const DIAGNOSTICO = {
-  bajada:
-    "Si querés, podés pedir una reunión técnica sobre tu marca después del evento. Se solicita ese día y se coordina con el equipo de Deenex.",
-  puntos: [
-    "Qué tecnología usás hoy, qué te falta y qué tenés de más",
-    "Qué información ya estás generando y no estás leyendo",
-    "Cuánto de tu venta depende de terceros",
-    "Un próximo paso concreto y priorizado",
-  ],
-};
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Con qué volvés al local — el inventario de valor, al cierre de la página.
 //
@@ -156,7 +110,7 @@ export const VOLVES_CON = [
     n: "01",
     titulo: "Seis temas, cada uno con algo para hacer",
     texto:
-      "Ningún bloque cierra con una conclusión inspiradora. Cierra con algo concreto: qué mirar, por dónde empezar y qué esperar cuando lo hagas.",
+      "A cada orador le pedimos lo mismo: que cierre con algo aplicable y no con una conclusión inspiradora. Qué mirar, por dónde empezar y qué esperar cuando lo hagas.",
   },
   {
     n: "02",
@@ -178,15 +132,15 @@ export const VOLVES_CON = [
   },
   {
     n: "05",
-    titulo: "Doscientos colegas del rubro",
+    titulo: "Una sala llena de colegas",
     texto:
-      "Dueños que ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
+      "Hasta doscientos dueños del rubro, y varios ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
   },
   {
     n: "06",
-    titulo: "Tus preguntas respondidas",
+    titulo: "Una hora de preguntas abiertas",
     texto:
-      "En la mesa redonda están todos los que hablaron, sentados juntos y una hora entera. Es la única parte del día donde preguntás lo que quieras a quien quieras.",
+      "En la mesa redonda están todos los que hablaron, sentados juntos y una hora entera. Es la única parte del día en que se les puede preguntar de frente.",
   },
   {
     n: "07",
@@ -287,7 +241,7 @@ export const TRANSPARENCIA = {
   parrafos: [
     "Te lo digo derecho: a Deenex le conviene. No por lo que se venda ese día, porque ese día no se vende nada. Conviene porque cuando el rubro entiende mejor su propia tecnología, nos va mejor a todos los que trabajamos en esto.",
     "Y porque prefiero que me conozcas por un día que te sirvió antes que por un mail frío. Si algún día necesitás lo que hacemos, quiero que ya sepas cómo pensamos.",
-    "Ese es todo el interés. No hay letra chica, no hay lista que se venda después y no vas a recibir llamados que no pediste.",
+    "Ese es todo el interés. No hay letra chica y tus datos no se comparten con nadie. Si después del evento querés que te escribamos, nos lo decís ahí; si no, no.",
   ],
   firma: "Alan Tapia · Founder & CEO de Deenex",
 };
