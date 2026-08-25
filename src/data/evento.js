@@ -151,63 +151,6 @@ export const DOMINGO = {
   salida: "Y si de verdad no podés, mandá a tu socio o a tu encargado. El lugar es de la marca, no de la persona.",
 };
 
-// ──────────────────────────────────────────────────────────────────────────
-export const BENEFICIOS = [
-  {
-    n: "01",
-    kicker: "CONTENIDO",
-    titulo: "Cosas que podés aplicar el lunes.",
-    texto:
-      "Cada bloque cierra con algo concreto para hacer, no con una conclusión inspiradora. Lo que ya funciona en otros locales, contado por los que lo hacen.",
-  },
-  {
-    n: "02",
-    kicker: "BENEFICIOS",
-    titulo: "Condiciones que solo existen en la sala.",
-    texto:
-      "Cada partner llega con un beneficio exclusivo para los que están ese día. No se consiguen en otro momento ni por otro canal.",
-  },
-  {
-    n: "03",
-    kicker: "CONTACTOS",
-    titulo: "Doscientos colegas en un día.",
-    texto:
-      "Degustaciones entre bloques, stands y networking de cierre. Una sala curada de dueños del rubro, no un auditorio de desconocidos.",
-  },
-  {
-    n: "04",
-    kicker: "A PEDIDO",
-    titulo: "Un diagnóstico de tu negocio, si lo pedís.",
-    texto:
-      "Los que asisten pueden solicitar una reunión técnica sobre su marca: dónde está parada a nivel tecnológico y cuál es el próximo paso. Se solicita el día del evento.",
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// El diagnóstico — beneficio para quien lo solicite, no el gancho del evento.
-//
-// Ojo: el formato, la duración y el plazo todavía no están definidos (pendiente
-// del brief). Acá se describe QUÉ se mira, no cuánto dura ni cuándo es.
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const DIAGNOSTICO = {
-  bajada:
-    "Si querés, podés pedir una reunión técnica sobre tu marca después del evento. Se solicita ese día y se coordina con el equipo de Deenex.",
-  puntos: [
-    "Qué tecnología usás hoy, qué te falta y qué tenés de más",
-    "Qué información ya estás generando y no estás leyendo",
-    "Cuánto de tu venta depende de terceros",
-    "Un próximo paso concreto y priorizado",
-  ],
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Con qué volvés al local — el inventario de valor, al cierre de la página.
-//
-// Todo lo de acá tiene que ser tangible y verificable: es la contracara
-// concreta de la apertura aspiracional. Nada de promesas de resultado.
-// ─────────────────────────────────────────────────────────────────────────────
-
 export const VOLVES_CON = [
   {
     n: "01",

@@ -96,10 +96,8 @@ import { EVENTO, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 const anio = new Date().getFullYear();
 
 const enlaces = [
-  { id: "temas", label: "Programa" },
-  { id: "speakers", label: "Oradores" },
-  { id: "jornada", label: "La jornada" },
-  { id: "para-quien", label: "Para quién es" },
+  { id: "jornada", label: "Programa" },
+  { id: "oradores", label: "Oradores" },
   { id: "lugar", label: "El lugar" },
   { id: "faq", label: "Preguntas" },
 ];

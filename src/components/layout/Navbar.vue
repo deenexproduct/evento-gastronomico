@@ -15,7 +15,7 @@
             v-for="l in enlaces"
             :key="l.id"
             :href="`#${l.id}`"
-            class="text-[0.85rem] font-medium text-gris transition-colors hover:text-white"
+            class="inline-flex min-h-[44px] items-center text-[0.85rem] font-medium text-gris transition-colors hover:text-white"
             @click.prevent="ir(l.id)"
             >{{ l.label }}</a
           >
@@ -27,7 +27,7 @@
           </span>
           <a
             href="#registro"
-            class="rounded-full bg-acento-boton px-5 py-2.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
+            class="inline-flex min-h-[44px] items-center rounded-full bg-acento-boton px-5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
             @click.prevent="ir('registro')"
           >
             Reservar
@@ -47,9 +47,8 @@ const { restantes, agotado } = useCupo();
 const scrolled = ref(false);
 
 const enlaces = [
-  { id: "temas", label: "Programa" },
-  { id: "speakers", label: "Oradores" },
-  { id: "jornada", label: "La jornada" },
+  { id: "jornada", label: "Programa" },
+  { id: "oradores", label: "Oradores" },
   { id: "lugar", label: "Lugar" },
   { id: "faq", label: "Preguntas" },
 ];
