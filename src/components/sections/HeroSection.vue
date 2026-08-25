@@ -1,9 +1,13 @@
 <template>
   <!--
-    Estructura del referente: tira de fecha y sede sobre el título, título
-    gigante en peso 900, bajada corta, barra de progreso de cupo y dos CTAs.
-    La diferencia: su barra empuja fases de precio y la nuestra empuja el
-    límite físico del salón, que es un dato y no un recurso de venta.
+    El hero venía apilando cinco bloques de texto y la tarjeta de cupo en una
+    sola columna, y eso empujaba el botón 109px por debajo del fold en
+    1280x800: el que entraba no veía un CTA hasta hacer scroll.
+
+    Ahora la columna izquierda solo carga fecha, nombre, promesa y botones, y
+    todo lo que es dato —cuánto falta y cuánto queda— se va a un panel a la
+    derecha. En celular el panel cae debajo de los botones, que es el orden que
+    corresponde ahí.
   -->
   <section id="hero" class="relative overflow-hidden pt-[104px]">
     <!-- Halo del acento, contenido y barato: sin JS ni imágenes -->
@@ -13,72 +17,115 @@
       aria-hidden="true"
     ></div>
 
-    <div class="contenedor relative py-14 sm:py-20">
-      <p class="rotulo text-acento-texto">Edición 01 · Deenex</p>
+    <div class="contenedor relative py-12 sm:py-16">
+      <div class="grid items-start gap-10 lg:grid-cols-[1.1fr_.9fr] lg:gap-14">
+        <!-- Columna del mensaje -->
+        <div>
+          <p class="rotulo text-acento-texto">Edición 01 · Organiza Deenex</p>
 
-      <p class="mt-7 text-[14px] font-bold uppercase tracking-[0.14em] text-gris sm:text-[16px]">
-        20 de septiembre 2026 &nbsp;|&nbsp; {{ EVENTO.venue }}, Córdoba
-      </p>
+          <h1 class="display mt-5 text-[clamp(2.6rem,8.5vw,6.5rem)]">
+            {{ EVENTO.nombre }}
+          </h1>
 
-      <h1 class="display mt-4 text-[clamp(2.3rem,12vw,8.5rem)]">
-        {{ EVENTO.nombre }}
-      </h1>
-      <p class="mt-3 max-w-[24ch] text-[clamp(1.1rem,3.2vw,1.7rem)] font-black uppercase leading-[1.1] tracking-[-0.02em] text-acento-texto">
-        La jornada de gastronomía y tecnología
-      </p>
+          <!--
+            Antes había dos bajadas seguidas: una rosa con la categoría y otra
+            gris con la promesa. La categoría pasó a la línea de datos de abajo
+            y queda una sola frase, que es la que tiene que leerse.
+          -->
+          <p class="mt-5 max-w-[30ch] text-[clamp(1.25rem,3vw,1.9rem)] font-black uppercase leading-[1.08] tracking-[-0.02em]">
+            Un día entero para
+            <span class="text-acento-texto">dueños de cadenas gastronómicas.</span>
+          </p>
 
-      <p class="mt-6 max-w-[46ch] text-[18px] font-semibold text-gris sm:text-[21px]">
-        Nueve horas para bajar costos, ordenar la operación y vender más.
-        <span class="text-white">Para dueños de cadenas gastronómicas.</span>
-      </p>
+          <p class="mt-5 max-w-[44ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]">
+            Bajar costos, ordenar la operación y vender más. Gastronomía y tecnología, con
+            gente que ya lo resolvió en varios locales a la vez.
+          </p>
 
-      <!-- Escasez con razón física, no con fases de precio -->
-      <div class="mt-10 max-w-[520px] tarjeta p-5 sm:p-6">
-        <!-- El punto que late: el referente lo usa como señal de "esto está vivo" -->
-        <p class="flex items-center gap-2 text-[13px] font-black uppercase tracking-[0.12em]">
-          <span class="relative flex h-2 w-2">
-            <span
-              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-acento opacity-70"
-            ></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-acento"></span>
-          </span>
-          <span class="text-acento-texto">{{ agotado ? "Lista de espera" : "Registro abierto" }}</span>
-        </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#registro" class="btn" @click.prevent="ir('registro')">{{
+              agotado ? "Entrar a la lista" : "Quiero mi lugar"
+            }}</a>
+            <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
+          </div>
 
-        <div class="mt-4 flex items-baseline justify-between gap-4">
-          <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
-          <p class="text-[14px] font-bold tabular-nums text-gris" style="min-width:7ch;text-align:right">
-            {{ ocupados }} / {{ total }}
+          <p class="mt-5 text-[14px] leading-[1.5] text-gris">
+            Entrada sin costo con inscripción previa · El código de acceso te llega por mail
           </p>
         </div>
 
-        <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
-          <div
-            class="h-full rounded-full bg-acento transition-[width] duration-[1200ms] ease-out"
-            :style="{ width: ancho + '%' }"
-          ></div>
-        </div>
+        <!-- Panel de datos: cuándo es, cuánto falta y cuánto queda -->
+        <aside class="tarjeta p-5 sm:p-6 lg:mt-2">
+          <p class="rotulo text-white">Domingo 20 de septiembre</p>
+          <p class="mt-2 text-[15px] leading-[1.45] text-gris">
+            {{ EVENTO.horario }} · {{ EVENTO.venue }}, Córdoba
+          </p>
 
-        <p class="mt-3 text-[15px] leading-[1.45] text-gris">
-          <template v-if="agotado">
-            La sala se llenó: entraron los {{ total }}. Podés dejar tus datos en la lista de espera
-            por si se libera un lugar.
-          </template>
-          <template v-else>
-            El cupo es el del salón, no una fase de venta. Cuando entren {{ total }}, se cierra el
-            registro.
-          </template>
-        </p>
+          <!-- Cuenta regresiva: acá es donde el número presiona -->
+          <div class="mt-6 flex items-end gap-4 border-t border-white/10 pt-6">
+            <p
+              v-if="estado === 'faltan'"
+              class="font-black leading-[0.78] tabular-nums tracking-[-0.05em] text-acento-texto text-[clamp(3.4rem,9vw,5rem)]"
+            >
+              {{ dias }}
+            </p>
+            <p
+              v-else
+              class="font-black uppercase leading-[0.85] tracking-[-0.03em] text-acento-texto text-[clamp(2rem,6vw,3rem)]"
+            >
+              {{ estado === "hoy" ? "Es hoy" : "Ya pasó" }}
+            </p>
+            <p
+              v-if="estado === 'faltan'"
+              class="pb-1 text-[13px] font-black uppercase tracking-[0.2em] text-gris"
+            >
+              {{ dias === 1 ? "día" : "días" }}<br />para el evento
+            </p>
+          </div>
+
+          <!-- Escasez con razón física, no con fases de precio -->
+          <div class="mt-6 border-t border-white/10 pt-6">
+            <p class="flex items-center gap-2 text-[13px] font-black uppercase tracking-[0.12em]">
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="absolute inline-flex h-full w-full animate-ping rounded-full bg-acento opacity-70"
+                ></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-acento"></span>
+              </span>
+              <span class="text-acento-texto">{{
+                agotado ? "Lista de espera" : "Registro abierto"
+              }}</span>
+            </p>
+
+            <div class="mt-4 flex items-baseline justify-between gap-4">
+              <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
+              <p
+                class="text-[14px] font-bold tabular-nums text-gris"
+                style="min-width: 7ch; text-align: right"
+              >
+                {{ ocupados }} / {{ total }}
+              </p>
+            </div>
+
+            <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
+              <div
+                class="h-full rounded-full bg-acento transition-[width] duration-[1200ms] ease-out"
+                :style="{ width: ancho + '%' }"
+              ></div>
+            </div>
+
+            <p class="mt-3 text-[14px] leading-[1.45] text-gris">
+              <template v-if="agotado">
+                La sala se llenó: entraron los {{ total }}. Podés dejar tus datos por si se libera un
+                lugar.
+              </template>
+              <template v-else>
+                El cupo es el del salón, no una fase de venta. Cuando entren {{ total }}, se cierra.
+              </template>
+            </p>
+          </div>
+        </aside>
       </div>
-
-      <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href="#registro" class="btn" @click.prevent="ir('registro')">{{ agotado ? "Entrar a la lista" : "Quiero mi lugar" }}</a>
-        <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
-      </div>
-
-      <p class="mt-5 max-w-[60ch] text-[15px] text-gris">
-        Entrada sin costo con inscripción previa · El código de acceso te llega por mail
-      </p>
     </div>
   </section>
 </template>
@@ -87,8 +134,10 @@
 import { ref, onMounted, watch } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
+import { useCuentaRegresiva } from "@/composables/useCuentaRegresiva";
 
 const { total, ocupados, porcentaje, agotado } = useCupo();
+const { dias, estado } = useCuentaRegresiva();
 
 const ancho = ref(0);
 onMounted(() => setTimeout(() => (ancho.value = Math.max(porcentaje.value, 3)), 400));

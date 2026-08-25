@@ -33,9 +33,6 @@
       <!-- Asegurá tu lugar · negro profundo -->
       <AccesoSection class="v-reveal" />
 
-      <!-- Cuenta regresiva -->
-      <CuentaSection class="v-reveal" />
-
 
       <!-- Con qué volvés al local -->
       <ElLunesSection class="v-reveal bg-noche-2" />
@@ -87,7 +84,6 @@ import AlanSection from "@/components/sections/AlanSection.vue";
 import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
-import CuentaSection from "@/components/sections/CuentaSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
 import AnotadasSection from "@/components/sections/AnotadasSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
