@@ -21,9 +21,6 @@
       <!-- Qué es: responde la primera pregunta del que llega de un anuncio -->
       <QueEsSection class="v-reveal" />
 
-      <!-- Quiénes van a estar · negro medio -->
-      <OradoresSection class="v-reveal bg-noche-2" />
-
       <!-- Reels verticales: se activa sola cuando haya videos cargados -->
       <ReelsSection class="v-reveal" />
 
@@ -86,7 +83,6 @@ import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
-import OradoresSection from "@/components/sections/OradoresSection.vue";
 import AlanSection from "@/components/sections/AlanSection.vue";
 import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";

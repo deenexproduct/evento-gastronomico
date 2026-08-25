@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import { WHATSAPP_ORGANIZADOR, EVENTO } from "@/data/evento";
+import { linkWa } from "@/data/evento";
 
 const DESPUES = [
   {
@@ -70,9 +70,5 @@ const DESPUES = [
   },
 ];
 
-const whatsappCancelar =
-  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent(
-    `Hola! Me había anotado a ${EVENTO.nombre} del 20 de septiembre pero no voy a poder ir. Mi nombre es ____ y mi marca es ____. Liberen mi lugar.`
-  );
+const whatsappCancelar = linkWa("cancelar");
 </script>

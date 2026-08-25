@@ -617,3 +617,30 @@ export const REELS = [
 ];
 
 export const WHATSAPP_ORGANIZADOR = "5491154596266";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Mensajes de WhatsApp.
+//
+// Todos van al mismo número. Cada uno arranca identificando de qué se trata,
+// para que del otro lado se sepa qué es sin tener que preguntarlo.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const MENSAJES_WA = {
+  registro:
+    "REGISTRO GASTROTECH\n\nHola Alan! Quiero mi lugar para el domingo 20 de septiembre.\n\nNombre:\nMi cadena:\nCantidad de locales:\nMi rol:",
+  partner:
+    "QUIERO SER PARTNER DE GASTROTECH\n\nHola Alan! Me interesa participar como partner del evento del 20 de septiembre.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:",
+  prensa:
+    "PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del 20 de septiembre.\n\nMedio:\nMi nombre:\nQué necesitaría:",
+  avisos:
+    "AVISOS GASTROTECH\n\nHola! Todavía no me anoto pero quiero que me avisen cuando se anuncien los oradores que faltan.\n\nMi mail:",
+  cancelar:
+    "NO VOY A PODER IR · GASTROTECH\n\nHola! Me había anotado al 20 de septiembre pero no voy a poder ir. Liberen mi lugar.\n\nNombre:\nMi cadena:",
+  consulta:
+    "CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del 20 de septiembre:\n\n",
+};
+
+/** Arma el enlace listo para abrir. */
+export function linkWa(clave) {
+  return `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(MENSAJES_WA[clave] || "")}`;
+}

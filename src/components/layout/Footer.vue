@@ -1,5 +1,5 @@
 <template>
-  <footer class="py-14">
+  <footer class="py-10">
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
@@ -57,7 +57,7 @@
       </div>
 
       <div
-        class="mt-12 flex flex-col justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row"
+        class="mt-8 flex flex-col justify-between gap-3 border-t border-white/10 pt-5 sm:flex-row"
       >
         <span class="rotulo text-gris">© {{ anio }} Deenex Technologies · Córdoba</span>
         <span class="rotulo text-gris">{{ EVENTO.fechaCorta }}</span>
@@ -68,22 +68,16 @@
         referente. Sirve para búsqueda orgánica y para que un asistente de IA
         pueda responder qué es este evento. Todo el contenido es verificable.
       -->
-      <div class="mt-14 border-t border-white/10 pt-10">
+      <div class="mt-10 border-t border-white/10 pt-8">
         <h2 class="text-[13px] font-black uppercase tracking-[0.14em] text-gris">
           Sobre GastroTech
         </h2>
-        <p class="mt-4 max-w-[80ch] text-[15px] leading-[1.7] text-gris">
-          GastroTech de Deenex es una jornada de negocios para dueños de
-          cadenas gastronómicas, que se realiza el domingo 20 de septiembre de 2026 de
-          9 a 18 horas en el Hotel Quinto Centenario de Córdoba, Argentina. La programación reúne
-          siete bloques sobre el estado del mercado gastronómico, datos e inteligencia artificial
-          aplicados al negocio, la evolución de los sistemas de punto de venta con demostraciones en
-          vivo, la producción de contenido para marcas del rubro, y la construcción de un ecosistema
-          entre marcas, tecnología y proveedores. Cierra con una mesa redonda abierta a preguntas de
-          la sala. Entre las voces confirmadas están Alan Tapia, founder y CEO de Deenex, el CEO de
-          Bistrosoft como partner oficial, y dos oradores que aporta Avanzia. La actividad se
-          desarrolla dentro de Córdoba Corazón de Moda, es de entrada libre con registro previo
-          obligatorio, y el cupo es de 200 personas por la capacidad del salón.
+        <p class="mt-3 max-w-[80ch] text-[14px] leading-[1.65] text-gris-2">
+          GastroTech es la jornada de gastronomía y tecnología de Deenex para dueños de cadenas
+          gastronómicas. Domingo 20 de septiembre de 2026, de 9 a 18, en el Hotel Quinto Centenario
+          de Córdoba. Siete bloques sobre costos entre locales, datos e inteligencia artificial,
+          sistemas de punto de venta con demos en vivo y contenido de marca. Entrada libre con
+          registro previo, cupo de 200 personas.
         </p>
       </div>
     </div>
@@ -94,7 +88,7 @@
 import { useCupo } from "@/composables/useCupo";
 
 const { agotado } = useCupo();
-import { EVENTO, WHATSAPP_ORGANIZADOR } from "@/data/evento";
+import { EVENTO, linkWa } from "@/data/evento";
 
 const anio = new Date().getFullYear();
 
@@ -105,9 +99,7 @@ const enlaces = [
   { id: "faq", label: "Preguntas" },
 ];
 
-const whatsapp =
-  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent("Hola! Tengo una consulta sobre GastroTech del 20 de septiembre.");
+const whatsapp = linkWa("consulta");
 
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

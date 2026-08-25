@@ -139,7 +139,36 @@
           </div>
 
           <!-- Form -->
-          <form v-else ref="formulario" novalidate @submit.prevent="onSubmit">
+          <!-- Vía directa: llega a un WhatsApp que alguien lee -->
+          <template v-else>
+            <div class="rounded-2xl border border-acento/40 bg-acento/[0.07] p-6">
+              <p class="text-[13px] font-black uppercase tracking-[0.12em] text-acento-texto">
+                La forma más rápida
+              </p>
+              <h3 class="mt-3 text-[1.35rem] font-black uppercase leading-[1.1]">
+                Reservá por WhatsApp
+              </h3>
+              <p class="mt-3 text-[15px] leading-[1.5] text-gris">
+                Te abrimos el chat con el mensaje ya escrito. Completás tu marca y listo: te
+                confirmamos el lugar por ahí mismo.
+              </p>
+              <a
+                :href="whatsappRegistro"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn mt-5 w-full"
+              >
+                Reservar por WhatsApp<span class="sr-only"> (abre en una pestaña nueva)</span>
+              </a>
+            </div>
+
+            <p class="my-7 flex items-center gap-4 text-[13px] font-black uppercase tracking-[0.12em] text-gris-2">
+              <span class="h-px flex-1 bg-white/10"></span>
+              o dejá tus datos acá
+              <span class="h-px flex-1 bg-white/10"></span>
+            </p>
+
+          <form ref="formulario" novalidate @submit.prevent="onSubmit">
             <!-- Progreso de dos pasos -->
             <div class="flex items-center gap-3">
               <span
@@ -371,18 +400,8 @@
               </button>
             </div>
 
-            <!-- Vía alterna -->
-            <p class="mt-7 border-t border-white/10 pt-6 text-center text-[14px] text-gris">
-              ¿Preferís por WhatsApp?
-              <a
-                :href="whatsappRegistro"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex min-h-[44px] items-center font-bold text-acento-texto underline underline-offset-4"
-                >Escribinos y te anotamos<span class="sr-only"> (abre en una pestaña nueva)</span></a
-              >
-            </p>
           </form>
+          </template>
         </div>
       </div>
     </div>
@@ -391,7 +410,8 @@
 
 <script setup>
 import { computed, ref, nextTick } from "vue";
-import { ROLES, CANTIDAD_LOCALES, WHATSAPP_ORGANIZADOR } from "@/data/evento";
+import { ROLES, CANTIDAD_LOCALES } from "@/data/evento";
+import { linkWa } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRegistro } from "@/composables/useRegistro";
 import { useCalendario } from "@/composables/useCalendario";
@@ -428,11 +448,7 @@ const textoBoton = computed(() => {
   return "Confirmar mi lugar";
 });
 
-const whatsappRegistro =
-  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent(
-    "Hola! Quiero reservar mi lugar en GastroTech del 20 de septiembre en Córdoba."
-  );
+const whatsappRegistro = linkWa("registro");
 
 const panelPaso2 = ref(null);
 const panelExito = ref(null);

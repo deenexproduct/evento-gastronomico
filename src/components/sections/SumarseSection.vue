@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { WHATSAPP_ORGANIZADOR, EVENTO } from "@/data/evento";
+import { linkWa } from "@/data/evento";
 
 const INCLUYE_PARTNER = [
   "Stand en el salón durante toda la jornada",
@@ -99,12 +99,6 @@ const INCLUYE_PRENSA = [
   "Acceso a la mesa redonda de cierre",
 ];
 
-const wa = (texto) => `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(texto)}`;
-
-const whatsappPartner = wa(
-  `Hola! Me interesa ser partner de ${EVENTO.nombre}, el 20 de septiembre en Córdoba. Mi marca es ____ y nos dedicamos a ____.`
-);
-const whatsappPrensa = wa(
-  `Hola! Escribo de ____ y quiero acreditarme para cubrir ${EVENTO.nombre} el 20 de septiembre en Córdoba.`
-);
+const whatsappPartner = linkWa("partner");
+const whatsappPrensa = linkWa("prensa");
 </script>

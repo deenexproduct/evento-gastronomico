@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { PARTNERS, WHATSAPP_ORGANIZADOR, EVENTO } from "@/data/evento";
+import { PARTNERS, linkWa } from "@/data/evento";
 
 const archivos = import.meta.glob("@/assets/images/partners/*", {
   eager: true,
@@ -82,9 +82,5 @@ const partners = PARTNERS.map((p) => {
   return { ...p, src: clave ? archivos[clave] : "" };
 });
 
-const whatsappPartners =
-  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent(
-    `Hola Alan! Me interesa ser partner de ${EVENTO.nombre} del 20 de septiembre en Córdoba. Mi marca es ____.`
-  );
+const whatsappPartners = linkWa("partner");
 </script>

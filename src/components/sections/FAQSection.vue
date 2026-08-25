@@ -72,7 +72,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { FAQ, WHATSAPP_ORGANIZADOR } from "@/data/evento";
+import { FAQ, linkWa } from "@/data/evento";
 
 const abierto = ref(0);
 
@@ -80,7 +80,5 @@ function toggle(i) {
   abierto.value = abierto.value === i ? -1 : i;
 }
 
-const whatsappConsultas =
-  `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=` +
-  encodeURIComponent("Hola! Tengo una consulta sobre GastroTech del 20 de septiembre.");
+const whatsappConsultas = linkWa("consulta");
 </script>
