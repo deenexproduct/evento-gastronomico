@@ -164,6 +164,7 @@ html.claro .text-acento-texto { color: #C7003F !important; }
    tienen que ser negro sobre blanco o desaparecen. */
 html.claro .tarjeta,
 html.claro [class*="bg-white/"] { background-color: rgba(0, 0, 0, .035) !important; }
+html.claro .tarjeta,
 html.claro [class*="border-white/"] { border-color: rgba(0, 0, 0, .12) !important; }
 html.claro .bg-acento,
 html.claro .bg-acento-boton { background-color: #E00049 !important; color: #fff !important; }
