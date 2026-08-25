@@ -48,10 +48,17 @@ const { total, restantes, agotado, mostrarCupo } = useCupo();
 
 const pasoElHero = ref(false);
 const formEnPantalla = ref(false);
+const pieEnPantalla = ref(false);
 const visible = ref(false);
 
+/**
+ * La barra se esconde cuando el pie entra en pantalla. Sin esto quedan dos
+ * píldoras magenta a la vista al mismo tiempo diciendo lo mismo: la del pie y
+ * la flotante, a trescientos píxeles una de otra. Escondiéndola, la lectura
+ * es que la barra se convirtió en el pie.
+ */
 function recalcular() {
-  visible.value = pasoElHero.value && !formEnPantalla.value;
+  visible.value = pasoElHero.value && !formEnPantalla.value && !pieEnPantalla.value;
 }
 function onScroll() {
   pasoElHero.value = window.scrollY > window.innerHeight * 0.7;
@@ -59,6 +66,7 @@ function onScroll() {
 }
 
 let observer = null;
+let observerPie = null;
 
 onMounted(() => {
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -75,11 +83,25 @@ onMounted(() => {
     );
     observer.observe(registro);
   }
+
+  const pie = document.querySelector("footer");
+  if (pie) {
+    // Umbral bajo: alcanza con que asome el zócalo para que la barra baje.
+    observerPie = new IntersectionObserver(
+      ([entry]) => {
+        pieEnPantalla.value = entry.isIntersecting;
+        recalcular();
+      },
+      { threshold: 0.02 }
+    );
+    observerPie.observe(pie);
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
   observer?.disconnect();
+  observerPie?.disconnect();
 });
 
 function ir() {

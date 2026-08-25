@@ -13,6 +13,13 @@
   
   --gris: #A3A3A8;
   --linea: #2E2E33;
+
+  /* Alto que ocupa la píldora de abajo desde el borde de la ventana: 44 de
+     botón + 24 de padding + 2 de borde + 20 de separación. El zócalo del pie
+     reserva ese alto más aire, así que la píldora nunca tapa la firma legal.
+     Antes eran 104px escritos a mano en HomeView, en otro archivo y sin
+     relación con la altura real de la barra. */
+  --alto-flotante: 90px;
 }
 
 html { scroll-behavior: smooth; }
@@ -105,6 +112,11 @@ img, video { max-width: 100%; height: auto; display: block; }
   .cinta-seg { @apply h-full min-w-0; }
   .cinta-tramo { background-color: var(--acento); }
   .cinta-pausa { background-color: rgba(255, 255, 255, 0.18); }
+
+  /* El zócalo del pie reserva el alto de la píldora flotante más 28px de
+     aire. Va acá y no en HomeView para que la reserva y la barra queden
+     atadas al mismo número. */
+  .piso-flotante { padding-bottom: calc(var(--alto-flotante) + 28px); }
 }
 
 /* ── Foco ───────────────────────────────────────────────────────────── */
@@ -285,6 +297,12 @@ html.claro .campo::placeholder { color: #8A8892 !important; }
    flotando y no como un recuadro dibujado: sobre fondo claro, un borde suave
    solo no despega nada. Vive acá y no en el scoped del componente porque
    necesita un valor por tema. */
+/* La tarjeta del pie: la sombra es lo que la despega del zócalo. */
+.tarjeta-pie { box-shadow: 0 18px 48px -24px rgba(0, 0, 0, .7); }
+html.claro .tarjeta-pie {
+  box-shadow: 0 1px 2px rgba(26, 26, 26, .05), 0 18px 48px -24px rgba(26, 26, 26, .22);
+}
+
 .barra-flotante { box-shadow: 0 10px 34px rgba(0, 0, 0, .45), 0 2px 8px rgba(0, 0, 0, .3); }
 html.claro .barra-flotante { box-shadow: 0 10px 30px rgba(0, 0, 0, .14), 0 2px 8px rgba(0, 0, 0, .06); }
 
@@ -324,5 +342,11 @@ html.claro select.campo option { background: #fff !important; color: #1A1A1A !im
 
 /* La cinta en claro: el magenta de superficie queda igual de legible, pero el
    blanco translucido de las pausas desaparece sobre fondo blanco. */
+/* Las variantes con opacidad del acento son otra clase, igual que pasó con
+   bg-noche/90: ocho superficies seguían con el magenta del tema oscuro. La
+   regla del chip es más específica y sigue ganando donde corresponde. */
+html.claro [class*="bg-acento/"] { background-color: rgba(224, 0, 73, .08) !important; }
+html.claro [class*="border-acento/"] { border-color: rgba(224, 0, 73, .45) !important; }
+
 html.claro .cinta-tramo { background-color: #E00049; }
 html.claro .cinta-pausa { background-color: rgba(0, 0, 0, 0.14); }

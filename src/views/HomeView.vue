@@ -5,9 +5,7 @@
     partners → prueba → lugar → preguntas → pie. La alternancia de los tres
     negros es lo que le da profundidad sección a sección, sin un solo borde.
   -->
-  <!-- Reserva el alto de la barra flotante de abajo (72px) más su aire (20),
-       para que no le tape el final al pie. -->
-  <div class="pb-[104px]">
+  <div>
     <a href="#contenido" class="saltar">Saltar al contenido</a>
     <Navbar />
 
