@@ -316,7 +316,7 @@ const { form, errores, enviando, enviado, errorEnvio, codigo, tieneBackend, envi
   useRegistro(agotado);
 
 const INCLUYE = [
-  "Los seis bloques de charla y las demos en vivo",
+  "Los seis bloques de charla y las demos",
   "Los beneficios exclusivos de todos los partners",
   "Cuatro rondas de degustación y networking de cierre",
   "La mesa redonda de cierre con todos los oradores",

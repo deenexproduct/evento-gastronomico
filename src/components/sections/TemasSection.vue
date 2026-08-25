@@ -37,8 +37,8 @@
 
       <div class="mt-10 flex flex-wrap items-center justify-between gap-6">
         <p class="max-w-[54ch] text-[0.95rem] leading-[1.6] text-gris">
-          Bloques de 45 minutos con degustación entre uno y otro, más una mesa redonda de cierre con
-          todos los partners y oradores del día.
+          Bloques de 45 minutos con degustación entre uno y otro, más la mesa redonda de cierre con
+          todos los oradores y partners del día.
         </p>
         <a href="#registro" class="btn shrink-0" @click.prevent="ir('registro')">
           Quiero estar en la sala

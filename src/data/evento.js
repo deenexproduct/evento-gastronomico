@@ -66,7 +66,7 @@ export const TEMAS = [
     tema: "La evolución de los sistemas POS",
     quien: "CEO de Bistrosoft",
     punta:
-      "El sistema con el que cobrás puede ser el que te diga qué comprar y cuándo, y en qué sucursal. Con demos en vivo montadas en el salón, no en slides.",
+      "El sistema con el que cobrás puede decirte qué comprar, cuándo y en qué sucursal. Con demos en vivo montadas ahí mismo, no en slides.",
   },
   {
     n: "04",
@@ -114,25 +114,25 @@ export const VOLVES_CON = [
     n: "02",
     titulo: "Los sistemas, vistos funcionando",
     texto:
-      "Demos en vivo montadas en el salón, no capturas de pantalla. Te parás adelante, preguntás y ves si sirve para tu operación antes de contratar nada.",
+      "Montados ahí mismo y andando, no capturas de pantalla. Te parás adelante, preguntás y ves si sirve para tu operación antes de contratar nada.",
   },
   {
     n: "03",
     titulo: "La grilla, por escrito",
     texto:
-      "El evento entero en un material: los beneficios disponibles, quién los da y cómo encararlos. Es lo que abrís el lunes cuando volvés al local.",
+      "GastroTech entero en un material: los beneficios disponibles, quién los da y cómo encararlos. Es lo que abrís el lunes cuando volvés al local.",
   },
   {
     n: "04",
     titulo: "Los beneficios de cada partner",
     texto:
-      "Condiciones que solo existen para los que estuvieron en la sala ese día. No se consiguen después ni por otro canal.",
+      "Condiciones que solo corren para los que estuvieron ese día. No se consiguen después ni por otro canal.",
   },
   {
     n: "05",
     titulo: "Una sala llena de dueños",
     texto:
-      "Hasta doscientos dueños de marcas gastronómicas en el mismo salón, y varios ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
+      "Hasta doscientos dueños de marcas gastronómicas juntos, y varios ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
   },
   {
     n: "06",
@@ -175,7 +175,7 @@ export const INVITACION =
   "Che, les paso algo que puede servir.\n\n" +
   "El domingo 20 de septiembre hay un evento de gastronomía y tecnología para dueños de marcas gastronómicas, en Córdoba, " +
   "en el Hotel Quinto Centenario, de 9 a 18. Se llama GastroTech. Seis charlas sobre datos, " +
-  "sistemas de gestión, contenido y cómo está el mercado. Hay degustaciones entre medio y demos en vivo.\n\n" +
+  "sistemas de gestión, contenido y cómo está el mercado. Hay degustaciones entre medio y se ven los sistemas funcionando.\n\n" +
   "Es gratis pero hay que anotarse, y son 200 lugares nada más.\n\n" +
   "Acá se reserva: https://deenexproduct.github.io/evento-gastronomico/";
 
@@ -309,7 +309,7 @@ export const SPEAKERS = [
     nombre: "CEO de Bistrosoft",
     rol: "PARTNER OFICIAL · SISTEMAS POS",
     frase: "La evolución de los sistemas POS.",
-    bio: "Partner oficial de GastroTech. Llega con equipo propio y monta demos en vivo en el salón: se ve funcionando, no en slides.",
+    bio: "Partner oficial de GastroTech. Llega con equipo propio y arma las demos ahí mismo: lo ves andando, no en slides.",
     charlas: ["La evolución de los sistemas POS"],
     stats: [
       { valor: "Demos", label: "en vivo" },
@@ -383,7 +383,7 @@ export const AGENDA = [
     tipo: "charla",
     quien: "CEO de Bistrosoft",
     titulo: "La evolución de los sistemas POS",
-    detalle: "Con demos en vivo montadas en el salón.",
+    detalle: "Con los equipos armados y funcionando.",
   },
   {
     hora: "12:45",
@@ -522,7 +522,7 @@ export const PARTNERS = [
   {
     nombre: "Bistrosoft",
     tipo: "Partner oficial",
-    aporte: "Charla del CEO sobre la evolución del POS, equipo propio y demos en vivo en el salón.",
+    aporte: "Charla del CEO sobre la evolución del POS, con equipo propio y los sistemas andando.",
   },
   {
     nombre: "Avanzia",
@@ -560,15 +560,15 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "GastroTech es un evento de gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en tu marca, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
+    a: "De seis cosas concretas: el estado real del mercado, datos e inteligencia artificial en tu marca, la evolución de los sistemas POS con los equipos funcionando, cómo se hace hoy el contenido de una marca gastronómica y cómo se arma un ecosistema entre marcas, tecnología y proveedores.",
   },
   {
     q: "¿Me van a querer vender algo?",
     a: "No hay pitch de producto ni ronda comercial armada. Hay charlas de gente que labura del rubro y demos que mirás si te interesan. Si después querés seguir hablando con alguno de los partners, se habla; si no, te vas con lo que escuchaste y nada más.",
   },
   {
-    q: "Es domingo y trabajo. ¿Cómo hago?",
-    a: "Es la pregunta más repetida y por algo el evento dura todo el día: entrás cuando podés y te quedás lo que te sirva. Podés venir a la mañana y estar de vuelta en el local para el servicio, o llegar a la tarde y agarrar los últimos bloques más la mesa redonda. La grilla queda disponible para que elijas a qué venir. Y si no podés vos, mandá a tu socio o a tu gerente.",
+    q: "Es domingo y facturo. ¿Me conviene?",
+    a: "La cuenta la tenés que hacer vos. Lo que armamos nosotros es la salida: nueve horas, sin butaca asignada. Venís a la mañana y estás de vuelta para el servicio, o llegás a la tarde y agarrás el cierre. Y si el turno no se mueve, mandá a tu socio.",
   },
   {
     q: "¿Cuánto cuesta?",
@@ -584,7 +584,7 @@ export const FAQ = [
   },
   {
     q: "Tengo un solo local. ¿Es para mí?",
-    a: "Sí, y es el mejor momento para venir. GastroTech es para dueños de marcas gastronómicas, y una marca puede tener un local o veinte: lo que define no es el tamaño sino que la decisión pase por vos. Casi todo lo que se cuenta se aplica desde el primer local, y ordenarlo temprano es mucho más barato que hacerlo con diez sucursales abiertas.",
+    a: "Sí, y es el mejor momento. Una marca puede tener un local o veinte: lo que define no es el tamaño sino que la decisión pase por vos. Y ordenar la tecnología con un local abierto cuesta mucho menos que hacerlo con diez.",
   },
   {
     q: "¿Qué es el diagnóstico del que hablan?",
@@ -599,11 +599,7 @@ export const FAQ = [
     // predio. Si es así, hay que decirlo acá antes de que alguien llegue y
     // se quede afuera.
     q: "¿Tengo que registrarme también en Córdoba Corazón de Moda?",
-    a: "Para entrar a nuestra sala, no: tu QR de GastroTech es el que te habilita. Córdoba Corazón de Moda es el evento que nos rodea y también tiene entrada libre, así que podés recorrerlo antes o después sin pagar nada. Cualquier duda sobre el ingreso al predio, escribinos y te la sacamos.",
-  },
-  {
-    q: "El domingo facturo. ¿Me conviene igual?",
-    a: "Es la cuenta que hay que hacer y no te la vamos a hacer nosotros. Lo que sí podemos decirte: la jornada está armada para que no pierdas el servicio —entrás a la mañana y volvés, o llegás a la tarde— y si el turno no se puede mover, mandás a tu socio o a tu gerente. El lugar es de la marca, no de una persona.",
+    a: "Para entrar a nuestra sala no: te habilita tu QR de GastroTech. Córdoba Corazón de Moda es el evento que nos rodea y también es sin cargo, así que podés recorrerlo antes o después. Si tenés dudas con el ingreso al predio, escribinos.",
   },
   {
     q: "¿Dónde es exactamente?",

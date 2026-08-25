@@ -42,8 +42,8 @@
 
           <h3 class="titular mt-4 text-[1.2rem]">Se suman partners todas las semanas.</h3>
           <p class="mt-3 max-w-[54ch] text-[0.93rem] leading-[1.6] text-gris">
-            Stands, activaciones y beneficios nuevos hasta el 20 de septiembre. Cada uno que se
-            cierra se anuncia acá y se avisa a los que ya están registrados.
+            Stands, activaciones y beneficios nuevos hasta el 20 de septiembre. Cada cierre se
+            anuncia acá y se les avisa a los que ya están registrados.
             <span class="font-medium text-tinta"
               >Anotarte hoy no te deja afuera de lo que se sume después.</span
             >
@@ -52,7 +52,7 @@
 
         <div class="lg:col-span-4 lg:col-start-9">
           <p class="text-[0.93rem] leading-[1.6] text-gris">
-            ¿Querés que tu marca esté en la sala?
+            ¿Querés que tu marca sea partner?
           </p>
           <a
             :href="whatsappPartners"
