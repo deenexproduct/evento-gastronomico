@@ -68,9 +68,20 @@ export function useRegistro() {
     return !propios.some((k) => errores[k]);
   }
 
-  /** Guarda el contacto apenas termina el paso 1, antes de pedir nada más. */
+  /**
+   * Guarda el contacto apenas termina el paso 1, antes de pedir nada más.
+   *
+   * Se dispara en cada "Continuar", así que ir y volver entre pasos mandaba
+   * el mismo contacto varias veces y llenaba el CRM de duplicados. Se reenvía
+   * solo si el nombre o el mail cambiaron desde el último guardado.
+   */
+  let ultimoParcial = "";
+
   async function guardarParcial() {
     if (!endpoint) return;
+    const huella = `${form.nombre}|${form.email}`;
+    if (huella === ultimoParcial) return;
+    ultimoParcial = huella;
     try {
       await fetch(endpoint, {
         method: "POST",
@@ -84,7 +95,9 @@ export function useRegistro() {
       });
       parcialGuardado.value = true;
     } catch {
-      // Un parcial que no se guarda no puede frenar el registro.
+      // Un parcial que no se guarda no puede frenar el registro, pero sí tiene
+      // que poder reintentarse en el próximo "Continuar".
+      ultimoParcial = "";
     }
   }
 
@@ -161,6 +174,7 @@ export function useRegistro() {
     errorEnvio.value = "";
     codigo.value = "";
     parcialGuardado.value = false;
+    ultimoParcial = "";
   }
 
   return {
