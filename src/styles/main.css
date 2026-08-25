@@ -133,3 +133,60 @@ img, video { max-width: 100%; height: auto; display: block; }
   /* El punto de "registro abierto" queda visible, solo deja de latir. */
   .animate-ping { opacity: .5; }
 }
+
+/* ── Prueba: variante en claro ──────────────────────────────────────────
+   Se activa agregando ?claro a la URL. Los componentes usan los tokens
+   noche / noche-2 / noche-3 y las superficies translúcidas de blanco, así
+   que invirtiendo los tokens y el sentido de esas transparencias la página
+   entera cambia de fondo sin tocar un solo componente.
+
+   Es una prueba para comparar, no una segunda identidad mantenida. */
+html.claro {
+  --noche: #FFFFFF;
+  --gris: #55535C;
+}
+html.claro body {
+  background: #FFFFFF;
+  color: #1A1A1A;
+}
+/* Los tres negros pasan a tres blancos con temperatura distinta. */
+html.claro .bg-noche { background-color: #FFFFFF !important; }
+html.claro .bg-noche-2 { background-color: #F6F5F3 !important; }
+html.claro .bg-noche-3 { background-color: #EFEDEA !important; }
+
+/* El texto se invierte. */
+html.claro .text-white { color: #1A1A1A !important; }
+html.claro .text-gris { color: #55535C !important; }
+html.claro .text-gris-2 { color: #67656E !important; }
+html.claro .text-acento-texto { color: #C7003F !important; }
+
+/* Las superficies translúcidas se apoyaban en blanco sobre negro: ahora
+   tienen que ser negro sobre blanco o desaparecen. */
+html.claro .tarjeta,
+html.claro [class*="bg-white/"] { background-color: rgba(0, 0, 0, .035) !important; }
+html.claro [class*="border-white/"] { border-color: rgba(0, 0, 0, .12) !important; }
+html.claro .bg-acento,
+html.claro .bg-acento-boton { background-color: #E00049 !important; color: #fff !important; }
+html.claro .btn { color: #fff !important; }
+html.claro .btn-linea { color: #1A1A1A !important; border-color: rgba(0,0,0,.25) !important; }
+
+/* Cualquier blanco translúcido —text-white/75 y compañía— desaparece sobre
+   fondo claro. Se reemplaza por tinta con la misma intención de jerarquía. */
+html.claro [class*="text-white/"] { color: #55535C !important; }
+html.claro .text-white\/90,
+html.claro .text-white\/85,
+html.claro .text-white\/80 { color: #2A2830 !important; }
+
+/* Dentro de un bloque de acento pleno el texto sigue siendo blanco. */
+html.claro .bg-acento [class*="text-white"],
+html.claro .bg-acento-boton [class*="text-white"],
+html.claro .bg-acento .titulo,
+html.claro .bg-acento-boton .titulo { color: #fff !important; }
+
+/* Las etiquetas del formulario definen su color en un style scoped. */
+html.claro .etiqueta { color: #55535C !important; }
+html.claro .campo { color: #1A1A1A !important; border-color: rgba(0,0,0,.2) !important; }
+html.claro .campo::placeholder { color: #8A8892 !important; }
+
+/* Los logos venían invertidos para verse sobre negro. */
+html.claro .invert { filter: none !important; }
