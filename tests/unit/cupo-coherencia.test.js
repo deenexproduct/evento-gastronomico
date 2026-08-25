@@ -55,3 +55,28 @@ describe("estado de sala llena", () => {
     expect(duros).toEqual([]);
   });
 });
+
+describe("la regla del mínimo para mostrar el cupo", () => {
+  const componentes = archivosVue(RAIZ).map((ruta) => ({
+    ruta: ruta.slice(ruta.indexOf("src")),
+    fuente: readFileSync(ruta, "utf8"),
+  }));
+
+  it("MINIMO_PARA_MOSTRAR_CUPO lo lee alguien", async () => {
+    // Estuvo exportado y documentado desde el principio sin que nadie lo usara:
+    // con pocos anotados, decir "van 12 de 200" destruye más de lo que construye.
+    const cupo = readFileSync(resolve(process.cwd(), "src/composables/useCupo.js"), "utf8");
+    expect(cupo).toContain("MINIMO_PARA_MOSTRAR_CUPO");
+    expect(cupo).toContain("mostrarCupo");
+  });
+
+  it("ningún componente imprime el conteo sin la guarda", () => {
+    // Cualquier plantilla que muestre "N de {{ total }}" tiene que estar
+    // condicionada por mostrarCupo.
+    const sinGuarda = componentes
+      .filter((c) => /de \{\{ total \}\}/.test(c.fuente))
+      .filter((c) => !c.fuente.includes("mostrarCupo"))
+      .map((c) => c.ruta);
+    expect(sinGuarda).toEqual([]);
+  });
+});

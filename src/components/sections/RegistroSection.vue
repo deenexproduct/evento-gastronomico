@@ -39,7 +39,9 @@
                 :style="{ width: Math.max(porcentaje, 3) + '%' }"
               ></div>
             </div>
-            <p class="mt-3 text-[14px] text-gris">{{ ocupados }} de {{ total }} ya tomados</p>
+            <p v-if="mostrarCupo" class="mt-3 text-[14px] text-gris">
+              {{ ocupados }} de {{ total }} ya tomados
+            </p>
           </div>
 
           <ul class="mt-8 space-y-3">
@@ -395,7 +397,7 @@ import { useRegistro } from "@/composables/useRegistro";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
 
-const { total, ocupados, restantes, porcentaje, agotado } = useCupo();
+const { total, ocupados, restantes, porcentaje, agotado, mostrarCupo } = useCupo();
 
 // El contador que sube al entrar en pantalla: uno de los dos momentos de motion.
 const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.value);

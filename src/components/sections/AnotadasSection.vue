@@ -17,7 +17,7 @@
             Quiénes van a estar en la sala
           </h2>
         </div>
-        <p class="text-[15px] text-gris">
+        <p v-if="mostrarCupo" class="text-[15px] text-gris">
           <span class="text-[2rem] font-black leading-none text-white">{{ ocupados }}</span>
           <span class="ml-2">de {{ total }} lugares tomados</span>
         </p>
@@ -48,6 +48,6 @@ import { computed } from "vue";
 import { MARCAS_ANOTADAS } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, ocupados } = useCupo();
+const { total, ocupados, mostrarCupo } = useCupo();
 const hayMarcas = computed(() => MARCAS_ANOTADAS.length > 0);
 </script>

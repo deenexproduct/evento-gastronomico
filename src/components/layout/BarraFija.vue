@@ -13,9 +13,10 @@
             </p>
             <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
               <template v-if="agotado">Cupo completo · lista de espera</template>
-              <template v-else>
+              <template v-else-if="mostrarCupo">
                 Quedan <span class="text-acento-texto">{{ restantes }}</span> de {{ total }} lugares
               </template>
+              <template v-else>Entrada sin costo · registro previo</template>
             </p>
           </div>
 
@@ -37,7 +38,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, restantes, agotado } = useCupo();
+const { total, restantes, agotado, mostrarCupo } = useCupo();
 
 const pasoElHero = ref(false);
 const formEnPantalla = ref(false);

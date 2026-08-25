@@ -1,5 +1,5 @@
 import { ref, computed } from "vue";
-import { CUPO } from "@/data/evento";
+import { CUPO, MINIMO_PARA_MOSTRAR_CUPO } from "@/data/evento";
 
 /**
  * Cupo de la sala.
@@ -24,6 +24,15 @@ const porcentaje = computed(() =>
   total.value ? Math.min(100, Math.round((ocupados.value / total.value) * 100)) : 0
 );
 const agotado = computed(() => restantes.value <= 0);
+/**
+ * El contador solo se enciende a partir de MINIMO_PARA_MOSTRAR_CUPO anotados.
+ * La constante estaba escrita y documentada desde el principio pero no la leía
+ * nadie: con pocos anotados, decir "van 12 de 200" destruye más de lo que
+ * construye. Hoy no cambia nada en pantalla —van 85— pero protege el día que
+ * el número arranque de cero para una edición nueva.
+ */
+const mostrarCupo = computed(() => ocupados.value >= MINIMO_PARA_MOSTRAR_CUPO);
+
 /** Bajo 40 lugares el cupo pasa a comunicarse en rojo. */
 const critico = computed(() => !agotado.value && restantes.value <= 40);
 
@@ -53,5 +62,5 @@ function consultar() {
 
 export function useCupo() {
   consultar();
-  return { total, ocupados, restantes, porcentaje, agotado, critico, enVivo };
+  return { total, ocupados, restantes, porcentaje, agotado, critico, enVivo, mostrarCupo };
 }

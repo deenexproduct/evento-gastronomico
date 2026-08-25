@@ -138,20 +138,6 @@ export const EL_LUNES = [
   "La grilla del evento con todos los beneficios de partners por escrito",
 ];
 
-/**
- * La objeción del domingo. Ninguna landing del rubro la tiene porque ninguna
- * la necesita: Hotelga y FITHEP van de 13 a 20, HIP y Alimentaria de lunes a
- * miércoles. Es nuestra mayor barrera y también nuestro punto de vista.
- */
-export const DOMINGO = {
-  titulo: "Sí, es domingo. Y sabemos lo que factura tu domingo.",
-  cuerpo: [
-    "Por eso la jornada dura nueve horas y no dos: es el único día en que no te llama ningún proveedor, ni el banco, ni la gestoría. Delegás el servicio una vez y ganás el día entero.",
-    "Entrás y salís cuando quieras. Nadie controla la butaca: venís a la mañana y llegás al local para el servicio, o llegás a la tarde y agarrás los últimos bloques más la mesa redonda.",
-  ],
-  salida: "Y si de verdad no podés, mandá a tu socio o a tu encargado. El lugar es de la marca, no de la persona.",
-};
-
 export const VOLVES_CON = [
   {
     n: "01",

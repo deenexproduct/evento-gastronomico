@@ -91,7 +91,7 @@
 import { computed } from "vue";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, ocupados, restantes, agotado } = useCupo();
+const { total, ocupados, restantes, agotado, mostrarCupo } = useCupo();
 
 /** Los tres tramos son el llenado real del salón, no fases de precio. */
 const tramos = computed(() => [
