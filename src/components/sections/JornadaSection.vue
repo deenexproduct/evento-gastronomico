@@ -236,14 +236,13 @@
                   >
                     <div class="overflow-hidden">
                       <div class="pb-5 pl-[70px] pr-2 lg:pb-6 lg:pl-[128px]">
+                        <!--
+                          Acá iba un "Después, 15' de degustación". Se quitó:
+                          la fila de la degustación viene justo abajo y decía
+                          lo mismo dos veces seguidas.
+                        -->
                         <p class="max-w-[62ch] text-[15px] leading-[1.55] text-gris lg:text-[16px]">
                           {{ p.punta }}
-                        </p>
-                        <p
-                          v-if="huecoDespues(p.id) && !huecoDespues(p.id).borde"
-                          class="mt-3 text-[11px] font-bold uppercase tracking-[0.1em] text-gris"
-                        >
-                          Después, {{ huecoDespues(p.id).min }}&#39; de degustación
                         </p>
                       </div>
                     </div>
@@ -384,13 +383,6 @@ tramos.forEach((t) => {
   const c = costuras.find((x) => x.tramo === t.id);
   if (c) cinta.push({ id: c.id, tipo: "pausa", min: c.min });
 });
-
-/** El hueco que sigue a un bloque, para el pie del panel abierto. */
-const huecoDespues = (idBloque) => {
-  const i = SECUENCIA.findIndex((p) => p.clase === "bloque" && p.id === idBloque);
-  const s = SECUENCIA[i + 1];
-  return s && s.clase === "hueco" ? s : null;
-};
 
 /**
  * Mientras la agenda no sea pública, las pausas publican duración y no hora:
