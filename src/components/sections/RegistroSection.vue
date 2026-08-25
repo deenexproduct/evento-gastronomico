@@ -138,12 +138,12 @@
 
               <p class="mt-4 border-l-2 border-violeta pl-4 text-[0.88rem] leading-snug text-gris">
                 <template v-if="agotado">
-                  <span class="font-semibold text-tinta">{{ total }} marcas</span> ya tomaron su
-                  lugar. Entrás a la lista por orden de anotación.
+                  <span class="font-semibold text-tinta">Los {{ total }} lugares</span> ya están
+                  tomados. Entrás a la lista por orden de anotación.
                 </template>
                 <template v-else>
-                  <span class="font-semibold text-tinta">{{ ocupados }} marcas</span> ya reservaron
-                  su lugar en la sala.
+                  <span class="font-semibold text-tinta">{{ ocupados }} lugares</span> ya
+                  reservados. El cupo se cuenta por persona, no por marca.
                 </template>
               </p>
 
@@ -276,7 +276,7 @@
               </button>
 
               <p class="mt-4 text-center text-[0.8rem] text-gris">
-                Sin costo · Sin letra chica · El único requisito es que vengas
+                Sin costo · Sin letra chica · Un lugar por persona
               </p>
 
               <!-- Vía alterna para el que no llena formularios -->

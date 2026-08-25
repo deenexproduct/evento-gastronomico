@@ -560,7 +560,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "GastroTech es un evento de gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en el local, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
+    a: "GastroTech es un evento de gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en tu marca, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
@@ -580,7 +580,7 @@ export const FAQ = [
   },
   {
     q: "¿Tengo que saber de tecnología para aprovecharlo?",
-    a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
+    a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si tomás las decisiones de tu marca, tenés todo lo que hace falta para sacarle provecho al día.",
   },
   {
     q: "Tengo un solo local. ¿Es para mí?",
@@ -592,7 +592,18 @@ export const FAQ = [
   },
   {
     q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, y conviene. Cada persona necesita su propio registro y su propio QR porque el cupo se cuenta por persona. Venir con tu socio o tu gerente hace que lo que escuchan rinda más cuando vuelven al local.",
+    a: "Sí, y conviene. Cada persona necesita su propio registro y su propio QR porque el cupo se cuenta por persona. Venir con tu socio o tu gerente hace que lo que escuchan rinda más cuando lo aplican en la marca.",
+  },
+  {
+    // CONFIRMAR con producción: CCM pide inscripción previa propia para el
+    // predio. Si es así, hay que decirlo acá antes de que alguien llegue y
+    // se quede afuera.
+    q: "¿Tengo que registrarme también en Córdoba Corazón de Moda?",
+    a: "Para entrar a nuestra sala, no: tu QR de GastroTech es el que te habilita. Córdoba Corazón de Moda es el evento que nos rodea y también tiene entrada libre, así que podés recorrerlo antes o después sin pagar nada. Cualquier duda sobre el ingreso al predio, escribinos y te la sacamos.",
+  },
+  {
+    q: "El domingo facturo. ¿Me conviene igual?",
+    a: "Es la cuenta que hay que hacer y no te la vamos a hacer nosotros. Lo que sí podemos decirte: la jornada está armada para que no pierdas el servicio —entrás a la mañana y volvés, o llegás a la tarde— y si el turno no se puede mover, mandás a tu socio o a tu gerente. El lugar es de la marca, no de una persona.",
   },
   {
     q: "¿Dónde es exactamente?",
@@ -618,7 +629,7 @@ export const CANTIDAD_LOCALES = [
   "2 a 5 locales",
   "6 a 15 locales",
   "Más de 15 locales",
-  "Todavía no abrí",
+  "Abro mi primer local este año",
 ];
 
 /** WhatsApp de Alan — fallback cuando no hay endpoint conectado. */
