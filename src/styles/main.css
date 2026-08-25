@@ -281,6 +281,13 @@ html.claro .campo-error {
 }
 html.claro .campo::placeholder { color: #8A8892 !important; }
 
+/* La sombra es lo que hace que la barra de abajo se lea como una pieza
+   flotando y no como un recuadro dibujado: sobre fondo claro, un borde suave
+   solo no despega nada. Vive acá y no en el scoped del componente porque
+   necesita un valor por tema. */
+.barra-flotante { box-shadow: 0 10px 34px rgba(0, 0, 0, .45), 0 2px 8px rgba(0, 0, 0, .3); }
+html.claro .barra-flotante { box-shadow: 0 10px 30px rgba(0, 0, 0, .14), 0 2px 8px rgba(0, 0, 0, .06); }
+
 /* El mapa. En oscuro se invierte para que no sea un rectángulo blanco; en
    claro se deja claro y solo se le baja el color. Vive acá y no en un style
    inline del iframe porque a un inline no lo alcanza ningún selector. */

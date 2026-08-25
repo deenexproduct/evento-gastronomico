@@ -4,30 +4,36 @@
     cuando el formulario está en pantalla, donde ya no aporta y tapa campos.
   -->
   <Transition name="subir">
-    <div v-if="visible" class="barra-fija fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-noche/95 backdrop-blur-md">
-      <div class="contenedor">
-        <div class="flex items-center justify-between gap-5 py-3">
-          <div class="min-w-0">
-            <p class="rotulo truncate text-gris">
-              {{ EVENTO.fechaCorta }} · {{ EVENTO.venue }}
-            </p>
-            <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
-              <template v-if="agotado">Cupo completo · lista de espera</template>
-              <template v-else-if="mostrarCupo">
-                Quedan <span class="text-acento-texto">{{ restantes }}</span> de {{ total }} lugares
-              </template>
-              <template v-else>Entrada sin costo · registro previo</template>
-            </p>
-          </div>
-
-          <a
-            href="#registro"
-            class="shrink-0 bg-acento-boton px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
-            @click.prevent="ir"
-          >
-            {{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}
-          </a>
+    <!--
+      El contenedor fijo abarca todo el ancho para poder centrar la barra, pero
+      no puede recibir clicks: sin pointer-events-none, la franja de aire que
+      queda a los costados y abajo se comería los clicks de la página.
+    -->
+    <div
+      v-if="visible"
+      class="barra-fija pointer-events-none fixed inset-x-0 bottom-0 z-[90] px-3 pb-3 sm:px-6 sm:pb-5"
+    >
+      <div
+        class="barra-flotante pointer-events-auto mx-auto flex max-w-[1080px] items-center justify-between gap-4 rounded-2xl border border-linea bg-noche/95 px-4 py-3 backdrop-blur-md sm:gap-5 sm:rounded-full sm:px-5"
+      >
+        <div class="min-w-0">
+          <p class="rotulo truncate text-gris">{{ EVENTO.fechaCorta }} · {{ EVENTO.venue }}</p>
+          <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
+            <template v-if="agotado">Cupo completo · lista de espera</template>
+            <template v-else-if="mostrarCupo">
+              Quedan <span class="text-acento-texto">{{ restantes }}</span> de {{ total }} lugares
+            </template>
+            <template v-else>Entrada sin costo · registro previo</template>
+          </p>
         </div>
+
+        <a
+          href="#registro"
+          class="inline-flex min-h-[44px] shrink-0 items-center rounded-full bg-acento-boton px-5 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#D80047] sm:px-6"
+          @click.prevent="ir"
+        >
+          {{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}
+        </a>
       </div>
     </div>
   </Transition>
