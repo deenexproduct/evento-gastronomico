@@ -115,7 +115,10 @@ img, video { max-width: 100%; height: auto; display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .v-reveal { opacity: 1; transform: none; transition: none; }
+  /* Tiene que repetir el selector completo `.reveal-listo .v-reveal`: una
+     media query no suma especificidad, así que escrito solo como `.v-reveal`
+     perdía contra la regla base y no se aplicaba nunca. */
+  .reveal-listo .v-reveal { opacity: 1; transform: none; transition: none; }
   .linea-dia { transform: none; transition: none; }
 }
 

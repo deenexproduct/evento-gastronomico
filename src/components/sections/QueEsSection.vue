@@ -34,7 +34,7 @@
       <dl class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div v-for="q in CLAVES" :key="q.pregunta" class="tarjeta flex flex-col p-6">
           <span
-            class="flex h-11 w-11 items-center justify-center rounded-full bg-acento/12 text-acento-texto"
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-acento/10 text-acento-texto"
           >
             <Pictograma :nombre="q.icono" :tam="20" />
           </span>

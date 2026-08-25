@@ -138,3 +138,21 @@ test("la página no scrollea de costado", async ({ page }) => {
   );
   expect(desborde).toBe(false);
 });
+
+test("las respuestas cerradas del FAQ no se le leen al lector de pantalla", async ({ page }) => {
+  // El panel cerrado mide cero de alto, pero eso no lo saca del árbol de
+  // accesibilidad: sin inert se leen las diez respuestas seguidas mientras
+  // cada botón dice aria-expanded="false".
+  const estado = await page.evaluate(() =>
+    [...document.querySelectorAll('[id^="faq-panel-"]')].map((p) => ({
+      abierto:
+        document.querySelector(`[aria-controls="${p.id}"]`).getAttribute("aria-expanded") === "true",
+      inerte: p.hasAttribute("inert"),
+    }))
+  );
+
+  expect(estado.length).toBeGreaterThan(1);
+  // Exactamente uno abierto, y el resto fuera del árbol.
+  expect(estado.filter((e) => e.abierto)).toHaveLength(1);
+  estado.forEach((e) => expect(e.inerte).toBe(!e.abierto));
+});

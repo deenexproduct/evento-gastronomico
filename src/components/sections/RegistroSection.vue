@@ -122,7 +122,7 @@
                 :key="n"
                 aria-hidden="true"
                 class="h-1.5 flex-1 rounded-full transition-colors duration-300"
-                :class="paso >= n ? 'bg-acento' : 'bg-white/12'"
+                :class="paso >= n ? 'bg-acento' : 'bg-white/10'"
               ></span>
               <span class="shrink-0 text-[12px] font-black uppercase tracking-[0.1em] text-gris">
                 <span class="sr-only">Paso </span>{{ paso }} de 2

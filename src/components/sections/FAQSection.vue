@@ -4,7 +4,7 @@
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-3">
           <p class="rotulo text-acento-texto">Preguntas</p>
-          <h2 class="titular mt-5 max-w-[14ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
+          <h2 class="titulo mt-5 max-w-[14ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
             Lo que siempre nos preguntan.
           </h2>
           <p class="mt-6 text-[0.95rem] leading-[1.6] text-gris">
@@ -43,8 +43,16 @@
                 </button>
               </h3>
 
+              <!--
+                inert: el panel cerrado mide cero de alto, pero el texto sigue
+                siendo visible para el lector de pantalla y para Ctrl+F. Sin
+                esto se leen las diez respuestas seguidas mientras cada botón
+                dice aria-expanded="false", que es justo lo contrario.
+                Se usa inert y no `hidden` para no perder la transición.
+              -->
               <div
                 :id="`faq-panel-${i}`"
+                :inert="abierto !== i"
                 class="grid transition-all duration-300 ease-out"
                 :class="abierto === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
               >

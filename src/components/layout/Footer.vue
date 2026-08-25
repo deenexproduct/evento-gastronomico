@@ -52,7 +52,7 @@
         </nav>
 
         <div class="lg:col-span-3">
-          <a href="#registro" class="btn w-full" @click.prevent="ir('registro')">Reservar mi lugar<span class="sr-only"> (abre en una pestaña nueva)</span></a>
+          <a href="#registro" class="btn w-full" @click.prevent="ir('registro')">Reservar mi lugar</a>
         </div>
       </div>
 

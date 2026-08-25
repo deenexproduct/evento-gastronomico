@@ -20,7 +20,7 @@
           <dl class="mt-10 grid gap-3">
             <div v-for="d in DATOS" :key="d.label" class="tarjeta flex items-start gap-4 p-5">
               <span
-                class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-acento/12 text-acento-texto"
+                class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-acento/10 text-acento-texto"
               >
                 <Pictograma :nombre="d.icono" :tam="19" />
               </span>
@@ -90,7 +90,6 @@ const DATOS = [
     icono: "lugar",
     label: "Dirección",
     valor: `${EVENTO.direccion}, Córdoba capital`,
-    nota: "Confirmar con producción antes de publicar.",
   },
   {
     icono: "calendario",
