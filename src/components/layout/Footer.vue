@@ -52,7 +52,7 @@
         </nav>
 
         <div class="lg:col-span-3">
-          <a href="#registro" class="btn w-full" @click.prevent="ir('registro')">Reservar mi lugar</a>
+          <a href="#registro" class="btn w-full" @click.prevent="ir('registro')">{{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}</a>
         </div>
       </div>
 
@@ -91,6 +91,9 @@
 </template>
 
 <script setup>
+import { useCupo } from "@/composables/useCupo";
+
+const { agotado } = useCupo();
 import { EVENTO, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 
 const anio = new Date().getFullYear();

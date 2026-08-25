@@ -38,7 +38,7 @@
         class="btn mt-12"
         @click.prevent="ir(destino)"
       >
-        {{ estado === "hoy" ? "Ver cómo llegar" : "Quiero mi lugar" }}
+        {{ textoCta }}
       </a>
       <p v-else class="lectura mt-8 text-[17px] text-gris">
         Gracias a los que estuvieron. Cuando haya fecha para la próxima edición, la vas a ver acá.
@@ -50,6 +50,7 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
+import { useCupo } from "@/composables/useCupo";
 
 /**
  * La cuenta se mide en días de calendario de Córdoba, no en milisegundos: si
@@ -108,6 +109,16 @@ const titular = computed(() => {
 });
 
 const destino = computed(() => (estado.value === "hoy" ? "lugar" : "registro"));
+
+/**
+ * Con la sala llena el botón no puede seguir ofreciendo un lugar. Era el
+ * último CTA de la página que no miraba el cupo.
+ */
+const { agotado } = useCupo();
+const textoCta = computed(() => {
+  if (estado.value === "hoy") return "Ver cómo llegar";
+  return agotado.value ? "Entrar a la lista" : "Quiero mi lugar";
+});
 
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

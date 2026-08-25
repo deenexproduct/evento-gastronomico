@@ -4,7 +4,7 @@
     cuando el formulario está en pantalla, donde ya no aporta y tapa campos.
   -->
   <Transition name="subir">
-    <div v-if="visible" class="barra-fija fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-white/5">
+    <div v-if="visible" class="barra-fija fixed inset-x-0 bottom-0 z-[90] border-t border-linea bg-noche/95 backdrop-blur-md">
       <div class="contenedor">
         <div class="flex items-center justify-between gap-5 py-3">
           <div class="min-w-0">
@@ -21,10 +21,10 @@
 
           <a
             href="#registro"
-            class="shrink-0 bg-acento px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
+            class="shrink-0 bg-acento-boton px-6 py-3 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
             @click.prevent="ir"
           >
-            Reservar mi lugar
+            {{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}
           </a>
         </div>
       </div>

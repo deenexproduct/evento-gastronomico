@@ -36,7 +36,7 @@
               v-if="t.estado === 'actual'"
               class="rounded-full bg-acento-boton px-3 py-1 text-[11px] font-black uppercase tracking-[0.1em] text-white"
             >
-              Abierto
+              {{ agotado ? "Lista abierta" : "Abierto" }}
             </span>
           </div>
 
@@ -73,7 +73,7 @@
             href="#registro"
             class="btn mt-7 w-full"
             @click.prevent="ir('registro')"
-            >Reservar mi lugar</a
+            >{{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}</a
           >
           <p
             v-else
@@ -91,7 +91,7 @@
 import { computed } from "vue";
 import { useCupo } from "@/composables/useCupo";
 
-const { total, ocupados, restantes } = useCupo();
+const { total, ocupados, restantes, agotado } = useCupo();
 
 /** Los tres tramos son el llenado real del salón, no fases de precio. */
 const tramos = computed(() => [
@@ -108,11 +108,15 @@ const tramos = computed(() => [
     ],
   },
   {
-    etiqueta: "Tramo actual",
-    titulo: "Registro abierto",
+    // Con la sala llena este tramo pasa a "completo" y el activo es la lista
+    // de espera. Era el único consumidor de useCupo que ignoraba `agotado`:
+    // seguía diciendo "Registro abierto · 0 lugares disponibles" con botón de
+    // reservar, contra las otras cuatro piezas que ya avisan que está llena.
+    etiqueta: agotado.value ? "Cerrado" : "Tramo actual",
+    titulo: agotado.value ? "Sala completa" : "Registro abierto",
     cifra: restantes.value,
     unidad: "lugares disponibles",
-    estado: "actual",
+    estado: agotado.value ? "completo" : "actual",
     incluye: [
       "Los siete bloques y las demos en vivo",
       "Beneficios exclusivos de los partners",
@@ -121,11 +125,11 @@ const tramos = computed(() => [
     ],
   },
   {
-    etiqueta: "Después de los " + total.value,
+    etiqueta: agotado.value ? "Tramo actual" : "Después de los " + total.value,
     titulo: "Lista de espera",
     cifra: "0",
     unidad: "lugares extra",
-    estado: "espera",
+    estado: agotado.value ? "actual" : "espera",
     incluye: [
       "No hay sillas de más: entra lo que entra",
       "Se libera lugar solo si alguien avisa que no viene",
