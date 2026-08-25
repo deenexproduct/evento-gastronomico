@@ -65,7 +65,7 @@
         <!-- Formulario -->
         <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-9">
           <!-- Éxito -->
-          <div v-if="enviado" class="py-8">
+          <div v-if="enviado" ref="panelExito" tabindex="-1" class="py-8 focus:outline-none">
             <p class="text-[2rem] font-black uppercase leading-[1.05] text-acento-texto sm:text-[2.6rem]">
               Tu lugar quedó reservado.
             </p>
@@ -114,17 +114,18 @@
           </div>
 
           <!-- Form -->
-          <form v-else novalidate @submit.prevent="onSubmit">
+          <form v-else ref="formulario" novalidate @submit.prevent="onSubmit">
             <!-- Progreso de dos pasos -->
             <div class="flex items-center gap-3">
               <span
                 v-for="n in 2"
                 :key="n"
+                aria-hidden="true"
                 class="h-1.5 flex-1 rounded-full transition-colors duration-300"
                 :class="paso >= n ? 'bg-acento' : 'bg-white/12'"
               ></span>
               <span class="shrink-0 text-[12px] font-black uppercase tracking-[0.1em] text-gris">
-                {{ paso }} de 2
+                <span class="sr-only">Paso </span>{{ paso }} de 2
               </span>
             </div>
 
@@ -148,8 +149,12 @@
                     placeholder="Cómo te presentamos"
                     class="campo"
                     :class="{ 'campo-error': errores.nombre }"
+                    :aria-invalid="errores.nombre ? 'true' : undefined"
+                    :aria-describedby="errores.nombre ? 'reg-nombre-error' : undefined"
                   />
-                  <p v-if="errores.nombre" class="error">{{ errores.nombre }}</p>
+                  <p v-if="errores.nombre" id="reg-nombre-error" role="alert" class="error">
+                    {{ errores.nombre }}
+                  </p>
                 </div>
 
                 <div>
@@ -163,8 +168,12 @@
                     placeholder="Ahí te llega el código de acceso"
                     class="campo"
                     :class="{ 'campo-error': errores.email }"
+                    :aria-invalid="errores.email ? 'true' : undefined"
+                    :aria-describedby="errores.email ? 'reg-email-error' : undefined"
                   />
-                  <p v-if="errores.email" class="error">{{ errores.email }}</p>
+                  <p v-if="errores.email" id="reg-email-error" role="alert" class="error">
+                    {{ errores.email }}
+                  </p>
                 </div>
               </div>
 
@@ -200,8 +209,12 @@
                     placeholder="El nombre de tu marca"
                     class="campo"
                     :class="{ 'campo-error': errores.marca }"
+                    :aria-invalid="errores.marca ? 'true' : undefined"
+                    :aria-describedby="errores.marca ? 'reg-marca-error' : undefined"
                   />
-                  <p v-if="errores.marca" class="error">{{ errores.marca }}</p>
+                  <p v-if="errores.marca" id="reg-marca-error" role="alert" class="error">
+                    {{ errores.marca }}
+                  </p>
                 </div>
 
                 <div class="grid gap-5 sm:grid-cols-2">
@@ -212,11 +225,15 @@
                       v-model="form.rol"
                       class="campo"
                       :class="{ 'campo-error': errores.rol }"
+                      :aria-invalid="errores.rol ? 'true' : undefined"
+                      :aria-describedby="errores.rol ? 'reg-rol-error' : undefined"
                     >
                       <option value="" disabled>Elegí una opción</option>
                       <option v-for="r in ROLES" :key="r" :value="r">{{ r }}</option>
                     </select>
-                    <p v-if="errores.rol" class="error">{{ errores.rol }}</p>
+                    <p v-if="errores.rol" id="reg-rol-error" role="alert" class="error">
+                      {{ errores.rol }}
+                    </p>
                   </div>
                   <div>
                     <label class="etiqueta" for="reg-locales">Locales</label>
@@ -225,11 +242,15 @@
                       v-model="form.locales"
                       class="campo"
                       :class="{ 'campo-error': errores.locales }"
+                      :aria-invalid="errores.locales ? 'true' : undefined"
+                      :aria-describedby="errores.locales ? 'reg-locales-error' : undefined"
                     >
                       <option value="" disabled>Elegí una opción</option>
                       <option v-for="l in CANTIDAD_LOCALES" :key="l" :value="l">{{ l }}</option>
                     </select>
-                    <p v-if="errores.locales" class="error">{{ errores.locales }}</p>
+                    <p v-if="errores.locales" id="reg-locales-error" role="alert" class="error">
+                      {{ errores.locales }}
+                    </p>
                   </div>
                 </div>
 
@@ -244,8 +265,12 @@
                     placeholder="351 000 0000"
                     class="campo"
                     :class="{ 'campo-error': errores.whatsapp }"
+                    :aria-invalid="errores.whatsapp ? 'true' : undefined"
+                    :aria-describedby="errores.whatsapp ? 'reg-whatsapp-error' : undefined"
                   />
-                  <p v-if="errores.whatsapp" class="error">{{ errores.whatsapp }}</p>
+                  <p v-if="errores.whatsapp" id="reg-whatsapp-error" role="alert" class="error">
+                    {{ errores.whatsapp }}
+                  </p>
                 </div>
 
                 <label
@@ -256,13 +281,17 @@
                     v-model="form.acepta"
                     type="checkbox"
                     class="mt-0.5 h-4 w-4 shrink-0 accent-acento"
+                    :aria-invalid="errores.acepta ? 'true' : undefined"
+                    :aria-describedby="errores.acepta ? 'reg-acepta-error' : undefined"
                   />
                   <span class="text-[14px] leading-[1.5] text-gris">
                     Confirmo que voy a asistir el domingo 20 de septiembre y que Deenex puede
                     contactarme con la información del evento.
                   </span>
                 </label>
-                <p v-if="errores.acepta" class="error -mt-3">{{ errores.acepta }}</p>
+                <p v-if="errores.acepta" id="reg-acepta-error" role="alert" class="error -mt-3">
+                  {{ errores.acepta }}
+                </p>
 
                 <div>
                   <label class="etiqueta" for="reg-tema">
@@ -297,6 +326,7 @@
 
               <div
                 v-if="errorEnvio"
+                role="alert"
                 class="mt-6 rounded-xl border border-acento bg-acento/10 p-4 text-[15px] text-white"
               >
                 {{ errorEnvio }}
@@ -375,17 +405,43 @@ const whatsappRegistro =
   );
 
 const panelPaso2 = ref(null);
+const panelExito = ref(null);
+const formulario = ref(null);
+
+/**
+ * Lleva el foco al primer campo que falló. El paso 2 tiene seis campos: si el
+ * que falla es "marca" y el botón está al final, sin esto el usuario aprieta
+ * y no pasa nada visible en su parte de la pantalla.
+ */
+async function enfocarPrimerError() {
+  await nextTick();
+  const campo = formulario.value?.querySelector('[aria-invalid="true"]');
+  if (!campo) return;
+  campo.focus({ preventScroll: true });
+  campo.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 /** Avanza y lleva el foco al paso nuevo, para no perder al usuario de teclado. */
 async function alSiguiente() {
-  if (!siguiente()) return;
+  if (!siguiente()) {
+    enfocarPrimerError();
+    return;
+  }
   await nextTick();
   panelPaso2.value?.focus();
 }
 
 async function onSubmit() {
   const ok = await enviar();
-  if (ok) document.getElementById("registro")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!ok) {
+    enfocarPrimerError();
+    return;
+  }
+  await nextTick();
+  // El formulario se reemplaza por la confirmación: sin mover el foco, el
+  // lector de pantalla se queda en un nodo que ya no existe y no anuncia nada.
+  panelExito.value?.focus();
+  document.getElementById("registro")?.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 </script>
 

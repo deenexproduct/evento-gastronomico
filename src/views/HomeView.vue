@@ -9,7 +9,9 @@
     <a href="#contenido" class="saltar">Saltar al contenido</a>
     <Navbar />
 
-    <main id="contenido">
+    <!-- tabindex -1: sin esto el link de salto mueve la página pero no el
+         foco, y el siguiente Tab vuelve al menú que se quería saltear. -->
+    <main id="contenido" tabindex="-1" class="focus:outline-none">
       <!-- Hero · fondo base -->
       <HeroSection />
 

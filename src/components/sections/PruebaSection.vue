@@ -64,7 +64,7 @@ const DATOS = [
   {
     cifra: 7,
     label: "bloques en la jornada",
-    detalle: "Seis charlas más la mesa redonda de cierre, en un solo track.",
+    detalle: "Cinco charlas, una demo en vivo y la mesa redonda de cierre, en un solo track.",
   },
   {
     cifra: 200,

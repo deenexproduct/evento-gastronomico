@@ -119,7 +119,7 @@ export const TIPOS_BLOQUE = {
  */
 export const BENTO = [
   { dato: "7", label: "bloques en el día", peso: "grande",
-    detalle: "Seis charlas más la mesa redonda de cierre. Track único: no elegís, no te perdés nada." },
+    detalle: "Cinco charlas, una demo en vivo y la mesa redonda de cierre. Track único: no elegís, no te perdés nada." },
   { dato: "9 a 18", label: "de jornada", peso: "chico" },
   { dato: "5", label: "degustaciones", peso: "chico" },
   { dato: "200", label: "dueños en la sala", peso: "medio",
@@ -249,7 +249,7 @@ export const SPEAKERS = [
     foto: "alan-tapia.jpg",
     frase:
       "Hay un mercado gastronómico nuevo formándose. Vengo a mostrar cómo se entra, con datos y sin humo.",
-    bio: "Founder de Deenex, la plataforma omnicanal con la que trabajan más de 350 marcas de foodservice y gastronomía. Da tres de los seis bloques del día.",
+    bio: "Founder de Deenex, la plataforma omnicanal con la que trabajan más de 350 marcas de foodservice y gastronomía. Da tres de los siete bloques del día.",
     charlas: [
       "El nuevo mercado gastronómico y por qué este es el momento",
       "Datos, tecnología e inteligencia artificial aplicados al negocio",
@@ -532,7 +532,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial aplicados a varios locales, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
+    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial aplicados a varios locales, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Siete bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
