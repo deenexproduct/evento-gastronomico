@@ -38,3 +38,6 @@ _deenex-source/
 # Testing
 test-results/
 playwright-report/
+
+# Artefactos de medición y capturas de auditoría: no son del proyecto.
+.medicion/
