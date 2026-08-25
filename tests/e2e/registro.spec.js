@@ -81,3 +81,42 @@ test("la captura de mail valida y confirma", async ({ page }) => {
   await expect(avisame.locator(".error")).toHaveCount(0);
   await expect(avisame.getByRole("link", { name: /el registro está acá/i })).toBeVisible();
 });
+
+test("sin backend, la confirmación no afirma una reserva que no ocurrió", async ({ page }) => {
+  // Así se publica hoy: el workflow compila sin VITE_REGISTRO_ENDPOINT, o sea
+  // que el envío es abrir WhatsApp. Hasta que la persona mande ese mensaje no
+  // hay nada guardado en ningún lado.
+  await page.addInitScript(() => {
+    // Navegador embebido tipo Instagram: window.open no abre nada.
+    window.open = () => null;
+  });
+  await page.reload();
+
+  const registro = page.locator("#registro");
+  await registro.locator("#reg-nombre").fill("Alan Tapia");
+  await registro.locator("#reg-email").fill("alan@deenex.tech");
+  await registro.getByRole("button", { name: /continuar/i }).click();
+
+  await expect(registro.locator("#reg-marca")).toBeVisible();
+  await registro.locator("#reg-marca").fill("La Fábrica");
+  await registro.locator("#reg-whatsapp").fill("3514459626");
+  await registro.locator("#reg-tema").fill("Cómo bajar la merma en cocina");
+  await registro.locator("#reg-rol").selectOption({ index: 1 });
+  await registro.locator("#reg-locales").selectOption({ index: 1 });
+  await registro.locator('input[type="checkbox"]').first().check();
+  await registro.locator('button[type="submit"]').click();
+
+  const panel = registro.locator('[tabindex="-1"]');
+  await expect(panel).toBeVisible();
+  await expect(panel).not.toContainText(/qued[óo] reservado/i);
+  await expect(panel).toContainText(/falta un paso/i);
+
+  // El enlace tiene que quedar tocable: el window.open pudo no abrir nada.
+  const boton = panel.locator('a[href*="wa.me"]');
+  await expect(boton).toBeVisible();
+
+  // Y el tema que escribió tiene que viajar en el mensaje: por esta vía era
+  // lo único que se quedaba en el navegador.
+  const href = await boton.getAttribute("href");
+  expect(decodeURIComponent(href)).toContain("Cómo bajar la merma en cocina");
+});

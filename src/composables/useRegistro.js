@@ -1,6 +1,8 @@
 import { reactive, ref, computed } from "vue";
 import { WHATSAPP_ORGANIZADOR } from "@/data/evento";
 
+const SALTO = "\n";
+
 const VACIO = {
   nombre: "",
   email: "",
@@ -113,18 +115,31 @@ export function useRegistro() {
   }
 
   function mensajeWhatsapp() {
-    return encodeURIComponent(
-      [
-        "Hola! Quiero mi lugar en el evento del 20 de septiembre en Córdoba.",
-        "",
-        `Nombre: ${form.nombre}`,
-        `Email: ${form.email}`,
-        `Marca: ${form.marca}`,
-        `Rol: ${form.rol}`,
-        `Locales: ${form.locales}`,
-      ].join("\n")
-    );
+    const lineas = [
+      "Hola! Quiero mi lugar en el evento del 20 de septiembre en Córdoba.",
+      "",
+      "Nombre: " + form.nombre,
+      "Email: " + form.email,
+      "Marca: " + form.marca,
+      "Rol: " + form.rol,
+      "Locales: " + form.locales,
+    ];
+    // El tema que escribe la persona se le pide para pasárselo a los oradores.
+    // Por esta vía era lo único que se quedaba en el navegador.
+    if (form.tema) lineas.push("Le interesa: " + form.tema);
+    if (form.publicar) lineas.push("Autoriza a publicar el nombre de la marca.");
+    return encodeURIComponent(lineas.join(SALTO));
   }
+
+  /**
+   * El mismo enlace, para poder mostrarlo como botón en la confirmación. El
+   * window.open del submit puede no abrir nada en un navegador embebido —el de
+   * Instagram, el de Facebook—: sin un enlace tocable a mano, la persona ve la
+   * confirmación, no tiene a dónde ir, y el dato no le llega a nadie.
+   */
+  const enlaceWhatsapp = computed(
+    () => "https://wa.me/" + WHATSAPP_ORGANIZADOR + "?text=" + mensajeWhatsapp()
+  );
 
   async function enviar() {
     errorEnvio.value = "";
@@ -133,11 +148,7 @@ export function useRegistro() {
     enviando.value = true;
     try {
       if (!tieneBackend.value) {
-        window.open(
-          `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${mensajeWhatsapp()}`,
-          "_blank",
-          "noopener,noreferrer"
-        );
+        window.open(enlaceWhatsapp.value, "_blank", "noopener,noreferrer");
         enviado.value = true;
         return true;
       }
@@ -186,6 +197,7 @@ export function useRegistro() {
     errorEnvio,
     codigo,
     tieneBackend,
+    enlaceWhatsapp,
     parcialGuardado,
     siguiente,
     volver,

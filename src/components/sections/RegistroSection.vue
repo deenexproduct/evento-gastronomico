@@ -66,8 +66,14 @@
         <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-9">
           <!-- Éxito -->
           <div v-if="enviado" ref="panelExito" tabindex="-1" class="py-8 focus:outline-none">
+            <!--
+              El titular no puede afirmar la reserva por la vía de WhatsApp: en
+              ese camino no se guardó nada todavía, el registro se completa
+              recién cuando la persona manda el mensaje. Decirle "quedó
+              reservado" antes de eso la deja creyendo que ya está anotada.
+            -->
             <p class="text-[2rem] font-black uppercase leading-[1.05] text-acento-texto sm:text-[2.6rem]">
-              Tu lugar quedó reservado.
+              {{ tieneBackend ? "Tu lugar quedó reservado." : "Te falta un paso." }}
             </p>
             <p class="mt-5 max-w-[44ch] text-[16px] leading-[1.6] text-gris">
               <template v-if="tieneBackend">
@@ -75,10 +81,27 @@
                 20/9, no hace falta imprimir nada.
               </template>
               <template v-else>
-                Abrimos WhatsApp con tus datos cargados. Mandá el mensaje y te confirmamos el lugar
-                junto con el código.
+                Abrimos WhatsApp con tus datos cargados. Mandá ese mensaje y tu lugar queda
+                confirmado: te contestamos con el código de acceso.
               </template>
             </p>
+
+            <!--
+              El enlace tiene que estar acá, tocable. El window.open corre en el
+              submit y en un navegador embebido —el de Instagram, el de Facebook—
+              puede no abrir nada: sin este botón la persona ve la confirmación,
+              no tiene a dónde ir, y el dato no le llega a nadie.
+            -->
+            <a
+              v-if="!tieneBackend"
+              :href="enlaceWhatsapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn mt-7 w-full"
+            >
+              Abrir WhatsApp y mandar el mensaje
+              <span class="sr-only"> (abre en una pestaña nueva)</span>
+            </a>
             <p
               v-if="codigo"
               class="mt-6 inline-block rounded-full bg-acento-boton px-5 py-2.5 font-black tracking-widest text-white"
@@ -379,7 +402,7 @@ const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.val
 const { google, urlIcs, nombreArchivo } = useCalendario();
 const {
   form, errores, paso, enviando, enviado, errorEnvio, codigo,
-  tieneBackend, siguiente, volver, enviar, reiniciar,
+  tieneBackend, enlaceWhatsapp, siguiente, volver, enviar, reiniciar,
 } = useRegistro();
 
 const INCLUYE = [
