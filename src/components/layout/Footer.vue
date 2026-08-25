@@ -64,22 +64,13 @@
       </div>
 
       <!--
-        Bloque de descripción larga, como el "Sobre Food Delivery Day" del
-        referente. Sirve para búsqueda orgánica y para que un asistente de IA
-        pueda responder qué es este evento. Todo el contenido es verificable.
+        Acá iba un bloque largo de descripción para búsqueda orgánica, copiado
+        del referente. Se sacó a pedido: repetía por cuarta vez la fecha, la
+        sede, los siete bloques y el cupo, y era lo último que leía alguien que
+        ya bajó toda la página. Lo que buscan Google y los asistentes de IA
+        sigue estando en el JSON-LD y en la meta description de index.html, que
+        es donde corresponde y donde no le ocupa lugar a nadie.
       -->
-      <div class="mt-10 border-t border-white/10 pt-8">
-        <h2 class="text-[13px] font-black uppercase tracking-[0.14em] text-gris">
-          Sobre GastroTech
-        </h2>
-        <p class="mt-3 max-w-[80ch] text-[14px] leading-[1.65] text-gris-2">
-          GastroTech es la jornada de gastronomía y tecnología de Deenex para dueños de cadenas
-          gastronómicas. Domingo 20 de septiembre de 2026, de 9 a 18, en el Hotel Quinto Centenario
-          de Córdoba. Siete bloques sobre costos entre locales, datos e inteligencia artificial,
-          sistemas de punto de venta con demos en vivo y contenido de marca. Entrada libre con
-          registro previo, cupo de 200 personas.
-        </p>
-      </div>
     </div>
   </footer>
 </template>

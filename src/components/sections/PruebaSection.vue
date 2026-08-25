@@ -7,14 +7,18 @@
   -->
   <section class="bg-noche py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-acento-texto">Sobre Deenex</p>
-      <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(2rem,6vw,3.5rem)]">
-        Quién está detrás de GastroTech
+      <p class="rotulo text-acento-texto">Quién está detrás</p>
+      <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(2rem,6vw,3.5rem)]">
+        Deenex organiza el evento que le venían pidiendo.
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Deenex es la plataforma omnicanal con la que trabajan las marcas de acá abajo. GastroTech es
-        su primer evento propio: tres años escuchando el mismo problema en cada local, puestos en un
-        solo día.
+        Deenex es la plataforma con la que trabajan todos los días las marcas de acá abajo. En tres
+        años escuchando a dueños de cadenas apareció siempre la misma escena: decisiones grandes
+        tomadas con información que nadie mira, y nadie con quién contrastarlas.
+      </p>
+      <p class="lectura mt-4 text-[17px] text-gris">
+        GastroTech es la respuesta a eso, y por eso no se cobra la entrada: el valor está en quién
+        se sienta en la sala.
       </p>
 
       <div ref="grilla" class="mt-12 grid gap-4 sm:grid-cols-3">
@@ -29,7 +33,7 @@
 
       <!-- Logos -->
       <p class="mt-16 text-[13px] font-black uppercase tracking-[0.16em] text-gris-2">
-        Clientes de Deenex
+        Marcas que apoyan la jornada
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6 sm:gap-x-10">
         <!--
@@ -64,7 +68,7 @@ const DATOS = [
     prefijo: "+",
     cifra: 350,
     label: "marcas en la plataforma",
-    detalle: "Cadenas de foodservice y restaurantes que ya usan Deenex todos los días.",
+    detalle: "Cadenas de foodservice y gastronomía que trabajan con la plataforma.",
   },
   {
     cifra: 7,

@@ -183,6 +183,17 @@ html.claro .bg-noche { background-color: #FFFFFF !important; }
 html.claro .bg-noche-2 { background-color: #F6F5F3 !important; }
 html.claro .bg-noche-3 { background-color: #EFEDEA !important; }
 
+/* Las variantes con opacidad son OTRA clase: `.bg-noche` no matchea un
+   elemento cuyo atributo dice `bg-noche/90`. Por eso la barra de arriba se
+   ponía negra al scrollear y la de abajo nacía negra. Se usa [class~=] para
+   no tener que escapar la barra en el selector. */
+html.claro [class~="bg-noche/90"] { background-color: rgba(255, 255, 255, .9) !important; }
+html.claro [class~="bg-noche/95"] { background-color: rgba(255, 255, 255, .95) !important; }
+
+/* border-linea (#2A2A2A) nunca se pisó: sobre blanco es casi negro. Lo usan
+   las divisiones de sección y la barra fija. */
+html.claro .border-linea { border-color: rgba(0, 0, 0, .1) !important; }
+
 /* El texto se invierte. */
 html.claro .text-white { color: #1A1A1A !important; }
 html.claro .text-gris { color: #55535C !important; }

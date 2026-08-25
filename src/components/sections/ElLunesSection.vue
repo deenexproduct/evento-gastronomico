@@ -4,9 +4,15 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
         <div>
+          <!--
+            Decía "lo que te llevás al local el lunes". El lunes es un plazo
+            que la página no controla y que suena a promesa de resultado;
+            además el que abre esto un martes ya lee algo que no le habla.
+            Lo que sí es cierto y verificable es la lista de abajo.
+          -->
           <p class="rotulo text-acento-texto">Con qué volvés</p>
-          <h2 class="titulo mt-5 max-w-[14ch] text-[clamp(1.9rem,5vw,3.2rem)]">
-            Lo que te llevás al local el lunes.
+          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5vw,3.2rem)]">
+            Seis cosas que te llevás puestas.
           </h2>
         </div>
 

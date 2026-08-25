@@ -123,19 +123,6 @@
         </p>
       </div>
 
-      <!-- Lo que no es bloque y sin embargo es parte del día: acreditación,
-           pausas y cierre. Va acá abajo y no arriba porque entre el título y
-           la grilla no puede haber nada que la empuje fuera de la pantalla. -->
-      <ul
-        class="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 border-t border-white/10 pt-5 text-[11px] font-bold uppercase tracking-[0.1em] text-gris sm:text-[12px]"
-      >
-        <li v-for="c in contexto" :key="c.id" class="flex items-center gap-1.5">
-          <Pictograma :nombre="TIPOS_BLOQUE[c.tipo].icono" :tam="13" :grosor="2" class="shrink-0" />
-          <span class="tabular-nums text-acento-texto">{{ c.etiqueta }}</span>
-          <span>{{ c.titulo }}</span>
-        </li>
-      </ul>
-
       <p class="mt-4 text-[13px] leading-[1.45] text-gris lg:hidden">
         Track único, sin salas paralelas. Tocá cualquier bloque para ver de qué va.
       </p>
@@ -150,7 +137,7 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import { EVENTO, TEMAS, PAUSAS, BORDES, TIPOS_BLOQUE, AGENDA_PUBLICA } from "@/data/evento";
+import { EVENTO, TEMAS, PAUSAS, TIPOS_BLOQUE } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
 const aMin = (h) => {
@@ -197,33 +184,6 @@ TEMAS.forEach((t, i) => {
   cinta.push({ id: t.id, tipo: "bloque", min: t.dur });
   const h = huecos[i];
   if (h) cinta.push({ id: h.id, tipo: "pausa", min: h.min });
-});
-
-/**
- * Lo que no es bloque y sin embargo es parte del día: la acreditación, las
- * pausas y el cierre. Va en una línea propia para no romper el cuadriculado.
- * Las degustaciones cortas se agrupan en una sola entrada — cuatro renglones
- * repitiendo "15' Degustación" es ruido.
- */
-const contexto = computed(() => {
-  const cortas = huecos.filter((h) => h.titulo === "Degustación");
-  const grandes = huecos.filter((h) => h.titulo !== "Degustación");
-  const etiqueta = (h) => (AGENDA_PUBLICA ? h.hora : `${h.min}'`);
-  return [
-    { ...BORDES.apertura, etiqueta: BORDES.apertura.hora },
-    ...(cortas.length
-      ? [
-          {
-            id: "degustaciones",
-            tipo: "pausa",
-            etiqueta: `${cortas.length}×${cortas[0].min}'`,
-            titulo: "Degustación entre bloques",
-          },
-        ]
-      : []),
-    ...grandes.map((h) => ({ ...h, etiqueta: etiqueta(h) })),
-    { ...BORDES.cierre, etiqueta: BORDES.cierre.hora },
-  ];
 });
 
 // El detalle vive en un panel único debajo de la grilla, así la grilla no

@@ -563,6 +563,15 @@ export const PARTNERS = [
     aporte: "El ex-CEO de Dexter y el ex-presidente de la CAME, sobre conducción y mercado.",
   },
   {
+    nombre: "Asociación de Marcas y Franquicias",
+    logo: "",
+    tipo: "Institución que acompaña",
+    empresa:
+      "Nuclea a las marcas y cadenas del país que crecen por franquicia y por locales propios.",
+    quien: "Acompaña la convocatoria",
+    aporte: "Acerca a la sala cadenas de otras provincias y respalda la jornada institucionalmente.",
+  },
+  {
     nombre: "La mesa de degustación",
     logo: "",
     tipo: "Proveedores confirmados",
