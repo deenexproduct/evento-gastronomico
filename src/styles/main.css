@@ -111,3 +111,15 @@ img, video { max-width: 100%; height: auto; display: block; }
   .v-reveal { opacity: 1; transform: none; transition: none; }
   .linea-dia { transform: none; transition: none; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Las utilidades de animación de Tailwind no traen esta salvaguarda:
+     animate-ping y animate-pulse siguen corriendo indefinidamente. */
+  .animate-ping,
+  .animate-pulse,
+  .animate-spin {
+    animation: none !important;
+  }
+  /* El punto de "registro abierto" queda visible, solo deja de latir. */
+  .animate-ping { opacity: .5; }
+}

@@ -62,7 +62,7 @@
           >
             Abrir en Google Maps
             <Pictograma nombre="flecha" :tam="17" />
-          </a>
+          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </div>
 
         <!-- Mapa -->

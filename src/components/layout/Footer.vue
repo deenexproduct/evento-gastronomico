@@ -34,7 +34,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
-                    >WhatsApp</a
+                    >WhatsApp<span class="sr-only"> (abre en una pestaña nueva)</span></a
                   >
                 </li>
                 <li>
@@ -43,7 +43,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
-                    >deenex.tech</a
+                    >deenex.tech<span class="sr-only"> (abre en una pestaña nueva)</span></a
                   >
                 </li>
               </ul>
@@ -52,7 +52,7 @@
         </nav>
 
         <div class="lg:col-span-3">
-          <a href="#registro" class="btn w-full" @click.prevent="ir('registro')">Reservar mi lugar</a>
+          <a href="#registro" class="btn w-full" @click.prevent="ir('registro')">Reservar mi lugar<span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </div>
       </div>
 

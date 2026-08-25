@@ -97,7 +97,7 @@
                   class="btn-linea text-[13px]"
                 >
                   Google Calendar
-                </a>
+                <span class="sr-only"> (abre en una pestaña nueva)</span></a>
                 <a :href="urlIcs" :download="nombreArchivo" class="btn-linea text-[13px]">
                   Apple u Outlook
                 </a>
@@ -319,7 +319,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex min-h-[44px] items-center font-bold text-acento-texto underline underline-offset-4"
-                >Escribinos y te anotamos</a
+                >Escribinos y te anotamos<span class="sr-only"> (abre en una pestaña nueva)</span></a
               >
             </p>
           </form>

@@ -44,7 +44,7 @@
             class="btn mt-7 w-full"
           >
             Hablar de partnership
-          </a>
+          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </article>
 
         <!-- Prensa -->
@@ -75,7 +75,7 @@
             class="btn-linea mt-7 w-full"
           >
             Pedir acreditación
-          </a>
+          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </article>
       </div>
     </div>

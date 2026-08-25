@@ -63,7 +63,7 @@
           class="btn-linea shrink-0"
         >
           Quiero ser partner
-        </a>
+        <span class="sr-only"> (abre en una pestaña nueva)</span></a>
       </div>
     </div>
   </section>

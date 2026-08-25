@@ -52,15 +52,15 @@ export const TEMAS = [
     titulo: "Qué cambió en el mercado y qué hace distinto el que creció este año",
     quien: "Alan Tapia · Deenex",
     punta:
-      "La foto del rubro con números, no con impresiones. Por qué la brecha que se abrió no es de tamaño ni de plata.",
+      "La foto del rubro con números, no con impresiones. Qué hicieron distinto las cadenas que crecieron este año, y por qué la brecha que se abrió no es de tamaño ni de plata.",
   },
   {
     hora: "11:00",
     tipo: "charla",
-    titulo: "Qué te están diciendo tus datos y no estás escuchando",
+    titulo: "Qué ves cuando comparás tus locales entre sí",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Tu local ya genera la información. Qué decisiones de margen se toman distinto cuando alguien la lee.",
+      "Tus locales ya generan la información. Qué aparece cuando se los mira juntos: quién rinde, quién arrastra y por qué el mismo plato deja distinto en cada sucursal.",
   },
   {
     hora: "12:00",
@@ -68,23 +68,23 @@ export const TEMAS = [
     titulo: "Hasta dónde llega hoy el sistema con el que cobrás",
     quien: "CEO de Bistrosoft",
     punta:
-      "El punto de venta como fuente de decisiones y no solo de facturas. Con demos montadas en el salón.",
+      "Qué cambia cuando todas tus sucursales reportan al mismo lugar y dejás de armar el número a mano. Con demos montadas en el salón.",
   },
   {
     hora: "13:45",
     tipo: "charla",
-    titulo: "Cómo se hace hoy el contenido que mueve una marca gastronómica",
+    titulo: "Cómo se sostiene una marca en varios locales a la vez",
     quien: "UGC y contenidos",
     punta:
-      "Qué se graba, con qué frecuencia y por qué mostrar el plato dejó de rendir. Sin equipo de diez personas.",
+      "Qué se graba, con qué frecuencia y cómo se mantiene una sola voz cuando la marca está en cinco puntos. Sin un equipo de diez personas.",
   },
   {
     hora: "14:45",
     tipo: "charla",
-    titulo: "Cómo se conduce un negocio del rubro cuando el mercado se endurece",
+    titulo: "Cómo se conduce una estructura grande cuando el mercado se endurece",
     quien: "Avanzia · ex-CEO de Dexter y ex-presidente de la CAME",
     punta:
-      "Dos que ya tomaron esas decisiones con gente y plata en juego, contando cómo las tomaron.",
+      "Dos que ya condujeron compañías con cientos de empleados, contando cómo se decide cuando hay gente y plata en juego.",
   },
   {
     hora: "16:00",
@@ -92,7 +92,7 @@ export const TEMAS = [
     titulo: "Por qué solos no llegamos: marcas, tecnología y proveedores",
     quien: "Alan Tapia · Deenex",
     punta:
-      "Cómo se construye la red que sí llega, y qué hace falta de cada lado para que funcione.",
+      "Cómo se construye la red que sí llega: qué le pedís a un proveedor cuando comprás para varios locales y qué te tiene que dar la tecnología para acompañar la escala.",
   },
   {
     hora: "17:00",
@@ -130,8 +130,8 @@ export const BENTO = [
 
 /** Con qué volvés al local. Verbo + resultado tangible, sin adjetivos. */
 export const EL_LUNES = [
-  "Cómo mirar tu food cost real y no el que dice tu ficha técnica",
-  "Qué datos ya estás generando y dónde se leen",
+  "Cómo comparar el food cost real entre tus locales, no el que dice la ficha técnica",
+  "Qué datos ya generan tus locales y cómo se leen juntos",
   "Herramientas probadas en vivo, con lo que hacen y lo que cuestan",
   "Los proveedores del rubro comparados en un día en vez de en tres meses",
   "Los números reales de otras cadenas de Córdoba, dichos en voz alta",
@@ -532,7 +532,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial en el local, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
+    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial aplicados a varios locales, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Seis bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
@@ -552,7 +552,7 @@ export const FAQ = [
   },
   {
     q: "¿Tengo que saber de tecnología para aprovecharlo?",
-    a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si manejás un local o una cadena, tenés todo lo que hace falta para sacarle provecho al día.",
+    a: "No. Se habla de margen, tiempo y decisiones, no de fierros. Si manejás una cadena, ya tenés todo lo que hace falta para sacarle provecho al día.",
   },
   {
     q: "Tengo un solo local. ¿Igual me sirve?",

@@ -17,7 +17,7 @@
             class="mt-2 inline-flex min-h-[44px] items-center text-[0.9rem] font-semibold text-acento-texto underline underline-offset-4"
           >
             Preguntar por WhatsApp
-          </a>
+          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </div>
 
         <div class="lg:col-span-9">

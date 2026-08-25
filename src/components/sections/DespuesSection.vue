@@ -28,7 +28,7 @@
             class="btn-linea mt-7"
           >
             No voy a poder ir
-          </a>
+          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </article>
 
         <!-- Qué queda después -->
