@@ -24,11 +24,10 @@
 
         <div>
           <!--
-            El rótulo preguntaba "Quién lo organiza" y lo contestaba con una
-            persona. Organiza la empresa; la cara es Alan. Dicho así, las dos
-            cosas conviven sin que la página se contradiga a sí misma.
+            Sin rótulo a propósito: el capítulo ya lo abrió "Quién está detrás"
+            una sección más arriba. Con un segundo cartel, el lector cree que
+            arrancó otra cosa y el capítulo se parte al medio.
           -->
-          <p class="rotulo text-acento-texto">Organiza Deenex</p>
           <h2 class="titulo mt-4 text-[clamp(2.2rem,6vw,3.8rem)]">Alan Tapia</h2>
           <p class="mt-2 text-[14px] font-black uppercase tracking-[0.12em] text-gris">
             Founder &amp; CEO de Deenex

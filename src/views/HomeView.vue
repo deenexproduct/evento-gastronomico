@@ -1,9 +1,14 @@
 <template>
   <!--
-    Orden y ritmo del referente (fooddeliveryday.com.ar):
-    hero → qué es → quién organiza → la jornada → acceso → registro →
-    partners → prueba → lugar → preguntas → pie. La alternancia de los tres
-    negros es lo que le da profundidad sección a sección, sin un solo borde.
+    El recorrido: se cuenta qué pasa ese día, se muestra quién lo hace posible,
+    y recién ahí se pide el contacto. Toda la prueba —los partners, la empresa
+    y la persona— quedó del lado de ARRIBA del pedido: antes el que decidía
+    dar su WhatsApp lo hacía sin haber visto un logo ni el nombre de un orador.
+
+    La alternancia de los tres fondos es lo único que separa una sección de la
+    siguiente: no hay bordes. Dos secciones seguidas con el mismo fondo se leen
+    como una sola, así que al mover una hay que revisar sus dos vecinas —y
+    contar también las dos que hoy no se dibujan por tener su array vacío.
   -->
   <div>
     <a href="#contenido" class="saltar">Saltar al contenido</a>
@@ -12,51 +17,57 @@
     <!-- tabindex -1: sin esto el link de salto mueve la página pero no el
          foco, y el siguiente Tab vuelve al menú que se quería saltear. -->
     <main id="contenido" tabindex="-1" class="focus:outline-none">
-      <!-- Hero · fondo base -->
+      <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
+
+      <!-- Hero · transparente a propósito: lo que se ve es el fondo del body -->
       <HeroSection />
 
-      <!-- Barra de partners: prueba social apenas termina el hero -->
+      <!-- Los partners apenas termina el hero. Además es lo único que impide
+           que el hero transparente se funda con la sección siguiente. -->
       <BarraPartners />
 
       <!-- Qué es: responde la primera pregunta del que llega de un anuncio -->
       <QueEsSection class="v-reveal" />
 
-      <!-- Reels verticales: se activa sola cuando haya videos cargados -->
-      <ReelsSection class="v-reveal" />
+      <!-- Del "qué es" se pasa derecho al programa, sin escala. -->
+      <JornadaSection class="v-reveal bg-noche-3" />
 
-      <!-- Quién lo organiza: el brief dice que se sigue a la persona -->
-      <AlanSection class="v-reveal" />
-
-      <!-- El programa completo, con las horas como sistema -->
-      <JornadaSection class="v-reveal bg-noche" />
-
-      <!-- Asegurá tu lugar · el fondo más marcado de los tres -->
-      <AccesoSection class="v-reveal" />
-
-
-      <!-- Con qué volvés al local -->
+      <!-- Con qué volvés, pegado al programa que lo produce -->
       <ElLunesSection class="v-reveal bg-noche-2" />
 
-      <!-- Quiénes ya confirmaron: empuja al formulario que viene abajo -->
-      <AnotadasSection class="v-reveal" />
+      <!-- ── Quién lo hace posible ─────────────────────────────────── -->
 
-      <!-- Registro -->
-      <RegistroSection />
-
-      <!-- Partners · el fondo más marcado de los tres -->
+      <!-- Los partners y qué trae cada uno -->
       <BrandsSection class="v-reveal bg-noche-3" />
 
-      <!-- Quién organiza + logos -->
-      <PruebaSection class="v-reveal" />
+      <!-- Quién está detrás: la empresa abre el capítulo… -->
+      <PruebaSection class="v-reveal bg-noche-2" />
+
+      <!-- …el video se activa solo cuando haya alguno cargado… -->
+      <ReelsSection class="v-reveal bg-noche-3" />
+
+      <!-- …y la persona lo cierra. Los tres son un solo capítulo: van pegados
+           y enmarcados por dos secciones más oscuras. -->
+      <AlanSection class="v-reveal" />
+
+      <!-- ── Cómo entrar ───────────────────────────────────────────── -->
+
+      <!-- La escasez se gasta pegada al pedido, no a mitad de la explicación -->
+      <AccesoSection class="v-reveal" />
+
+      <!-- Quiénes ya confirmaron: último escalón antes de reservar -->
+      <AnotadasSection class="v-reveal" />
+
+      <!-- La reserva, con toda la prueba ya leída -->
+      <RegistroSection />
 
       <!-- Dónde es -->
-      <LocationSection class="v-reveal bg-noche-2" />
-
+      <LocationSection class="v-reveal bg-noche-3" />
 
       <!-- Qué pasa si no podés venir y qué queda después -->
-      <DespuesSection class="v-reveal bg-noche" />
+      <DespuesSection class="v-reveal bg-noche-2" />
 
-      <!-- Captura secundaria, para el que llegó hasta acá y no se registró -->
+      <!-- Captura secundaria, para el que llegó hasta acá y no reservó -->
       <AvisameSection class="v-reveal" />
 
       <!-- Preguntas -->
@@ -64,7 +75,6 @@
 
       <!-- Partners y prensa: los otros dos públicos, al final -->
       <SumarseSection class="v-reveal" />
-
     </main>
 
     <Footer />

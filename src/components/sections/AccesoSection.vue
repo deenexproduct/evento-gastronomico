@@ -117,11 +117,15 @@ const tramos = computed(() => [
     cifra: restantes.value,
     unidad: "lugares disponibles",
     estado: agotado.value ? "completo" : "actual",
+    // Estas cuatro viñetas eran las mismas de la sección de reserva, tres de
+    // ellas palabra por palabra. Antes las separaba media página; ahora las
+    // dos secciones quedaron pegadas y la repetición se ve. Se quedan allá,
+    // que es donde son la última confirmación antes del botón. Acá va el
+    // estado, que es de lo que hablan las otras dos columnas.
     incluye: [
-      "Los siete bloques y las demos en vivo",
-      "Beneficios exclusivos de los partners",
-      "Degustaciones y networking de cierre",
-      "La grilla del evento por escrito",
+      "El registro sigue abierto",
+      "Se reserva por WhatsApp, sin formulario",
+      "No hay sillas de más: entra lo que entra",
     ],
   },
   {

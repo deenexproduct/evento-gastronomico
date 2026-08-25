@@ -6,13 +6,13 @@
         <div>
           <!--
             Decía "lo que te llevás al local el lunes". El lunes es un plazo
-            que la página no controla y que suena a promesa de resultado;
-            además el que abre esto un martes ya lee algo que no le habla.
-            Lo que sí es cierto y verificable es la lista de abajo.
+            que la página no controla y suena a promesa de resultado. El
+            rótulo cambia junto con el titular: si solo cambiara el h2, la
+            sección diría lo mismo dos veces seguidas con dos sinónimos.
           -->
-          <p class="rotulo text-acento-texto">Con qué volvés</p>
+          <p class="rotulo text-acento-texto">Seis cosas</p>
           <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5vw,3.2rem)]">
-            Seis cosas que te llevás puestas.
+            Qué te llevás del evento.
           </h2>
         </div>
 

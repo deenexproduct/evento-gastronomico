@@ -118,6 +118,12 @@
         <h3 class="titulo mt-3 max-w-[30ch] text-[1.1rem] sm:text-[1.35rem]">
           {{ actual.titulo }}
         </h3>
+        <!--
+          Quién lo da. Es el único lugar donde aparece en teléfono, porque en
+          un cuadro de 163px no entra: sin esto, abajo de 640px no había un
+          solo nombre de orador en toda la página antes de pedir el contacto.
+        -->
+        <p class="rotulo mt-3 text-gris">{{ actual.quien }}</p>
         <p class="mt-3 max-w-[68ch] text-[15px] leading-[1.55] text-gris sm:text-[16px]">
           {{ actual.punta }}
         </p>

@@ -8,7 +8,7 @@
     en evento.js. Mientras estén vacíos, la sección no se renderiza — no
     mostramos huecos de video, que se leen peor que no tener la sección.
   -->
-  <section v-if="hayReels" id="reels" class="bg-noche-2 py-seccion">
+  <section v-if="hayReels" id="reels" class="py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">De qué se trata</p>
       <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5.6vw,3.2rem)]">
