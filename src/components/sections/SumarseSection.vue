@@ -21,7 +21,7 @@
             Quiero ser partner
           </h3>
           <p class="mt-4 text-[16px] leading-[1.55] text-gris">
-            Stand en el salón, demo en vivo dentro del programa y un beneficio para las 200 cadenas
+            Stand en el salón, demo en vivo dentro del programa y un beneficio para las 200 personas
             que estén ese día. Los partners no se anuncian hasta estar cerrados por escrito.
           </p>
 

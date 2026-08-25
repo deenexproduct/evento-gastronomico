@@ -6,8 +6,11 @@ dist/
 dist-ssr/
 
 # Local env files
-.env.local
-.env.*.local
+# Se ignora todo .env salvo el ejemplo: un `git add -A` no puede llevarse
+# un endpoint o una clave por descuido.
+.env
+.env.*
+!.env.example
 
 # Editor / OS
 .DS_Store

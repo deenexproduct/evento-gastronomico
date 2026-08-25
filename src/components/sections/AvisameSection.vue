@@ -20,10 +20,14 @@
         <!-- Confirmación -->
         <div v-if="listo" class="rounded-2xl border border-acento/40 bg-acento/[0.07] p-6">
           <p class="text-[1.1rem] font-black uppercase leading-tight text-acento-texto">
-            Anotado. Te escribimos.
+            {{ porWhatsapp ? "Mandá el mensaje y listo" : "Anotado. Te escribimos." }}
+          </p>
+          <p v-if="porWhatsapp" class="mt-2.5 text-[15px] leading-[1.5] text-gris">
+            Abrimos WhatsApp con tu mail cargado. Con ese mensaje quedás en la lista de avisos.
           </p>
           <p class="mt-2.5 text-[15px] leading-[1.5] text-gris">
-            Te avisamos con cada anuncio. Si querés reservar ahora,
+            <template v-if="!porWhatsapp">Te avisamos con cada anuncio. </template>Si querés
+            reservar ahora,
             <a
               href="#registro"
               class="font-bold text-white underline underline-offset-4"
@@ -39,6 +43,7 @@
             <label class="sr-only" for="avisame-email">Tu email</label>
             <input
               id="avisame-email"
+              ref="campo"
               v-model.trim="email"
               type="email"
               inputmode="email"
@@ -46,10 +51,14 @@
               placeholder="tumail@tumarca.com"
               class="campo"
               :class="{ 'campo-error': error }"
+              :aria-invalid="error ? 'true' : undefined"
+              :aria-describedby="error ? 'avisame-error' : undefined"
             />
-            <p v-if="error" class="error">{{ error }}</p>
+            <p v-if="error" id="avisame-error" role="alert" class="error">{{ error }}</p>
           </div>
-          <button type="submit" class="btn shrink-0">Avisame</button>
+          <button type="submit" :disabled="enviando" class="btn shrink-0 disabled:opacity-50">
+            {{ enviando ? "Enviando…" : "Avisame" }}
+          </button>
         </form>
       </div>
     </div>
@@ -57,45 +66,64 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
+import { EVENTO, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 
 const email = ref("");
 const error = ref("");
 const listo = ref(false);
+const enviando = ref(false);
+const porWhatsapp = ref(false);
+const campo = ref(null);
 
 const endpoint = import.meta.env.VITE_AVISOS_ENDPOINT || "";
+
+/**
+ * Sin endpoint, la versión anterior guardaba el mail en el localStorage del
+ * propio visitante y le decía "Anotado. Te escribimos." Ese dato no salía
+ * nunca de su navegador: era una promesa que no se podía cumplir. Ahora la
+ * vía alterna es WhatsApp, igual que en el registro principal, donde el
+ * mensaje sí llega a alguien.
+ */
+function abrirWhatsapp() {
+  const texto = encodeURIComponent(
+    `Hola! Quiero que me avisen cuando se anuncien los oradores de ${EVENTO.nombre}. ` +
+      `Mi mail es ${email.value}.`
+  );
+  window.open(`https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${texto}`, "_blank", "noopener,noreferrer");
+  porWhatsapp.value = true;
+  listo.value = true;
+}
 
 async function enviar() {
   error.value = "";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value)) {
     error.value = "Revisá el email.";
+    await nextTick();
+    campo.value?.focus();
     return;
   }
 
-  // Sin endpoint el mail no se pierde: queda en el navegador para recuperarlo
-  // cuando la lista de avisos esté conectada.
   if (!endpoint) {
-    try {
-      const previos = JSON.parse(localStorage.getItem("gastrotech-avisos") || "[]");
-      previos.push({ email: email.value, fecha: new Date().toISOString() });
-      localStorage.setItem("gastrotech-avisos", JSON.stringify(previos));
-    } catch {
-      /* si el almacenamiento falla, igual se le confirma al visitante */
-    }
-    listo.value = true;
+    abrirWhatsapp();
     return;
   }
 
+  enviando.value = true;
   try {
-    await fetch(endpoint, {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: email.value, origen: "avisame", evento: "gastrotech-2026" }),
     });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    listo.value = true;
   } catch {
-    /* no se le muestra un error por algo que se puede reintentar del lado nuestro */
+    // Antes se confirmaba igual y el contacto se perdía en silencio.
+    abrirWhatsapp();
+  } finally {
+    enviando.value = false;
   }
-  listo.value = true;
 }
 
 function ir(id) {
