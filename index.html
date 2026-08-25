@@ -27,9 +27,9 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://deenexproduct.github.io/evento-gastronomico/" />
-  <meta property="og:title" content="GastroTech · Córdoba" />
+  <meta property="og:title" content="GastroTech · Domingo 20/09, Córdoba · Entrada gratis" />
   <meta property="og:description"
-    content="Un día entero de charlas y demos en vivo para dueños de cadenas gastronómicas. Domingo 20 de septiembre, Hotel Quinto Centenario, Córdoba. 200 lugares." />
+    content="Domingo 20 de septiembre en Córdoba, de 9 a 18. Un día de charlas y demos en vivo para dueños de cadenas gastronómicas. Entrada sin costo, 200 lugares." />
   <meta property="og:image" content="https://deenexproduct.github.io/evento-gastronomico/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -40,9 +40,9 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="GastroTech · Córdoba" />
+  <meta name="twitter:title" content="GastroTech · Domingo 20/09, Córdoba · Entrada gratis" />
   <meta name="twitter:description"
-    content="Siete bloques sobre datos, IA, POS, contenido y ecosistema aplicados al negocio gastronómico. 200 lugares, entrada gratuita con registro." />
+    content="Domingo 20 de septiembre en Córdoba. Siete bloques sobre costos, datos, sistemas y contenido para dueños de cadenas gastronómicas. Entrada sin costo." />
   <meta name="twitter:image" content="https://deenexproduct.github.io/evento-gastronomico/og-image.png" />
 
   <!-- Favicons -->
@@ -109,7 +109,44 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <!--
+    Lo mínimo que tiene que quedar en pie si el JavaScript no llega: wifi de
+    local, red del shopping, túnel, o el navegador embebido de una app que
+    falla. Sin esto, ese caso es una pantalla en blanco — ni el nombre del
+    evento, ni la fecha, ni cómo reservar.
+
+    Vue lo reemplaza entero al montar, así que no hay riesgo de que se vea
+    duplicado ni de que quede desactualizado en pantalla: si se ve, es porque
+    la aplicación no arrancó.
+    Los datos van escritos a mano a propósito: cualquier cosa que dependa de
+    un import viaja dentro del mismo archivo que puede no llegar.
+  -->
+  <div id="app">
+    <div style="max-width:34rem;margin:0 auto;padding:4rem 1.5rem;font-family:system-ui,sans-serif;color:#1A1A1A">
+      <p style="margin:0;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#C7003F">
+        Organiza Deenex
+      </p>
+      <h1 style="margin:.75rem 0 0;font-size:2.5rem;line-height:1.05;letter-spacing:-.02em">GastroTech</h1>
+      <p style="margin:.75rem 0 0;font-size:1.05rem;line-height:1.5">
+        Un día de gastronomía y tecnología para dueños de cadenas gastronómicas.
+      </p>
+      <p style="margin:1.5rem 0 0;font-size:1.05rem;line-height:1.6">
+        <strong>Domingo 20 de septiembre de 2026</strong>, de 9 a 18 h.<br />
+        Hotel Quinto Centenario, Duarte Quirós 1300, Córdoba.<br />
+        Entrada sin costo · 200 lugares.
+      </p>
+      <p style="margin:2rem 0 0">
+        <a href="https://wa.me/5491154596266?text=GASTROTECH%20%C2%B7%20QUIERO%20IR%0A%0AHola%20Alan!%20Quiero%20mi%20lugar%20para%20el%20domingo%2020%20de%20septiembre%20en%20C%C3%B3rdoba.%0A%0ANombre%3A%0AMarca%3A%0ACu%C3%A1ntos%20locales%20tengo%3A%0AMi%20rol%3A%0AMi%20mail%20(ah%C3%AD%20me%20mandan%20la%20grilla)%3A"
+           style="display:inline-block;background:#E00049;color:#fff;padding:1rem 1.75rem;border-radius:9999px;font-weight:700;text-decoration:none">
+          Reservar por WhatsApp
+        </a>
+      </p>
+      <p style="margin:1.5rem 0 0;font-size:.9rem;color:#55535C">
+        Si estás viendo esta versión reducida, la página completa no pudo cargar. Recargá o
+        escribinos por WhatsApp: se reserva igual.
+      </p>
+    </div>
+  </div>
   <script type="module" src="/src/main.js"></script>
 </body>
 
