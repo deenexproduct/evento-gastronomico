@@ -111,7 +111,7 @@ const DATOS = [
     icono: "entrada",
     label: "Entrada",
     valor: "Sin costo, con registro previo",
-    nota: "El código de acceso llega por mail y se escanea en la puerta.",
+    nota: "Tu nombre queda en la lista de la puerta cuando confirmamos por WhatsApp.",
   },
 ];
 

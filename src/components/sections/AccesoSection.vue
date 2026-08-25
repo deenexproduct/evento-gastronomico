@@ -103,7 +103,7 @@ const tramos = computed(() => [
     estado: "completo",
     incluye: [
       "Se registraron antes que vos",
-      "Ya tienen su código de acceso",
+      "Ya confirmaron su lugar",
       "Reciben la grilla primero",
     ],
   },

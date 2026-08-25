@@ -1,122 +1,84 @@
 import { test, expect } from "@playwright/test";
 
-/** El camino que tiene que funcionar sí o sí: el visitante deja sus datos. */
+/**
+ * La reserva es un enlace a WhatsApp, no un formulario.
+ *
+ * Lo que hay que proteger acá no es una validación —ya no hay ninguna— sino
+ * que el enlace salga bien armado: si el mensaje se rompe, la persona lo manda
+ * igual y el dato se pierde en el chat sin que nada avise.
+ */
 
-test.beforeEach(async ({ page }) => {
+/** El href del botón principal de la sección de reserva. */
+async function enlaceReserva(page) {
+  return page.locator('#registro a[href*="wa.me"]').first().getAttribute("href");
+}
+
+test("el botón de reservar abre WhatsApp con el mensaje escrito", async ({ page }) => {
   await page.goto("/");
-  await page.waitForLoadState("networkidle");
-  await page.locator("#registro").scrollIntoViewIfNeeded();
+  const href = await enlaceReserva(page);
+  expect(href).toContain("wa.me/5491154596266");
+
+  const texto = decodeURIComponent(href.split("text=")[1]);
+  expect(texto).toContain("GASTROTECH · QUIERO IR");
+  expect(texto).toContain("Nombre:");
+  expect(texto).toContain("Mi mail");
 });
 
-test("el paso 1 pide dos campos y frena si están vacíos", async ({ page }) => {
-  const registro = page.locator("#registro");
-  await expect(registro.locator("#reg-nombre")).toBeVisible();
-  await expect(registro.locator("#reg-email")).toBeVisible();
-
-  await registro.getByRole("button", { name: /continuar/i }).click();
-
-  await expect(registro.locator(".error")).toHaveCount(2);
-  await expect(registro.locator("#reg-nombre")).toBeVisible(); // sigue en el paso 1
+test("no queda ningún formulario en la página", async ({ page }) => {
+  await page.goto("/#registro");
+  // La sección de reserva no puede pedir que se tipee nada: si aparece un
+  // campo, es que volvió parte del formulario que se sacó a propósito.
+  await expect(page.locator("#registro input, #registro textarea, #registro select")).toHaveCount(0);
 });
 
-test("con datos válidos avanza al paso 2", async ({ page }) => {
-  const registro = page.locator("#registro");
-  await registro.locator("#reg-nombre").fill("Alan Tapia");
-  await registro.locator("#reg-email").fill("alan@deenex.tech");
-  await registro.getByRole("button", { name: /continuar/i }).click();
+test("el selector de locales escribe el dato en el mensaje", async ({ page }) => {
+  await page.goto("/#registro");
+  const antes = await enlaceReserva(page);
+  expect(decodeURIComponent(antes)).toContain("Cuántos locales tengo:");
 
-  await expect(registro.locator("#reg-marca")).toBeVisible();
-  await expect(registro.locator("#reg-rol")).toBeVisible();
-  await expect(registro.locator("#reg-locales")).toBeVisible();
-  await expect(registro.locator("#reg-whatsapp")).toBeVisible();
+  await page.locator("#registro fieldset button").first().click();
+  const despues = await enlaceReserva(page);
+  const texto = decodeURIComponent(despues.split("text=")[1]);
+
+  expect(texto).toContain("Locales:");
+  // El renglón en blanco tiene que desaparecer, o el mensaje pregunta dos
+  // veces lo mismo y la persona borra uno al azar.
+  expect(texto).not.toContain("Cuántos locales tengo:");
 });
 
-test("se puede volver al paso 1 sin perder lo cargado", async ({ page }) => {
-  const registro = page.locator("#registro");
-  await registro.locator("#reg-nombre").fill("Alan Tapia");
-  await registro.locator("#reg-email").fill("alan@deenex.tech");
-  await registro.getByRole("button", { name: /continuar/i }).click();
-  await registro.getByRole("button", { name: /volver/i }).click();
+test("el selector se puede deshacer y el mensaje vuelve atrás", async ({ page }) => {
+  await page.goto("/#registro");
+  const boton = page.locator("#registro fieldset button").first();
+  await boton.click();
+  await expect(boton).toHaveAttribute("aria-pressed", "true");
 
-  await expect(registro.locator("#reg-nombre")).toHaveValue("Alan Tapia");
-  await expect(registro.locator("#reg-email")).toHaveValue("alan@deenex.tech");
+  await boton.click();
+  await expect(boton).toHaveAttribute("aria-pressed", "false");
+  expect(decodeURIComponent(await enlaceReserva(page))).toContain("Cuántos locales tengo:");
 });
 
-test("el mail inválido no pasa del paso 1", async ({ page }) => {
-  const registro = page.locator("#registro");
-  await registro.locator("#reg-nombre").fill("Alan Tapia");
-  await registro.locator("#reg-email").fill("noesunmail");
-  await registro.getByRole("button", { name: /continuar/i }).click();
-
-  await expect(registro.locator(".error")).toHaveCount(1);
-  await expect(registro.locator("#reg-email")).toBeVisible();
+test("el enlace se abre en otra pestaña y avisa que lo hace", async ({ page }) => {
+  await page.goto("/#registro");
+  const boton = page.locator('#registro a[href*="wa.me"]').first();
+  await expect(boton).toHaveAttribute("target", "_blank");
+  // rel noopener: sin esto la pestaña nueva puede manipular la original.
+  await expect(boton).toHaveAttribute("rel", /noopener/);
+  await expect(boton.locator(".sr-only")).toContainText("pestaña nueva");
 });
 
-test("las opciones de locales corresponden a cadenas", async ({ page }) => {
-  const registro = page.locator("#registro");
-  await registro.locator("#reg-nombre").fill("Alan Tapia");
-  await registro.locator("#reg-email").fill("alan@deenex.tech");
-  await registro.getByRole("button", { name: /continuar/i }).click();
-
-  // allTextContents no espera: sin esta línea devuelve [] si el paso 2 todavía
-  // no se pintó, y el test falla de forma intermitente solo en mobile.
-  await expect(registro.locator("#reg-locales")).toBeVisible();
-  const opciones = await registro.locator("#reg-locales option").allTextContents();
-  // El público es de cadenas: "1 local" no puede seguir siendo una opción.
-  expect(opciones.some((o) => /^1 local$/i.test(o.trim()))).toBe(false);
-  expect(opciones.some((o) => /locales/i.test(o))).toBe(true);
+test("se puede agendar el evento sin haber reservado", async ({ page }) => {
+  await page.goto("/#registro");
+  // El agendado vivía detrás del formulario enviado. Es la mitigación número
+  // uno del no-show, así que ahora tiene que estar a la vista de todos.
+  await expect(page.locator('#registro a[href*="calendar.google.com"]')).toBeVisible();
+  await expect(page.locator("#registro a[download]")).toBeVisible();
 });
 
-test("la captura de mail valida y confirma", async ({ page }) => {
-  const avisame = page.locator("#avisame");
-  await avisame.scrollIntoViewIfNeeded();
-
-  await avisame.locator("#avisame-email").fill("noesunmail");
-  await avisame.getByRole("button", { name: /avisame/i }).click();
-  await expect(avisame.locator(".error")).toHaveCount(1);
-
-  await avisame.locator("#avisame-email").fill("alan@deenex.tech");
-  await avisame.getByRole("button", { name: /avisame/i }).click();
-  // Con un mail válido desaparece el error y aparece la confirmación.
-  await expect(avisame.locator(".error")).toHaveCount(0);
-  await expect(avisame.getByRole("link", { name: /el registro está acá/i })).toBeVisible();
-});
-
-test("sin backend, la confirmación no afirma una reserva que no ocurrió", async ({ page }) => {
-  // Así se publica hoy: el workflow compila sin VITE_REGISTRO_ENDPOINT, o sea
-  // que el envío es abrir WhatsApp. Hasta que la persona mande ese mensaje no
-  // hay nada guardado en ningún lado.
-  await page.addInitScript(() => {
-    // Navegador embebido tipo Instagram: window.open no abre nada.
-    window.open = () => null;
-  });
-  await page.reload();
-
-  const registro = page.locator("#registro");
-  await registro.locator("#reg-nombre").fill("Alan Tapia");
-  await registro.locator("#reg-email").fill("alan@deenex.tech");
-  await registro.getByRole("button", { name: /continuar/i }).click();
-
-  await expect(registro.locator("#reg-marca")).toBeVisible();
-  await registro.locator("#reg-marca").fill("La Fábrica");
-  await registro.locator("#reg-whatsapp").fill("3514459626");
-  await registro.locator("#reg-tema").fill("Cómo bajar la merma en cocina");
-  await registro.locator("#reg-rol").selectOption({ index: 1 });
-  await registro.locator("#reg-locales").selectOption({ index: 1 });
-  await registro.locator('input[type="checkbox"]').first().check();
-  await registro.locator('button[type="submit"]').click();
-
-  const panel = registro.locator('[tabindex="-1"]');
-  await expect(panel).toBeVisible();
-  await expect(panel).not.toContainText(/qued[óo] reservado/i);
-  await expect(panel).toContainText(/falta un paso/i);
-
-  // El enlace tiene que quedar tocable: el window.open pudo no abrir nada.
-  const boton = panel.locator('a[href*="wa.me"]');
-  await expect(boton).toBeVisible();
-
-  // Y el tema que escribió tiene que viajar en el mensaje: por esta vía era
-  // lo único que se quedaba en el navegador.
-  const href = await boton.getAttribute("href");
-  expect(decodeURIComponent(href)).toContain("Cómo bajar la merma en cocina");
+test("la página no promete un mail que ya nadie manda", async ({ page }) => {
+  await page.goto("/");
+  const texto = await page.locator("body").innerText();
+  // Sin formulario no hay envío automático de código: cualquier frase que lo
+  // prometa es una promesa que nadie puede cumplir.
+  expect(texto).not.toMatch(/código de acceso te llega por mail/i);
+  expect(texto).not.toMatch(/código de acceso llega por mail/i);
 });

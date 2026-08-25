@@ -50,7 +50,7 @@
           </div>
 
           <p class="mt-5 text-[14px] leading-[1.5] text-gris">
-            Entrada sin costo con inscripción previa · El código de acceso te llega por mail
+            Entrada sin costo con reserva previa · Se reserva por WhatsApp, sin formularios
           </p>
         </div>
 

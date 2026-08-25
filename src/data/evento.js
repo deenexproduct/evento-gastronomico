@@ -648,14 +648,6 @@ export const FAQ = [
 // Registro
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const ROLES = [
-  "Dueño / Dueña",
-  "Socio / Socia",
-  "Gerente general",
-  "Gerente de operaciones",
-  "Marketing",
-  "Otro",
-];
 
 export const CANTIDAD_LOCALES = [
   "2 a 5 locales",
@@ -711,9 +703,65 @@ export const WHATSAPP_ORGANIZADOR = "5491154596266";
 // para que del otro lado se sepa qué es sin tener que preguntarlo.
 // ─────────────────────────────────────────────────────────────────────────────
 
+/**
+ * El mensaje de reserva. Es todo lo que queda del formulario.
+ *
+ * Los renglones en blanco son los campos que antes se tipeaban en la página.
+ * El orden importa: en el celular la caja de texto de WhatsApp muestra las
+ * primeras líneas y el resto hay que scrollearlo, así que primero va lo que ya
+ * viene resuelto y después lo que hay que completar.
+ *
+ * Se sacaron tres campos del formulario a propósito:
+ * · whatsapp — el chat ES el número; pedirlo ahí adentro es absurdo.
+ * · acepta   — mandar el mensaje a mano ya es la confirmación.
+ * · publicar — se pregunta en la conversación, que deja el sí por escrito con
+ *              nombre y fecha: mejor consentimiento que un checkbox.
+ */
+export function mensajeReserva({ locales = "", agotado = false } = {}) {
+  const lineas = agotado
+    ? [
+        "GASTROTECH · LISTA DE ESPERA",
+        "",
+        "Hola Alan! Sé que la sala está llena. Quiero quedar en la lista por si se libera un lugar el domingo 20 de septiembre.",
+        "",
+      ]
+    : [
+        "GASTROTECH · QUIERO IR",
+        "",
+        "Hola Alan! Quiero mi lugar para el domingo 20 de septiembre en Córdoba.",
+        "",
+      ];
+
+  // Lo ya resuelto va primero: se ve sin scrollear y le prueba a la persona
+  // que el selector de la página sirvió para algo.
+  if (locales) lineas.push(`Locales: ${locales}`);
+
+  lineas.push(
+    "Nombre:",
+    "Marca:",
+    ...(locales ? [] : ["Cuántos locales tengo:"]),
+    "Mi rol:",
+    // El paréntesis no es adorno: un renglón que dice solo "Mail:" se saltea.
+    // Con la razón adentro se completa, y el mail es el dato más frágil que
+    // queda ahora que no hay formulario.
+    "Mi mail (ahí me mandan la grilla):"
+  );
+
+  // El tema es el renglón que convierte una plantilla en una conversación. No
+  // entra en la lista de espera: preguntarle el tema a alguien que no entra es
+  // una falta de respeto.
+  if (!agotado) lineas.push("", "Me interesaría que se hable de:");
+
+  return lineas.join("\n");
+}
+
+/** El enlace de reserva, listo para abrir. */
+export function linkWaReserva(opciones) {
+  return `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(mensajeReserva(opciones))}`;
+}
+
 export const MENSAJES_WA = {
-  registro:
-    "REGISTRO GASTROTECH\n\nHola Alan! Quiero mi lugar para el domingo 20 de septiembre.\n\nNombre:\nMi cadena:\nCantidad de locales:\nMi rol:",
+  registro: mensajeReserva(),
   partner:
     "QUIERO SER PARTNER DE GASTROTECH\n\nHola Alan! Me interesa participar como partner del evento del 20 de septiembre.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:",
   prensa:
