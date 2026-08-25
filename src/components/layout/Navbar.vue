@@ -23,7 +23,8 @@
 
         <div class="flex items-center gap-5">
           <span class="rotulo hidden text-gris md:inline">
-            {{ agotado ? "Cupo completo" : `${restantes} lugares` }}
+            <!-- "Quedan N" solo si N es un dato real; si no, el total. -->
+            {{ agotado ? "Cupo completo" : mostrarCupo ? `${restantes} lugares` : `${total} lugares` }}
           </span>
           <a
             href="#registro"
@@ -43,7 +44,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
-const { restantes, agotado } = useCupo();
+const { total, restantes, agotado, mostrarCupo } = useCupo();
 const scrolled = ref(false);
 
 const enlaces = [

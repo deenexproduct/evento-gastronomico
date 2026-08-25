@@ -94,7 +94,8 @@ import { useCupo } from "@/composables/useCupo";
 const { total, ocupados, restantes, agotado, mostrarCupo } = useCupo();
 
 /** Los tres tramos son el llenado real del salón, no fases de precio. */
-const tramos = computed(() => [
+const tramos = computed(() =>
+  [
   {
     etiqueta: "Ya tomados",
     titulo: "Primeras marcas",
@@ -140,7 +141,8 @@ const tramos = computed(() => [
       "Te escribimos si se abre uno",
     ],
   },
-]);
+  ].filter((t) => mostrarCupo.value || t.etiqueta !== "Ya tomados")
+);
 
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

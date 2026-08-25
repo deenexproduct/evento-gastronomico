@@ -636,7 +636,7 @@ export const FAQ = [
   },
   {
     q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, y conviene. Cada persona necesita su propio registro y su propio QR porque el cupo se cuenta por persona. Venir con tu socio o tu gerente hace que lo que escuchan rinda más cuando vuelven al local.",
+    a: "Sí, y conviene. Cada persona se anota con su propio mensaje de WhatsApp porque el cupo se cuenta por persona; en la puerta alcanza con el nombre de cada uno. Venir con tu socio o tu gerente hace que lo que escuchan rinda más cuando vuelven al local.",
   },
   {
     q: "¿Dónde es exactamente?",

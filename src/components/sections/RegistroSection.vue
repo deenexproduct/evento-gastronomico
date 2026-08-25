@@ -37,26 +37,47 @@
             </template>
           </p>
 
+          <!--
+            La cifra que baja y la barra estaban fuera del v-if: mostraban
+            "quedan N" aunque el conteo no fuera un dato real. Mientras no lo
+            sea, se muestra el total del salón, que es cierto siempre.
+          -->
           <div ref="anclaCupo" class="tarjeta mt-9 p-6">
-            <div class="flex items-baseline justify-between gap-4">
-              <span
-                class="inline-block min-w-[3ch] text-[3rem] font-black leading-none tabular-nums text-acento-texto"
-              >
-                {{ cupoContado }}
-              </span>
-              <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
-                lugares<br />disponibles
-              </span>
-            </div>
-            <div class="mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10">
-              <div
-                class="h-full rounded-full bg-acento transition-[width] duration-1000"
-                :style="{ width: Math.max(porcentaje, 3) + '%' }"
-              ></div>
-            </div>
-            <p v-if="mostrarCupo" class="mt-3 text-[14px] text-gris">
-              {{ ocupados }} de {{ total }} ya tomados
-            </p>
+            <template v-if="mostrarCupo">
+              <div class="flex items-baseline justify-between gap-4">
+                <span
+                  class="inline-block min-w-[3ch] text-[3rem] font-black leading-none tabular-nums text-acento-texto"
+                >
+                  {{ cupoContado }}
+                </span>
+                <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
+                  lugares<br />disponibles
+                </span>
+              </div>
+              <div class="mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10">
+                <div
+                  class="h-full rounded-full bg-acento transition-[width] duration-1000"
+                  :style="{ width: Math.max(porcentaje, 3) + '%' }"
+                ></div>
+              </div>
+              <p class="mt-3 text-[14px] text-gris">{{ ocupados }} de {{ total }} ya tomados</p>
+            </template>
+
+            <template v-else>
+              <div class="flex items-baseline justify-between gap-4">
+                <span
+                  class="inline-block text-[3rem] font-black leading-none tabular-nums text-acento-texto"
+                >
+                  {{ total }}
+                </span>
+                <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
+                  lugares<br />en total
+                </span>
+              </div>
+              <p class="mt-4 text-[14px] text-gris">
+                El cupo es la capacidad real del salón. No hay sillas de más.
+              </p>
+            </template>
           </div>
 
           <ul class="mt-8 space-y-3">

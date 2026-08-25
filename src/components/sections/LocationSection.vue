@@ -40,7 +40,7 @@
               Antes de venir
             </p>
             <div class="mt-5 grid gap-5">
-              <div v-for="l in LOGISTICA" :key="l.titulo" class="flex items-start gap-4">
+              <div v-for="l in LOGISTICA_VISIBLE" :key="l.titulo" class="flex items-start gap-4">
                 <span class="mt-0.5 shrink-0 text-acento-texto">
                   <Pictograma :nombre="l.icono" :tam="18" />
                 </span>
@@ -140,6 +140,18 @@ const LOGISTICA = [
     pendiente: true,
   },
 ];
+
+/**
+ * El flag `pendiente` marcaba una nota interna de producción, pero solo le
+ * cambiaba el color: las dos notas se publicaban textuales, con el "A
+ * confirmar con el hotel" a la vista de cualquiera. Ahora filtra de verdad.
+ *
+ * Las dos que hoy quedan fuera —estacionamiento y accesibilidad— vuelven
+ * solas cuando alguien escriba la respuesta real y les saque el flag. La
+ * accesibilidad, en particular, conviene publicarla: hoy es la única mención
+ * del sitio y para más de una persona decide si viene o no.
+ */
+const LOGISTICA_VISIBLE = LOGISTICA.filter((l) => !l.pendiente);
 
 const comoLlegar =
   "https://www.google.com/maps/search/?api=1&query=" +

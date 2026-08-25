@@ -33,7 +33,7 @@
 
       <!-- Logos -->
       <p class="mt-16 text-[13px] font-black uppercase tracking-[0.16em] text-gris-2">
-        Marcas que apoyan la jornada
+        Marcas que trabajan con Deenex
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6 sm:gap-x-10">
         <!--

@@ -97,22 +97,31 @@
               }}</span>
             </p>
 
-            <div class="mt-4 flex items-baseline justify-between gap-4">
-              <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
-              <p
-                class="text-[14px] font-bold tabular-nums text-gris"
-                style="min-width: 7ch; text-align: right"
-              >
-                {{ ocupados }} / {{ total }}
-              </p>
-            </div>
+            <!--
+              El conteo solo sale cuando es real. Hasta que haya suficientes
+              anotados, la página dice cuántos lugares hay —que es cierto
+              siempre— y no cuántos quedan, que sería inventado.
+            -->
+            <template v-if="mostrarCupo">
+              <div class="mt-4 flex items-baseline justify-between gap-4">
+                <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
+                <p
+                  class="text-[14px] font-bold tabular-nums text-gris"
+                  style="min-width: 7ch; text-align: right"
+                >
+                  {{ ocupados }} / {{ total }}
+                </p>
+              </div>
 
-            <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
-              <div
-                class="h-full rounded-full bg-acento transition-[width] duration-[1200ms] ease-out"
-                :style="{ width: ancho + '%' }"
-              ></div>
-            </div>
+              <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
+                <div
+                  class="h-full rounded-full bg-acento transition-[width] duration-[1200ms] ease-out"
+                  :style="{ width: ancho + '%' }"
+                ></div>
+              </div>
+            </template>
+
+            <p v-else class="mt-4 rotulo text-white">{{ total }} lugares · entrada sin costo</p>
 
             <p class="mt-3 text-[14px] leading-[1.45] text-gris">
               <template v-if="agotado">
@@ -136,7 +145,7 @@ import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCuentaRegresiva } from "@/composables/useCuentaRegresiva";
 
-const { total, ocupados, porcentaje, agotado } = useCupo();
+const { total, ocupados, porcentaje, agotado, mostrarCupo } = useCupo();
 const { dias, estado } = useCuentaRegresiva();
 
 const ancho = ref(0);
