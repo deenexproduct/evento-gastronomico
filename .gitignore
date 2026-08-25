@@ -34,3 +34,7 @@ _deenex-source/
 
 # Claude Code local dev config (paths absolutos del dev)
 .claude/
+
+# Testing
+test-results/
+playwright-report/
