@@ -31,15 +31,20 @@
       <p class="mt-16 text-[13px] font-black uppercase tracking-[0.16em] text-gris-2">
         Clientes de Deenex
       </p>
-      <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-7 sm:gap-x-14">
-        <img
+      <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6 sm:gap-x-10">
+        <!-- Caja de tamaño fijo: reserva el espacio antes de que cargue el logo -->
+        <div
           v-for="logo in logos"
           :key="logo.src"
-          :src="logo.src"
-          :alt="logo.alt"
-          class="h-7 w-auto max-w-[120px] object-contain opacity-45 brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-9"
-          loading="lazy"
-        />
+          class="grid h-9 w-[120px] place-items-center sm:h-11 sm:w-[140px]"
+        >
+          <img
+            :src="logo.src"
+            :alt="logo.alt"
+            class="max-h-full max-w-full object-contain opacity-45 brightness-0 invert transition-opacity duration-200 hover:opacity-100"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   </section>

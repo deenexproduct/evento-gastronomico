@@ -34,6 +34,26 @@
             </div>
           </dl>
 
+          <!-- Logística práctica -->
+          <div class="mt-10 border-t border-white/10 pt-8">
+            <p class="text-[13px] font-black uppercase tracking-[0.12em] text-gris-2">
+              Antes de venir
+            </p>
+            <div class="mt-5 grid gap-5">
+              <div v-for="l in LOGISTICA" :key="l.titulo" class="flex items-start gap-4">
+                <span class="mt-0.5 shrink-0 text-acento-texto">
+                  <Pictograma :nombre="l.icono" :tam="18" />
+                </span>
+                <div class="min-w-0">
+                  <p class="text-[15px] font-black uppercase tracking-[0.02em]">{{ l.titulo }}</p>
+                  <p class="mt-1 text-[15px] leading-[1.5]" :class="l.pendiente ? 'text-gris-2' : 'text-gris'">
+                    {{ l.texto }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <a
             :href="comoLlegar"
             target="_blank"
@@ -88,6 +108,32 @@ const DATOS = [
     label: "Entrada",
     valor: "Sin costo, con registro previo",
     nota: "El código de acceso llega por mail y se escanea en la puerta.",
+  },
+];
+
+/**
+ * Logística práctica. Responde en el orden en que aparece la duda cuando
+ * alguien ya decidió ir. Todo lo que está como "A confirmar" no se publica
+ * hasta que producción lo verifique.
+ */
+const LOGISTICA = [
+  {
+    icono: "reloj",
+    titulo: "A qué hora conviene llegar",
+    texto:
+      "La acreditación abre 8:30 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
+  },
+  {
+    icono: "auto",
+    titulo: "Dónde dejar el auto",
+    texto: "A confirmar con producción: capacidad de estacionamiento y playas cercanas al hotel.",
+    pendiente: true,
+  },
+  {
+    icono: "gente",
+    titulo: "Accesibilidad",
+    texto: "A confirmar con el hotel: acceso sin escaleras, ascensor y baños adaptados.",
+    pendiente: true,
   },
 ];
 

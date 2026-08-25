@@ -47,7 +47,7 @@
 
         <div class="mt-4 flex items-baseline justify-between gap-4">
           <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
-          <p class="text-[14px] font-bold tabular-nums text-gris">
+          <p class="text-[14px] font-bold tabular-nums text-gris" style="min-width:7ch;text-align:right">
             {{ ocupados }} / {{ total }}
           </p>
         </div>

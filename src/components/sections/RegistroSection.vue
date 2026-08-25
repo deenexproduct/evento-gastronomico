@@ -17,7 +17,7 @@
           <!-- Cupo -->
           <div ref="anclaCupo" class="tarjeta mt-9 p-6">
             <div class="flex items-baseline justify-between gap-4">
-              <span class="text-[3rem] font-black leading-none tabular-nums text-acento-texto">
+              <span class="inline-block min-w-[3ch] text-[3rem] font-black leading-none tabular-nums text-acento-texto">
                 {{ cupoContado }}
               </span>
               <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
@@ -155,14 +155,14 @@
                 </div>
               </div>
 
-              <button type="button" class="btn mt-8 w-full" @click="siguiente">Continuar</button>
+              <button type="button" class="btn mt-8 w-full" @click="alSiguiente">Continuar</button>
               <p class="mt-4 text-center text-[13px] text-gris">
                 Falta un paso más · Sin costo · Sin letra chica
               </p>
             </div>
 
             <!-- ── Paso 2: la marca ── -->
-            <div v-else class="mt-7">
+            <div v-else ref="panelPaso2" tabindex="-1" class="mt-7 focus:outline-none">
               <button
                 type="button"
                 class="mb-5 inline-flex min-h-[44px] items-center gap-2 text-[14px] font-bold text-gris hover:text-white"
@@ -301,7 +301,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref, nextTick } from "vue";
 import { ROLES, CANTIDAD_LOCALES, WHATSAPP_ORGANIZADOR } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRegistro } from "@/composables/useRegistro";
@@ -342,6 +342,15 @@ const whatsappRegistro =
   encodeURIComponent(
     "Hola! Quiero reservar mi lugar en GastroTech del 20 de septiembre en Córdoba."
   );
+
+const panelPaso2 = ref(null);
+
+/** Avanza y lleva el foco al paso nuevo, para no perder al usuario de teclado. */
+async function alSiguiente() {
+  if (!siguiente()) return;
+  await nextTick();
+  panelPaso2.value?.focus();
+}
 
 async function onSubmit() {
   const ok = await enviar();

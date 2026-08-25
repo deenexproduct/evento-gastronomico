@@ -25,6 +25,9 @@
       <!-- Reels verticales: se activa sola cuando haya videos cargados -->
       <ReelsSection class="v-reveal" />
 
+      <!-- Quién lo organiza: el brief dice que se sigue a la persona -->
+      <AlanSection class="v-reveal" />
+
       <!-- El programa completo, con las horas como sistema -->
       <JornadaSection class="v-reveal bg-noche" />
 
@@ -54,11 +57,17 @@
       <LocationSection class="v-reveal bg-noche-2" />
 
 
+      <!-- Qué pasa si no podés venir y qué queda después -->
+      <DespuesSection class="v-reveal bg-noche" />
+
       <!-- Captura secundaria, para el que llegó hasta acá y no se registró -->
       <AvisameSection class="v-reveal" />
 
       <!-- Preguntas -->
       <FAQSection class="v-reveal bg-noche" />
+
+      <!-- Partners y prensa: los otros dos públicos, al final -->
+      <SumarseSection class="v-reveal" />
 
     </main>
 
@@ -76,6 +85,7 @@ import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
 import OradoresSection from "@/components/sections/OradoresSection.vue";
+import AlanSection from "@/components/sections/AlanSection.vue";
 import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
@@ -84,6 +94,8 @@ import ElLunesSection from "@/components/sections/ElLunesSection.vue";
 import AnotadasSection from "@/components/sections/AnotadasSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import AvisameSection from "@/components/sections/AvisameSection.vue";
+import DespuesSection from "@/components/sections/DespuesSection.vue";
+import SumarseSection from "@/components/sections/SumarseSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import PruebaSection from "@/components/sections/PruebaSection.vue";
 import LocationSection from "@/components/sections/LocationSection.vue";
