@@ -527,7 +527,14 @@ html.claro .mapa { filter: grayscale(1) contrast(1.05); }
 /* NO usar brightness(0): pinta de negro el archivo entero, fondo incluido, y
    de los doce logos solo sobreviven los que son puro texto. Los otros nueve
    quedan como manchas idénticas. grayscale conserva las formas. */
-html.claro img.invert { filter: grayscale(1) !important; opacity: .75 !important; }
+/* Dos de los doce traen su propio rectangulo opaco adentro del archivo:
+   konex es blanco (254,254,254) y sportclub blanco puro. Sobre fondo claro,
+   multiply hace que el blanco no pinte nada y el rectangulo desaparece,
+   quedando solo la marca. Medido archivo por archivo antes de tocar esto.
+
+   Con ayres y hatsu no alcanza: su caja es gris oscuro (35,35,35) y multiply
+   la deja igual de oscura. Esos dos necesitan el archivo recortado. */
+html.claro img.invert { filter: grayscale(1) !important; opacity: .75 !important; mix-blend-mode: multiply; }
 html.claro img.invert:hover { opacity: 1 !important; }
 
 /* Regresiones que causó este mismo bloque: una declaración !important de

@@ -202,7 +202,7 @@ const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const INCLUYE = [
   "Los siete bloques y las demos en vivo",
-  "Beneficios exclusivos de todos los partners",
+  "Los stands de los partners abiertos desde las 8:30",
   "Degustaciones y networking de cierre",
   "La grilla final, antes que el resto",
 ];

@@ -166,3 +166,58 @@ test("el mapa de Google no se descarga hasta que alguien lo pide", async ({ page
   await page.getByRole("button", { name: /ver el mapa/i }).click();
   await expect(page.locator("#lugar iframe")).toHaveCount(1);
 });
+
+test("solo dos logos del muro siguen trayendo su propia caja", async ({ page }) => {
+  // Cuatro de los doce archivos venían con un rectángulo opaco adentro y se
+  // veían como manchas. Dos eran de fondo blanco (konex, sportclub) y
+  // multiply sobre fondo claro los resuelve: el blanco no pinta nada y queda
+  // solo la marca. Los otros dos —hatsu y ayres— traen la caja en gris
+  // oscuro (35,35,35) y multiply la deja igual: para ésos hace falta el
+  // archivo recortado. Este test fija dónde estamos y falla si aparece un
+  // tercero.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  await revelarTodo(page);
+  await page.evaluate(() => {
+    document.querySelectorAll(".barra-fija, header").forEach((e) => (e.style.visibility = "hidden"));
+  });
+
+  const fondo = await page.evaluate(
+    () => getComputedStyle(document.querySelector("#detras")).backgroundColor
+  );
+  const f = fondo.match(/\d+/g).map(Number);
+  const conCaja = [];
+
+  for (const img of await page.$$("#detras img")) {
+    const alt = await img.getAttribute("alt");
+    await img.scrollIntoViewIfNeeded();
+    const buf = await img.screenshot();
+    // Se muestrea a un 4% de cada esquina y se promedia, no el píxel (1,1):
+    // el proyecto móvil renderiza con densidad 2,6x y ese píxel cae sobre el
+    // antialias del borde, así que "ayres" pasaba desapercibido. El dato que
+    // se busca es del archivo, no del viewport, y no puede depender del DPR.
+    const esquina = await page.evaluate(async (b64) => {
+      const im = new Image();
+      im.src = "data:image/png;base64," + b64;
+      await im.decode();
+      const c = document.createElement("canvas");
+      c.width = im.width;
+      c.height = im.height;
+      const x = c.getContext("2d");
+      x.drawImage(im, 0, 0);
+      const dx = Math.max(1, Math.round(im.width * 0.04));
+      const dy = Math.max(1, Math.round(im.height * 0.04));
+      const puntos = [[dx, dy], [im.width - dx, dy], [dx, im.height - dy], [im.width - dx, im.height - dy]];
+      const suma = [0, 0, 0];
+      for (const [px, py] of puntos) {
+        const d = x.getImageData(px, py, 1, 1).data;
+        suma[0] += d[0]; suma[1] += d[1]; suma[2] += d[2];
+      }
+      return suma.map((v) => Math.round(v / puntos.length));
+    }, buf.toString("base64"));
+    const dif = Math.max(...esquina.map((v, i) => Math.abs(v - f[i])));
+    if (dif > 25) conCaja.push(alt);
+  }
+
+  expect(conCaja.sort()).toEqual(["ayres", "hatsu"]);
+});

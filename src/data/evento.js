@@ -624,6 +624,10 @@ export const FAQ = [
     a: "Sí, y conviene. Cada persona reserva con su propio mensaje de WhatsApp porque el cupo se cuenta por persona; en la puerta alcanza con el nombre de cada uno. Venir con tu socio o tu gerente general hace que lo que escuchan rinda más cuando vuelven al local.",
   },
   {
+    q: "¿Se come algo durante el día?",
+    a: "Sí, y está en la entrada. Café de bienvenida desde las 8:30 con los stands ya abiertos, degustación entre bloque y bloque —alfajores, aceitunas, humus y café, que los ponen los proveedores confirmados—, una pausa larga de 12:45 a 13:45 con la ronda grande, coffee break a las 15:30, y vino, cerveza y café en el cierre.",
+  },
+  {
     q: "¿Dónde es exactamente?",
     a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo domingo el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
   },

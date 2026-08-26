@@ -213,3 +213,40 @@ describe("los tres capítulos", () => {
     ]);
   });
 });
+
+describe("preguntas que la página abría y no contestaba", () => {
+  it("no nombra el estacionamiento, porque no tiene la respuesta", () => {
+    // El rótulo de la sección dice "Cómo llegar" y el texto invitaba a la
+    // pregunta —"salí con tiempo para llegar Y ESTACIONAR"— con el ítem que
+    // la contesta apagado por un flag de pendiente. De los dos caminos, éste
+    // es el que no necesita un dato que no tenemos. Si Deenex confirma la
+    // playa, vuelve la palabra y vuelve el ítem.
+    expect(todo()).not.toMatch(/y estacionar/i);
+  });
+
+  it("el FAQ dice si se come, que es la cuenta que hace el que evalúa el domingo", () => {
+    // Nueve horas y media, evento gastronómico, y diez preguntas sin una
+    // sola sobre comida. La respuesta se arma entera con datos que ya
+    // estaban publicados en la jornada.
+    const faq = todo();
+    expect(faq).toMatch(/¿Se come algo durante el día\?/);
+    for (const dato of ["8:30", "12:45", "13:45", "15:30"]) {
+      expect(faq).toContain(dato);
+    }
+  });
+});
+
+describe("los beneficios de los partners", () => {
+  it("no se prometen en abstracto más de una vez al que asiste", () => {
+    // Se prometían tres veces sin decir nunca cuáles: el que evalúa entregar
+    // el domingo no puede valorar una palabra que todavía no significa nada.
+    // Queda la mención concreta —van por escrito, en un solo material— y las
+    // otras dos dejan de repetir la promesa vacía. El ejemplo que haría
+    // valer las tres lo tiene que dar Alan.
+    const alAsistente = [
+      readFileSync(join(SECCIONES, "RegistroSection.vue"), "utf-8"),
+      readFileSync(join(SECCIONES, "DespuesSection.vue"), "utf-8"),
+    ].map(sinComentarios).join("\n");
+    expect((alAsistente.match(/beneficios?/gi) || []).length).toBeLessThanOrEqual(1);
+  });
+});

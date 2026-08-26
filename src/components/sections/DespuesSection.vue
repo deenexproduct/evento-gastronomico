@@ -41,7 +41,7 @@
 const DESPUES = [
   {
     titulo: "El material del día",
-    texto: "Todo el evento en un material: los beneficios disponibles y cómo encararlos.",
+    texto: "El evento entero en un material, para abrirlo el lunes cuando volvés al local.",
   },
   {
     titulo: "Tu diagnóstico, si lo pedís ese día",
