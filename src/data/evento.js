@@ -675,64 +675,6 @@ export const REELS = [
   // { archivo: "17-el-salon.mp4", poster: "17.jpg", titulo: "Este es el salón" },
 ];
 
-/**
- * Seis cosas que un dueño de cadena o tiene resueltas o no.
- *
- * `tema` apunta al id del bloque de TEMAS donde se habla de eso: el resultado
- * se DERIVA, no se escribe. Si mañana se cae un bloque, la afirmación que lo
- * señalaba deja de ofrecer un bloque inexistente en vez de mentir.
- *
- * `corto` es lo que viaja al mensaje de WhatsApp. Va en minúscula y sin punto
- * final porque se pega detrás de "Me interesaría que se hable de:".
- *
- * Regla de redacción: se pregunta por un HECHO verificable de la operación
- * ("puedo decir hoy..."), nunca por una intención ("me gustaría..."). Un dueño
- * contesta la primera con honestidad y la segunda con lo que queda bien.
- *
- * BORRADOR: los textos los tiene que firmar Alan antes de publicar.
- */
-export const TERMOMETRO = [
-  {
-    id: "t1",
-    tema: "comparar",
-    corto: "comparar mis locales entre sí",
-    afirmacion:
-      "Puedo decir hoy, sin pedirle el dato a nadie, cuál de mis locales tuvo peor margen la semana pasada.",
-  },
-  {
-    id: "t2",
-    tema: "pos",
-    corto: "unificar el sistema de cobro",
-    afirmacion:
-      "Mis sucursales reportan todas al mismo sistema y el número consolidado no lo arma nadie a mano.",
-  },
-  {
-    id: "t3",
-    tema: "mercado",
-    corto: "qué cambió en el mercado",
-    afirmacion: "Sé qué hicieron distinto este año las cadenas de mi tamaño que crecieron.",
-  },
-  {
-    id: "t4",
-    tema: "contenido",
-    corto: "sostener la marca en varios puntos",
-    afirmacion:
-      "Mi marca suena igual en todos mis locales sin que yo tenga que revisar cada posteo.",
-  },
-  {
-    id: "t5",
-    tema: "conduccion",
-    corto: "conducir con el mercado duro",
-    afirmacion:
-      "Cuando tengo que tomar una decisión grande de estructura, tengo con quién consultarla.",
-  },
-  {
-    id: "t6",
-    tema: "ecosistema",
-    corto: "qué pedirle a un proveedor",
-    afirmacion: "Sé qué pedirle a un proveedor cuando compro para varios locales, y lo negocio así.",
-  },
-];
 
 export const WHATSAPP_ORGANIZADOR = "5491154596266";
 

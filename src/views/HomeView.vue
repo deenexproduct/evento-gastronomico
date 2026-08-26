@@ -34,7 +34,6 @@
 
       <!-- Con qué volvés, pegado al programa que lo produce -->
       <ElLunesSection class="v-reveal bg-noche-2" />
-      <TermometroSection class="v-reveal bg-noche" />
 
       <!-- ── Quién lo hace posible ─────────────────────────────────── -->
 
@@ -96,7 +95,6 @@ import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
-import TermometroSection from "@/components/sections/TermometroSection.vue";
 import AnotadasSection from "@/components/sections/AnotadasSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import AvisameSection from "@/components/sections/AvisameSection.vue";

@@ -143,40 +143,6 @@
                  !important, así que ganaría la que esté escrita después. Por
                  eso la geometría va en utilidades y solo el color se condiciona. -->
             <!--
-              TU DOMINGO. Cierra el circuito: lo que la persona marcó catorce
-              pantallas más arriba, en el termómetro, llega escrito en el chat.
-              El renglón "Me interesaría que se hable de:" llega en blanco en el
-              100% de los mensajes porque nadie tipea un tema libre desde el
-              teléfono. Acá se ve que ya está escrito, así que el que llegó
-              hasta el botón sabe qué está mandando antes de mandarlo.
-
-              No lleva chips en estado activo: por definición estos son los ya
-              elegidos y la cruz los saca. Así no hace falta combinar .chip con
-              bg-acento-boton, que es la combinación prohibida (misma
-              especificidad, las dos con !important: gana la escrita después).
-              min-h-[44px] escrito a mano porque .chip de fábrica mide 33px y
-              el test de mínimo táctil audita todo <button> visible.
-            -->
-            <div v-if="hayEleccion && !agotado" class="mt-8 rounded-xl border border-acento/40 p-5">
-              <p class="rotulo text-acento-texto">Tu domingo</p>
-              <ul class="mt-3 flex flex-wrap gap-1.5">
-                <li v-for="t in elegidos" :key="t.id">
-                  <button
-                    type="button"
-                    class="chip min-h-[44px] normal-case tracking-[0.02em]"
-                    @click="marcar(t.id)"
-                  >
-                    {{ t.corto }}<span aria-hidden="true"> ×</span>
-                    <span class="sr-only"> (sacar de tu mensaje)</span>
-                  </button>
-                </li>
-              </ul>
-              <p class="mt-3 text-[13px] leading-[1.45] text-gris">
-                Va escrito en el mensaje: no lo tenés que tipear.
-              </p>
-            </div>
-
-            <!--
               CUÁNTOS VAN. Con cupo duro de 200 es el dato operativo que más
               falta y que hoy no se pregunta en ningún lado: sin esto, 200
               mensajes son 200 personas y en la puerta aparecen 260.
@@ -298,13 +264,12 @@ const { total, ocupados, restantes, porcentaje, agotado, mostrarCupo } = useCupo
 const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.value);
 const { google, urlIcs, nombreArchivo } = useCalendario();
 
-const { elegidos, temas, hayEleccion, personas, marcar, cuantos } = useTuDomingo();
+const { personas, cuantos } = useTuDomingo();
 
 const locales = ref("");
 const enlaceReserva = computed(() =>
   linkWaReserva({
     locales: locales.value,
-    temas: temas.value,
     personas: personas.value,
     agotado: agotado.value,
   })
