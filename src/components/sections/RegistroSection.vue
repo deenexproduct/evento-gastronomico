@@ -2,11 +2,9 @@
   <!--
     Sin formulario: la reserva es un mensaje de WhatsApp.
 
-    El único control que queda es el selector de locales, y NO es un campo: no
-    valida, no bloquea y no envía nada. Solo reescribe el texto que se
-    pre-carga en el chat, para que el dato que califica al público —cuántos
-    locales tiene— llegue escrito y no haya que pedirlo doscientas veces. Sin
-    tocar nada, el botón funciona igual: vacío es un estado válido.
+    Un solo botón y nada más que decidir antes de tocarlo: el chat se abre
+    con el mensaje escrito y los datos se completan ahí, que es donde la
+    persona ya está escribiendo.
 
     TEMA CLARO: esta sección no estrena una sola regla de color. El magenta
     pleno va siempre con bg-acento-boton y SIN text-white — html.claro pisa
@@ -135,76 +133,6 @@
               </li>
             </ol>
 
-            <!-- No es un campo: son botones que reescriben el mensaje. Sin
-                 teclado, sin validación, sin estado de error. El enlace ya
-                 funciona antes de tocar cualquiera.
-                 No combinar .chip con bg-acento-boton para el estado activo:
-                 las dos reglas tienen la misma especificidad y las dos llevan
-                 !important, así que ganaría la que esté escrita después. Por
-                 eso la geometría va en utilidades y solo el color se condiciona. -->
-            <!--
-              CUÁNTOS VAN. Con cupo duro de 200 es el dato operativo que más
-              falta y que hoy no se pregunta en ningún lado: sin esto, 200
-              mensajes son 200 personas y en la puerta aparecen 260.
-
-              Va como <div role="group"> y NO como <fieldset>, a propósito:
-              tests/e2e/registro.spec.js ubica el selector de locales con
-              `#registro fieldset button` .first(). Un segundo fieldset acá
-              arriba se lo roba y el test falla sin que la página esté rota.
-              El grupo se nombra con aria-labelledby, que cumple lo mismo.
-
-              Sigue sin haber un solo campo: son botones, como los locales. El
-              test que verifica que no quede ningún input/textarea/select
-              dentro de #registro sigue cubriendo.
-            -->
-            <div class="mt-8" role="group" aria-labelledby="cuantos-van">
-              <p id="cuantos-van" class="text-[12px] font-black uppercase tracking-[0.12em] text-gris">
-                ¿Cuántos van?
-                <span class="text-gris-2">Para saber cuántas sillas guardar</span>
-              </p>
-              <div class="mt-3.5 flex flex-wrap gap-2">
-                <button
-                  v-for="n in [1, 2, 3, 4]"
-                  :key="n"
-                  type="button"
-                  :aria-pressed="personas === n"
-                  class="presionable inline-flex min-h-[44px] items-center rounded-full border px-4 text-[13px] font-bold uppercase tracking-[0.06em] transition-colors"
-                  :class="
-                    personas === n
-                      ? 'border-transparent bg-acento-boton'
-                      : 'border-white/15 bg-white/5 text-gris hover:border-white/40'
-                  "
-                  @click="cuantos(n)"
-                >
-                  {{ n === 1 ? "Solo yo" : n }}<span class="sr-only"> personas</span>
-                </button>
-              </div>
-            </div>
-
-            <fieldset v-if="!agotado" class="mt-8 min-w-0 border-0 p-0">
-              <legend class="text-[12px] font-black uppercase tracking-[0.12em] text-gris">
-                ¿Cuántos locales tenés?
-                <span class="text-gris-2">Opcional, para no preguntártelo después</span>
-              </legend>
-              <div class="mt-3.5 flex flex-wrap gap-2">
-                <button
-                  v-for="l in CANTIDAD_LOCALES"
-                  :key="l"
-                  type="button"
-                  :aria-pressed="locales === l"
-                  class="inline-flex min-h-[44px] items-center rounded-full border px-4 text-[13px] font-bold uppercase tracking-[0.06em] transition-colors"
-                  :class="
-                    locales === l
-                      ? 'border-transparent bg-acento-boton'
-                      : 'border-white/15 bg-white/5 text-gris hover:border-white/40'
-                  "
-                  @click="locales = locales === l ? '' : l"
-                >
-                  {{ l }}
-                </button>
-              </div>
-            </fieldset>
-
             <a
               :href="enlaceReserva"
               target="_blank"
@@ -252,10 +180,9 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import { CANTIDAD_LOCALES, linkWaReserva } from "@/data/evento";
+import { computed } from "vue";
+import { linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
-import { useTuDomingo } from "@/composables/useTuDomingo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
 import Salon from "@/components/ui/Salon.vue";
@@ -264,16 +191,8 @@ const { total, ocupados, restantes, porcentaje, agotado, mostrarCupo } = useCupo
 const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.value);
 const { google, urlIcs, nombreArchivo } = useCalendario();
 
-const { personas, cuantos } = useTuDomingo();
 
-const locales = ref("");
-const enlaceReserva = computed(() =>
-  linkWaReserva({
-    locales: locales.value,
-    personas: personas.value,
-    agotado: agotado.value,
-  })
-);
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const INCLUYE = [
   "Los siete bloques y las demos en vivo",

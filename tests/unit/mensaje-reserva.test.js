@@ -29,14 +29,6 @@ describe("el mensaje de reserva", () => {
     expect(mensajeReserva({ agotado: true }).split("\n")[0]).toBe("GASTROTECH · LISTA DE ESPERA");
   });
 
-  it("cuando el selector viene cargado, no deja el renglón duplicado", () => {
-    // Si quedaran los dos —el dato resuelto y el renglón en blanco— el mensaje
-    // se lee mal escrito y la persona borra uno al azar.
-    const m = mensajeReserva({ locales: "6 a 15 locales" });
-    expect(m).toContain("Locales: 6 a 15 locales");
-    expect(m).not.toContain("Cuántos locales tengo:");
-  });
-
   it("no le pregunta el tema a quien no entra", () => {
     expect(mensajeReserva()).toContain("Me interesaría que se hable de:");
     expect(mensajeReserva({ agotado: true })).not.toContain("Me interesaría");
@@ -62,13 +54,12 @@ describe("el mensaje de reserva", () => {
   });
 
   it("arma un enlace al número del organizador y sobrevive a la codificación", () => {
-    const url = linkWaReserva({ locales: "2 a 5 locales" });
+    const url = linkWaReserva();
     expect(url.startsWith(`https://wa.me/${WHATSAPP_ORGANIZADOR}?text=`)).toBe(true);
     // Las tildes y el · tienen que volver intactos: si se rompen, el mensaje
     // llega con caracteres raros y parece spam.
     const texto = decodeURIComponent(url.split("text=")[1]);
     expect(texto).toContain("GASTROTECH · QUIERO IR");
-    expect(texto).toContain("Locales: 2 a 5 locales");
     expect(texto).toContain("Mi mail");
   });
 });

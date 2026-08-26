@@ -31,46 +31,6 @@ test("no queda ningún formulario en la página", async ({ page }) => {
   await expect(page.locator("#registro input, #registro textarea, #registro select")).toHaveCount(0);
 });
 
-test("el selector de locales escribe el dato en el mensaje", async ({ page }) => {
-  await page.goto("/#registro");
-  const antes = await enlaceReserva(page);
-  expect(decodeURIComponent(antes)).toContain("Cuántos locales tengo:");
-
-  await page.locator("#registro fieldset button").first().click();
-  const despues = await enlaceReserva(page);
-  const texto = decodeURIComponent(despues.split("text=")[1]);
-
-  expect(texto).toContain("Locales:");
-  // El renglón en blanco tiene que desaparecer, o el mensaje pregunta dos
-  // veces lo mismo y la persona borra uno al azar.
-  expect(texto).not.toContain("Cuántos locales tengo:");
-});
-
-test("el selector se puede deshacer y el mensaje vuelve atrás", async ({ page }) => {
-  await page.goto("/#registro");
-  const boton = page.locator("#registro fieldset button").first();
-  await boton.click();
-  await expect(boton).toHaveAttribute("aria-pressed", "true");
-
-  await boton.click();
-  await expect(boton).toHaveAttribute("aria-pressed", "false");
-  expect(decodeURIComponent(await enlaceReserva(page))).toContain("Cuántos locales tengo:");
-});
-
-test("el cuántos van escribe las sillas en el mensaje y se puede deshacer", async ({ page }) => {
-  // Con cupo duro de 200, doscientos mensajes no son doscientas personas.
-  await page.goto("/#registro");
-  expect(decodeURIComponent(await enlaceReserva(page))).not.toContain("Vamos");
-
-  const tres = page.locator('#registro [role="group"] button').nth(2);
-  await tres.click();
-  await expect(tres).toHaveAttribute("aria-pressed", "true");
-  expect(decodeURIComponent(await enlaceReserva(page))).toContain("Vamos 3");
-
-  await page.locator('#registro [role="group"] button').first().click();
-  expect(decodeURIComponent(await enlaceReserva(page))).not.toContain("Vamos");
-});
-
 test("el enlace se abre en otra pestaña y avisa que lo hace", async ({ page }) => {
   await page.goto("/#registro");
   const boton = page.locator('#registro a[href*="wa.me"]').first();
@@ -95,4 +55,15 @@ test("la página no promete un mail que ya nadie manda", async ({ page }) => {
   // prometa es una promesa que nadie puede cumplir.
   expect(texto).not.toMatch(/código de acceso te llega por mail/i);
   expect(texto).not.toMatch(/código de acceso llega por mail/i);
+});
+
+test("la reserva es un solo botón, sin nada que elegir antes", async ({ page }) => {
+  // Es el pedido hecho test: cualquier control que vuelva a aparecer en esta
+  // sección —una píldora, un selector, un campo— lo caza acá.
+  await page.goto("/#registro");
+  await expect(page.locator("#registro input, #registro select, #registro textarea")).toHaveCount(0);
+  await expect(page.locator("#registro fieldset, #registro [role=\"group\"]")).toHaveCount(0);
+  // El único control es el enlace que abre el chat.
+  await expect(page.locator("#registro button")).toHaveCount(0);
+  await expect(page.locator('#registro a[href*="wa.me"]')).toHaveCount(1);
 });

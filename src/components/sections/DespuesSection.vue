@@ -1,36 +1,11 @@
 <template>
   <!--
-    Dos cosas que nadie pone y que sí importan: qué pasa con tu lugar si no
-    podés venir, y qué queda después del 20/9.
-
-    La cancelación de un clic no es cortesía: con un no-show del 40 al 60% en
-    eventos gratuitos, cada aviso libera una butaca que alguien de la lista
-    puede ocupar. Convierte una ausencia silenciosa en un lugar recuperado.
+    Qué queda después del 20/9. Lo que se lleva el que fue, dicho antes de
+    que decida ir.
   -->
   <section id="despues" class="py-seccion">
     <div class="contenedor">
-      <div class="grid gap-4 lg:grid-cols-2">
-        <!-- Si no podés venir -->
-        <article class="rounded-2xl border border-acento/40 bg-acento/[0.06] p-8">
-          <p class="rotulo text-acento-texto">Si al final no podés</p>
-          <h2 class="titulo mt-4 text-[clamp(1.5rem,3.4vw,2.2rem)]">Avisanos y liberás tu lugar</h2>
-
-          <p class="mt-5 max-w-[46ch] text-[16px] leading-[1.6] text-gris">
-            No pasa nada y no hace falta explicar por qué. Un mensaje alcanza. El tema es otro: son
-            200 butacas y cada una que queda vacía es una cadena que se quedó afuera pudiendo
-            entrar.
-          </p>
-
-          <a
-            :href="whatsappCancelar"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-linea mt-7"
-          >
-            No voy a poder ir
-          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
-        </article>
-
+      <div class="grid gap-4">
         <!-- Qué queda después -->
         <article class="tarjeta p-8">
           <p class="rotulo text-gris">Después del 20/09</p>
@@ -53,7 +28,6 @@
 </template>
 
 <script setup>
-import { linkWa } from "@/data/evento";
 
 const DESPUES = [
   {
@@ -70,5 +44,4 @@ const DESPUES = [
   },
 ];
 
-const whatsappCancelar = linkWa("cancelar");
 </script>

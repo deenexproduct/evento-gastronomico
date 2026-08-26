@@ -627,16 +627,6 @@ export const FAQ = [
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Registro
-// ─────────────────────────────────────────────────────────────────────────────
-
-
-export const CANTIDAD_LOCALES = [
-  "2 a 5 locales",
-  "6 a 15 locales",
-  "16 a 30 locales",
-  "Más de 30 locales",
-  "Uno, pero estoy por abrir el segundo",
-];
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -714,9 +704,6 @@ export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado
         "",
       ];
 
-  // Lo ya resuelto va primero: se ve sin scrollear y le prueba a la persona
-  // que el selector de la página sirvió para algo.
-  if (locales) lineas.push(`Locales: ${locales}`);
   // Cuántos van. Con cupo duro de 200 es el dato operativo que hoy no se
   // pregunta en ningún lado: sin esto, 200 mensajes son 200 personas y en la
   // puerta aparecen 260. Solo se escribe si no es 1, que es el default: un
@@ -726,7 +713,7 @@ export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado
   lineas.push(
     "Nombre:",
     "Marca:",
-    ...(locales ? [] : ["Cuántos locales tengo:"]),
+    "Cuántos locales tengo:",
     "Mi rol:",
     // El paréntesis no es adorno: un renglón que dice solo "Mail:" se saltea.
     // Con la razón adentro se completa, y el mail es el dato más frágil que
@@ -766,8 +753,6 @@ export const MENSAJES_WA = {
     "PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del 20 de septiembre.\n\nMedio:\nMi nombre:\nQué necesitaría:",
   avisos:
     "AVISOS GASTROTECH\n\nHola! Todavía no me anoto pero quiero que me avisen cuando se anuncien los oradores que faltan.\n\nMi mail:",
-  cancelar:
-    "NO VOY A PODER IR · GASTROTECH\n\nHola! Me había anotado al 20 de septiembre pero no voy a poder ir. Liberen mi lugar.\n\nNombre:\nMi cadena:",
   consulta:
     "CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del 20 de septiembre:\n\n",
 };
