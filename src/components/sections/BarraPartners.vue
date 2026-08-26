@@ -14,7 +14,7 @@
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">
-        <template v-for="p in partners" :key="p.nombre">
+        <template v-for="p in partnersBarra" :key="p.nombre">
           <img
             v-if="p.src"
             :src="p.src"
@@ -29,10 +29,6 @@
             {{ p.nombre }}
           </span>
         </template>
-
-        <span class="text-[13px] font-bold uppercase tracking-[0.1em] text-acento-texto">
-          + se suman más
-        </span>
       </div>
     </div>
   </section>
@@ -50,4 +46,8 @@ const partners = PARTNERS.map((p) => {
   const clave = p.logo ? Object.keys(archivos).find((k) => k.endsWith(`/${p.logo}`)) : null;
   return { ...p, src: clave ? archivos[clave] : "" };
 });
+
+// La barra son puros nombres de empresa. El que no lo es queda afuera de acá
+// y sigue teniendo su tarjeta en #partners, que es donde se explica qué es.
+const partnersBarra = partners.filter((p) => p.enBarra !== false);
 </script>

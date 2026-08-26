@@ -14,7 +14,7 @@
           </h2>
           <p class="mt-5 max-w-[44ch] text-[17px] text-gris">
             Salón propio dentro del centro de convenciones. El cupo del evento es,
-            literalmente, la capacidad de la sala.
+            con entrada por lista.
           </p>
 
           <dl class="mt-10 grid gap-3">

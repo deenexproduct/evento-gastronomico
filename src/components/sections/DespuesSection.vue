@@ -40,11 +40,11 @@
 
 const DESPUES = [
   {
-    titulo: "La grilla, por escrito",
+    titulo: "El material del día",
     texto: "Todo el evento en un material: los beneficios disponibles y cómo encararlos.",
   },
   {
-    titulo: "Tu diagnóstico, si lo pediste",
+    titulo: "Tu diagnóstico, si lo pedís ese día",
     texto: "Se coordina después del evento con el equipo de Deenex.",
   },
   {

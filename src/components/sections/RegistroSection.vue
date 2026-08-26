@@ -120,8 +120,9 @@
             <p class="rotulo text-acento-texto">Reserva directa</p>
             <h3 class="titulo mt-3 text-[clamp(1.5rem,3.2vw,2rem)]">Se reserva por WhatsApp</h3>
             <p class="mt-4 max-w-[40ch] text-[16px] leading-[1.55] text-gris">
-              Sin formularios y sin esperar un mail. Te abrimos el chat con el mensaje escrito:
-              completás {{ RENGLONES_RESERVA }} renglones y lo mandás.
+              Te abrimos el chat con el mensaje ya escrito: completás
+              {{ RENGLONES_RESERVA }} renglones y lo mandás. Del otro lado contesta una persona,
+              no un mail automático.
             </p>
 
             <!-- Los tres pasos reemplazan la barra de progreso "1 de 2" y
@@ -203,7 +204,7 @@ const INCLUYE = [
   "Los siete bloques y las demos en vivo",
   "Beneficios exclusivos de todos los partners",
   "Degustaciones y networking de cierre",
-  "La grilla del evento por escrito",
+  "La grilla final, antes que el resto",
 ];
 
 const PASOS = [

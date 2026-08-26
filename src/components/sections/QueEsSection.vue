@@ -25,7 +25,7 @@
           <p class="lectura mt-6 text-[17px] leading-[1.6] text-gris">
             Lo organiza {{ EVENTO.organiza }}, la plataforma donde más de 350 marcas del rubro
             manejan desde un solo lugar todos los canales por los que venden. Es la primera
-            edición y la entrada no se cobra: lo único limitado es el salón.
+            edición y la entrada no se cobra.
           </p>
         </div>
       </div>

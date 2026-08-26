@@ -50,8 +50,8 @@
 
           <p class="lectura mt-7 text-[17px] leading-[1.6] text-gris">
             Fundó Deenex, la plataforma donde hoy más de 350 marcas de foodservice y gastronomía
-            manejan sus canales de venta. Pasa el día hablando con dueños de cadenas y escuchando el
-            mismo problema en cada uno: decisiones grandes tomadas con información que nadie mira.
+            manejan sus canales de venta. Pasa el día hablando con dueños de cadenas, y de ahí salió la
+            idea de sentarlos a todos en la misma sala un domingo.
           </p>
 
           <p class="lectura mt-4 text-[17px] leading-[1.6] text-gris">

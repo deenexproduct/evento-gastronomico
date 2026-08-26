@@ -78,7 +78,7 @@ const DATOS = [
   {
     cifra: 200,
     label: "lugares, no más",
-    detalle: "El cupo es la capacidad real del salón. No hay sillas extra.",
+    detalle: "Arriba de eso deja de ser una sala donde los dueños se cruzan entre ellos.",
   },
 ];
 

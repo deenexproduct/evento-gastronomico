@@ -122,8 +122,8 @@ export const TEMAS = [
     dur: 60,
     hora: "17:00",
     tipo: "mesa",
-    titulo: "Cuatro voces del día dicen lo que nadie dice en público",
-    quien: "Mesa redonda · todos los oradores y partners",
+    titulo: "Lo que nadie dice en público",
+    quien: "Mesa redonda · todos los que hablaron",
     punta:
       "Una hora sentados en el centro del salón, con preguntas abiertas de la sala. Sin guion.",
   },
@@ -555,6 +555,9 @@ export const PARTNERS = [
   },
   {
     nombre: "La mesa de degustación",
+    // No es el nombre de una empresa: en la barra de arriba, que son puros
+    // nombres, se leía como una que no existe. Su tarjeta en #partners queda.
+    enBarra: false,
     logo: "",
     tipo: "Proveedores confirmados",
     empresa: "Los proveedores que ponen lo que se come y se toma durante toda la jornada.",
@@ -719,7 +722,7 @@ export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado
     // El paréntesis no es adorno: un renglón que dice solo "Mail:" se saltea.
     // Con la razón adentro se completa, y el mail es el dato más frágil que
     // queda ahora que no hay formulario.
-    "Mi mail (ahí me mandan la grilla):"
+    "Mi mail (ahí me mandan la grilla final):"
   );
 
   // El tema es el renglón que convierte una plantilla en una conversación. No
