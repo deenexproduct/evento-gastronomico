@@ -141,3 +141,28 @@ test("todo botón magenta pleno lleva a reservar", async ({ page }) => {
 
   expect(desviados).toEqual([]);
 });
+
+test("el mapa de Google no se descarga hasta que alguien lo pide", async ({ page }) => {
+  // El iframe costaba 443 KB —places.js, main.js, init_embed, util, common,
+  // controls, map y onion— contra los ~494 que pesa todo el resto de la
+  // página junta. Y en teléfono era una trampa de scroll: 334x418px con 21px
+  // de página a cada lado para deslizar sin caer adentro.
+  const deGoogle = [];
+  page.on("request", (r) => {
+    if (/maps\.google|maps\.googleapis|maps\.gstatic/.test(r.url())) deGoogle.push(r.url());
+  });
+
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/");
+  await revelarTodo(page);
+  // Se baja hasta el fondo: si el mapa se cargara solo, acá ya habría pedido.
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(2500);
+
+  expect(deGoogle).toEqual([]);
+  await expect(page.locator("#lugar iframe")).toHaveCount(0);
+
+  // Y sigue estando a un toque para el que lo quiere arrastrar.
+  await page.getByRole("button", { name: /ver el mapa/i }).click();
+  await expect(page.locator("#lugar iframe")).toHaveCount(1);
+});

@@ -4,7 +4,7 @@
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
           <p class="rotulo text-gris">Preguntas</p>
-          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
+          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.8rem)]">
             Lo que siempre nos preguntan.
           </h2>
           <p class="mt-6 text-[0.95rem] leading-[1.6] text-gris">
@@ -74,7 +74,16 @@
 import { ref } from "vue";
 import { FAQ, linkWa } from "@/data/evento";
 
-const abierto = ref(0);
+/**
+ * Ningún panel abierto de entrada.
+ *
+ * Venía abierto el primero —"¿De qué se habla exactamente?"—, que es
+ * justo el que menos falta hace: su respuesta es la jornada contada en
+ * prosa, once secciones después de haberla mostrado en siete cuadrados con
+ * hora y título. Y ocupaba media pantalla de teléfono empujando hacia abajo
+ * las otras nueve preguntas, que son las que el lector vino a buscar.
+ */
+const abierto = ref(-1);
 
 function toggle(i) {
   abierto.value = abierto.value === i ? -1 : i;

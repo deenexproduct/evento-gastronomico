@@ -65,21 +65,40 @@
           <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </div>
 
-        <!-- Mapa -->
+        <!--
+          Mapa a pedido.
+
+          El iframe de Google costaba 443 KB —places.js, main.js, init_embed,
+          util, common, controls, map y onion— sobre los 494 que pesa todo el
+          resto de la página junta: casi la mitad de la descarga, por un mapa
+          de una dirección que está escrita en texto a diez centímetros. Y en
+          teléfono medía 334x418px con 21px de página a cada lado para
+          deslizar sin caer adentro, o sea menos de la mitad del mínimo
+          táctil, justo en el camino del que baja hacia el FAQ.
+
+          No se saca el mapa: se carga cuando alguien lo pide. El que quiere
+          arrastrarlo lo tiene a un toque, y el que no, no paga nada. Con el
+          mapa apagado tampoco hay trampa de scroll, porque no hay iframe que
+          se coma el dedo.
+        -->
         <div class="relative min-h-[420px] overflow-hidden rounded-2xl border border-white/10 lg:min-h-full">
-          <!--
-            El filtro va por clase y no inline: inline no lo alcanza ningún
-            selector, así que el mapa se quedaba invertido —o sea negro— sobre
-            fondo claro, siendo la superficie más grande del cuerpo de la
-            página. Ver .mapa en main.css.
-          -->
           <iframe
+            v-if="mapaPedido"
             :src="mapaSrc"
             class="mapa absolute inset-0 h-full w-full border-0"
-            loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             title="Ubicación del evento en Córdoba"
           ></iframe>
+
+          <div v-else class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8 text-center">
+            <Pictograma nombre="lugar" :tam="30" />
+            <p class="max-w-[24ch] text-[15px] leading-[1.5] text-gris">
+              {{ EVENTO.direccion }}
+            </p>
+            <button type="button" class="btn-linea" @click="mapaPedido = true">
+              Ver el mapa acá
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -87,8 +106,12 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { EVENTO } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
+
+/** El mapa pesado solo se trae si alguien lo pide. Ver el comentario arriba. */
+const mapaPedido = ref(false);
 
 /**
  * Solo la direccion.

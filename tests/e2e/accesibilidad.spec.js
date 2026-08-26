@@ -152,7 +152,11 @@ test("las respuestas cerradas del FAQ no se le leen al lector de pantalla", asyn
   );
 
   expect(estado.length).toBeGreaterThan(1);
-  // Exactamente uno abierto, y el resto fuera del árbol.
-  expect(estado.filter((e) => e.abierto)).toHaveLength(1);
+  // Como mucho uno abierto: es un acordeón, no una lista de desplegables
+  // independientes. Cero también vale y es lo que pasa al cargar: el panel
+  // que venía abierto de fábrica era el que menos falta hacía y ocupaba
+  // media pantalla de teléfono empujando las otras nueve preguntas.
+  expect(estado.filter((e) => e.abierto).length).toBeLessThanOrEqual(1);
+  // Ésta es la garantía que importa y no cambió: lo cerrado no se lee.
   estado.forEach((e) => expect(e.inerte).toBe(!e.abierto));
 });
