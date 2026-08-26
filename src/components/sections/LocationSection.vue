@@ -104,13 +104,13 @@ const DATOS = [
   {
     icono: "reloj",
     label: "Horario",
-    valor: "De 9 a 18 h",
-    nota: "Acreditación desde las 8:30. Entrás y salís cuando quieras.",
+    valor: "Charlas de 10 a 18 h",
+    nota: "Puertas y acreditación desde las 8:30. Entrás y salís cuando quieras.",
   },
   {
     icono: "entrada",
     label: "Entrada",
-    valor: "Sin costo, con registro previo",
+    valor: "Sin costo, con reserva previa",
     nota: "Tu nombre queda en la lista de la puerta cuando confirmamos por WhatsApp.",
   },
 ];
@@ -122,10 +122,16 @@ const DATOS = [
  */
 const LOGISTICA = [
   {
+    icono: "gente",
+    titulo: "Ese domingo hay otro evento en el edificio",
+    texto:
+      "GastroTech pasa en un salón propio: tu nombre entra en la lista de la puerta y adentro estamos los 200. En el resto del centro de convenciones ese mismo día se hace Córdoba Corazón de Moda, por el que circulan unas 20.000 personas. No cambia nada de lo que pasa en la sala, pero conviene salir con tiempo de más para llegar y estacionar.",
+  },
+  {
     icono: "reloj",
     titulo: "A qué hora conviene llegar",
     texto:
-      "La acreditación abre 8:30 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
+      "Las puertas abren 8:30 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
   },
   {
     icono: "auto",

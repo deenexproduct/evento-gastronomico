@@ -324,14 +324,17 @@ const PASOS = [
 ];
 
 const RIESGO = [
-  { q: "No cuesta nada", a: "La entrada es gratuita. No se pide tarjeta ni se cobra en la puerta." },
+  {
+    q: "No cuesta nada",
+    a: "No se pide tarjeta ni se paga en la puerta. Lo que sí hace falta es reservar antes.",
+  },
   {
     q: "Si no podés venir, avisás",
     a: "Por el mismo chat. Se libera el lugar para el que está esperando.",
   },
   {
-    q: "No es una ronda de venta",
-    a: "Nadie te va a perseguir con una propuesta. Si querés hablar de algo, lo pedís vos.",
+    q: "Sí hay proveedores, no hay ronda",
+    a: "Bistrosoft muestra su sistema dentro del programa y los partners tienen stand. Lo que no hay es agenda de reuniones ni nadie abordándote: si querés hablar con alguno, vas vos.",
   },
 ];
 </script>

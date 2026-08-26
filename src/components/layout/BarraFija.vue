@@ -23,7 +23,7 @@
             <template v-else-if="mostrarCupo">
               Quedan <span class="text-acento-texto">{{ restantes }}</span> de {{ total }} lugares
             </template>
-            <template v-else>Entrada sin costo · registro previo</template>
+            <template v-else>Entrada sin costo · con reserva previa</template>
           </p>
         </div>
 

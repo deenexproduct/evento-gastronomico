@@ -32,14 +32,15 @@
             gris con la promesa. La categoría pasó a la línea de datos de abajo
             y queda una sola frase, que es la que tiene que leerse.
           -->
-          <p class="mt-5 max-w-[30ch] text-[clamp(1.25rem,3vw,1.9rem)] font-black uppercase leading-[1.08] tracking-[-0.02em]">
-            Un día entero para
-            <span class="text-acento-texto">dueños de cadenas gastronómicas.</span>
+          <p class="mt-5 max-w-[34ch] text-[clamp(1.25rem,3vw,1.9rem)] font-black uppercase leading-[1.08] tracking-[-0.02em]">
+            Un domingo para dueños de cadenas gastronómicas.
+            <span class="text-acento-texto">El lunes mirás tus locales con otros números.</span>
           </p>
 
-          <p class="mt-5 max-w-[44ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]">
-            Bajar costos, ordenar la operación y vender más. Gastronomía y tecnología, con
-            gente que ya lo resolvió en varios locales a la vez.
+          <p class="mt-5 max-w-[46ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]">
+            Comparar el food cost real entre tus locales, ver los sistemas funcionando con lo que
+            cuestan, y escuchar los números que otras cadenas de Córdoba no dicen en público. Lo
+            cuenta gente que ya lo resolvió con varios locales abiertos.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -58,7 +59,7 @@
         <aside class="tarjeta p-5 sm:p-6 lg:mt-2">
           <p class="rotulo text-white">Domingo 20 de septiembre</p>
           <p class="mt-2 text-[15px] leading-[1.45] text-gris">
-            {{ EVENTO.horario }} · {{ EVENTO.venue }}, Córdoba
+            Charlas de {{ EVENTO.horario }}, puertas desde las {{ EVENTO.puertas }} · {{ EVENTO.venue }}, Córdoba
           </p>
 
           <!-- Cuenta regresiva: acá es donde el número presiona -->
@@ -93,7 +94,7 @@
                 <span class="relative inline-flex h-2 w-2 rounded-full bg-acento"></span>
               </span>
               <span class="text-acento-texto">{{
-                agotado ? "Lista de espera" : "Registro abierto"
+                agotado ? "Lista de espera" : "Reservas abiertas"
               }}</span>
             </p>
 

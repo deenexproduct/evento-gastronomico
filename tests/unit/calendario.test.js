@@ -8,13 +8,13 @@ import { EVENTO } from "@/data/evento";
  * un evento agendado a las 6 de la mañana es peor que no agendarlo.
  */
 describe("agendado del evento", () => {
-  it("la fecha del evento es el domingo 20 de septiembre de 2026 a las 9", () => {
+  it("la fecha del evento es el domingo 20 de septiembre de 2026 a las 10", () => {
     const d = new Date(EVENTO.fechaISO);
     expect(d.getUTCFullYear()).toBe(2026);
     expect(d.getUTCMonth()).toBe(8); // septiembre
     expect(d.getUTCDate()).toBe(20);
-    // 9:00 en Córdoba (UTC-3) son las 12:00 UTC.
-    expect(d.getUTCHours()).toBe(12);
+    // 10:00 en Córdoba (UTC-3) son las 13:00 UTC.
+    expect(d.getUTCHours()).toBe(13);
   });
 
   it("la fecha declarada cae efectivamente en domingo", () => {

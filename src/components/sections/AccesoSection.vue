@@ -10,8 +10,8 @@
       <p class="rotulo text-center text-acento-texto">Edición 01</p>
       <h2 class="titulo mt-4 text-center text-[clamp(2rem,6vw,3.5rem)]">Asegurá tu lugar</h2>
       <p class="mx-auto mt-5 max-w-[52ch] text-center text-[17px] text-gris">
-        La entrada no tiene costo. Lo que es limitado es el salón: entran {{ total }} personas y el
-        registro se cierra cuando se llena.
+        La entrada no tiene costo. Lo que es limitado es el salón: entran {{ total }} personas y cuando se
+        llena, se cierran las reservas.
       </p>
 
       <div class="mt-14 grid gap-4 lg:grid-cols-3">
@@ -103,7 +103,7 @@ const tramos = computed(() =>
     unidad: "lugares ocupados",
     estado: "completo",
     incluye: [
-      "Se registraron antes que vos",
+      "Reservaron antes que vos",
       "Ya confirmaron su lugar",
       "Reciben la grilla primero",
     ],
@@ -114,7 +114,7 @@ const tramos = computed(() =>
     // seguía diciendo "Registro abierto · 0 lugares disponibles" con botón de
     // reservar, contra las otras cuatro piezas que ya avisan que está llena.
     etiqueta: agotado.value ? "Cerrado" : "Tramo actual",
-    titulo: agotado.value ? "Sala completa" : "Registro abierto",
+    titulo: agotado.value ? "Sala completa" : "Reservas abiertas",
     cifra: restantes.value,
     unidad: "lugares disponibles",
     estado: agotado.value ? "completo" : "actual",
@@ -124,7 +124,7 @@ const tramos = computed(() =>
     // que es donde son la última confirmación antes del botón. Acá va el
     // estado, que es de lo que hablan las otras dos columnas.
     incluye: [
-      "El registro sigue abierto",
+      "Todavía se puede reservar",
       "Se reserva por WhatsApp, sin formulario",
       "No hay sillas de más: entra lo que entra",
     ],

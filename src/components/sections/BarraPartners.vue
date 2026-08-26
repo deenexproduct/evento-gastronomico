@@ -10,7 +10,7 @@
   <section id="respaldan" class="border-y border-white/10 bg-noche-2 py-10 sm:py-12">
     <div class="contenedor">
       <p class="text-center text-[12px] font-black uppercase tracking-[0.18em] text-gris-2">
-        Partners que hacen posible la jornada
+        Partners confirmados
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">

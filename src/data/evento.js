@@ -12,11 +12,14 @@
 export const EVENTO = {
   nombre: "GastroTech",
   organiza: "Deenex",
-  fechaISO: "2026-09-20T09:00:00-03:00",
+  fechaISO: "2026-09-20T10:00:00-03:00",
   fechaLarga: "Domingo 20 de septiembre de 2026",
   fechaCorta: "Domingo 20.09.2026",
   fechaNumerica: "20.09.26",
-  horario: "9:00 a 18:00",
+  // Puertas 8:30, charlas 10 a 18. La hora 9 que figuraba antes no era ni
+  // la de apertura ni la del primer bloque: no existia en ningun lado.
+  horario: "10 a 18",
+  puertas: "8:30",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
@@ -86,7 +89,7 @@ export const TEMAS = [
     hora: "13:45",
     tipo: "charla",
     titulo: "Cómo se sostiene una marca en varios locales a la vez",
-    quien: "UGC y contenidos",
+    quien: "Especialista en contenido y redes",
     punta:
       "Qué se graba, con qué frecuencia y cómo se mantiene una sola voz cuando la marca está en cinco puntos. Sin un equipo de diez personas.",
   },
@@ -96,10 +99,10 @@ export const TEMAS = [
     dur: 45,
     hora: "14:45",
     tipo: "charla",
-    titulo: "Cómo se conduce una estructura grande cuando el mercado se endurece",
+    titulo: "Cómo se conduce una cadena cuando el mercado se endurece",
     quien: "Avanzia · ex-CEO de Dexter y ex-presidente de la CAME",
     punta:
-      "Dos que ya condujeron compañías con cientos de empleados, contando cómo se decide cuando hay gente y plata en juego.",
+      "Dos que ya condujeron compañías con cientos de empleados, contando cómo se decide cuando hay gente y plata en juego. El tamaño no cambia la decisión: cambia lo que sale equivocarse. Aplica igual con tres locales que con treinta.",
   },
   {
     id: "ecosistema",
@@ -197,7 +200,7 @@ export const BORDES = {
 export const BENTO = [
   { dato: "7", label: "bloques en el día", peso: "grande",
     detalle: "Cinco charlas, una demo en vivo y la mesa redonda de cierre. Track único: no elegís, no te perdés nada." },
-  { dato: "9 a 18", label: "de jornada", peso: "chico" },
+  { dato: "10 a 18", label: "de charlas", peso: "chico" },
   { dato: "5", label: "degustaciones", peso: "chico" },
   { dato: "200", label: "dueños en la sala", peso: "medio",
     detalle: "Dueños de cadenas del rubro, no público general." },
@@ -207,12 +210,12 @@ export const BENTO = [
 
 /** Con qué volvés al local. Verbo + resultado tangible, sin adjetivos. */
 export const EL_LUNES = [
+  "Los números reales de otras cadenas de Córdoba, dichos en voz alta",
+  "Los proveedores del rubro comparados en un día, en vez de en tres meses de reuniones",
+  "Sistemas andando, no en una slide: te parás adelante, preguntás por tu caso y ves si te sirve",
   "Cómo comparar el food cost real entre tus locales, no el que dice la ficha técnica",
   "Qué datos ya generan tus locales y cómo se leen juntos",
-  "Herramientas probadas en vivo, con lo que hacen y lo que cuestan",
-  "Los proveedores del rubro comparados en un día en vez de en tres meses",
-  "Los números reales de otras cadenas de Córdoba, dichos en voz alta",
-  "La grilla del evento con todos los beneficios de partners por escrito",
+  "Los beneficios de cada partner por escrito, en un solo material, para usarlos cuando vuelvas",
 ];
 
 export const VOLVES_CON = [
@@ -262,28 +265,6 @@ export const VOLVES_CON = [
 
 // ─────────────────────────────────────────────────────────────────────────────
 // La entrada como llave — los 3 pasos del QR
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const PASOS_ENTRADA = [
-  {
-    n: 1,
-    titulo: "Te registrás",
-    texto:
-      "Completás el formulario y el lugar queda a tu nombre. Es gratis, pero el cupo es real: 200 personas y no entra nadie más.",
-  },
-  {
-    n: 2,
-    titulo: "Escaneás tu QR en la puerta",
-    texto:
-      "El 20/9 llegás con tu código. Se escanea en la entrada y quedás acreditado. Sin QR no hay ingreso.",
-  },
-  {
-    n: 3,
-    titulo: "Se te desbloquea lo de adentro",
-    texto:
-      "Al escanear se te abre la agenda completa del día y la grilla con los beneficios de todos los partners.",
-  },
-];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Fotos
@@ -352,8 +333,8 @@ export const SPEAKERS = [
   },
   {
     id: "ugc",
-    foto: "", // ← Foto del orador de UGC
-    nombre: "UGC y contenidos",
+    foto: "", // ← Foto del orador de contenido y redes
+    nombre: "Especialista en contenido y redes",
     rol: "LA NUEVA FORMA DE HACER CONTENIDO",
     frase: "Cómo se hace hoy el contenido que mueve una marca gastronómica.",
     bio: "Orador confirmado para el bloque de contenido. Trabaja con marcas del rubro produciendo el material que después circula en redes.",
@@ -417,7 +398,7 @@ export const AGENDA = [
     hora: "13:45",
     dur: "45'",
     tipo: "charla",
-    quien: "UGC y contenidos",
+    quien: "Especialista en contenido y redes",
     titulo: "La nueva forma de hacer contenido",
     detalle: "Cómo se produce hoy el contenido de una marca gastronómica.",
   },
@@ -608,15 +589,15 @@ export const FAQ = [
   },
   {
     q: "¿Me van a querer vender algo?",
-    a: "No hay pitch de producto ni ronda comercial armada. Hay charlas de gente que labura del rubro y demos que mirás si te interesan. Si después querés seguir hablando con alguno de los partners, se habla; si no, te vas con lo que escuchaste y nada más.",
+    a: "Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay partners con stand que también venden. A las 12 el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.",
   },
   {
     q: "Es domingo y trabajo. ¿Cómo hago?",
-    a: "Es la pregunta más repetida y por algo el evento dura todo el día: entrás cuando podés y te quedás lo que te sirva. Podés venir a la mañana y estar de vuelta en el local para el servicio, o llegar a la tarde y agarrar los últimos bloques más la mesa redonda. La grilla queda disponible para que elijas a qué venir. Y si no podés vos, mandá a tu socio o a tu gerente.",
+    a: "Es la que más nos preguntan, así que va derecho: sí, te cuesta el domingo, y no hay forma de que no te lo cueste. Lo que sí elegís es cuánto. Son ocho horas de charlas pero nadie controla la butaca: venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y la mesa redonda de cierre, que es donde se dice lo que no se dice en público. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
   },
   {
     q: "¿Cuánto cuesta?",
-    a: "Nada. La entrada es gratuita, pero el registro previo es obligatorio y el cupo es real: 200 personas. Sin registro no hay ingreso.",
+    a: "Nada. Sí hay que reservar antes, y el cupo es real: 200 personas. Sin reserva no hay ingreso.",
   },
   {
     q: "¿Por qué solo 200 lugares?",
@@ -636,11 +617,11 @@ export const FAQ = [
   },
   {
     q: "¿Puedo llevar a alguien de mi equipo?",
-    a: "Sí, y conviene. Cada persona se anota con su propio mensaje de WhatsApp porque el cupo se cuenta por persona; en la puerta alcanza con el nombre de cada uno. Venir con tu socio o tu gerente hace que lo que escuchan rinda más cuando vuelven al local.",
+    a: "Sí, y conviene. Cada persona reserva con su propio mensaje de WhatsApp porque el cupo se cuenta por persona; en la puerta alcanza con el nombre de cada uno. Venir con tu socio o tu gerente general hace que lo que escuchan rinda más cuando vuelven al local.",
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio de 200 m² del ${EVENTO.venue}, en Córdoba, de ${EVENTO.horario}. Está dentro de ${EVENTO.eventoMadre}, un evento multisala por el que circulan unas ${EVENTO.eventoMadreCirculacion} personas a lo largo del día.`,
+    a: `En un salón propio de 200 m² del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo domingo el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
   },
 ];
 

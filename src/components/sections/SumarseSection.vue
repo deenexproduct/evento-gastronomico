@@ -89,7 +89,7 @@ const INCLUYE_PARTNER = [
   "Stand en el salón durante toda la jornada",
   "Demo en vivo dentro del programa",
   "Tu marca en la comunicación del evento",
-  "Contacto directo con 200 dueños de cadenas",
+  "Un día entero cara a cara con 200 dueños de cadenas",
 ];
 
 const INCLUYE_PRENSA = [

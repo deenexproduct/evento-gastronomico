@@ -41,8 +41,8 @@
           </p>
 
           <p class="lectura mt-7 text-[17px] leading-[1.6] text-gris">
-            Fundó Deenex, la plataforma omnicanal con la que hoy trabajan más de 350 marcas de
-            foodservice y gastronomía. Pasa el día hablando con dueños de cadenas y escuchando el
+            Fundó Deenex, la plataforma donde hoy más de 350 marcas de foodservice y gastronomía
+            manejan sus canales de venta. Pasa el día hablando con dueños de cadenas y escuchando el
             mismo problema en cada uno: decisiones grandes tomadas con información que nadie mira.
           </p>
 
@@ -66,6 +66,7 @@
 <script setup>
 import { computed } from "vue";
 import FotoSlot from "@/components/ui/FotoSlot.vue";
+import { TEMAS } from "@/data/evento";
 
 const archivos = import.meta.glob("@/assets/images/speakers/*", { eager: true, import: "default" });
 const foto = computed(() => {
@@ -73,9 +74,10 @@ const foto = computed(() => {
   return clave ? archivos[clave] : "";
 });
 
-const BLOQUES = [
-  "El nuevo mercado gastronómico",
-  "Datos e inteligencia artificial en tu negocio",
-  "Cómo se arma un ecosistema",
-];
+/**
+ * Los tres bloques salen de TEMAS, no escritos a mano: acá había un segundo
+ * programa con otros títulos que no coincidía con el de la grilla. Filtrando
+ * por orador no se pueden volver a separar en el próximo cambio.
+ */
+const BLOQUES = TEMAS.filter((t) => t.quien.startsWith("Alan Tapia")).map((t) => t.titulo);
 </script>

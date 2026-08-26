@@ -6,8 +6,11 @@
         Quiénes vienen y qué traen
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Cada partner llega con algo concreto para los que estén en la sala ese día. La lista sigue
-        abierta: se anuncian a medida que se cierran.
+        Ninguno viene a poner el logo y nada más: Bistrosoft manda al CEO y monta las demos con
+        equipo propio, Avanzia trae al ex-CEO de Dexter y al ex-presidente de la CAME, la
+        Asociación acerca cadenas de otras provincias y la mesa de degustación pone cuatro rondas
+        más el coffee break. Solo publicamos los que ya están cerrados por escrito: cuando
+        cerramos el próximo, lo vas a ver acá.
       </p>
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

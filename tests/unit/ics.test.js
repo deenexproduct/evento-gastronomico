@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { EVENTO } from "@/data/evento";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 /**
  * El .ics ya salió roto una vez de cuatro maneras distintas, y ninguna se ve
@@ -61,9 +61,12 @@ describe("archivo .ics", () => {
       );
     const inicio = aFecha(ics.match(/DTSTART:(\S+)/)[1]);
     const fin = aFecha(ics.match(/DTEND:(\S+)/)[1]);
-    // 9:00 a 18:00 son nueve horas. Calculado con setHours, una máquina fuera
-    // de -03 daba otra duración —o el fin antes del inicio.
-    expect((fin - inicio) / 3600000).toBe(9);
+    // La duración sale de EVENTO.horario, no de un número escrito acá: si
+    // mañana cambia el horario, el test acompaña en vez de mentir.
+    // Calculado con setHours, una máquina fuera de -03 daba otra duración
+    // —o el fin antes del inicio.
+    const [abre, cierra] = EVENTO.horario.match(/\d{1,2}/g).map(Number);
+    expect((fin - inicio) / 3600000).toBe(cierra - abre);
     expect(fin > inicio).toBe(true);
   });
 

@@ -9,11 +9,12 @@
       <div class="grid gap-8 lg:grid-cols-[1fr_.9fr] lg:items-center lg:gap-16">
         <div>
           <h2 class="titulo text-[clamp(1.5rem,3.6vw,2.3rem)]">
-            ¿Todavía no te decidís?
+            ¿Querés esperar a ver quién más habla?
           </h2>
           <p class="mt-4 max-w-[52ch] text-[16px] leading-[1.55] text-gris">
-            Dejanos el mail y te avisamos cuando se anuncien los oradores que faltan. Sin
-            compromiso de venir, y si después querés tu lugar, te lo guardamos.
+            Dejanos el mail y te escribimos apenas cerramos los oradores que faltan. Es un
+            aviso, no una reserva: el lugar se toma por WhatsApp y por orden de llegada. Si para
+            cuando te decidas ya entraron 200, te anotamos en la lista de espera.
           </p>
         </div>
 

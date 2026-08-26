@@ -9,8 +9,8 @@
       <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
         <div>
           <p class="rotulo text-acento-texto">Qué es</p>
-          <h2 class="titulo mt-4 max-w-[13ch] text-[clamp(2rem,6vw,3.6rem)]">
-            GastroTech en una frase
+          <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(2rem,6vw,3.6rem)]">
+            Un domingo entre dueños de cadenas.
           </h2>
         </div>
 
@@ -23,9 +23,9 @@
           </p>
 
           <p class="lectura mt-6 text-[17px] leading-[1.6] text-gris">
-            Lo organiza {{ EVENTO.organiza }}, la plataforma con la que trabajan más de 350 marcas
-            del rubro. Es la primera edición y la entrada no se cobra: lo único limitado es el
-            salón.
+            Lo organiza {{ EVENTO.organiza }}, la plataforma donde más de 350 marcas del rubro
+            manejan desde un solo lugar todos los canales por los que venden. Es la primera
+            edición y la entrada no se cobra: lo único limitado es el salón.
           </p>
         </div>
       </div>
@@ -75,7 +75,7 @@ const CLAVES = [
     icono: "calendario",
     pregunta: "Cuándo",
     respuesta: "Domingo 20/09",
-    detalle: "De 9 a 18 h. Entrás y salís cuando quieras, nadie controla la butaca.",
+    detalle: "Charlas de 10 a 18. Puertas desde las 8:30, con los stands y el café ya abiertos.",
   },
   {
     icono: "lugar",
@@ -87,20 +87,21 @@ const CLAVES = [
     icono: "gente",
     pregunta: "Para quién",
     respuesta: "Dueños de cadenas",
-    detalle: "Cadenas con más de un local. El que decide, no el que ejecuta.",
+    detalle: "Cadenas con más de un local. Dueño, socio o gerente general: el que decide, no el que ejecuta.",
   },
   {
     icono: "entrada",
     pregunta: "Cuánto sale",
-    respuesta: "Nada",
-    detalle: "Entrada sin costo. El registro previo es obligatorio y el cupo es de 200.",
+    respuesta: "Un domingo",
+    detalle:
+      "No hay ticket ni se cobra en la puerta: la entrada no cuesta plata. Cuesta un domingo, y eso es lo único que tenés que evaluar. Hay que reservar antes: son 200 lugares y no hay más.",
   },
 ];
 
 const NO_ES = [
   "Una feria de comida",
   "Un curso ni una capacitación",
-  "Una ronda de venta de proveedores",
+  "Una ronda de reuniones agendadas",
   "Un evento para público general",
 ];
 </script>

@@ -23,7 +23,7 @@
         <div>
           <p class="rotulo text-acento-texto">La jornada</p>
           <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.55rem,4.6vw,3rem)]">
-            Nueve horas, siete bloques.
+            Siete bloques, ninguno de teoría.
           </h2>
         </div>
         <p
@@ -71,7 +71,7 @@
               <span class="whitespace-nowrap">degustación entre medio</span>
             </span>
           </span>
-          <span class="whitespace-nowrap tabular-nums text-gris-2">8:30 a 18:00</span>
+          <span class="whitespace-nowrap tabular-nums text-gris-2">puertas 8:30 · charlas 10 a 18</span>
         </div>
       </div>
 
@@ -237,7 +237,7 @@
 
       <p class="mt-6 max-w-[68ch] text-[15px] text-gris">
         El orden puede moverse hasta la semana del evento. La grilla final
-        <span class="font-bold text-white">la reciben primero los inscriptos</span>.
+        <span class="font-bold text-white">la reciben primero los que ya reservaron</span>.
       </p>
     </div>
   </section>

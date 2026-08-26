@@ -9,10 +9,10 @@
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Quién está detrás</p>
       <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(2rem,6vw,3.5rem)]">
-        Deenex organiza el evento que le venían pidiendo.
+        Las marcas nos venían pidiendo este día.
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Deenex es la plataforma con la que trabajan todos los días las marcas de acá abajo. En tres
+        Deenex es la plataforma donde las marcas de acá abajo manejan todos los días sus canales de venta. En tres
         años escuchando a dueños de cadenas apareció siempre la misma escena: decisiones grandes
         tomadas con información que nadie mira, y nadie con quién contrastarlas.
       </p>
