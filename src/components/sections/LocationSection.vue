@@ -90,28 +90,21 @@
 import { EVENTO } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
+/**
+ * Solo la direccion.
+ *
+ * Las otras tres fichas —cuando, horario, entrada— repetian datos que la
+ * pagina ya da ocho, seis y ocho veces respectivamente antes de llegar aca,
+ * con el mismo componente visual. Sus notas tampoco eran unicas: "entras y
+ * salis cuando quieras" esta en la FAQ y "lista de la puerta" aparece cuatro
+ * veces. La direccion aparece dos, y esta es la seccion que se llama "como
+ * llegar": es el unico dato que nace aca.
+ */
 const DATOS = [
   {
     icono: "lugar",
     label: "Dirección",
     valor: `${EVENTO.direccion}, Córdoba capital`,
-  },
-  {
-    icono: "calendario",
-    label: "Cuándo",
-    valor: "Domingo 20 de septiembre de 2026",
-  },
-  {
-    icono: "reloj",
-    label: "Horario",
-    valor: "Charlas de 10 a 18 h",
-    nota: "Puertas y acreditación desde las 8:30. Entrás y salís cuando quieras.",
-  },
-  {
-    icono: "entrada",
-    label: "Entrada",
-    valor: "Sin costo, con reserva previa",
-    nota: "Tu nombre queda en la lista de la puerta cuando confirmamos por WhatsApp.",
   },
 ];
 
