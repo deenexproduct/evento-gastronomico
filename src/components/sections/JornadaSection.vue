@@ -107,29 +107,21 @@
             :aria-pressed="elegido === b.id"
             @click="elegir(b.id)"
           >
-            <!--
-              La hora repetida en grande y tenue, detrás. Llena el hueco que
-              dejaba el cuadrado —hora arriba, título abajo y un vacío en el
-              medio— y hace que la grilla se lea como una línea de tiempo
-              aunque las piezas estén sueltas. aria-hidden porque es la misma
-              hora que ya anuncia el <time> de al lado.
-            -->
-            <span class="cuadro-hora-fondo" aria-hidden="true">{{ b.hora.split(":")[0] }}</span>
 
             <!-- Fila de arriba: el orden del día y el tipo, si no es charla -->
             <span class="relative flex items-start justify-between gap-2">
-              <span class="flex items-baseline gap-2">
-                <span
-                  class="text-[11px] font-black tabular-nums tracking-[0.1em] text-gris-2 sm:text-[12px]"
-                  aria-hidden="true"
-                  >{{ String(i + 1).padStart(2, "0") }}</span
-                >
-                <time
-                  :datetime="iso(b.hora)"
-                  class="hora text-[1.3rem] leading-none text-acento-texto sm:text-[1.55rem]"
-                  >{{ b.hora }}</time
-                >
-              </span>
+              <!--
+                Un solo número por cuadro. Antes eran tres —la hora, la hora
+                otra vez en grande de fondo, y el orden 01-07— y solo este
+                informa: el de fondo repetía la hora sin los minutos, y el
+                orden ya lo da la posición en la grilla. Ahora ocupa el
+                tamaño que gastaban los tres.
+              -->
+              <time
+                :datetime="iso(b.hora)"
+                class="hora text-[2rem] leading-none text-acento-texto sm:text-[2.6rem]"
+                >{{ b.hora }}</time
+              >
               <!-- El tipo solo cuando no es charla: cinco de siete lo son, y
                    repetir la etiqueta cinco veces la vacía de significado. -->
               <Pictograma
