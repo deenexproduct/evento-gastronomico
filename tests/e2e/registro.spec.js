@@ -67,3 +67,22 @@ test("la reserva es un solo botón, sin nada que elegir antes", async ({ page })
   await expect(page.locator("#registro button")).toHaveCount(0);
   await expect(page.locator('#registro a[href*="wa.me"]')).toHaveCount(1);
 });
+
+test("tocar Reservar deja el botón que reserva a la vista", async ({ page }) => {
+  // El camino completo, que es lo que puede costar reservas: antes esto
+  // dejaba el botón a 1.037px del pliegue en escritorio y a 2.816 en teléfono,
+  // con dos pantallas y media de scroll pendiente.
+  await page.goto("/");
+  await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
+  await page.locator("#hero a.btn").click();
+  await page.waitForTimeout(2000);
+
+  const d = await page.evaluate(() => {
+    const wa = document.querySelector('#reservar a[href*="wa.me"]');
+    const r = wa.getBoundingClientRect();
+    const visible = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / r.height;
+    return { visible, barra: !!document.querySelector(".barra-flotante") };
+  });
+  // O se ve el botón real, o está la barra: nunca ninguno de los dos.
+  expect(d.visible > 0.5 || d.barra, "no quedó ningún botón en pantalla").toBe(true);
+});

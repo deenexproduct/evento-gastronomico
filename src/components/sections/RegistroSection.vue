@@ -109,7 +109,13 @@
         <!-- Pegajoso en desktop: la columna izquierda es más alta que esta, y
              la barra flotante se esconde mientras esta sección está en
              pantalla. Sin sticky queda un tramo largo sin ningún botón. -->
-        <div class="lg:sticky lg:top-[104px] lg:self-start">
+        <!--
+          id propio: los botones de la página apuntan acá y no al titular de la
+          sección. Apuntando al titular, en teléfono el botón que reserva
+          quedaba 2.056px más abajo del pliegue — dos pantallas y media después
+          de tocar algo que dice "Quiero mi lugar".
+        -->
+        <div id="reservar" class="scroll-mt-24 lg:sticky lg:top-[104px] lg:self-start">
           <div class="rounded-2xl border border-acento/40 bg-acento/[0.07] p-6 sm:p-9">
             <p class="rotulo text-acento-texto">Reserva directa</p>
             <h3 class="titulo mt-3 text-[clamp(1.5rem,3.2vw,2rem)]">Se reserva por WhatsApp</h3>

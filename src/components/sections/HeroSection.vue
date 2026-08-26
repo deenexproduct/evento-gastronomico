@@ -48,7 +48,7 @@
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#registro" class="btn" @click.prevent="ir('registro')">{{
+            <a href="#reservar" class="btn" @click.prevent="ir('reservar')">{{
               agotado ? "Entrar a la lista" : "Quiero mi lugar"
             }}</a>
             <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>

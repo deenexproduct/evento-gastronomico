@@ -28,7 +28,7 @@
         </div>
 
         <a
-          href="#registro"
+          href="#reservar"
           class="presionable inline-flex min-h-[44px] shrink-0 items-center rounded-full bg-acento-boton px-5 text-[0.85rem] font-semibold text-white transition-colors hover:bg-[#D80047] sm:px-6"
           @click.prevent="ir"
         >
@@ -72,16 +72,22 @@ onMounted(() => {
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  const registro = document.getElementById("registro");
-  if (registro) {
+  // Se observa EL BOTÓN, no la sección. Mirando la sección entera la barra se
+  // apagaba apenas asomaba —y la sección mide 1183px en escritorio y 2376 en
+  // teléfono—, así que quedaba un tramo largo de lectura sin ningún botón en
+  // pantalla, justo adentro de la sección que sirve para reservar.
+  const boton = document.querySelector('#reservar a[href*="wa.me"]');
+  if (boton) {
     observer = new IntersectionObserver(
       ([entry]) => {
         formEnPantalla.value = entry.isIntersecting;
         recalcular();
       },
-      { threshold: 0.12 }
+      // Umbral alto: se apaga recién cuando el botón se ve casi entero, no
+      // cuando asoma un borde.
+      { threshold: 0.9 }
     );
-    observer.observe(registro);
+    observer.observe(boton);
   }
 
   const pie = document.querySelector("footer");
@@ -105,7 +111,7 @@ onUnmounted(() => {
 });
 
 function ir() {
-  document.getElementById("registro")?.scrollIntoView({ behavior: "smooth" });
+  document.getElementById("reservar")?.scrollIntoView({ behavior: "smooth" });
 }
 </script>
 

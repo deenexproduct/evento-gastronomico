@@ -28,7 +28,10 @@
 }
 
 html { scroll-behavior: smooth; }
-html, body { overflow-x: hidden; }
+/* `clip` y no `hidden`: hidden crea un contexto de scroll y eso rompe
+   position:sticky en todo lo que esté adentro — el panel de la reserva nunca
+   llegó a quedarse pegado por esto. clip recorta igual sin crear contexto. */
+html, body { overflow-x: clip; }
 
 /* El nav mide 73 px y está fijo arriba. Sin este margen, cada salto de ancla
    —el menú, los botones de reservar, un link compartido con #registro— deja

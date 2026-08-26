@@ -70,9 +70,9 @@
 
           <a
             v-if="t.estado === 'actual'"
-            href="#registro"
+            href="#reservar"
             class="btn mt-7 w-full"
-            @click.prevent="ir('registro')"
+            @click.prevent="ir('reservar')"
             >{{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}</a
           >
           <p
