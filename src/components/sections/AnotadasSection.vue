@@ -8,11 +8,11 @@
     sección no se renderiza — dos nombres en un espacio diseñado para veinte
     se leen como fracaso.
   -->
-  <section v-if="hayMarcas" id="anotadas" class="bg-noche-2 py-seccion">
+  <section v-if="hayMarcas" id="anotadas" class="border-b border-linea bg-noche-2 py-seccion">
     <div class="contenedor">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p class="rotulo text-acento-texto">Ya confirmaron</p>
+          <p class="rotulo text-gris">Ya confirmaron</p>
           <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(2rem,5.6vw,3.4rem)]">
             Quiénes van a estar en la sala
           </h2>

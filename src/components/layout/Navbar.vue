@@ -26,7 +26,17 @@
             <!-- "Quedan N" solo si N es un dato real; si no, el total. -->
             {{ agotado ? "Cupo completo" : mostrarCupo ? `${restantes} lugares` : `${total} lugares` }}
           </span>
+          <!--
+            Se esconde cuando aparece la
+            barra flotante de abajo, y vuelve en cuanto la barra se va. Sin
+            esto había dos píldoras magenta idénticas en pantalla al mismo
+            tiempo durante veintidós de las veintiocho pantallas del teléfono.
+            La condición sale de useBarraReserva y no de un umbral propio: la
+            barra se apaga por tres motivos distintos y adivinarlos acá dejaba
+            un tramo sin ningún acceso a reservar.
+          -->
           <a
+            v-if="!barraVisible"
             href="#reservar"
             class="presionable inline-flex min-h-[44px] items-center rounded-full bg-acento-boton px-5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-[#D80047]"
             @click.prevent="ir('reservar')"
@@ -43,6 +53,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
+import { barraVisible } from "@/composables/useBarraReserva";
 
 const { total, restantes, agotado, mostrarCupo } = useCupo();
 const scrolled = ref(false);

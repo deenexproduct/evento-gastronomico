@@ -8,7 +8,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
         <div>
-          <p class="rotulo text-acento-texto">Qué es</p>
+          <p class="rotulo text-gris">Qué es</p>
           <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(2rem,6vw,3.6rem)]">
             Un domingo entre dueños de cadenas.
           </h2>

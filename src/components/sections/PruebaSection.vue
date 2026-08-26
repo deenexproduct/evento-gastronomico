@@ -5,9 +5,9 @@
     verificable que hay: el volumen de Deenex y las marcas que ya trabajan
     con la plataforma. Misma estructura de tres columnas.
   -->
-  <section id="detras" class="py-seccion">
+  <section id="detras" class="border-b border-linea py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-acento-texto">Quién está detrás</p>
+      <p class="rotulo text-gris">Quién está detrás</p>
       <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(2rem,6vw,3.5rem)]">
         Las marcas nos venían pidiendo este día.
       </h2>

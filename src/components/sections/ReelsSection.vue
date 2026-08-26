@@ -10,7 +10,7 @@
   -->
   <section v-if="hayReels" id="reels" class="py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-acento-texto">De qué se trata</p>
+      <p class="rotulo text-gris">De qué se trata</p>
       <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5.6vw,3.2rem)]">
         Alan lo cuenta en un minuto
       </h2>

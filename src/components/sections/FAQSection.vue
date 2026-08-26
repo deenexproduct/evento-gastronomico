@@ -3,7 +3,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="rotulo text-acento-texto">Preguntas</p>
+          <p class="rotulo text-gris">Preguntas</p>
           <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
             Lo que siempre nos preguntan.
           </h2>

@@ -10,7 +10,7 @@
             rótulo cambia junto con el titular: si solo cambiara el h2, la
             sección diría lo mismo dos veces seguidas con dos sinónimos.
           -->
-          <p class="rotulo text-acento-texto">Seis cosas</p>
+          <p class="rotulo text-gris">Seis cosas</p>
           <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5vw,3.2rem)]">
             Qué te llevás del evento.
           </h2>
@@ -22,7 +22,7 @@
             :key="i"
             class="flex items-start gap-5 bg-noche px-5 py-5 sm:px-6"
           >
-            <span class="hora w-[2.2rem] shrink-0 pt-1 text-[1.6rem] text-acento-texto">
+            <span class="hora w-[2.2rem] shrink-0 pt-1 text-[1.6rem] text-gris-2">
               {{ String(i + 1).padStart(2, "0") }}
             </span>
             <span class="text-[17px] leading-[1.45] sm:text-[18px]">{{ item }}</span>

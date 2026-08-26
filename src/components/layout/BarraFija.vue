@@ -57,13 +57,14 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
+import { barraVisible as visible } from "@/composables/useBarraReserva";
 
 const { total, restantes, agotado, mostrarCupo } = useCupo();
 
 const pasoElHero = ref(false);
 const formEnPantalla = ref(false);
 const pieEnPantalla = ref(false);
-const visible = ref(false);
+
 
 /**
  * La barra se esconde cuando el pie entra en pantalla. Sin esto quedan dos

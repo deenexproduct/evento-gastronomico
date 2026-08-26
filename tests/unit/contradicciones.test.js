@@ -187,3 +187,29 @@ describe("frases largas repetidas entre secciones", () => {
     expect(repetidas).toEqual([]);
   });
 });
+
+describe("los tres capítulos", () => {
+  it("solo abren en magenta las tres secciones que abren capítulo", () => {
+    // Doce de quince secciones abrían idénticas: mismo rótulo de 13px en
+    // magenta, mismo padding-top de 96px, mismo h2 en peso 900. Sin variación
+    // no hay capítulos, y el magenta —repartido en 99 elementos— dejaba de
+    // señalar. HomeView ya declara tres capítulos en sus comentarios: "Qué
+    // pasa ese día", "Quién lo hace posible" y "Cómo entrar". El rótulo en
+    // magenta pasa a marcar esos tres y nada más.
+    const conMagenta = [];
+    for (const f of readdirSync(SECCIONES)) {
+      if (!f.endsWith(".vue")) continue;
+      const t = sinComentarios(readFileSync(join(SECCIONES, f), "utf-8"));
+      // Solo el PRIMER rótulo del archivo, que es el que abre la sección.
+      // Los de adentro son otra cosa: #registro tiene uno en el panel de
+      // reserva, que va sobre fondo magenta y ahí el color corresponde.
+      const primero = t.match(/class="rotulo[^"]*"/);
+      if (primero && primero[0].includes("text-acento-texto")) conMagenta.push(f);
+    }
+    expect(conMagenta.sort()).toEqual([
+      "AccesoSection.vue",
+      "BrandsSection.vue",
+      "HeroSection.vue",
+    ]);
+  });
+});

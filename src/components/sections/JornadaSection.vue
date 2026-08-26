@@ -21,7 +21,7 @@
       <!-- ── Encabezado ──────────────────────────────────────────────── -->
       <div class="lg:flex lg:items-end lg:justify-between lg:gap-12">
         <div>
-          <p class="rotulo text-acento-texto">La jornada</p>
+          <p class="rotulo text-gris">La jornada</p>
           <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.55rem,4.6vw,3rem)]">
             Siete bloques, ninguno de teoría.
           </h2>

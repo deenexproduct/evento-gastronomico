@@ -13,7 +13,7 @@
     son tres columnas, que es la forma que el contenido pedía: son tres cosas
     paralelas, no una secuencia.
   -->
-  <section id="despues" class="py-seccion">
+  <section id="despues" class="border-b border-linea py-16">
     <div class="contenedor">
       <p class="rotulo text-gris">Después del 20/09</p>
       <h2 class="titulo mt-4 text-[clamp(1.5rem,3.4vw,2.2rem)]">Qué queda cuando termina</h2>

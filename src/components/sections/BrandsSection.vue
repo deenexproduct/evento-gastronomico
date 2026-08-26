@@ -1,5 +1,5 @@
 <template>
-  <section id="partners" class="py-seccion">
+  <section id="partners" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Partners</p>
       <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(2rem,5.6vw,3.4rem)]">

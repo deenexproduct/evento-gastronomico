@@ -8,7 +8,7 @@
   -->
   <section id="sumarse" class="bg-noche-2 py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-acento-texto">No venís como asistente</p>
+      <p class="rotulo text-gris">No venís como asistente</p>
       <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(2rem,5.6vw,3.4rem)]">
         Sumate de otra forma
       </h2>
@@ -41,7 +41,7 @@
             :href="whatsappPartner"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn mt-7 w-full"
+            class="btn-linea mt-7 w-full"
           >
             Hablar de partnership
           <span class="sr-only"> (abre en una pestaña nueva)</span></a>

@@ -4,7 +4,7 @@
     Alan, no a Deenex". Hasta acá aparecía solo como atribución de tres
     bloques. Para un público de dueños, la credibilidad viene de la persona.
   -->
-  <section id="alan" class="bg-noche-2 py-seccion">
+  <section id="alan" class="border-b border-linea bg-noche-2 py-seccion">
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-14">
         <!-- Retrato -->

@@ -15,7 +15,7 @@
       <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <!-- ── El argumento ──────────────────────────────────────────── -->
         <div>
-          <p class="rotulo text-acento-texto">
+          <p class="rotulo text-gris">
             {{ agotado ? "Lista de espera" : "Reservá tu lugar" }}
           </p>
 

@@ -4,11 +4,11 @@
     llego, dónde dejo el auto, a qué hora aparezco. "Dónde estaciono" está
     documentado como causa de ausencia en eventos gratuitos.
   -->
-  <section id="lugar" class="py-seccion">
+  <section id="lugar" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div>
-          <p class="rotulo text-acento-texto">Cómo llegar</p>
+          <p class="rotulo text-gris">Cómo llegar</p>
           <h2 class="titulo mt-4 text-[clamp(1.9rem,5.6vw,3.2rem)]">
             {{ EVENTO.venue }}, Córdoba
           </h2>
