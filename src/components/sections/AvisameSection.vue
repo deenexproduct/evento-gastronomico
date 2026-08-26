@@ -14,13 +14,13 @@
     <div class="contenedor">
       <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
         <div>
-          <h2 class="titulo text-[clamp(1.5rem,3.6vw,2.3rem)]">
-            ¿Querés esperar a ver quién más habla?
+          <h2 class="titulo max-w-[18ch] text-[clamp(1.5rem,3.6vw,2.3rem)]">
+            ¿Todavía no te decidís?
           </h2>
           <p class="mt-4 max-w-[54ch] text-[16px] leading-[1.55] text-gris">
-            Escribinos y te avisamos apenas cerramos los oradores que faltan. No es una reserva: el
-            lugar se toma por orden de llegada, y si para cuando te decidas ya entraron
-            {{ total }}, quedás en la lista de espera.
+            Te escribimos cuando anunciemos los oradores que faltan. Ojo con una cosa: esto no
+            guarda tu lugar. El cupo se toma por orden de llegada, y si para cuando te decidas ya
+            entraron {{ total }}, quedás en la lista de espera.
           </p>
         </div>
 
@@ -30,7 +30,7 @@
           rel="noopener noreferrer"
           class="btn-linea shrink-0"
         >
-          Avisame cuando cierren
+          Avisame quién más habla
           <span class="sr-only"> (abre WhatsApp en una pestaña nueva)</span>
         </a>
       </div>

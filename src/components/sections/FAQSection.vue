@@ -2,9 +2,9 @@
   <section id="faq" class="border-b border-linea py-20 sm:py-28">
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-12">
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-4">
           <p class="rotulo text-acento-texto">Preguntas</p>
-          <h2 class="titulo mt-5 max-w-[14ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
+          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.7rem,3.2vw,2.4rem)]">
             Lo que siempre nos preguntan.
           </h2>
           <p class="mt-6 text-[0.95rem] leading-[1.6] text-gris">
@@ -20,7 +20,7 @@
           <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </div>
 
-        <div class="lg:col-span-9">
+        <div class="lg:col-span-8">
           <div class="border-t border-linea">
             <div v-for="(item, i) in FAQ" :key="i" class="border-b border-linea">
               <h3>

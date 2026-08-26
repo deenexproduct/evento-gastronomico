@@ -13,10 +13,10 @@
         cerramos el próximo, lo vas a ver acá.
       </p>
 
-      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-12 grid gap-4 sm:grid-cols-2">
         <article v-for="p in partners" :key="p.nombre" class="tarjeta flex flex-col p-7">
           <!-- Logo, o el nombre en tipografía si todavía no llegó -->
-          <div class="flex h-14 items-center">
+          <div class="flex min-h-14 items-center">
             <img
               v-if="p.src"
               :src="p.src"

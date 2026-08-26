@@ -20,7 +20,7 @@
           <li
             v-for="(item, i) in EL_LUNES"
             :key="i"
-            class="flex items-start gap-5 bg-noche py-5"
+            class="flex items-start gap-5 bg-noche px-5 py-5 sm:px-6"
           >
             <span class="hora w-[2.2rem] shrink-0 pt-1 text-[1.6rem] text-acento-texto">
               {{ String(i + 1).padStart(2, "0") }}

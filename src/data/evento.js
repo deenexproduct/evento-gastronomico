@@ -765,7 +765,7 @@ export const MENSAJES_WA = {
   prensa:
     "PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del 20 de septiembre.\n\nMedio:\nMi nombre:\nQué necesitaría:",
   avisos:
-    "AVISOS GASTROTECH\n\nHola! Todavía no me anoto pero quiero que me avisen cuando se anuncien los oradores que faltan.\n\nMi mail:",
+    "AVISOS GASTROTECH\n\nHola! Todavía no me anoto, pero quiero que me avisen cuando se anuncien los oradores que faltan.",
   consulta:
     "CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del 20 de septiembre:\n\n",
 };

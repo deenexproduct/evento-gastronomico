@@ -150,8 +150,7 @@
             </a>
 
             <p class="mt-4 text-center text-[13px] leading-snug text-gris-2">
-              Contesta una persona. Si después no podés venir, avisás por el mismo chat y
-              liberás el lugar.
+              Contesta una persona, no un formulario.
             </p>
 
             <!-- El agendado vivía dentro de la pantalla de éxito del
@@ -217,10 +216,6 @@ const RIESGO = [
   {
     q: "No cuesta nada",
     a: "No se pide tarjeta ni se paga en la puerta. Lo que sí hace falta es reservar antes.",
-  },
-  {
-    q: "Si no podés venir, avisás",
-    a: "Por el mismo chat. Se libera el lugar para el que está esperando.",
   },
   {
     q: "Sí hay proveedores, no hay ronda",

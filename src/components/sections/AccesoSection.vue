@@ -59,7 +59,7 @@
           <p class="mt-6 flex items-baseline gap-2">
             <span
               class="text-[3.2rem] font-black leading-none tabular-nums tracking-[-0.04em]"
-              :class="t.estado === 'completo' ? 'text-gris-2' : 'text-white'"
+              :class="t.estado === 'actual' ? 'text-white' : 'text-gris-2'"
               >{{ t.cifra }}</span
             >
             <span class="text-[14px] font-semibold text-gris">{{ t.unidad }}</span>
@@ -72,7 +72,7 @@
               class="flex items-start gap-2.5 text-[15px] leading-[1.45]"
               :class="t.estado === 'completo' ? 'text-gris-2' : 'text-gris'"
             >
-              <span class="mt-[3px] shrink-0" :class="t.estado === 'completo' ? '' : 'text-acento-texto'">✓</span>
+              <span class="mt-[3px] shrink-0" :class="t.estado === 'actual' ? 'text-acento-texto' : ''">✓</span>
               {{ i }}
             </li>
           </ul>
@@ -145,7 +145,7 @@ const tramos = computed(() =>
     unidad: "lugares extra",
     estado: agotado.value ? "actual" : "espera",
     incluye: [
-      "No hay sillas de más: entra lo que entra",
+      "Te anotás por el mismo WhatsApp",
       "Se libera lugar solo si alguien avisa que no viene",
       "Te escribimos si se abre uno",
     ],
