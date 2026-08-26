@@ -108,7 +108,7 @@ test("de 1280 para arriba entran los siete Y la respuesta en una pantalla", asyn
   expect(r.panelTop).toBeGreaterThanOrEqual(0);
 });
 
-test("al tocar un bloque, la respuesta aparece pegada a lo que se tocó", async ({ page }) => {
+test("al tocar un bloque, la respuesta se ve sin buscarla", async ({ page }) => {
   // El caso que importa: teléfono, que es como llega el 100% del público.
   await page.setViewportSize({ width: 393, height: 664 });
   await anclar(page);
@@ -137,10 +137,10 @@ test("al tocar un bloque, la respuesta aparece pegada a lo que se tocó", async 
         alto: Math.round(p.height),
       };
     });
-    // Una fila de grilla, nunca la página entera. Antes esto valía hasta 736.
-    expect(r.brecha, `bloque ${i + 1}: la respuesta quedó lejos del cuadrado`).toBeLessThanOrEqual(
-      200
-    );
+    // La distancia dejó de ser la garantía: en teléfono el panel va después
+    // de los siete a propósito, para que la grilla entre en una pantalla. Lo
+    // que hay que proteger es lo que esa distancia buscaba asegurar — que la
+    // respuesta se vea al tocar, de lo que se encarga acercar().
     expect(
       r.visible / r.alto,
       `bloque ${i + 1}: la respuesta no se ve al tocar`

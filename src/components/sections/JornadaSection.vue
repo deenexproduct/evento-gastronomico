@@ -327,7 +327,15 @@ async function acercar() {
   const r = el.getBoundingClientRect();
   const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
   if (r.height === 0 || visible / r.height > 0.5) return;
-  const falta = Math.min(Math.round(r.bottom - window.innerHeight + 16), Math.round(r.height));
+  // El tope de "no desplazar más que el alto del panel" vale cuando el panel
+  // nace pegado a la fila tocada. En teléfono va DESPUÉS de los siete, para
+  // que la grilla entre en una pantalla, y ahí ese tope se queda corto:
+  // medido, tocando el primer bloque la respuesta quedaba fuera de la vista
+  // por completo. El destino sigue siendo conocido y corto —el final de una
+  // grilla de 808px—, así que ahí se permite llegar.
+  const alFinal = columnas.value <= 2;
+  const necesario = Math.round(r.bottom - window.innerHeight + 16);
+  const falta = alFinal ? necesario : Math.min(necesario, Math.round(r.height));
   if (falta <= 0) return;
   const suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.scrollBy({ top: falta, behavior: suave ? "smooth" : "auto" });
@@ -369,6 +377,12 @@ onBeforeUnmount(() => consultas.forEach((c) => c.removeEventListener("change", m
  * .panel-jornada en main.css), así que este número deja de importar.
  */
 const ordenPanel = computed(() => {
+  // En teléfono el panel va DESPUÉS de los siete, no entre medio. Intercalado
+  // parte la grilla al medio y los siete cuadrados dejan de entrar en una
+  // pantalla, que es lo que se pidió de esta sección. Al final entran los
+  // siete, y de que la respuesta se vea se encarga acercar().
+  if (columnas.value <= 2) return TEMAS.length * 2;
+
   const i = Math.max(
     0,
     TEMAS.findIndex((t) => t.id === elegido.value)
