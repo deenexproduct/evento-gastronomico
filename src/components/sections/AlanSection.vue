@@ -8,7 +8,15 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-14">
         <!-- Retrato -->
-        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10">
+        <!--
+          El tope de ancho es lo que impide que el retrato se desboque entre
+          640 y 1023px: ahí la columna todavía no se partió en dos y la foto
+          se llevaba el ancho entero — a 1023 medía 959x1199 y estiraba la
+          sección a 1952px. De lg para arriba la grilla ya la acota en 380.
+        -->
+        <div
+          class="relative aspect-[4/5] w-full max-w-[380px] overflow-hidden rounded-2xl border border-white/10"
+        >
           <FotoSlot
             :src="foto"
             alt="Alan Tapia, founder y CEO de Deenex"

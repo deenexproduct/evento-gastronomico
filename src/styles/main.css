@@ -521,7 +521,10 @@ html.claro .mapa { filter: grayscale(1) contrast(1.05); }
 /* Los logos venían con brightness-0 + invert para verse blancos sobre negro.
    En claro hay que dejarlos NEGROS, no devolverlos a su color: doce logos a
    todo color al 45% se leen como un collage. */
-html.claro img.invert { filter: brightness(0) !important; opacity: .55 !important; }
+/* NO usar brightness(0): pinta de negro el archivo entero, fondo incluido, y
+   de los doce logos solo sobreviven los que son puro texto. Los otros nueve
+   quedan como manchas idénticas. grayscale conserva las formas. */
+html.claro img.invert { filter: grayscale(1) !important; opacity: .75 !important; }
 html.claro img.invert:hover { opacity: 1 !important; }
 
 /* Regresiones que causó este mismo bloque: una declaración !important de
