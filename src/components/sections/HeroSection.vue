@@ -32,15 +32,19 @@
             gris con la promesa. La categoría pasó a la línea de datos de abajo
             y queda una sola frase, que es la que tiene que leerse.
           -->
-          <p class="mt-5 max-w-[34ch] text-[clamp(1.25rem,3vw,1.9rem)] font-black uppercase leading-[1.08] tracking-[-0.02em]">
-            Un domingo para dueños de cadenas gastronómicas.
-            <span class="text-acento-texto">El lunes mirás tus locales con otros números.</span>
+          <!--
+            El acento cae en "centrada en gastronomía": eso es lo que separa
+            esto de un evento de tecnología cualquiera, y es lo que el lector
+            todavía no sabe cuando llega.
+          -->
+          <p class="mt-5 max-w-[30ch] text-[clamp(1.35rem,3.2vw,2.1rem)] font-black uppercase leading-[1.08] tracking-[-0.02em]">
+            El primer evento de tecnología
+            <span class="text-acento-texto">centrada en gastronomía.</span>
           </p>
 
           <p class="mt-5 max-w-[46ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]">
-            Comparar el food cost real entre tus locales, ver los sistemas funcionando con lo que
-            cuestan, y escuchar los números que otras cadenas de Córdoba no dicen en público. Lo
-            cuenta gente que ya lo resolvió con varios locales abiertos.
+            El espacio donde vas a encontrar innovación, tecnología y conceptos para aplicar
+            adentro de tu cadena gastronómica.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
