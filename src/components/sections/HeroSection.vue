@@ -21,7 +21,19 @@
       <div class="grid items-start gap-10 lg:grid-cols-[1.1fr_.9fr] lg:gap-14">
         <!-- Columna del mensaje -->
         <div>
-          <p class="rotulo text-acento-texto">Edición 01 · Organiza Deenex</p>
+          <!--
+            Cuando y donde, en la primera linea de todas. En un telefono de
+            667px de alto la fecha aparecia recien a y=688: 21px por debajo
+            del pliegue, o sea que la primera pantalla no decia que dia era
+            ni en que ciudad. El panel de la derecha los sigue diciendo
+            completos; esto es el titular.
+
+            Sale "Organiza Deenex" de aca: quien organiza tiene su propia
+            seccion mas abajo y no es lo que hay que saber primero.
+          -->
+          <p class="rotulo text-acento-texto">
+            <span class="hidden sm:inline">Edición 01 · </span>{{ EVENTO.fechaBreve }} · {{ EVENTO.ciudad }}
+          </p>
 
           <h1 class="display mt-5 text-[clamp(2.6rem,8.5vw,6.5rem)]">
             {{ EVENTO.nombre }}

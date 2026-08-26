@@ -15,15 +15,24 @@
       </p>
 
       <div class="mt-14 grid gap-4 lg:grid-cols-3">
+        <!--
+          En una columna el tramo abierto va primero. Apilados en el orden
+          del llenado, en un telefono de 667px la primera pantalla de esta
+          seccion terminaba en la palabra COMPLETO: el tramo que se puede
+          reservar arrancaba 129px por debajo del pliegue y el "115
+          disponibles" quedaba fuera de cuadro. En tres columnas el orden
+          del llenado se lee igual de izquierda a derecha, asi que ahi se
+          restituye.
+        -->
         <article
           v-for="t in tramos"
           :key="t.titulo"
           class="flex flex-col rounded-2xl border p-7"
-          :class="
+          :class="[
             t.estado === 'actual'
-              ? 'border-acento bg-white/[0.06]'
-              : 'border-white/10 bg-white/[0.03]'
-          "
+              ? 'border-acento bg-white/[0.06] order-first lg:order-none'
+              : 'border-white/10 bg-white/[0.03]',
+          ]"
         >
           <div class="flex items-center justify-between gap-3">
             <span

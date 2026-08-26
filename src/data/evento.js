@@ -15,6 +15,8 @@ export const EVENTO = {
   fechaISO: "2026-09-20T10:00:00-03:00",
   fechaLarga: "Domingo 20 de septiembre de 2026",
   fechaCorta: "Domingo 20.09.2026",
+  // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
+  fechaBreve: "Domingo 20.09",
   fechaNumerica: "20.09.26",
   // Puertas 8:30, charlas 10 a 18. La hora 9 que figuraba antes no era ni
   // la de apertura ni la del primer bloque: no existia en ningun lado.

@@ -17,8 +17,22 @@
         class="barra-flotante pointer-events-auto mx-auto flex max-w-[1080px] items-center justify-between gap-4 rounded-2xl border border-linea bg-noche/95 px-4 py-3 backdrop-blur-md sm:gap-5 sm:rounded-full sm:px-5"
       >
         <div class="min-w-0">
-          <p class="rotulo truncate text-gris">{{ EVENTO.fechaCorta }} · {{ EVENTO.venue }}</p>
-          <p class="mt-0.5 truncate text-[0.9rem] font-semibold tracking-[-0.02em]">
+          <!--
+            En telefono esta linea no entra: pide 396px y el boton le deja
+            152, asi que se veia "DOMINGO 20.09.2026 · HOT…" durante las
+            dieciseis pantallas que la barra acompania. Con el boton al lado
+            no hay ancho que alcance, y achicar la tipografia solo para aca
+            seria una excepcion de estilo para decir algo que la pagina ya
+            dice en el hero, en el panel, en el registro y en el pie.
+
+            Queda la linea de abajo, que es la que empuja a reservar y si
+            entra entera. Entra a partir de md: a 640px todavia pedia
+            429px sobre los 373 que le deja el boton.
+          -->
+          <p class="rotulo hidden truncate text-gris md:block">
+            {{ EVENTO.fechaCorta }} · {{ EVENTO.venue }}
+          </p>
+          <p class="truncate text-[0.9rem] sm:mt-0.5 font-semibold tracking-[-0.02em]">
             <template v-if="agotado">Cupo completo · lista de espera</template>
             <template v-else-if="mostrarCupo">
               Quedan <span class="text-acento-texto">{{ restantes }}</span> de {{ total }} lugares
