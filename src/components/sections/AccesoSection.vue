@@ -105,7 +105,7 @@ const tramos = computed(() =>
     incluye: [
       "Reservaron antes que vos",
       "Ya confirmaron su lugar",
-      "Reciben la grilla primero",
+      "Están en la lista de la puerta",
     ],
   },
   {

@@ -81,7 +81,7 @@ const CLAVES = [
     icono: "lugar",
     pregunta: "Dónde",
     respuesta: "Córdoba capital",
-    detalle: `${EVENTO.venue}, en un salón propio de 200 m².`,
+    detalle: `${EVENTO.venue}, en un salón propio.`,
   },
   {
     icono: "gente",

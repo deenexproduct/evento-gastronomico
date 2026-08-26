@@ -21,8 +21,8 @@
             Quiero ser partner
           </h3>
           <p class="mt-4 text-[16px] leading-[1.55] text-gris">
-            Stand en el salón, demo en vivo dentro del programa y un beneficio para las 200 personas
-            que estén ese día. Los partners no se anuncian hasta estar cerrados por escrito.
+            Stand en el salón, demo en vivo dentro del programa y un beneficio para los que
+            estén ese día. Los partners no se anuncian hasta estar cerrados por escrito.
           </p>
 
           <ul class="mt-7 grid gap-px bg-white/10">
@@ -89,7 +89,7 @@ const INCLUYE_PARTNER = [
   "Stand en el salón durante toda la jornada",
   "Demo en vivo dentro del programa",
   "Tu marca en la comunicación del evento",
-  "Un día entero cara a cara con 200 dueños de cadenas",
+  "Un día entero cara a cara con dueños de cadenas, sin público general",
 ];
 
 const INCLUYE_PRENSA = [

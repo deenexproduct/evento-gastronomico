@@ -13,7 +13,7 @@
             {{ EVENTO.venue }}, Córdoba
           </h2>
           <p class="mt-5 max-w-[44ch] text-[17px] text-gris">
-            Salón propio de 200 m² dentro del centro de convenciones. El cupo del evento es,
+            Salón propio dentro del centro de convenciones. El cupo del evento es,
             literalmente, la capacidad de la sala.
           </p>
 

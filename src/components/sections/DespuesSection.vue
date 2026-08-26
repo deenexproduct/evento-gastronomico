@@ -39,8 +39,8 @@ const DESPUES = [
     texto: "Se coordina después del evento con el equipo de Deenex.",
   },
   {
-    titulo: "La edición 02",
-    texto: "Los que estuvieron se enteran primero y entran antes que el resto.",
+    titulo: "Si hay una próxima",
+    texto: "Los que estuvieron se enteran antes que nadie.",
   },
 ];
 

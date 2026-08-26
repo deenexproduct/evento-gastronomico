@@ -121,7 +121,7 @@
             <h3 class="titulo mt-3 text-[clamp(1.5rem,3.2vw,2rem)]">Se reserva por WhatsApp</h3>
             <p class="mt-4 max-w-[40ch] text-[16px] leading-[1.55] text-gris">
               Sin formularios y sin esperar un mail. Te abrimos el chat con el mensaje escrito:
-              completás cuatro renglones y lo mandás.
+              completás {{ RENGLONES_RESERVA }} renglones y lo mandás.
             </p>
 
             <!-- Los tres pasos reemplazan la barra de progreso "1 de 2" y
@@ -187,7 +187,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { linkWaReserva } from "@/data/evento";
+import { linkWaReserva, RENGLONES_RESERVA } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";

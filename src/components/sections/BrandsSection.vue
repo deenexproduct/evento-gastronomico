@@ -56,7 +56,7 @@
             Hay lugar para más marcas
           </h3>
           <p class="mt-2 max-w-[52ch] text-[15px] leading-[1.5] text-gris">
-            Stands, demos y beneficios para los 200 dueños de cadenas de la sala. Quedan espacios.
+            Stands, demos y beneficios para los dueños de cadenas de la sala. Quedan espacios.
           </p>
         </div>
         <a

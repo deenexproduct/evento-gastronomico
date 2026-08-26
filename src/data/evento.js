@@ -23,7 +23,6 @@ export const EVENTO = {
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
-  salon: "Salón de 200 m²",
   // Contexto, nunca asistencia propia: las 20.000 son del evento madre.
   eventoMadre: "Córdoba Corazón de Moda",
   eventoMadreCirculacion: "20.000",
@@ -210,7 +209,7 @@ export const BENTO = [
 
 /** Con qué volvés al local. Verbo + resultado tangible, sin adjetivos. */
 export const EL_LUNES = [
-  "Los números reales de otras cadenas de Córdoba, dichos en voz alta",
+  "Qué tecnología está usando hoy el resto del rubro, contada por los que la implementan",
   "Los proveedores del rubro comparados en un día, en vez de en tres meses de reuniones",
   "Sistemas andando, no en una slide: te parás adelante, preguntás por tu caso y ves si te sirve",
   "Cómo comparar el food cost real entre tus locales, no el que dice la ficha técnica",
@@ -621,7 +620,7 @@ export const FAQ = [
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio de 200 m² del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo domingo el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
+    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo domingo el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
   },
 ];
 
@@ -741,6 +740,18 @@ export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado
 }
 
 /** El enlace de reserva, listo para abrir. */
+/**
+ * Cuantos renglones en blanco trae el mensaje de reserva.
+ *
+ * La pagina lo dice en voz alta antes de que la persona toque el boton, y
+ * decia "cuatro" cuando eran seis: el que abria WhatsApp encontraba mas
+ * trabajo del prometido justo en el paso donde se decide. Contarlo del
+ * mensaje real es lo unico que evita que los dos vuelvan a separarse.
+ */
+export const RENGLONES_RESERVA = mensajeReserva()
+  .split("\n")
+  .filter((linea) => linea.trim().endsWith(":")).length;
+
 export function linkWaReserva(opciones) {
   return `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(mensajeReserva(opciones))}`;
 }
