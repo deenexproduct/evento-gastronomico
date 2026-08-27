@@ -9,29 +9,57 @@
       <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
         <div>
           <p class="rotulo text-gris">Qué es</p>
+          <!--
+            El titular decía "Un domingo entre dueños de cadenas": abría con
+            lo que el lector PAGA, no con lo que pasa. Y la cuarta casilla
+            volvía a decir "Cuánto sale · Un domingo", así que la mejor idea
+            de la sección estaba dicha dos veces y una era el titular. Ahora
+            el titular dice qué es y la casilla se queda con el precio.
+
+            Segunda pasada: la versión intermedia decía "Un día entero, siete
+            bloques y una sola sala", que repetía palabra por palabra el
+            párrafo de al lado y encima rompía en cinco líneas, dejando media
+            columna derecha en blanco. El titular enmarca, el párrafo detalla.
+          -->
           <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(2rem,6vw,3.6rem)]">
-            Un domingo entre dueños de cadenas.
+            Un día de tecnología para tu cadena.
           </h2>
         </div>
 
         <div>
+          <!--
+            La frase más grande de la sección ponía al lector de oyente
+            —"escuchan a los que ya resolvieron"— cuando lo que la jornada
+            ofrece de distinto es lo contrario: pararse adelante y preguntar
+            por el caso propio. Acá se dice en ese orden.
+
+            Sale el párrafo sobre Deenex. Quién organiza tiene una sección
+            entera más abajo —"Las marcas nos venían pidiendo este día"— con
+            el mismo dato de las +350 marcas. Repetirlo acá, en el segundo
+            renglón de la primera sección de contenido, es gastar la atención
+            del lector en nosotros antes de haberle dicho qué gana él.
+          -->
           <p class="text-[clamp(1.15rem,2.6vw,1.6rem)] font-bold leading-[1.35]">
-            Un día entero en Córdoba donde
-            <span class="text-acento-texto">dueños de cadenas gastronómicas</span>
-            escuchan a los que ya resolvieron lo que ellos están peleando:
-            costos, datos, sistemas y contenido.
+            Siete bloques a lo largo del día, sin salas paralelas: lo que pasa,
+            <span class="text-acento-texto">pasa adelante tuyo</span>.
           </p>
 
           <p class="lectura mt-6 text-[17px] leading-[1.6] text-gris">
-            Lo organiza {{ EVENTO.organiza }}, la plataforma donde más de 350 marcas del rubro
-            manejan desde un solo lugar todos los canales por los que venden. Es la primera
-            edición y la entrada no se cobra.
+            Los que ya resolvieron costos, datos, sistemas y contenido cuentan cómo lo hicieron, y
+            los proveedores muestran los sistemas funcionando. Te parás adelante, preguntás por tu
+            caso y ves si te sirve.
           </p>
         </div>
       </div>
 
       <!-- Las cuatro preguntas que se hace cualquiera que llega de un anuncio -->
-      <dl class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <!--
+        Eran cuatro. "Cuándo" y "Dónde" se fueron: desde que el rótulo del
+        hero dice "Hotel Quinto Centenario · Córdoba / Domingo 20 de
+        septiembre de 2026", estas dos repetían ese dato una pantalla más
+        abajo y con el mismo peso visual que las dos que sí traen algo nuevo.
+      -->
+      <dl class="mt-14 grid gap-4 sm:grid-cols-2">
         <div v-for="q in CLAVES" :key="q.pregunta" class="tarjeta flex flex-col p-6">
           <span
             class="flex h-11 w-11 items-center justify-center rounded-full bg-acento/10 text-acento-texto"
@@ -71,18 +99,6 @@ import { EVENTO } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
 const CLAVES = [
-  {
-    icono: "calendario",
-    pregunta: "Cuándo",
-    respuesta: "Domingo 20/09",
-    detalle: "Charlas de 10 a 18. Puertas desde las 8:30, con los stands y el café ya abiertos.",
-  },
-  {
-    icono: "lugar",
-    pregunta: "Dónde",
-    respuesta: "Córdoba capital",
-    detalle: `${EVENTO.venue}, en un salón propio.`,
-  },
   {
     icono: "gente",
     pregunta: "Para quién",
