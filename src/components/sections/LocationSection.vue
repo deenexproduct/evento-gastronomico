@@ -13,8 +13,7 @@
             {{ EVENTO.venue }}, Córdoba
           </h2>
           <p class="mt-5 max-w-[44ch] text-[17px] text-gris">
-            Salón propio dentro del centro de convenciones. El cupo del evento es,
-            con entrada por lista.
+            Salón propio dentro del centro de convenciones, con entrada por lista.
           </p>
 
           <dl class="mt-10 grid gap-3">
@@ -92,9 +91,6 @@
 
           <div v-else class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8 text-center">
             <Pictograma nombre="lugar" :tam="30" />
-            <p class="max-w-[24ch] text-[15px] leading-[1.5] text-gris">
-              {{ EVENTO.direccion }}
-            </p>
             <button type="button" class="btn-linea" @click="mapaPedido = true">
               Ver el mapa acá
             </button>

@@ -18,7 +18,7 @@
         <article class="tarjeta flex flex-col p-8">
           <span class="chip self-start border-acento/50 text-acento-texto">Marcas</span>
           <h3 class="mt-5 text-[1.5rem] font-black uppercase leading-[1.1]">
-            Quiero ser sponsor
+            Sponsors
           </h3>
           <p class="mt-4 text-[16px] leading-[1.55] text-gris">
             Stand en el salón, demo en vivo dentro del programa y un beneficio para los que

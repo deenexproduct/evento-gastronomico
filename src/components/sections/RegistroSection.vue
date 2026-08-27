@@ -151,7 +151,7 @@
             </a>
 
             <p class="mt-4 text-center text-[13px] leading-snug text-gris-2">
-              Contesta una persona, no un formulario.
+              Te contestamos el mismo día.
             </p>
 
             <!-- El agendado vivía dentro de la pantalla de éxito del

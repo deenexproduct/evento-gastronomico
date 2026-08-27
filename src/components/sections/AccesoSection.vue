@@ -134,7 +134,7 @@ const tramos = computed(() =>
     // estado, que es de lo que hablan las otras dos columnas.
     incluye: [
       "Todavía se puede reservar",
-      "Se reserva por WhatsApp, contesta una persona",
+      "Se reserva por WhatsApp, sin formulario",
       "No hay sillas de más: entra lo que entra",
     ],
   },
