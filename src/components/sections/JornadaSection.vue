@@ -117,11 +117,26 @@
                 orden ya lo da la posición en la grilla. Ahora ocupa el
                 tamaño que gastaban los tres.
               -->
-              <time
-                :datetime="iso(b.hora)"
-                class="hora text-[2rem] leading-none text-acento-texto sm:text-[2.6rem]"
-                >{{ b.hora }}</time
-              >
+              <span class="block">
+                <time
+                  :datetime="iso(b.hora)"
+                  class="hora block text-[2.1rem] leading-none text-acento-texto sm:text-[2.75rem]"
+                  >{{ b.hora }}</time
+                >
+                <!--
+                  La duración, debajo y no al lado.
+
+                  Al lado no entra: en un teléfono el cuadrado mide 163px y la
+                  hora ya se lleva 85; con el pictograma del tipo en la misma
+                  fila, la duración desborda. Debajo, el bloque se lee como una
+                  franja horaria —empieza a las diez, dura tres cuartos— que es
+                  lo que hace que la grilla parezca una agenda y no siete
+                  botones sueltos.
+                -->
+                <span class="mt-1 block text-[9.5px] font-black uppercase leading-none tracking-[0.1em] text-gris sm:text-[10.5px]">
+                  {{ b.dur }} min
+                </span>
+              </span>
               <!-- El tipo solo cuando no es charla: cinco de siete lo son, y
                    repetir la etiqueta cinco veces la vacía de significado. -->
               <Pictograma
