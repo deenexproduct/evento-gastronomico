@@ -58,22 +58,7 @@
       <!-- Quiénes ya confirmaron: último escalón antes de reservar -->
       <AnotadasSection class="v-reveal" />
 
-      <!--
-        Las preguntas ANTES del pedido.
-
-        Estaban cinco pantallas debajo del único botón que reserva, y son
-        objeciones: "es domingo y trabajo", "¿me van a querer vender algo?",
-        "tengo un solo local, ¿me sirve?". El que dudaba llegaba al botón sin
-        haberlas leído, no reservaba, y las respuestas que lo habrían
-        convencido quedaban del lado equivocado de la decisión.
-
-        Cuesta demora: el botón se corre. Es la única contra y está medida
-        abajo, en el commit. La cuenta que la justifica es que el porcentaje
-        es un proxy y las objeciones contestadas no.
-      -->
-      <FAQSection class="v-reveal bg-noche" />
-
-      <!-- La reserva, con toda la prueba y las preguntas ya leídas -->
+      <!-- La reserva, con toda la prueba ya leída -->
       <RegistroSection />
 
       <!-- Dónde es -->
@@ -84,6 +69,9 @@
 
       <!-- Captura secundaria, para el que llegó hasta acá y no reservó -->
       <AvisameSection class="v-reveal" />
+
+      <!-- Preguntas -->
+      <FAQSection class="v-reveal bg-noche" />
 
       <!-- Partners y prensa: los otros dos públicos, al final -->
       <SumarseSection class="v-reveal" />
