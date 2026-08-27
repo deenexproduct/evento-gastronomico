@@ -6,11 +6,16 @@
 
     Sin archivo de logo se muestra el nombre en tipografía. Un nombre bien
     puesto se lee mejor que un recuadro vacío esperando una imagen.
+
+    El logo va más alto que el cuerpo del nombre a propósito. Una marca real
+    gasta parte de su alto en aire y en el ícono; el nombre tipografiado son
+    puras versales, que ocupan todo. Al mismo alto de caja el logo se lee
+    chico al lado del texto. Cuando entren los tres esto se vuelve a emparejar.
   -->
   <section id="respaldan" class="border-y border-white/10 bg-noche-2 py-10 sm:py-12">
     <div class="contenedor">
       <p class="text-center text-[12px] font-black uppercase tracking-[0.18em] text-gris-2">
-        Partners confirmados
+        Sponsors confirmados
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">
@@ -19,7 +24,7 @@
             v-if="p.src"
             :src="p.src"
             :alt="p.nombre"
-            class="h-8 w-auto max-w-[150px] object-contain opacity-70 brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-10"
+            class="h-11 w-auto max-w-[170px] object-contain opacity-70 brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-[3.25rem]"
             loading="lazy"
           />
           <span

@@ -14,15 +14,15 @@
       </h2>
 
       <div class="mt-12 grid gap-4 lg:grid-cols-2">
-        <!-- Partners -->
+        <!-- Sponsors -->
         <article class="tarjeta flex flex-col p-8">
           <span class="chip self-start border-acento/50 text-acento-texto">Marcas</span>
           <h3 class="mt-5 text-[1.5rem] font-black uppercase leading-[1.1]">
-            Quiero ser partner
+            Quiero ser sponsor
           </h3>
           <p class="mt-4 text-[16px] leading-[1.55] text-gris">
             Stand en el salón, demo en vivo dentro del programa y un beneficio para los que
-            estén ese día. Los partners no se anuncian hasta estar cerrados por escrito.
+            estén ese día. Los sponsors no se anuncian hasta estar cerrados por escrito.
           </p>
 
           <ul class="mt-7 grid gap-px bg-white/10">
@@ -43,7 +43,7 @@
             rel="noopener noreferrer"
             class="btn-linea mt-7 w-full"
           >
-            Hablar de partnership
+            Quiero ser sponsor
           <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </article>
 

@@ -1,7 +1,7 @@
 <template>
   <section id="partners" class="border-b border-linea py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-acento-texto">Partners</p>
+      <p class="rotulo text-acento-texto">Sponsors</p>
       <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(2rem,5.6vw,3.4rem)]">
         Quiénes vienen y qué traen
       </h2>
@@ -31,7 +31,7 @@
 
           <span
             class="chip mt-5 self-start"
-            :class="p.tipo === 'Partner oficial' ? 'border-acento/50 text-acento-texto' : 'border-white/15 text-gris'"
+            :class="p.tipo === 'Sponsor oficial' ? 'border-acento/50 text-acento-texto' : 'border-white/15 text-gris'"
           >
             {{ p.tipo }}
           </span>
@@ -65,7 +65,7 @@
           rel="noopener noreferrer"
           class="btn-linea shrink-0"
         >
-          Quiero ser partner
+          Quiero ser sponsor
         <span class="sr-only"> (abre en una pestaña nueva)</span></a>
       </div>
     </div>

@@ -202,7 +202,7 @@ const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const INCLUYE = [
   "Los siete bloques y las demos en vivo",
-  "Los stands de los partners abiertos desde las 8:30",
+  "Los stands de los sponsors abiertos desde las 8:30",
   "Degustaciones y networking de cierre",
   "La grilla final, antes que el resto",
 ];
@@ -220,7 +220,7 @@ const RIESGO = [
   },
   {
     q: "Sí hay proveedores, no hay ronda",
-    a: "Bistrosoft muestra su sistema dentro del programa y los partners tienen stand. Lo que no hay es agenda de reuniones ni nadie abordándote: si querés hablar con alguno, vas vos.",
+    a: "Bistrosoft muestra su sistema dentro del programa y los sponsors tienen stand. Lo que no hay es agenda de reuniones ni nadie abordándote: si querés hablar con alguno, vas vos.",
   },
 ];
 </script>

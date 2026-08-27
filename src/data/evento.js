@@ -216,7 +216,7 @@ export const EL_LUNES = [
   "Sistemas andando, no en una slide: te parás adelante, preguntás por tu caso y ves si te sirve",
   "Cómo comparar el food cost real entre tus locales, no el que dice la ficha técnica",
   "Qué datos ya generan tus locales y cómo se leen juntos",
-  "Los beneficios de cada partner por escrito, en un solo material, para usarlos cuando vuelvas",
+  "Los beneficios de cada sponsor por escrito, en un solo material, para usarlos cuando vuelvas",
 ];
 
 export const VOLVES_CON = [
@@ -240,7 +240,7 @@ export const VOLVES_CON = [
   },
   {
     n: "04",
-    titulo: "Los beneficios de cada partner",
+    titulo: "Los beneficios de cada sponsor",
     texto:
       "Condiciones que solo existen para los que estuvieron en la sala ese día. No se consiguen después ni por otro canal.",
   },
@@ -310,13 +310,13 @@ export const SPEAKERS = [
     id: "bistrosoft",
     foto: "", // ← Foto del CEO de Bistrosoft
     nombre: "CEO de Bistrosoft",
-    rol: "PARTNER OFICIAL · SISTEMAS POS",
+    rol: "SPONSOR OFICIAL · SISTEMAS POS",
     frase: "La evolución de los sistemas POS.",
-    bio: "Partner oficial del evento. Llega con equipo propio y monta demos en vivo en el salón: se ve funcionando, no en slides.",
+    bio: "Sponsor oficial del evento. Llega con equipo propio y monta demos en vivo en el salón: se ve funcionando, no en slides.",
     charlas: ["La evolución de los sistemas POS"],
     stats: [
       { valor: "Demos", label: "en vivo" },
-      { valor: "Partner", label: "oficial" },
+      { valor: "Sponsor", label: "oficial" },
     ],
   },
   {
@@ -433,7 +433,7 @@ export const AGENDA = [
     dur: "60'",
     tipo: "destacado",
     titulo: "Mesa redonda en el centro del salón",
-    detalle: "Todos los partners y speakers del día, sentados a conversar.",
+    detalle: "Todos los sponsors y speakers del día, sentados a conversar.",
   },
   {
     hora: "18:00",
@@ -529,8 +529,8 @@ export const PUBLICO = {
 export const PARTNERS = [
   {
     nombre: "Bistrosoft",
-    logo: "_t-mono.svg",
-    tipo: "Partner oficial",
+    logo: "bistrosoft.svg",
+    tipo: "Sponsor oficial",
     empresa:
       "Sistema de gestión y punto de venta para gastronomía. Trabaja con locales de todo el país.",
     quien: "Viene el CEO",
@@ -539,7 +539,7 @@ export const PARTNERS = [
   {
     nombre: "Avanzia",
     logo: "_t-knockout.svg",
-    tipo: "Partner de contenido",
+    tipo: "Sponsor de contenido",
     empresa: "Consultora de gestión y desarrollo de negocios para empresas del rubro.",
     quien: "Traen dos oradores",
     aporte: "El ex-CEO de Dexter y el ex-presidente de la CAME, sobre conducción y mercado.",
@@ -593,7 +593,7 @@ export const FAQ = [
   },
   {
     q: "¿Me van a querer vender algo?",
-    a: "Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay partners con stand que también venden. A las 12 el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.",
+    a: "Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay sponsors con stand que también venden. A las 12 el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.",
   },
   {
     q: "Es domingo y trabajo. ¿Cómo hago?",
@@ -768,7 +768,7 @@ export function linkWaReserva(opciones) {
 export const MENSAJES_WA = {
   registro: mensajeReserva(),
   partner:
-    "QUIERO SER PARTNER DE GASTROTECH\n\nHola Alan! Me interesa participar como partner del evento del 20 de septiembre.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:",
+    "QUIERO SER SPONSOR DE GASTROTECH\n\nHola Alan! Me interesa participar como sponsor del evento del 20 de septiembre.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:",
   prensa:
     "PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del 20 de septiembre.\n\nMedio:\nMi nombre:\nQué necesitaría:",
   avisos:
