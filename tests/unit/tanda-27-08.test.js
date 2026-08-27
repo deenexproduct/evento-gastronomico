@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { EVENTO, NAV_ENLACES, MENSAJES_WA } from "@/data/evento";
+import { EVENTO, NAV_ENLACES, MENSAJES_WA, TEMAS, TIPOS_BLOQUE, PAUSAS } from "@/data/evento";
 
 /**
  * Los trece puntos que pidio Alan el 27/08. Un guarda por pedido: si algo de
@@ -152,5 +152,88 @@ describe("13 · el pie", () => {
 
   it("la fecha sin dia existe en los datos", () => {
     expect(EVENTO.fechaSinDia).toBe("20 de septiembre");
+  });
+});
+
+describe("6 · la agenda", () => {
+  it("siguen siendo siete bloques y en orden de reloj", () => {
+    expect(TEMAS).toHaveLength(7);
+    const minutos = TEMAS.map((t) => {
+      const [h, m] = t.hora.split(":").map(Number);
+      return h * 60 + m;
+    });
+    expect(minutos).toEqual([...minutos].sort((a, b) => a - b));
+  });
+
+  it("Alan baja de tres bloques a dos", () => {
+    const suyos = TEMAS.filter((t) => t.quien.includes("Alan Tapia"));
+    expect(suyos).toHaveLength(2);
+  });
+
+  it("el bloque de ecosistema salio", () => {
+    expect(TEMAS.find((t) => t.id === "ecosistema")).toBeUndefined();
+  });
+
+  it("entra el bloque de IA, corto a proposito", () => {
+    const ia = TEMAS.find((t) => t.id === "ia");
+    expect(ia).toBeDefined();
+    expect(ia.dur).toBe(30);
+    expect(ia.hora).toBe("13:45");
+  });
+
+  it("el bloque de la sala cambia de formato y no de tema", () => {
+    const b = TEMAS.find((t) => t.id === "benchmark");
+    expect(b.tipo).toBe("interactivo");
+    expect(TIPOS_BLOQUE.interactivo).toBeDefined();
+  });
+
+  it("el bloque mas liviano se corrio a la tarde", () => {
+    expect(TEMAS.find((t) => t.id === "contenido").hora).toBe("16:00");
+  });
+
+  it("todo bloque declara un tipo que existe", () => {
+    for (const t of TEMAS) expect(TIPOS_BLOQUE[t.tipo]).toBeDefined();
+  });
+
+  it("ningun bloque se pisa con el siguiente", () => {
+    const min = (h) => {
+      const [a, b] = h.split(":").map(Number);
+      return a * 60 + b;
+    };
+    for (let i = 0; i < TEMAS.length - 1; i++) {
+      expect(min(TEMAS[i].hora) + TEMAS[i].dur).toBeLessThanOrEqual(min(TEMAS[i + 1].hora));
+    }
+  });
+
+  it("cada hueco de media hora o mas tiene nombre propio", () => {
+    // Los que no figuran en PAUSAS caen al rotulo generico "Degustacion".
+    // Media hora sin nombre se lee como un agujero en la agenda.
+    const min = (h) => {
+      const [a, b] = h.split(":").map(Number);
+      return a * 60 + b;
+    };
+    for (let i = 0; i < TEMAS.length - 1; i++) {
+      const finBloque = min(TEMAS[i].hora) + TEMAS[i].dur;
+      const hueco = min(TEMAS[i + 1].hora) - finBloque;
+      if (hueco >= 30) {
+        const hh = String(Math.floor(finBloque / 60)).padStart(2, "0");
+        const mm = String(finBloque % 60).padStart(2, "0");
+        expect(PAUSAS[`${hh}:${mm}`]).toBeDefined();
+      }
+    }
+  });
+});
+
+describe("evento.js no vuelve a tener cuatro agendas", () => {
+  it("no quedan exports que no importa nadie", () => {
+    // Habia ocho, y TRES de ellos eran agendas viejas que contradecian a
+    // TEMAS: una decia "Puertas 09:00" y "acreditacion con QR", dos cosas
+    // que la pagina dejo de decir. Editar la equivocada no fallaba: no
+    // pasaba nada, que es peor.
+    const datos = readFileSync(join(SRC, "data/evento.js"), "utf-8");
+    for (const muerto of ["TRAMOS", "BENTO", "VOLVES_CON", "SPEAKERS",
+                          "AGENDA_PUBLICA", "AGENDA", "AGENDA_BLOQUES", "PUBLICO"]) {
+      expect(datos).not.toContain(`export const ${muerto} `);
+    }
   });
 });

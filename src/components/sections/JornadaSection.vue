@@ -137,8 +137,8 @@
                   {{ b.dur }} min
                 </span>
               </span>
-              <!-- El tipo solo cuando no es charla: cinco de siete lo son, y
-                   repetir la etiqueta cinco veces la vacía de significado. -->
+              <!-- El tipo solo cuando no es charla: cuatro de siete lo son, y
+                   repetir la etiqueta cuatro veces la vacía de significado. -->
               <Pictograma
                 v-if="b.tipo !== 'charla'"
                 :nombre="TIPOS_BLOQUE[b.tipo].icono"

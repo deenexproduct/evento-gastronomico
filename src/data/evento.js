@@ -77,21 +77,21 @@ export const TEMAS = [
     dur: 45,
     hora: "10:00",
     tipo: "charla",
-    titulo: "Qué cambió en el mercado y qué hace distinto el que creció este año",
+    titulo: "Quiénes abrieron, quiénes cerraron y qué los separó",
     quien: "Alan Tapia · Deenex",
     punta:
-      "La foto del rubro con números, no con impresiones. Qué hicieron distinto las cadenas que crecieron este año, y por qué la brecha que se abrió no es de tamaño ni de plata.",
+      "2026 es el año en que el rubro se ordenó: se proyectan cuatro mil locales nuevos y doscientas marcas entrando al país, y al mismo tiempo cerraron franquiciados que apenas pasaban el break even. Qué hicieron distinto los que quedaron del lado bueno de esa línea.",
   },
   {
-    id: "comparar",
+    id: "benchmark",
     tramo: "manana",
     dur: 45,
     hora: "11:00",
-    tipo: "charla",
-    titulo: "Qué ves cuando comparás tus locales entre sí",
-    quien: "Alan Tapia · Deenex",
+    tipo: "interactivo",
+    titulo: "Dónde estás parado: los números de la sala",
+    quien: "Alan Tapia · Deenex, con la sala",
     punta:
-      "Tus locales ya generan la información. Qué aparece cuando se los mira juntos: quién rinde, quién arrastra y por qué el mismo plato deja distinto en cada sucursal.",
+      "Al reservar se completa una encuesta anónima de cuatro campos, y los resultados se muestran acá. Cada uno se va sabiendo dónde está su food cost, su ticket promedio y su mezcla de canales contra la mediana de las cadenas que están sentadas al lado.",
   },
   {
     id: "pos",
@@ -105,15 +105,15 @@ export const TEMAS = [
       "Qué cambia cuando todas tus sucursales reportan al mismo lugar y dejás de armar el número a mano. Con demos montadas en el salón.",
   },
   {
-    id: "contenido",
+    id: "ia",
     tramo: "tarde",
-    dur: 45,
+    dur: 30,
     hora: "13:45",
     tipo: "charla",
-    titulo: "Cómo se sostiene una marca en varios locales a la vez",
-    quien: "Especialista en contenido y redes",
+    titulo: "El 73% invirtió en inteligencia artificial este año. El 29% vio el retorno.",
+    quien: "Especialista en datos e IA aplicada",
     punta:
-      "Qué se graba, con qué frecuencia y cómo se mantiene una sola voz cuando la marca está en cinco puntos. Sin un equipo de diez personas.",
+      "Media hora para separar lo que ya devuelve plata en una cadena de varios locales —previsión de demanda, armado de cuadrantes, control de desperdicio— de lo que todavía es una apuesta. Con la cuenta al lado, sin vender nada.",
   },
   {
     id: "conduccion",
@@ -127,15 +127,15 @@ export const TEMAS = [
       "Dos que ya condujeron compañías con cientos de empleados, contando cómo se decide cuando hay gente y plata en juego. El tamaño no cambia la decisión: cambia lo que sale equivocarse. Aplica igual con tres locales que con treinta.",
   },
   {
-    id: "ecosistema",
-    tramo: "cierre",
+    id: "contenido",
+    tramo: "tarde",
     dur: 45,
     hora: "16:00",
     tipo: "charla",
-    titulo: "Por qué solos no llegamos: marcas, tecnología y proveedores",
-    quien: "Alan Tapia · Deenex",
+    titulo: "Cómo se sostiene una marca en varios locales a la vez",
+    quien: "Especialista en contenido y redes",
     punta:
-      "Cómo se construye la red que sí llega: qué le pedís a un proveedor cuando comprás para varios locales y qué te tiene que dar la tecnología para acompañar la escala.",
+      "Qué se graba, con qué frecuencia y cómo se mantiene una sola voz cuando la marca está en cinco puntos. Sin un equipo de diez personas.",
   },
   {
     id: "mesa",
@@ -154,25 +154,13 @@ export const TEMAS = [
 export const TIPOS_BLOQUE = {
   charla: { label: "Charla", icono: "charla", clase: "border-white/15 text-white" },
   demo: { label: "Demo en vivo", icono: "demo", clase: "border-acento/50 text-acento-texto" },
+  interactivo: { label: "Con la sala", icono: "gente", clase: "border-acento/50 text-acento-texto" },
   mesa: { label: "Mesa redonda", icono: "mesa", clase: "border-acento bg-acento-boton text-white" },
   pausa: { label: "Degustación", icono: "degustacion", clase: "border-white/10 text-gris" },
   apertura: { label: "Puertas", icono: "entrada", clase: "border-white/10 text-gris" },
   cierre: { label: "Networking", icono: "gente", clase: "border-white/10 text-gris" },
 };
 
-/**
- * Los tres tramos del día.
- *
- * NO contiene la lista de bloques: el vínculo vive en TEMAS[i].tramo y los
- * grupos se arman agrupando TEMAS en orden. Con una lista paralela acá, un
- * bloque nuevo que nadie agregue a la lista desaparece de la página sin
- * error; así, a lo sumo aparece con el rótulo vacío, que se ve.
- */
-export const TRAMOS = [
-  { id: "manana", rotulo: "Mañana", nombre: "Dónde estás parado" },
-  { id: "tarde", rotulo: "Tarde", nombre: "Cómo se conduce" },
-  { id: "cierre", rotulo: "Cierre", nombre: "Con quién se crece" },
-];
 
 /**
  * Solo los huecos que tienen nombre propio, indexados por la hora que el
@@ -186,6 +174,10 @@ export const PAUSAS = {
   "12:45": {
     titulo: "Pausa larga",
     detalle: "Ronda grande de degustación, stands y networking sin apuro.",
+  },
+  "14:15": {
+    titulo: "Degustación y stands",
+    detalle: "Media hora entre el bloque corto y el de conducción, con los stands abiertos.",
   },
   "15:30": {
     titulo: "Coffee break",
@@ -214,21 +206,6 @@ export const BORDES = {
   },
 };
 
-/**
- * El día en un vistazo. Reemplaza la franja de "cuántos vienen" que usa todo
- * el rubro: con 200 asistentes no competimos contra los 24.000 de FITHEP.
- * El eje es densidad de valor por hora.
- */
-export const BENTO = [
-  { dato: "7", label: "bloques en el día", peso: "grande",
-    detalle: "Cinco charlas, una demo en vivo y la mesa redonda de cierre. Track único: no elegís, no te perdés nada." },
-  { dato: "10 a 18", label: "de charlas", peso: "chico" },
-  { dato: "5", label: "degustaciones", peso: "chico" },
-  { dato: "200", label: "dueños en la sala", peso: "medio",
-    detalle: "Dueños de cadenas del rubro, no público general." },
-  { dato: "Demos", label: "montadas en vivo", peso: "chico" },
-  { dato: "$0", label: "la entrada", peso: "chico" },
-];
 
 /** Con qué volvés al local. Verbo + resultado tangible, sin adjetivos. */
 export const EL_LUNES = [
@@ -239,54 +216,6 @@ export const EL_LUNES = [
   "Qué datos ya generan tus locales y cómo se leen juntos",
   "Los beneficios de cada sponsor por escrito, en un solo material, para usarlos cuando vuelvas",
 ];
-
-export const VOLVES_CON = [
-  {
-    n: "01",
-    titulo: "Seis temas, cada uno con algo para hacer",
-    texto:
-      "Ningún bloque cierra con una conclusión inspiradora. Cierra con algo concreto: qué mirar, por dónde empezar y qué esperar cuando lo hagas.",
-  },
-  {
-    n: "02",
-    titulo: "Los sistemas, vistos funcionando",
-    texto:
-      "Demos en vivo montadas en el salón, no capturas de pantalla. Te parás adelante, preguntás y ves si sirve para tu operación antes de contratar nada.",
-  },
-  {
-    n: "03",
-    titulo: "La grilla, por escrito",
-    texto:
-      "El evento entero en un material: los beneficios disponibles, quién los da y cómo encararlos. Es lo que abrís el lunes cuando volvés al local.",
-  },
-  {
-    n: "04",
-    titulo: "Los beneficios de cada sponsor",
-    texto:
-      "Condiciones que solo existen para los que estuvieron en la sala ese día. No se consiguen después ni por otro canal.",
-  },
-  {
-    n: "05",
-    titulo: "Doscientos colegas del rubro",
-    texto:
-      "Dueños que ya resolvieron algo que vos estás peleando ahora. Las degustaciones entre bloques y el networking de cierre están para eso.",
-  },
-  {
-    n: "06",
-    titulo: "Tus preguntas respondidas",
-    texto:
-      "En la mesa redonda están todos los que hablaron, sentados juntos y una hora entera. Es la única parte del día donde preguntás lo que quieras a quien quieras.",
-  },
-  {
-    n: "07",
-    titulo: "Tu diagnóstico, si lo pedís",
-    texto:
-      "Una reunión técnica sobre tu marca: dónde está parada a nivel tecnológico y cuál sería el próximo paso. Opcional y sin costo.",
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// La entrada como llave — los 3 pasos del QR
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Fotos
@@ -304,248 +233,31 @@ export const FOTOS = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Speakers — SOLO CERRADOS
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const SPEAKERS = [
-  {
-    id: "alan",
-    nombre: "Alan Tapia",
-    rol: "FOUNDER & CEO · DEENEX",
-    foto: "alan-tapia.jpg",
-    frase:
-      "Hay un mercado gastronómico nuevo formándose. Vengo a mostrar cómo se entra, con datos y sin humo.",
-    bio: "Founder de Deenex, la plataforma omnicanal con la que trabajan más de 350 marcas de foodservice y gastronomía. Da tres de los siete bloques del día.",
-    charlas: [
-      "El nuevo mercado gastronómico y por qué este es el momento",
-      "Datos, tecnología e inteligencia artificial aplicados al negocio",
-      "Cómo se arma un ecosistema: marcas, tecnología y proveedores",
-    ],
-    stats: [
-      { valor: "+350", label: "clientes" },
-      { valor: "3", label: "charlas" },
-      { valor: "Todo el día", label: "en escena" },
-    ],
-  },
-  {
-    id: "bistrosoft",
-    foto: "", // ← Foto del CEO de Bistrosoft
-    nombre: "CEO de Bistrosoft",
-    rol: "SPONSOR OFICIAL · SISTEMAS POS",
-    frase: "La evolución de los sistemas POS.",
-    bio: "Sponsor oficial del evento. Llega con equipo propio y monta demos en vivo en el salón: se ve funcionando, no en slides.",
-    charlas: ["La evolución de los sistemas POS"],
-    stats: [
-      { valor: "Demos", label: "en vivo" },
-      { valor: "Sponsor", label: "oficial" },
-    ],
-  },
-  {
-    id: "avanzia",
-    foto: "", // ← Fotos de los oradores de Avanzia
-    nombre: "Avanzia",
-    rol: "DOS ORADORES EN ESCENARIO",
-    frase: "La visión de quienes ya condujeron compañías y cámaras del sector.",
-    bio: "Avanzia sube dos voces al escenario: el ex-CEO de Dexter y el ex-presidente de la CAME. Experiencia de conducción real, aplicada al momento del mercado.",
-    charlas: ["Ex-CEO de Dexter", "Ex-presidente de la CAME"],
-    stats: [
-      { valor: "2", label: "oradores" },
-      { valor: "CAME", label: "+ Dexter" },
-    ],
-  },
-  {
-    id: "ugc",
-    foto: "", // ← Foto del orador de contenido y redes
-    nombre: "Especialista en contenido y redes",
-    rol: "LA NUEVA FORMA DE HACER CONTENIDO",
-    frase: "Cómo se hace hoy el contenido que mueve una marca gastronómica.",
-    bio: "Orador confirmado para el bloque de contenido. Trabaja con marcas del rubro produciendo el material que después circula en redes.",
-    charlas: ["La nueva forma de hacer contenido en las marcas gastronómicas"],
-    stats: [{ valor: "45'", label: "de bloque" }],
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Agenda
-//
-// El brief la marca como BORRADOR: "sirve para escribir, no para publicar hasta
-// que se cierre". Con AGENDA_PUBLICA en false mostramos la estructura del día
-// sin horarios. Cuando Alan cierre el orden final, pasar a true.
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const AGENDA_PUBLICA = false;
-
-export const AGENDA = [
-  {
-    hora: "09:00",
-    dur: "60'",
-    tipo: "apertura",
-    titulo: "Puertas abiertas",
-    detalle: "Acreditación con QR, café de bienvenida y recorrida por los stands.",
-  },
-  {
-    hora: "10:00",
-    dur: "45'",
-    tipo: "charla",
-    quien: "Alan Tapia",
-    titulo: "Apertura: el nuevo mercado gastronómico",
-    detalle: "Dónde está parado el rubro y por qué este es el momento de moverse.",
-  },
-  { hora: "10:45", dur: "15'", tipo: "pausa", titulo: "Degustación" },
-  {
-    hora: "11:00",
-    dur: "45'",
-    tipo: "charla",
-    quien: "Alan Tapia",
-    titulo: "Datos, tecnología e IA aplicados al negocio",
-    detalle: "Qué te están diciendo tus datos y no estás escuchando.",
-  },
-  { hora: "11:45", dur: "15'", tipo: "pausa", titulo: "Degustación" },
-  {
-    hora: "12:00",
-    dur: "45'",
-    tipo: "charla",
-    quien: "CEO de Bistrosoft",
-    titulo: "La evolución de los sistemas POS",
-    detalle: "Con demos en vivo montadas en el salón.",
-  },
-  {
-    hora: "12:45",
-    dur: "60'",
-    tipo: "pausa",
-    titulo: "Pausa larga",
-    detalle: "Ronda grande de degustación, stands y networking.",
-  },
-  {
-    hora: "13:45",
-    dur: "45'",
-    tipo: "charla",
-    quien: "Especialista en contenido y redes",
-    titulo: "La nueva forma de hacer contenido",
-    detalle: "Cómo se produce hoy el contenido de una marca gastronómica.",
-  },
-  { hora: "14:30", dur: "15'", tipo: "pausa", titulo: "Degustación" },
-  {
-    hora: "14:45",
-    dur: "45'",
-    tipo: "charla",
-    quien: "Avanzia",
-    titulo: "Ex-CEO de Dexter y ex-presidente de la CAME",
-    detalle: "Dos oradores, una mirada de conducción sobre el momento del mercado.",
-  },
-  {
-    hora: "15:30",
-    dur: "30'",
-    tipo: "pausa",
-    titulo: "Coffee break",
-    detalle: "Café y alfajores.",
-  },
-  {
-    hora: "16:00",
-    dur: "45'",
-    tipo: "charla",
-    quien: "Alan Tapia",
-    titulo: "Cómo se arma un ecosistema",
-    detalle: "Marcas, tecnología y proveedores trabajando juntos.",
-  },
-  { hora: "16:45", dur: "15'", tipo: "pausa", titulo: "Degustación" },
-  {
-    hora: "17:00",
-    dur: "60'",
-    tipo: "destacado",
-    titulo: "Mesa redonda en el centro del salón",
-    detalle: "Todos los sponsors y speakers del día, sentados a conversar.",
-  },
-  {
-    hora: "18:00",
-    dur: "—",
-    tipo: "cierre",
-    titulo: "Networking de cierre",
-    detalle: "Vino, cerveza y café. Corte del evento.",
-  },
-];
-
-/**
- * Cómo se vive el día, mientras la grilla con horarios no se publica.
- * Habla del ritmo y de la experiencia — el contenido de las charlas está en TEMAS.
- */
-export const AGENDA_BLOQUES = [
-  {
-    franja: "Desde las 9",
-    titulo: "Llegada",
-    items: [
-      "Acreditación con QR en la puerta",
-      "Café de bienvenida",
-      "Los stands abren antes de la primera charla",
-    ],
-  },
-  {
-    franja: "Desde las 10",
-    titulo: "Bloques de charla",
-    items: [
-      "45 minutos cada uno, con degustación entre medio",
-      "Demos en vivo montadas en el salón",
-      "Se puede entrar y salir: nadie controla la butaca",
-    ],
-  },
-  {
-    franja: "Al mediodía",
-    titulo: "Pausa larga",
-    items: [
-      "Ronda grande de degustación",
-      "Stands abiertos y recorrida sin apuro",
-      "Networking sin agenda, que es donde suele pasar lo bueno",
-    ],
-  },
-  {
-    franja: "Hasta las 18",
-    titulo: "Cierre",
-    items: [
-      "Mesa redonda con todos los speakers juntos",
-      "Preguntas abiertas de la sala",
-      "Vino, cerveza y café hasta que se corta",
-    ],
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Para quién es
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const PUBLICO = {
-  si: [
-    {
-      titulo: "Dueños de cadenas gastronómicas",
-      texto: "Varios locales de una misma marca, con la operación ya en escala.",
-    },
-    {
-      titulo: "Franquiciantes y grupos multimarca",
-      texto: "Los que manejan varias marcas y necesitan que todo hable el mismo idioma.",
-    },
-    {
-      titulo: "Socios y gerentes generales",
-      texto: "El que decide sobre tecnología, compras y personal de toda la cadena.",
-    },
-  ],
-  no: [
-    "Locales únicos sin planes de abrir otro",
-    "Empleados sin decisión sobre el negocio",
-    "Proveedores buscando vender en la sala",
-    "Público general o consumidores",
-  ],
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
 // Partners — SOLO CERRADOS
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Partners confirmados.
+ * Sponsors confirmados.
  *
- * `logo`: nombre del archivo dentro de src/assets/images/partners/. Con el
- * campo vacío se muestra el nombre en tipografía, que es mejor que un hueco.
- * `quien`: la persona concreta que viene, que es lo que hace creíble al partner.
- * `empresa`: a qué se dedica, para el que no la conoce.
+ * REGLA DEL BRIEF: acá solo entra lo cerrado POR ESCRITO. Nada en gestión.
+ *
+ * Para sumar uno hacen falta cinco campos y un archivo, y nada más:
+ *   nombre   el nombre de la marca, tal cual lo escribe ella
+ *   tipo     "Sponsor oficial" | "Sponsor de contenido" | "Institución que
+ *            acompaña" | "Proveedores confirmados"
+ *   empresa  a qué se dedica, una línea, para el que no la conoce
+ *   quien    la persona concreta que viene — es lo que lo hace creíble
+ *   aporte   qué pone en el día: charla, demo, stand, convocatoria
+ *   logo     el archivo en src/assets/images/partners/. Vacío muestra el
+ *            nombre en tipografía, que es mejor que un hueco. El muro los
+ *            pinta con brightness(0), así que no hace falta pedir la
+ *            versión monocroma: entra el archivo de color que tengan.
+ *
+ * `enBarra: false` lo deja fuera de la barra de arriba y le conserva la
+ * tarjeta — se usa para los que no son el nombre de una empresa.
+ *
+ * La grilla de tarjetas está medida hasta seis: con cuatro y con cinco no
+ * deja una sola colgada en una fila vacía (ver bloque-a.spec.js).
  */
 export const PARTNERS = [
   {
@@ -610,7 +322,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De gastronomía y tecnología aplicadas al negocio: el estado real del mercado, datos e inteligencia artificial aplicados a varios locales, la evolución de los sistemas POS con demos en vivo, cómo se hace hoy el contenido de una marca gastronómica, y cómo se arma un ecosistema entre marcas, tecnología y proveedores. Siete bloques a lo largo del día.",
+    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS con demos en vivo, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Siete bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
