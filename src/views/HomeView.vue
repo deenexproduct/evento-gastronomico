@@ -46,10 +46,6 @@
       <!-- …el video se activa solo cuando haya alguno cargado… -->
       <ReelsSection class="v-reveal bg-noche-3" />
 
-      <!-- …y la persona lo cierra. Los tres son un solo capítulo: van pegados
-           y enmarcados por dos secciones más oscuras. -->
-      <AlanSection class="v-reveal" />
-
       <!-- ── Cómo entrar ───────────────────────────────────────────── -->
 
       <!-- La escasez se gasta pegada al pedido, no a mitad de la explicación -->
@@ -90,7 +86,6 @@ import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
-import AlanSection from "@/components/sections/AlanSection.vue";
 import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
