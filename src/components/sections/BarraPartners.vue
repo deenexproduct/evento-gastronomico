@@ -24,7 +24,7 @@
             v-if="p.src"
             :src="p.src"
             :alt="p.nombre"
-            class="h-11 w-auto max-w-[170px] object-contain opacity-70 brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-[3.25rem]"
+            class="h-11 w-auto max-w-[170px] object-contain opacity-70 logo-sponsor brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-[3.25rem]"
             loading="lazy"
           />
           <span

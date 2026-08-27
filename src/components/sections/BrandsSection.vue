@@ -21,7 +21,7 @@
               v-if="p.src"
               :src="p.src"
               :alt="p.nombre"
-              class="max-h-10 w-auto max-w-[150px] object-contain brightness-0 invert"
+              class="max-h-10 w-auto max-w-[150px] object-contain logo-sponsor brightness-0 invert"
               loading="lazy"
             />
             <span v-else class="text-[1.5rem] font-black uppercase tracking-[-0.02em]">

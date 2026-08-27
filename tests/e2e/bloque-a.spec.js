@@ -52,25 +52,40 @@ for (const ancho of ANCHOS) {
     expect(ultima.length).toBeGreaterThan(2);
   });
 
-  test(`a ${ancho}: el nombre de un partner no se encima a su etiqueta`, async ({ page }) => {
-    // h-14 era un alto fijo de 56px. "Asociación de Marcas y Franquicias"
-    // cae a tres líneas (~84px) y se derramaba 10px sobre el chip.
+  test(`a ${ancho}: ninguna cabecera de sponsor se encima a su chip`, async ({ page }) => {
+    // h-14 era un alto FIJO de 56px para el casillero de la marca. Con logo
+    // no molestaba; con el nombre en texto sí: "Asociación de Marcas y
+    // Franquicias" cae a tres líneas (~84px) y se derramaba 10px sobre el
+    // chip. Se arregló con min-h-14.
+    //
+    // El test mira la CAJA de la cabecera y no el texto. Cuando entraron los
+    // logos reales, la versión anterior —que buscaba el nombre escrito— dejó
+    // de encontrar nada y pasó a fallar sola. La garantía es la misma y hay
+    // que sostenerla en los dos casos, porque el texto vuelve solo con que un
+    // sponsor no traiga archivo.
     await page.setViewportSize({ width: ancho, height: 900 });
     await page.goto("/");
     await revelar(page);
 
-    const solape = await page.evaluate(() => {
-      const hojas = [...document.querySelectorAll("#partners *")].filter(
-        (n) => n.children.length === 0 && (n.innerText || "").trim()
-      );
-      const nombre = hojas.find((n) => n.innerText.trim() === "ASOCIACIÓN DE MARCAS Y FRANQUICIAS");
-      const chip = hojas.find((n) => n.innerText.trim() === "INSTITUCIÓN QUE ACOMPAÑA");
-      if (!nombre || !chip) return null;
-      const a = nombre.getBoundingClientRect(), b = chip.getBoundingClientRect();
-      return Math.round(Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+    const encimados = await page.evaluate(() => {
+      const out = [];
+      for (const art of document.querySelectorAll("#partners article")) {
+        const cabecera = art.firstElementChild;
+        const chip = art.querySelector(".chip");
+        if (!cabecera || !chip) continue;
+        // Lo que se mide es el CONTENIDO de la cabecera —el logo o el nombre
+        // escrito—, no su caja. La caja tiene alto fijo y no crece: lo que se
+        // derrama es el texto de adentro, así que midiendo la caja el test
+        // pasa con el bug puesto. Lo comprobé reintroduciéndolo.
+        const dentro = cabecera.querySelector("img, span") || cabecera;
+        const a = dentro.getBoundingClientRect();
+        const b = chip.getBoundingClientRect();
+        const solape = Math.round(Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+        if (solape > 0) out.push((art.innerText || "").trim().slice(0, 30) + ": " + solape + "px");
+      }
+      return out;
     });
-    expect(solape).not.toBeNull();
-    expect(solape).toBeLessThanOrEqual(0);
+    expect(encimados).toEqual([]);
   });
 
   test(`a ${ancho}: el texto de "Qué te llevás" no llega pegado al borde`, async ({ page }) => {

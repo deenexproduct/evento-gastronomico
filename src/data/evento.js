@@ -538,7 +538,7 @@ export const PARTNERS = [
   },
   {
     nombre: "Avanzia",
-    logo: "_t-knockout.svg",
+    logo: "avanzia.png",
     tipo: "Sponsor de contenido",
     empresa: "Consultora de gestión y desarrollo de negocios para empresas del rubro.",
     quien: "Traen dos oradores",
@@ -546,7 +546,7 @@ export const PARTNERS = [
   },
   {
     nombre: "Asociación de Marcas y Franquicias",
-    logo: "",
+    logo: "aamf.webp",
     tipo: "Institución que acompaña",
     empresa:
       "Nuclea a las marcas y cadenas del país que crecen por franquicia y por locales propios.",

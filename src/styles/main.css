@@ -537,6 +537,20 @@ html.claro .mapa { filter: grayscale(1) contrast(1.05); }
 html.claro img.invert { filter: grayscale(1) !important; opacity: .75 !important; mix-blend-mode: multiply; }
 html.claro img.invert:hover { opacity: 1 !important; }
 
+/* Los logos de sponsor no pueden usar la regla de arriba.
+
+   Los tres archivos que mandó Alan vienen en versión BLANCA, hechos para
+   fondo oscuro: avanzia es 27% blanco opaco y 0% de tinta, y aamf es 11%
+   blanco más 6% de tinta (los pines). Sobre el fondo claro de la landing,
+   grayscale(1) los deja blancos sobre blanco: invisibles.
+
+   brightness(0) pinta de negro todo píxel opaco sin tocar la transparencia,
+   así que sirve para los tres a la vez: el azul de bistrosoft, el blanco de
+   avanzia y el blanco más azul de aamf terminan en la misma silueta negra.
+   Es además el mismo criterio monocromo que ya usa el muro de marcas. */
+html.claro img.logo-sponsor { filter: brightness(0) !important; opacity: .8 !important; mix-blend-mode: normal !important; }
+html.claro img.logo-sponsor:hover { opacity: 1 !important; }
+
 /* Regresiones que causó este mismo bloque: una declaración !important de
    reposo le gana a la variante de estado, que no lo lleva. Cada override de
    color mató el hover del elemento que cubría. */

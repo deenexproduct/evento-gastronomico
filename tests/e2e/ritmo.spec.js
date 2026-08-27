@@ -221,3 +221,64 @@ test("solo dos logos del muro siguen trayendo su propia caja", async ({ page }) 
 
   expect(conCaja.sort()).toEqual(["ayres", "hatsu"]);
 });
+
+test("cada pestaña del nav lleva a una sección que existe y ninguna se corta", async ({ page }) => {
+  // Eran tres y dejaban afuera las dos secciones que el lector busca primero
+  // cuando llega de un anuncio: qué es esto y quién lo respalda.
+  for (const ancho of [1024, 1280, 1600]) {
+    await page.setViewportSize({ width: ancho, height: 800 });
+    await page.goto("/");
+    const r = await page.evaluate(() => {
+      const enlaces = [...document.querySelectorAll("header nav a")];
+      return {
+        n: enlaces.length,
+        rotos: enlaces.filter((a) => !document.querySelector(a.getAttribute("href"))).map((a) => a.innerText),
+        cortados: enlaces.filter((a) => a.scrollWidth > a.clientWidth + 1).map((a) => a.innerText),
+      };
+    });
+    expect(r.n, `pestañas a ${ancho}`).toBeGreaterThanOrEqual(5);
+    expect(r.rotos, `anclas rotas a ${ancho}`).toEqual([]);
+    expect(r.cortados, `pestañas cortadas a ${ancho}`).toEqual([]);
+  }
+});
+
+test("ningún logo de sponsor queda invisible sobre el fondo claro", async ({ page }) => {
+  // Los tres archivos vinieron en versión BLANCA, para fondo oscuro: avanzia
+  // es 27% blanco opaco y 0% de tinta. Con el grayscale que usa el muro de
+  // marcas quedaban blancos sobre blanco. Se resuelve con brightness(0), que
+  // pinta de negro todo píxel opaco sin tocar la transparencia. Este test
+  // falla si entra un logo nuevo que el filtro no alcanza.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  await revelarTodo(page);
+  await page.evaluate(() => {
+    document.querySelectorAll(".barra-fija, header").forEach((e) => (e.style.visibility = "hidden"));
+  });
+
+  const invisibles = [];
+  for (const img of await page.$$("#respaldan img, #partners article img")) {
+    const src = (await img.getAttribute("src")).split("/").pop().split("?")[0];
+    await img.scrollIntoViewIfNeeded();
+    const buf = await img.screenshot();
+    // Cuánta tinta oscura hay de verdad en lo que se ve renderizado.
+    const tinta = await page.evaluate(async (b64) => {
+      const im = new Image();
+      im.src = "data:image/png;base64," + b64;
+      await im.decode();
+      const c = document.createElement("canvas");
+      c.width = im.width;
+      c.height = im.height;
+      const x = c.getContext("2d");
+      x.drawImage(im, 0, 0);
+      const d = x.getImageData(0, 0, c.width, c.height).data;
+      let oscuros = 0;
+      for (let i = 0; i < d.length; i += 4) {
+        if (d[i + 3] < 10) continue;
+        if (d[i] * 0.299 + d[i + 1] * 0.587 + d[i + 2] * 0.114 < 160) oscuros++;
+      }
+      return Math.round((oscuros / (c.width * c.height)) * 100);
+    }, buf.toString("base64"));
+    if (tinta < 3) invisibles.push(src + ": " + tinta + "% de tinta");
+  }
+  expect(invisibles).toEqual([]);
+});
