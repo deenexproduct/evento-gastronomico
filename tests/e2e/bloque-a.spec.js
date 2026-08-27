@@ -105,44 +105,6 @@ for (const ancho of ANCHOS) {
   });
 }
 
-test('el encabezado de "Qué queda cuando termina" no vive adentro de una tarjeta', async ({ page }) => {
-  // Era la única de quince que abría así, con el h2 arrancando 32,8px más
-  // adentro que los otros catorce.
-  await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
-  await revelar(page);
-
-  const h2 = page.locator("#despues h2");
-  const dentroDeTarjeta = await h2.evaluate((el) => !!el.closest("article, .tarjeta"));
-  expect(dentroDeTarjeta).toBe(false);
-
-  // Y arranca en la misma x que el resto de los titulares de la página.
-  const xs = await page.evaluate(() => {
-    const ids = ["que-es", "jornada", "el-lunes", "partners", "despues"];
-    return ids.map((id) => {
-      const h = document.querySelector("#" + id + " h2");
-      return h ? Math.round(h.getBoundingClientRect().left) : null;
-    });
-  });
-  const [ref] = xs;
-  for (const x of xs) expect(Math.abs(x - ref)).toBeLessThanOrEqual(2);
-});
-
-test("los tres ítems de #despues no dejan dos tercios de blanco muerto", async ({ page }) => {
-  // Cada renglón medía 1.070px con el texto topado en 395: el 63% del ancho
-  // no tenía nada.
-  await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
-  await revelar(page);
-
-  const uso = await page.evaluate(() => {
-    const li = document.querySelector("#despues li");
-    const p = li.querySelector("p:last-child");
-    return p.getBoundingClientRect().width / li.getBoundingClientRect().width;
-  });
-  expect(uso).toBeGreaterThan(0.6);
-});
-
 test("la grilla de partners no deja una tarjeta sola con la fila vacía", async ({ page }) => {
   // Cuatro tarjetas en tres columnas dejaban la cuarta sola con dos tercios
   // de fila en blanco, y se leía como si faltara un partner.

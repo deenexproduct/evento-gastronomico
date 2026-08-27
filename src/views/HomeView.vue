@@ -60,12 +60,6 @@
       <!-- Dónde es -->
       <LocationSection class="v-reveal bg-noche-3" />
 
-      <!-- Qué pasa si no podés venir y qué queda después -->
-      <DespuesSection class="v-reveal bg-noche-2" />
-
-      <!-- Captura secundaria, para el que llegó hasta acá y no reservó -->
-      <AvisameSection class="v-reveal" />
-
       <!-- Preguntas -->
       <FAQSection class="v-reveal bg-noche" />
 
@@ -92,8 +86,6 @@ import AccesoSection from "@/components/sections/AccesoSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
 import AnotadasSection from "@/components/sections/AnotadasSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
-import AvisameSection from "@/components/sections/AvisameSection.vue";
-import DespuesSection from "@/components/sections/DespuesSection.vue";
 import SumarseSection from "@/components/sections/SumarseSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import PruebaSection from "@/components/sections/PruebaSection.vue";

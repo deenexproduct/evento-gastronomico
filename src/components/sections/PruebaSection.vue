@@ -7,21 +7,24 @@
   -->
   <section id="detras" class="border-b border-linea py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-gris">Quién está detrás</p>
+      <p class="rotulo text-gris">Quién organiza</p>
       <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(2rem,6vw,3.5rem)]">
         Las marcas nos venían pidiendo este día.
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Deenex es la plataforma donde las marcas de acá abajo manejan todos los días sus canales de venta. En tres
-        años escuchando a dueños de cadenas apareció siempre la misma escena: decisiones grandes
-        tomadas con información que nadie mira, y nadie con quién contrastarlas.
+        GastroTech lo organiza <strong class="font-bold">Deenex</strong>, la plataforma
+        omnicanal donde las marcas de acá abajo manejan todos los días sus canales de venta. Más de
+        350 marcas de foodservice y gastronomía la usan para lo mismo: tener en un solo lugar lo
+        que pasa en todos sus locales, en vez de armar el número a mano sucursal por sucursal.
       </p>
       <p class="lectura mt-4 text-[17px] text-gris">
-        GastroTech es la respuesta a eso, y por eso no se cobra la entrada: el valor está en quién
-        se sienta en la sala.
+        En tres años trabajando con dueños de cadenas apareció siempre la misma escena: decisiones
+        grandes tomadas con información que nadie mira, y nadie con quién contrastarlas. GastroTech
+        es la respuesta a eso, y por eso no se cobra la entrada: el valor está en quién se sienta
+        en la sala.
       </p>
 
-      <div ref="grilla" class="mt-12 grid gap-4 sm:grid-cols-3">
+      <div ref="grilla" class="mt-12 grid gap-4 sm:grid-cols-2">
         <div v-for="d in DATOS" :key="d.label" class="tarjeta p-7">
           <p class="text-[3.4rem] font-black leading-none tracking-[-0.04em] text-acento-texto">
             <span v-if="d.prefijo">{{ d.prefijo }}</span>{{ contados[d.label] }}
@@ -63,22 +66,28 @@
 import { reactive, ref, onMounted, onUnmounted } from "vue";
 import { MARCAS_LOGOS } from "@/data/evento";
 
+/**
+ * Las cifras son del ORGANIZADOR, no del evento.
+ *
+ * Eran tres y dos de ellas —7 bloques y 200 lugares— repetían datos que la
+ * página ya da en #jornada y en #acceso. En una sección que se llama "quién
+ * organiza", contar otra vez el evento es no contestar la pregunta.
+ *
+ * Quedan las dos de Deenex que están verificadas. Falta una tercera: pedirle
+ * a Alan un número publicable (locales, ciudades, años de la empresa, lo que
+ * quiera) y volver a sm:grid-cols-3.
+ */
 const DATOS = [
   {
     prefijo: "+",
     cifra: 350,
     label: "marcas en la plataforma",
-    detalle: "Cadenas de foodservice y gastronomía que trabajan con la plataforma.",
+    detalle: "Cadenas de foodservice y gastronomía que trabajan con Deenex todos los días.",
   },
   {
-    cifra: 7,
-    label: "bloques en la jornada",
-    detalle: "Cinco charlas, una demo en vivo y la mesa redonda de cierre, en un solo track.",
-  },
-  {
-    cifra: 200,
-    label: "lugares, no más",
-    detalle: "Arriba de eso deja de ser una sala donde los dueños se cruzan entre ellos.",
+    cifra: 3,
+    label: "años con dueños de cadenas",
+    detalle: "Escuchando cómo deciden, con qué información y qué les falta para decidir mejor.",
   },
 ];
 

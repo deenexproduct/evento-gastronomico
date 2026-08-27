@@ -18,6 +18,9 @@ export const EVENTO = {
   // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
   fechaBreve: "Domingo 20.09",
   fechaNumerica: "20.09.26",
+  // Sin el dia de la semana: el pie lo usaba escrito a mano ("Domingo, 10 a
+  // 18"), que es justo la forma que salio de la comunicacion.
+  fechaSinDia: "20 de septiembre",
   // Puertas 8:30, charlas 10 a 18. La hora 9 que figuraba antes no era ni
   // la de apertura ni la del primer bloque: no existia en ningun lado.
   horario: "10 a 18",
@@ -29,6 +32,24 @@ export const EVENTO = {
   eventoMadre: "Córdoba Corazón de Moda",
   eventoMadreCirculacion: "20.000",
 };
+
+/**
+ * Las pestañas de navegación, para el nav de arriba y para el pie.
+ *
+ * Estaban duplicadas y ya habían derivado: cinco arriba y tres abajo, así que
+ * el pie escondía justo las dos secciones que alguien que llega de un anuncio
+ * busca primero. Con una sola lista no pueden volver a separarse.
+ *
+ * El ancla de sponsors sigue siendo #partners: el id no se renombró porque no
+ * es comunicación y cambiarlo rompe cualquier link ya compartido.
+ */
+export const NAV_ENLACES = [
+  { id: "que-es", label: "Qué es" },
+  { id: "jornada", label: "Programa" },
+  { id: "partners", label: "Sponsors" },
+  { id: "lugar", label: "Lugar" },
+  { id: "faq", label: "Preguntas" },
+];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Cupo
@@ -628,6 +649,10 @@ export const FAQ = [
     a: "Sí, y está en la entrada. Café de bienvenida desde las 8:30 con los stands ya abiertos, degustación entre bloque y bloque —alfajores, aceitunas, humus y café, que los ponen los proveedores confirmados—, una pausa larga de 12:45 a 13:45 con la ronda grande, coffee break a las 15:30, y vino, cerveza y café en el cierre.",
   },
   {
+    q: "¿Se transmite en vivo?",
+    a: "No. Lo que pasa en la sala pasa estando ahí: las demos se prueban en el salón, la mesa redonda se responde de frente y el networking no tiene versión remota. Lo que sí queda por escrito es el material del día, que les llega a los que asistieron.",
+  },
+  {
     q: "¿Dónde es exactamente?",
     a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
   },
@@ -771,8 +796,6 @@ export const MENSAJES_WA = {
     "QUIERO SER SPONSOR DE GASTROTECH\n\nHola Alan! Me interesa participar como sponsor del evento del 20 de septiembre.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:",
   prensa:
     "PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del 20 de septiembre.\n\nMedio:\nMi nombre:\nQué necesitaría:",
-  avisos:
-    "AVISOS GASTROTECH\n\nHola! Todavía no me anoto, pero quiero que me avisen cuando se anuncien los oradores que faltan.",
   consulta:
     "CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del 20 de septiembre:\n\n",
 };

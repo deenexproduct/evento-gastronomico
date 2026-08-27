@@ -34,16 +34,19 @@
         <!-- La grilla entra recién en lg: a 640px cada tercio mide ~180px y
              "Reservar mi lugar" en Archivo 900 no entra en una línea. -->
         <div class="mt-9 grid gap-8 lg:mt-11 lg:grid-cols-12 lg:gap-10">
-          <p class="text-[0.9rem] leading-[1.6] text-gris lg:col-span-4">
+          <p class="text-[0.9rem] leading-[1.6] text-gris lg:col-span-3">
             {{ EVENTO.venue }} · {{ EVENTO.ciudad }}<br />
-            Domingo, {{ EVENTO.horario }}
+            {{ EVENTO.fechaSinDia }} · {{ EVENTO.horario }}
           </p>
 
-          <!-- Cinco enlaces en una fila, sin encabezados de columna: esto es
-               el pie de una página de un solo scroll, no un mapa del sitio.
-               Los dos rótulos existían para justificar una grilla y en
-               teléfono costaban 71px de alto. -->
-          <nav class="flex flex-wrap items-center gap-x-6 lg:col-span-4" aria-label="Pie">
+          <!-- Los enlaces en una fila, sin encabezados de columna: esto es el
+               pie de una página de un solo scroll, no un mapa del sitio. Los
+               dos rótulos existían para justificar una grilla y en teléfono
+               costaban 71px de alto.
+
+               Son siete y por eso esta columna se lleva cinco doceavos: con
+               cuatro, "Preguntas" y "deenex.tech" caían a una cuarta fila. -->
+          <nav class="flex flex-wrap items-center gap-x-6 lg:col-span-5" aria-label="Pie">
             <a
               v-for="l in enlaces"
               :key="l.id"
@@ -100,17 +103,11 @@
 </template>
 
 <script setup>
-import { EVENTO, linkWa } from "@/data/evento";
+import { EVENTO, NAV_ENLACES as enlaces, linkWa } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 
 const { total, agotado } = useCupo();
 const anio = new Date().getFullYear();
-
-const enlaces = [
-  { id: "jornada", label: "Programa" },
-  { id: "lugar", label: "El lugar" },
-  { id: "faq", label: "Preguntas" },
-];
 
 const whatsappRegistro = linkWa("registro");
 const whatsappConsulta = linkWa("consulta");

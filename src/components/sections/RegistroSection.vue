@@ -96,13 +96,6 @@
               {{ item }}
             </li>
           </ul>
-
-          <div class="mt-9 grid gap-3">
-            <div v-for="r in RIESGO" :key="r.q" class="tarjeta px-5 py-4">
-              <p class="text-[15px] font-black uppercase tracking-[0.02em]">{{ r.q }}</p>
-              <p class="mt-1.5 max-w-[60ch] text-[14px] leading-[1.45] text-gris">{{ r.a }}</p>
-            </div>
-          </div>
         </div>
 
         <!-- ── El canal ──────────────────────────────────────────────── -->
@@ -211,16 +204,5 @@ const PASOS = [
   "Tocás el botón y se abre WhatsApp con el mensaje ya escrito.",
   "Completás los renglones en blanco y lo mandás.",
   "Te contestamos confirmando, y tu lugar queda tomado.",
-];
-
-const RIESGO = [
-  {
-    q: "No cuesta nada",
-    a: "No se pide tarjeta ni se paga en la puerta. Lo que sí hace falta es reservar antes.",
-  },
-  {
-    q: "Sí hay proveedores, no hay ronda",
-    a: "Bistrosoft muestra su sistema dentro del programa y los sponsors tienen stand. Lo que no hay es agenda de reuniones ni nadie abordándote: si querés hablar con alguno, vas vos.",
-  },
 ];
 </script>

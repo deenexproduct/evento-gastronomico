@@ -51,29 +51,12 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { EVENTO } from "@/data/evento";
+import { EVENTO, NAV_ENLACES as enlaces } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { barraVisible } from "@/composables/useBarraReserva";
 
 const { total, restantes, agotado, mostrarCupo } = useCupo();
 const scrolled = ref(false);
-
-/**
- * Las pestañas del nav.
- *
- * Eran tres —programa, lugar y preguntas— y dejaban afuera las dos secciones
- * que el lector busca primero cuando llega de un anuncio: qué es esto y
- * quién lo respalda. El ancla de sponsors sigue siendo #partners: el id no
- * se renombró porque no es comunicación y cambiarlo rompe cualquier link ya
- * compartido.
- */
-const enlaces = [
-  { id: "que-es", label: "Qué es" },
-  { id: "jornada", label: "Programa" },
-  { id: "partners", label: "Sponsors" },
-  { id: "lugar", label: "Lugar" },
-  { id: "faq", label: "Preguntas" },
-];
 
 function onScroll() {
   scrolled.value = window.scrollY > 24;

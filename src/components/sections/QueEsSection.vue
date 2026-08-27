@@ -23,8 +23,8 @@
             párrafo de al lado y encima rompía en cinco líneas, dejando media
             columna derecha en blanco. El titular enmarca, el párrafo detalla.
           -->
-          <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(2rem,6vw,3.6rem)]">
-            Un día de tecnología para tu cadena.
+          <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(2rem,6vw,3.6rem)]">
+            Un día de tendencias e innovación para tu cadena.
           </h2>
         </div>
 
@@ -41,15 +41,18 @@
             renglón de la primera sección de contenido, es gastar la atención
             del lector en nosotros antes de haberle dicho qué gana él.
           -->
-          <p class="text-[clamp(1.15rem,2.6vw,1.6rem)] font-bold leading-[1.35]">
-            Siete bloques a lo largo del día, sin salas paralelas: lo que pasa,
-            <span class="text-acento-texto">pasa adelante tuyo</span>.
+          <p class="text-[clamp(1.1rem,2.4vw,1.45rem)] font-bold leading-[1.4]">
+            Hacia dónde va el mercado gastronómico y qué están aplicando las cadenas que crecen:
+            <span class="text-acento-texto"
+              >tendencias de consumo, formas nuevas de operar varios locales y las herramientas
+              que lo hacen posible</span
+            >.
           </p>
 
           <p class="lectura mt-6 text-[17px] leading-[1.6] text-gris">
-            Los que ya resolvieron costos, datos, sistemas y contenido cuentan cómo lo hicieron, y
-            los proveedores muestran los sistemas funcionando. Te parás adelante, preguntás por tu
-            caso y ves si te sirve.
+            Lo cuenta gente que ya lo aplicó adentro de su propia cadena, y lo que se muestra en el
+            salón se puede probar ahí mismo: te parás adelante, preguntás por tu caso y ves si te
+            sirve.
           </p>
         </div>
       </div>
@@ -110,9 +113,9 @@ const CLAVES = [
   {
     icono: "entrada",
     pregunta: "Cuánto sale",
-    respuesta: "Nada",
+    respuesta: "Sin costo",
     detalle:
-      "No hay ticket ni se cobra en la puerta. Lo único que hace falta es reservar antes: son 200 lugares y no hay más.",
+      "Entrada sin costo, con reserva previa. El cupo es la capacidad real del salón: 200 lugares.",
   },
 ];
 

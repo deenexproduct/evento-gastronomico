@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { MENSAJES_WA } from "@/data/evento";
 
 /**
  * Frases que la página decía dos veces, y las dos que Alan pidió sacar.
@@ -40,6 +39,8 @@ describe("frases que no pueden estar dos veces", () => {
 });
 
 describe("los dos pedidos del 26/08", () => {
+  // Los otros tres de este bloque guardaban #avisame, que Alan saco el
+  // 27/08. El guarda de que no vuelva esta en tanda-27-08.test.js.
   it('la sección de reserva no habla de "si no podés venir"', () => {
     // Alan: "Saca la parte si al final no podés venir". Estaba dos veces, las
     // dos alrededor del botón: le plantaban al lector la idea de faltar justo
@@ -49,36 +50,5 @@ describe("los dos pedidos del 26/08", () => {
       "utf-8"
     );
     expect(registro).not.toMatch(/no pod[eé]s venir/i);
-  });
-
-  it('la sección de "todavía no" no le inventa la objeción al lector', () => {
-    // Alan: "que sea distinta". Preguntaba "¿Querés esperar a ver quién más
-    // habla?", que le pone en la boca una duda que ninguna otra sección
-    // sugiere, y encima la equivocada.
-    const avisame = readFileSync(
-      join(SRC, "components/sections/AvisameSection.vue"),
-      "utf-8"
-    );
-    expect(avisame).not.toMatch(/¿Querés esperar a ver quién más habla\?/);
-    expect(avisame).toContain("¿Todavía no te decidís?");
-  });
-
-  it("el botón de avisos dice qué avisa, no cuándo cierra", () => {
-    // "Avisame cuando cierren" no aclara qué cierra, y en una página que
-    // habla todo el tiempo de cupo duro se lee como "avisame cuando ya no
-    // haya lugar" — o sea, lo contrario de lo que hace.
-    const avisame = readFileSync(
-      join(SRC, "components/sections/AvisameSection.vue"),
-      "utf-8"
-    );
-    expect(avisame).not.toContain("Avisame cuando cierren");
-    expect(avisame).toContain("Avisame quién más habla");
-  });
-
-  it("el mensaje de avisos no pide el mail: el chat ya es el contacto", () => {
-    // Era el único renglón a completar de toda la página en el momento de
-    // menor compromiso.
-    expect(MENSAJES_WA.avisos).not.toMatch(/mi mail/i);
-    expect(MENSAJES_WA.avisos.split("\n").filter((l) => l.trim().endsWith(":"))).toHaveLength(0);
   });
 });

@@ -102,10 +102,6 @@ describe("la grilla", () => {
     for (const p of promesas) expect(p).toMatch(/final/i);
   });
 
-  it('el material de después no se llama igual que la grilla del día', () => {
-    const despues = leer("DespuesSection.vue");
-    expect(despues).not.toMatch(/titulo:\s*"La grilla/);
-  });
 });
 
 describe("el diagnóstico", () => {
@@ -244,8 +240,9 @@ describe("los beneficios de los partners", () => {
     // otras dos dejan de repetir la promesa vacía. El ejemplo que haría
     // valer las tres lo tiene que dar Alan.
     const alAsistente = [
+    // Eran dos archivos: el segundo era DespuesSection, que Alan saco el
+    // 27/08. La promesa vacia que este guarda cuidaba nacia casi siempre ahi.
       readFileSync(join(SECCIONES, "RegistroSection.vue"), "utf-8"),
-      readFileSync(join(SECCIONES, "DespuesSection.vue"), "utf-8"),
     ].map(sinComentarios).join("\n");
     expect((alAsistente.match(/beneficios?/gi) || []).length).toBeLessThanOrEqual(1);
   });

@@ -135,9 +135,9 @@ const DATOS = [
 const LOGISTICA = [
   {
     icono: "gente",
-    titulo: "Ese día hay otro evento en el edificio",
+    titulo: "Tu acreditación también entra a Córdoba Corazón de Moda",
     texto:
-      "GastroTech pasa en un salón propio: tu nombre entra en la lista de la puerta y adentro estamos los 200. En el resto del centro de convenciones ese mismo día se hace Córdoba Corazón de Moda, por el que circulan unas 20.000 personas. No cambia nada de lo que pasa en la sala, pero conviene salir con tiempo de más.",
+      "GastroTech pasa en un salón propio, con entrada por lista. La misma acreditación te habilita Córdoba Corazón de Moda, el evento que ocupa el resto del centro de convenciones ese día y por el que circulan unas 20.000 personas.",
   },
   {
     icono: "reloj",
