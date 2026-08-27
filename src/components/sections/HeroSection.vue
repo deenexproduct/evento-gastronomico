@@ -22,17 +22,23 @@
         <!-- Columna del mensaje -->
         <div>
           <!--
-            Cuando y donde, en la primera linea de todas. En un telefono de
-            667px de alto la fecha aparecia recien a y=688: 21px por debajo
-            del pliegue, o sea que la primera pantalla no decia que dia era
-            ni en que ciudad. Con el panel de la derecha afuera, esta linea
-            es lo unico que lo dice en la primera pantalla.
+            Donde y cuando, antes que nada. Con el panel de la derecha
+            afuera, estas dos lineas son lo unico que lo dicen en la primera
+            pantalla.
 
-            Sale "Organiza Deenex" de aca: quien organiza tiene su propia
-            seccion mas abajo y no es lo que hay que saber primero.
+            Van en DOS lineas a proposito, no por accidente. Los tres datos
+            —hotel, ciudad y fecha— no entran en una sola en un telefono de
+            375px: el ancho util es 335px y la version mas corta que los
+            tiene a los tres pide 338. Medi seis combinaciones antes de
+            partirlo. A 12px las dos lineas piden 303 y 284, con margen.
+
+            Sale "Edicion 01" de aca: ya no entra y ademas abre la seccion
+            de acceso, que es donde significa algo. Y sale "Organiza Deenex":
+            quien organiza tiene su propia seccion mas abajo.
           -->
-          <p class="rotulo text-acento-texto">
-            <span class="hidden sm:inline">Edición 01 · </span>{{ EVENTO.fechaBreve }} · {{ EVENTO.ciudad }}
+          <p class="rotulo text-acento-texto text-[12px] leading-[1.7] sm:text-[13px]">
+            {{ EVENTO.venue }} · {{ EVENTO.ciudad }}<br />
+            {{ EVENTO.fechaLarga }}
           </p>
 
           <h1 class="display mt-5 text-[clamp(2.6rem,8.5vw,6.5rem)]">

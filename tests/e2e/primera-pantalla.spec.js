@@ -12,7 +12,7 @@ import { test, expect } from "@playwright/test";
 
 const CHICO = { width: 375, height: 667 };
 
-test("la primera pantalla del teléfono dice qué día es y en qué ciudad", async ({ page }) => {
+test("la primera pantalla del teléfono dice dónde es y qué día", async ({ page }) => {
   // Sin esto, la fecha aparecía recién en y=688: 21px por debajo del pliegue.
   // El que abre el link y no ve una fecha no scrollea, cierra.
   await page.setViewportSize(CHICO);
@@ -24,16 +24,24 @@ test("la primera pantalla del teléfono dice qué día es y en qué ciudad", asy
   const caja = await rotulo.boundingBox();
   expect(caja.y + caja.height).toBeLessThan(CHICO.height);
 
+  // Los tres datos, en el formato que sea: el hotel, la ciudad y el día.
   const texto = await rotulo.innerText();
-  expect(texto).toMatch(/domingo/i);
-  expect(texto).toMatch(/20\.09/);
+  expect(texto).toMatch(/quinto centenario/i);
   expect(texto).toMatch(/córdoba/i);
+  expect(texto).toMatch(/domingo/i);
+  expect(texto).toMatch(/20 de septiembre|20\.09/i);
 
-  // Y en una sola línea: es un rótulo en versales con tracking abierto, y
-  // partido en dos deja de leerse como una línea de datos.
-  const alto = caja.height;
+  // Dos líneas como mucho, y ninguna cortada.
+  //
+  // Antes esto exigía UNA. Los tres datos no entran en una línea en un
+  // teléfono de 375: el ancho útil es 335px y la versión más corta que los
+  // tiene a los tres pide 338. Se parte a propósito, no por accidente, y lo
+  // que hay que sostener es que el corte sea el elegido y no un desborde.
   const interlineado = await rotulo.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
-  expect(Math.round(alto / interlineado)).toBe(1);
+  expect(Math.round(caja.height / interlineado)).toBeLessThanOrEqual(2);
+
+  const cortado = await rotulo.evaluate((el) => el.scrollWidth > el.clientWidth + 1);
+  expect(cortado).toBe(false);
 });
 
 test("la barra fija no muestra texto cortado en ningún ancho", async ({ page }) => {
