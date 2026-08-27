@@ -11,10 +11,12 @@
           <p class="rotulo text-gris">Qué es</p>
           <!--
             El titular decía "Un domingo entre dueños de cadenas": abría con
-            lo que el lector PAGA, no con lo que pasa. Y la cuarta casilla
-            volvía a decir "Cuánto sale · Un domingo", así que la mejor idea
-            de la sección estaba dicha dos veces y una era el titular. Ahora
-            el titular dice qué es y la casilla se queda con el precio.
+            lo que el lector PAGA, no con lo que pasa. Y la casilla de al lado
+            volvía a decir "Cuánto sale · Un domingo".
+
+            Después salió el día como argumento de toda la página, así que la
+            casilla tampoco lo dice: contesta "Nada", que es la verdad y es lo
+            que la FAQ ya venía contestando.
 
             Segunda pasada: la versión intermedia decía "Un día entero, siete
             bloques y una sola sala", que repetía palabra por palabra el
@@ -108,9 +110,9 @@ const CLAVES = [
   {
     icono: "entrada",
     pregunta: "Cuánto sale",
-    respuesta: "Un domingo",
+    respuesta: "Nada",
     detalle:
-      "No hay ticket ni se cobra en la puerta: la entrada no cuesta plata. Cuesta un domingo, y eso es lo único que tenés que evaluar. Hay que reservar antes: son 200 lugares y no hay más.",
+      "No hay ticket ni se cobra en la puerta. Lo único que hace falta es reservar antes: son 200 lugares y no hay más.",
   },
 ];
 

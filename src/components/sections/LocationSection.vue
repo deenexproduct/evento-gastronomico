@@ -139,7 +139,7 @@ const DATOS = [
 const LOGISTICA = [
   {
     icono: "gente",
-    titulo: "Ese domingo hay otro evento en el edificio",
+    titulo: "Ese día hay otro evento en el edificio",
     texto:
       "GastroTech pasa en un salón propio: tu nombre entra en la lista de la puerta y adentro estamos los 200. En el resto del centro de convenciones ese mismo día se hace Córdoba Corazón de Moda, por el que circulan unas 20.000 personas. No cambia nada de lo que pasa en la sala, pero conviene salir con tiempo de más.",
   },

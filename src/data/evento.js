@@ -596,8 +596,8 @@ export const FAQ = [
     a: "Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay sponsors con stand que también venden. A las 12 el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.",
   },
   {
-    q: "Es domingo y trabajo. ¿Cómo hago?",
-    a: "Es la que más nos preguntan, así que va derecho: sí, te cuesta el domingo, y no hay forma de que no te lo cueste. Lo que sí elegís es cuánto. Son ocho horas de charlas pero nadie controla la butaca: venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y la mesa redonda de cierre, que es donde se dice lo que no se dice en público. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
+    q: "Tengo el local abierto ese día. ¿Cómo hago?",
+    a: "Es la que más nos preguntan, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y la mesa redonda de cierre, que es donde se dice lo que no se dice en público. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
   },
   {
     q: "¿Cuánto cuesta?",
@@ -629,7 +629,7 @@ export const FAQ = [
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo domingo el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
+    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, un evento multisala con unas ${EVENTO.eventoMadreCirculacion} personas circulando durante el día, así que el edificio va a estar movido y conviene salir con tiempo. La sala es aparte.`,
   },
 ];
 

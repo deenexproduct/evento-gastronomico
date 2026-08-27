@@ -250,3 +250,23 @@ describe("los beneficios de los partners", () => {
     expect((alAsistente.match(/beneficios?/gi) || []).length).toBeLessThanOrEqual(1);
   });
 });
+
+describe("el día como argumento", () => {
+  it("no usa el domingo como precio del evento", () => {
+    // Alan: "no me parece que tengamos que hacer tanto énfasis en eso". La
+    // distinción: decir QUÉ DÍA es, es un dato que el lector necesita; usar
+    // el día como lo que el evento cuesta es hablar de lo que pierde en vez
+    // de lo que gana. Estaba en cuatro lugares, y uno era la respuesta a
+    // "cuánto sale" en la primera sección de contenido.
+    const t = todo();
+    expect(t).not.toMatch(/cuesta un domingo/i);
+    expect(t).not.toMatch(/te cuesta el domingo/i);
+    expect(t).not.toMatch(/respuesta:\s*"Un domingo"/i);
+    expect(t).not.toMatch(/Es domingo y trabajo/i);
+  });
+
+  it("sigue diciendo qué día es, que es lo que el lector necesita", () => {
+    const t = todo();
+    expect(t).toMatch(/Domingo 20 de septiembre/i);
+  });
+});
