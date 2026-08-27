@@ -18,15 +18,15 @@
     ></div>
 
     <div class="contenedor relative py-12 sm:py-16">
-      <div class="grid items-start gap-10 lg:grid-cols-[1.1fr_.9fr] lg:gap-14">
+      <div class="grid items-start gap-10">
         <!-- Columna del mensaje -->
         <div>
           <!--
             Cuando y donde, en la primera linea de todas. En un telefono de
             667px de alto la fecha aparecia recien a y=688: 21px por debajo
             del pliegue, o sea que la primera pantalla no decia que dia era
-            ni en que ciudad. El panel de la derecha los sigue diciendo
-            completos; esto es el titular.
+            ni en que ciudad. Con el panel de la derecha afuera, esta linea
+            es lo unico que lo dice en la primera pantalla.
 
             Sale "Organiza Deenex" de aca: quien organiza tiene su propia
             seccion mas abajo y no es lo que hay que saber primero.
@@ -66,91 +66,38 @@
             <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
           </div>
 
+          <!--
+            La cuenta regresiva, pegada al botón.
+
+            Estaba adentro del panel de la derecha, a 80px, y era el elemento
+            más grande de esa columna: presionaba sin que nadie hubiera
+            decidido nada todavía. Acá presiona en el único momento en que
+            sirve, que es cuando el lector ya tiene el botón a la vista, y a
+            un tamaño que no le compite al titular.
+          -->
+          <p class="mt-6 flex items-baseline gap-2.5">
+            <span
+              v-if="estado === 'faltan'"
+              class="font-black tabular-nums leading-none tracking-[-0.04em] text-acento-texto text-[clamp(1.9rem,4.2vw,2.6rem)]"
+              >{{ dias }}</span
+            >
+            <span
+              v-else
+              class="font-black uppercase leading-none tracking-[-0.03em] text-acento-texto text-[clamp(1.4rem,3.4vw,1.9rem)]"
+              >{{ estado === "hoy" ? "Es hoy" : "Ya pasó" }}</span
+            >
+            <span
+              v-if="estado === 'faltan'"
+              class="text-[13px] font-black uppercase tracking-[0.16em] text-gris"
+              >{{ dias === 1 ? "día" : "días" }} para el evento</span
+            >
+          </p>
+
           <p class="mt-5 text-[14px] leading-[1.5] text-gris">
             Entrada sin costo con reserva previa · Se reserva por WhatsApp, sin formularios
           </p>
         </div>
 
-        <!-- Panel de datos: cuándo es, cuánto falta y cuánto queda -->
-        <aside class="tarjeta p-5 sm:p-6 lg:mt-2">
-          <p class="rotulo text-white">Domingo 20 de septiembre</p>
-          <p class="mt-2 text-[15px] leading-[1.45] text-gris">
-            Charlas de {{ EVENTO.horario }}, puertas desde las {{ EVENTO.puertas }} · {{ EVENTO.venue }}, Córdoba
-          </p>
-
-          <!-- Cuenta regresiva: acá es donde el número presiona -->
-          <div class="mt-6 flex items-end gap-4 border-t border-white/10 pt-6">
-            <p
-              v-if="estado === 'faltan'"
-              class="font-black leading-[0.78] tabular-nums tracking-[-0.05em] text-acento-texto text-[clamp(3.4rem,9vw,5rem)]"
-            >
-              {{ dias }}
-            </p>
-            <p
-              v-else
-              class="font-black uppercase leading-[0.85] tracking-[-0.03em] text-acento-texto text-[clamp(2rem,6vw,3rem)]"
-            >
-              {{ estado === "hoy" ? "Es hoy" : "Ya pasó" }}
-            </p>
-            <p
-              v-if="estado === 'faltan'"
-              class="pb-1 text-[13px] font-black uppercase tracking-[0.2em] text-gris"
-            >
-              {{ dias === 1 ? "día" : "días" }}<br />para el evento
-            </p>
-          </div>
-
-          <!-- Escasez con razón física, no con fases de precio -->
-          <div class="mt-6 border-t border-white/10 pt-6">
-            <p class="flex items-center gap-2 text-[13px] font-black uppercase tracking-[0.12em]">
-              <span class="relative flex h-2 w-2">
-                <span
-                  class="absolute inline-flex h-full w-full animate-ping rounded-full bg-acento opacity-70"
-                ></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-acento"></span>
-              </span>
-              <span class="text-acento-texto">{{
-                agotado ? "Lista de espera" : "Reservas abiertas"
-              }}</span>
-            </p>
-
-            <!--
-              El conteo solo sale cuando es real. Hasta que haya suficientes
-              anotados, la página dice cuántos lugares hay —que es cierto
-              siempre— y no cuántos quedan, que sería inventado.
-            -->
-            <template v-if="mostrarCupo">
-              <div class="mt-4 flex items-baseline justify-between gap-4">
-                <p class="rotulo text-white">{{ porcentaje }}% del salón tomado</p>
-                <p
-                  class="text-[14px] font-bold tabular-nums text-gris"
-                  style="min-width: 7ch; text-align: right"
-                >
-                  {{ ocupados }} / {{ total }}
-                </p>
-              </div>
-
-              <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
-                <div
-                  class="h-full rounded-full bg-acento transition-[width] duration-[1200ms] ease-out"
-                  :style="{ width: ancho + '%' }"
-                ></div>
-              </div>
-            </template>
-
-            <p v-else class="mt-4 rotulo text-white">{{ total }} lugares · entrada sin costo</p>
-
-            <p class="mt-3 text-[14px] leading-[1.45] text-gris">
-              <template v-if="agotado">
-                La sala se llenó: entraron los {{ total }}. Podés dejar tus datos por si se libera un
-                lugar.
-              </template>
-              <template v-else>
-                El cupo es el del salón, no una fase de venta. Cuando entren {{ total }}, se cierra.
-              </template>
-            </p>
-          </div>
-        </aside>
       </div>
     </div>
   </section>
