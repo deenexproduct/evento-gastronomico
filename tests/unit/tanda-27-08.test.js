@@ -237,3 +237,24 @@ describe("evento.js no vuelve a tener cuatro agendas", () => {
     }
   });
 });
+
+describe("10 · el evento madre se cuenta igual en toda la pagina", () => {
+  const datos = readFileSync(join(SRC, "data/evento.js"), "utf-8");
+  const seccion = readFileSync(join(SECCIONES, "LocationSection.vue"), "utf-8");
+  const todo = datos + seccion;
+
+  it("si se vende como acceso incluido, no se describe tambien como molestia", () => {
+    // Quedo contado de las dos formas a la vez: #lugar decia que la
+    // acreditacion tambien entra, y el FAQ que el edificio va a estar movido
+    // y conviene salir con tiempo. Es el mismo hecho con dos animos opuestos,
+    // y el lector lee los dos.
+    const comoAcceso = /también (entra|te habilita)/.test(todo);
+    expect(comoAcceso).toBe(true);
+    expect(todo).not.toContain("conviene salir con tiempo");
+    expect(todo).not.toContain("va a estar movido");
+  });
+
+  it("se lo nombra en los dos lugares con el mismo nombre", () => {
+    expect((todo.match(/Córdoba Corazón de Moda/g) || []).length).toBeGreaterThanOrEqual(2);
+  });
+});
