@@ -287,6 +287,16 @@ export const PARTNERS = [
     aporte: "Acerca a la sala cadenas de otras provincias y respalda la jornada institucionalmente.",
   },
   {
+    nombre: "I+D IoT Lab",
+    logo: "id-iot-lab.png",
+    tipo: "Sponsor de contenido",
+    empresa:
+      "Laboratorio de investigación y desarrollo en IoT e inteligencia artificial aplicada.",
+    quien: "Da el bloque de IA",
+    aporte:
+      "La charla sobre inteligencia artificial ya aplicada en cadenas, con casos y números.",
+  },
+  {
     nombre: "La mesa de degustación",
     // No es el nombre de una empresa: en la barra de arriba, que son puros
     // nombres, se leía como una que no existe. Su tarjeta en #partners queda.

@@ -7,10 +7,11 @@
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
         Ninguno viene a poner el logo y nada más: Bistrosoft manda al CEO y monta las demos con
-        equipo propio, Avanzia trae al ex-CEO de Dexter y al ex-presidente de la CAME, la
-        Asociación acerca cadenas de otras provincias y la mesa de degustación pone cuatro rondas
-        más el coffee break. Solo publicamos los que ya están cerrados por escrito: cuando
-        cerramos el próximo, lo vas a ver acá.
+        equipo propio, Avanzia trae al ex-CEO de Dexter y al ex-presidente de la CAME, I+D IoT Lab
+        da el bloque de inteligencia artificial aplicada, la Asociación acerca cadenas de otras
+        provincias y la mesa de degustación pone cuatro rondas más el coffee break. Solo
+        publicamos los que ya están cerrados por escrito: cuando cerramos el próximo, lo vas a
+        ver acá.
       </p>
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2">
