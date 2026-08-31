@@ -2,10 +2,11 @@ name: Deploy a GitHub Pages
 
 on:
   push:
-    # La landing publicada sale de esta rama. main quedó con otra versión del
-    # sitio —13 secciones distintas, trabajo de otra línea de edición— y las
-    # dos no son mergeables: no comparten un solo componente de sección.
-    branches: [feat/rediseno-investigacion]
+    # La landing publicada sale de main. Hasta el 31/08 salía de
+    # feat/rediseno-investigacion, porque main tenía otra versión del sitio y
+    # las dos no eran mergeables. Se unificaron en la del rediseño; la línea
+    # anterior quedó guardada en respaldo/main-antes-de-unificar.
+    branches: [main]
   workflow_dispatch:
 
 permissions:
