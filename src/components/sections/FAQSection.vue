@@ -12,17 +12,6 @@
           <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.8rem)]">
             Lo que siempre nos preguntan.
           </h2>
-          <p class="mt-6 text-[0.95rem] leading-[1.6] text-gris">
-            ¿Te quedó algo afuera? Escribinos y te lo respondemos.
-          </p>
-          <a
-            :href="whatsappConsultas"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-2 inline-flex min-h-[44px] items-center text-[0.9rem] font-semibold text-acento-texto underline underline-offset-4"
-          >
-            Preguntar por WhatsApp
-          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
         </div>
 
         <div class="lg:col-span-8">
@@ -79,7 +68,7 @@
 defineProps({ enPie: { type: Boolean, default: false } });
 
 import { ref } from "vue";
-import { FAQ, linkWa } from "@/data/evento";
+import { FAQ } from "@/data/evento";
 
 /**
  * Ningún panel abierto de entrada.
@@ -96,5 +85,4 @@ function toggle(i) {
   abierto.value = abierto.value === i ? -1 : i;
 }
 
-const whatsappConsultas = linkWa("consulta");
 </script>

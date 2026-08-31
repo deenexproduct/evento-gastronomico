@@ -17,7 +17,7 @@
         Un salón propio, con entrada por lista
       </h2>
 
-      <div class="mt-10 grid gap-4 lg:grid-cols-3">
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div v-for="d in datos" :key="d.r" class="tarjeta flex flex-col gap-1 p-6">
           <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">
             {{ d.r }}
@@ -25,6 +25,32 @@
           <p class="mt-1 text-[1.05rem] font-semibold leading-snug">{{ d.v }}</p>
           <p v-if="d.n" class="text-[14px] leading-[1.5] text-gris">{{ d.n }}</p>
         </div>
+
+        <!--
+          El cuarto es el único que hace algo: abre el mapa. Va con el resto y
+          no como botón suelto porque es utilidad, no conversión — los dos CTA
+          de la página siguen siendo reservar y ser sponsor.
+        -->
+        <a
+          :href="comoLlegar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="tarjeta tarjeta-mapa flex flex-col gap-1 p-6"
+        >
+          <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">
+            Cómo llegar
+          </p>
+          <p class="mt-1 flex items-center gap-2 text-[1.05rem] font-semibold leading-snug">
+            Abrir en Maps
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
+          </p>
+          <p class="text-[14px] leading-[1.5] text-gris">
+            Te lleva a la puerta del hotel, con el recorrido desde donde estés.
+            <span class="sr-only">(abre en una pestaña nueva)</span>
+          </p>
+        </a>
       </div>
 
       <!--
@@ -51,6 +77,10 @@
 <script setup>
 import { EVENTO } from "@/data/evento";
 
+const comoLlegar =
+  "https://www.google.com/maps/search/?api=1&query=" +
+  encodeURIComponent(`${EVENTO.venue}, ${EVENTO.direccion}, ${EVENTO.ciudad}, Argentina`);
+
 const datos = [
   {
     r: "Dónde",
@@ -71,6 +101,9 @@ const datos = [
 </script>
 
 <style scoped>
+.tarjeta-mapa { text-decoration: none; color: inherit; }
+.tarjeta-mapa:hover { border-color: color-mix(in srgb, var(--acento, #695ede) 45%, transparent); }
+
 .cortesia {
   border: 1px solid color-mix(in srgb, var(--acento, #695ede) 28%, transparent);
   background: color-mix(in srgb, var(--acento, #695ede) 5%, transparent);
