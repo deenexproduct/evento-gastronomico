@@ -224,11 +224,11 @@ export const TEMAS = [
     hora: "16:00",
     tipo: "charla",
     titulo: "La IA ya está adentro de las cadenas más grandes del país",
-    quien: "Rubro datos e inteligencia artificial",
-    estado: "abierto",
-    empresa: "",
+    quien: "I+DIoT Lab",
+    estado: "participa",
+    empresa: "Datos e inteligencia artificial",
     punta:
-      "Casos reales de inteligencia artificial implementada en cadenas grandes: qué se automatizó, qué costó y qué devolvió. Incluidos los que no funcionaron, que es lo que nadie cuenta.",
+      "Casos reales de inteligencia artificial implementada en cadenas grandes, contados por los que la montaron: qué se automatizó, qué costó y qué devolvió. Incluidos los que no funcionaron, que es lo que nadie cuenta.",
     temas: ["Qué se automatizó y qué costó", "Qué devolvió, con el número", "Los que no funcionaron"],
   },
   {
@@ -403,6 +403,15 @@ export const PARTNERS = [
       "Nuclea a las marcas y cadenas del país que crecen por franquicia y por locales propios.",
     quien: "Acompaña la convocatoria",
     aporte: "Acerca a la sala cadenas de otras provincias y respalda la jornada institucionalmente.",
+  },
+  {
+    nombre: "I+DIoT Lab",
+    logo: "idiotlab.png",
+    rubro: "Datos e inteligencia artificial",
+    empresa:
+      "Integra hardware, software e IA para digitalizar tiendas físicas: kioscos, tablets de asistencia, sistemas de fila y smart boxes.",
+    quien: "Lo cuenta desde adentro",
+    aporte: "Casos de IA ya implementada en cadenas grandes: qué se automatizó, qué costó y qué devolvió.",
   },
   {
     nombre: "La mesa de degustación",
