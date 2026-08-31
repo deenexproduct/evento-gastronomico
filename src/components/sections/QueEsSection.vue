@@ -81,6 +81,43 @@
         </div>
       </dl>
 
+      <!--
+        Quién lo crea, y por qué eso importa para el que evalúa venir: una
+        edición 01 no tiene historial, así que el respaldo es lo único que
+        contesta "¿esto va a estar bien hecho?". Va acá y no sólo en la
+        sección de Deenex más abajo, porque el que llega de un anuncio decide
+        en esta pantalla.
+      -->
+      <div class="mt-4 grid gap-4 lg:grid-cols-[1.15fr_.85fr]">
+        <div class="tarjeta p-7">
+          <p class="text-[12px] font-semibold uppercase tracking-[0.12em] text-gris-2">
+            Quién lo crea
+          </p>
+          <p class="mt-4 text-[1.05rem] leading-[1.55]">
+            GastroTech lo organiza <strong>Deenex</strong>, que trabaja con más de 350 marcas del
+            rubro y viene escuchando hace tres años cómo deciden los dueños de cadenas.
+          </p>
+          <p class="mt-3.5 text-[15px] leading-[1.55] text-gris">
+            <strong class="font-semibold text-papel">Alan Tapia</strong>, su CEO y co-fundador,
+            comparte el escenario con otros empresarios del sector: la jornada la sostienen los
+            que ya tomaron estas decisiones adentro de su propia operación, no consultores.
+          </p>
+        </div>
+
+        <div class="tarjeta p-7">
+          <p class="text-[12px] font-semibold uppercase tracking-[0.12em] text-gris-2">
+            Además, ese día
+          </p>
+          <p class="mt-4 text-[1.05rem] font-semibold leading-[1.3]">
+            Se abre el podcast, a puertas cerradas
+          </p>
+          <p class="mt-3 text-[15px] leading-[1.55] text-gris">
+            Una conversación entre empresarios sobre lo que la tecnología está moviendo en el
+            rubro: qué mercado se abre, qué conflictos aparecen y cómo responde el negocio.
+          </p>
+        </div>
+      </div>
+
       <!-- Qué NO es: filtra tan rápido como lo que sí es -->
       <div class="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-7">
         <p class="text-[12px] font-semibold uppercase tracking-[0.12em] text-gris-2">Qué no es</p>

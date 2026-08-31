@@ -30,6 +30,11 @@ function leer(nombre) {
 function sinComentarios(txt) {
   return txt
     .replace(/<!--[\s\S]*?-->/g, " ")
+    // Los <style> también salen: son declaraciones, no texto publicado. Sin
+    // esto, dos componentes que comparten una regla de CSS —un color, un
+    // display:flex— se leen como copy repetido y el chequeo de frases largas
+    // dispara sobre la hoja de estilos en vez de sobre lo que dice la página.
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
     .replace(/\/\*[\s\S]*?\*\//g, " ")
     .replace(/^\s*\/\/[^\n]*/gm, " ");
 }

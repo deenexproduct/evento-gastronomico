@@ -158,15 +158,16 @@ describe("13 · el pie", () => {
     }
   });
 
-  it("la home quedo como resumen: no reabsorbe el detalle de los bloques", () => {
-    // Si una seccion de detalle vuelve a la home, hay dos lugares contando lo
-    // mismo y el resumen deja de ser resumen.
+  it("la home resume el detalle y no lo reabsorbe entero", () => {
     const home = leer("views/HomeView.vue");
-    for (const s of ["QueEsSection", "ElLunesSection", "BrandsSection", "PruebaSection", "FAQSection"]) {
+    // La home ofrece los cinco bloques como tarjetas; no monta sus secciones
+    // en línea. Las dos excepciones son deliberadas: las preguntas cierran el
+    // recorrido principal, y el bloque del lugar es lo que se busca cuando ya
+    // se decidió ir. El resto sigue detrás de su tarjeta.
+    for (const s of ["QueEsSection", "ElLunesSection", "PruebaSection", "BrandsSection"]) {
       expect(home).not.toContain(s);
     }
-    // Y la jornada si tiene que seguir ahi: es el corazon del resumen.
-    expect(home).toContain("JornadaSection");
+    expect(home).toContain("BloquesResumen");
   });
 
   it("la fecha sin dia existe en los datos", () => {

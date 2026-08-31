@@ -63,7 +63,7 @@
           rel="noopener noreferrer"
           class="btn-linea shrink-0"
         >
-          Quiero ser sponsor
+          Quiero mi rubro
         <span class="sr-only"> (abre en una pestaña nueva)</span></a>
       </div>
     </div>

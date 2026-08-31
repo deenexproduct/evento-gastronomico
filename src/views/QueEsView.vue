@@ -14,7 +14,6 @@
     </CabeceraVista>
 
     <QueEsSection />
-    <LocationSection class="bg-noche-3" />
 
     <SiguienteBloque />
   </div>
@@ -24,5 +23,4 @@
 import CabeceraVista from "@/components/layout/CabeceraVista.vue";
 import SiguienteBloque from "@/components/layout/SiguienteBloque.vue";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
-import LocationSection from "@/components/sections/LocationSection.vue";
 </script>

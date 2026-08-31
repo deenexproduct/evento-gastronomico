@@ -51,7 +51,21 @@
         volver a la home desde otra vista eso son hasta dos segundos de sección
         en blanco. Es la última del scroll: la animación no compensa el riesgo.
     -->
+    <!--
+      Dónde, a qué hora y qué más entra con la acreditación. Sale de /que-es:
+      es lo que se busca cuando ya se decidió ir, y allá estaba a dos clics.
+    -->
+    <DondeSection />
+
     <SumarseSection />
+
+    <!--
+      Las preguntas cierran el home y sólo el home. Vivían dentro de /que-es,
+      cerradas y a cuatro pantallas de scroll de una vista que hay que abrir a
+      propósito: la pieza que mejor resuelve dudas era la que menos se leía.
+      Acá las ve cualquiera que llegue al final del recorrido principal.
+    -->
+    <FAQSection class="bg-noche" />
   </div>
 </template>
 
@@ -63,6 +77,8 @@ import JornadaSection from "@/components/sections/JornadaSection.vue";
 import BloquesResumen from "@/components/sections/BloquesResumen.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import SumarseSection from "@/components/sections/SumarseSection.vue";
+import FAQSection from "@/components/sections/FAQSection.vue";
+import DondeSection from "@/components/sections/DondeSection.vue";
 
 let observer = null;
 let respaldo = null;

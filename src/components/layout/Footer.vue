@@ -13,15 +13,7 @@
   -->
   <footer class="piso-flotante border-t border-linea bg-noche-3 py-14 sm:py-16">
     <div class="contenedor">
-      <!--
-        Las preguntas cierran la pagina. Vivian dentro de /que-es, cerradas y
-        a cuatro pantallas de scroll de una vista que hay que abrir a proposito:
-        la pieza que mejor resuelve dudas era la que menos se leia. Aca las ve
-        cualquiera que llegue al final, entre por donde entre.
-      -->
-      <FAQSection en-pie />
-
-      <div class="mt-14 border-t border-linea pt-12">
+      <div>
         <!-- La marca -->
         <div>
           <!--
@@ -50,7 +42,6 @@
 
 <script setup>
 import { EVENTO } from "@/data/evento";
-import FAQSection from "@/components/sections/FAQSection.vue";
 
 const anio = new Date().getFullYear();
 </script>
