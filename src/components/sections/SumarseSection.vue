@@ -25,23 +25,27 @@
             estén ese día. Hay un solo lugar por rubro, y queda asignado al confirmar.
           </p>
 
-          <ul class="mt-7 grid gap-px bg-white/10">
-            <li v-for="i in INCLUYE_PARTNER" :key="i" class="flex gap-3 bg-noche-2 py-3 text-[15px] leading-snug">
-              <span class="shrink-0 text-acento-texto">—</span>
-              {{ i }}
+          <ul class="mt-7 grid gap-3">
+            <li v-for="i in INCLUYE_PARTNER" :key="i" class="item-incluye">
+              <span class="tilde" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M3 8.4l3.2 3.1L13 4.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span>{{ i }}</span>
             </li>
           </ul>
 
           <p class="mt-6 text-[14px] leading-[1.5] text-gris-2">
-            Los niveles y las condiciones se arman según lo que aporte cada marca. Se conversa uno
-            por uno.
+            No hay niveles ni tarifario: los diez reciben lo mismo y aportan lo mismo. Sin fee y
+            sin factura de por medio.
           </p>
 
           <a
             :href="whatsappPartner"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-linea mt-7 w-full"
+            class="btn mt-7 w-full"
           >
             Quiero ser sponsor
           <span class="sr-only"> (abre en una pestaña nueva)</span></a>
@@ -56,10 +60,14 @@
             disponible para entrevistas antes y durante la jornada.
           </p>
 
-          <ul class="mt-7 grid gap-px bg-white/10">
-            <li v-for="i in INCLUYE_PRENSA" :key="i" class="flex gap-3 bg-noche-2 py-3 text-[15px] leading-snug">
-              <span class="shrink-0 text-acento-texto">—</span>
-              {{ i }}
+          <ul class="mt-7 grid gap-3">
+            <li v-for="i in INCLUYE_PRENSA" :key="i" class="item-incluye">
+              <span class="tilde" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M3 8.4l3.2 3.1L13 4.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span>{{ i }}</span>
             </li>
           </ul>
 
@@ -72,7 +80,7 @@
             :href="whatsappPrensa"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-linea mt-7 w-full"
+            class="btn mt-7 w-full"
           >
             Pedir acreditación
           <span class="sr-only"> (abre en una pestaña nueva)</span></a>
@@ -87,7 +95,7 @@ import { linkWa } from "@/data/evento";
 
 const INCLUYE_PARTNER = [
   "Stand en el salón durante toda la jornada",
-  "Demo en vivo dentro del programa",
+  "Un bloque propio dentro del programa, en el track único",
   "Tu marca en la comunicación del evento",
   "Un día entero cara a cara con dueños de cadenas, sin público general",
 ];
@@ -102,3 +110,30 @@ const INCLUYE_PRENSA = [
 const whatsappPartner = linkWa("partner");
 const whatsappPrensa = linkWa("prensa");
 </script>
+
+<style scoped>
+/*
+  Los items llevaban un guion como viñeta. Un guion no dice nada: ocupa el lugar
+  del signo y deja la lista pareja con cualquier enumeración. El tilde afirma
+  que eso está incluido, que es lo que la tarjeta quiere decir.
+*/
+.item-incluye {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.tilde {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--acento, #695EDE) 14%, transparent);
+  color: var(--acento-texto, #4F42C4);
+  margin-top: 1px;
+}
+</style>

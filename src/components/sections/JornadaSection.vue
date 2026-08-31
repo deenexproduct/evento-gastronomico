@@ -8,9 +8,9 @@
     forma no se entienden — y once es lo que tiene la grilla del 30/08.
 
     Acá el eje es el tiempo y se lee de arriba abajo, que es como se lee una
-    agenda. Cada fila despliega su detalle debajo, sin sacar al lector de la
-    lista: con once bloques, un modal obliga a abrir y cerrar once veces para
-    comparar, y el que evalúa un domingo entero compara.
+    agenda. Se muestran los primeros cinco: once renglones seguidos son una
+    pared que nadie termina, y cinco alcanzan para entender de qué va el día.
+    El resto entra con un botón. Cada fila abre su detalle en un diálogo.
   -->
   <section id="jornada" class="border-b border-linea py-seccion">
     <div class="contenedor">
@@ -43,7 +43,7 @@
           <span class="text-[15px] text-gris">{{ BORDES.apertura.titulo }}</span>
         </li>
 
-        <template v-for="(b, i) in TEMAS" :key="b.id">
+        <template v-for="(b, i) in visibles" :key="b.id">
           <!-- La pausa que va ANTES de este bloque, calculada, nunca declarada -->
           <li
             v-if="pausaAntes(i)"
@@ -61,9 +61,8 @@
             <button
               type="button"
               class="fila-bloque presionable w-full text-left"
-              :aria-expanded="abierto === b.id"
-              :aria-controls="`detalle-${b.id}`"
-              @click="alternar(b.id)"
+              :aria-label="`Ver el detalle del bloque de las ${b.hora}: ${b.titulo}`"
+              @click="abrir(b)"
             >
               <time :datetime="iso(b.hora)" class="hora w-[4.5rem] shrink-0 text-[1.05rem]" :class="b.tipo === 'networking' ? 'text-gris-2' : 'text-acento-texto'">
                 {{ b.hora }}
@@ -98,46 +97,14 @@
                 </span>
               </span>
 
-              <span class="ver-mas shrink-0" :class="{ 'ver-mas-abierto': abierto === b.id }">
-                {{ abierto === b.id ? "Cerrar" : "Ver detalle" }}
-              </span>
+              <span class="ver-mas shrink-0" aria-hidden="true">Ver detalle</span>
             </button>
 
-            <!-- El desglose. v-show y no v-if: el contenido queda en el DOM,
-                 así lo encuentra el buscador del navegador y lo indexa Google. -->
-            <div :id="`detalle-${b.id}`" v-show="abierto === b.id" class="desglose">
-              <div v-if="b.quien" class="flex flex-wrap items-center gap-x-3 gap-y-2">
-                <span class="text-[15px] font-semibold">{{ b.quien }}</span>
-                <span v-if="b.empresa" class="text-[14px] text-gris">· {{ b.empresa }}</span>
-                <span v-if="b.estado" class="punto" :class="`punto-${ESTADOS_BLOQUE[b.estado].tono}`">
-                  {{ ESTADOS_BLOQUE[b.estado].label }}
-                </span>
-              </div>
-
-              <p class="mt-3 max-w-[68ch] text-[15px] leading-[1.6] text-gris">{{ b.punta }}</p>
-
-              <div v-if="b.temas?.length" class="mt-5">
-                <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">
-                  Qué se toca
-                </p>
-                <ul class="mt-2.5 grid gap-2">
-                  <li v-for="t in b.temas" :key="t" class="flex gap-2.5 text-[15px] leading-[1.5]">
-                    <span class="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-acento" aria-hidden="true"></span>
-                    <span>{{ t }}</span>
-                  </li>
-                </ul>
-              </div>
-
-              <p v-if="b.estado === 'abierto'" class="mt-5 max-w-[62ch] rounded-lg border border-linea px-4 py-3 text-[13.5px] leading-[1.5] text-gris-2">
-                El tema está cerrado; el orador todavía no. Lo anunciamos con la grilla final, que
-                reciben primero los que ya reservaron.
-              </p>
-            </div>
           </li>
         </template>
 
         <!-- Cierre -->
-        <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4">
+        <li v-if="todos" class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4">
           <time :datetime="iso(BORDES.cierre.hora)" class="hora w-[4.5rem] text-[1rem] text-gris-2">
             {{ BORDES.cierre.hora }}
           </time>
@@ -145,12 +112,85 @@
         </li>
       </ol>
 
+      <!--
+        El corte en cinco no se disimula: el boton dice cuantos faltan, asi el
+        lector sabe que hay mas dia y decide si lo quiere ver. Y no desaparece
+        al desplegar: se puede volver a los cinco, que es lo que permite mirar
+        la jornada dos veces sin recargar.
+      -->
+      <button type="button" class="btn-desglosar presionable mt-6" @click="todos = !todos">
+        <template v-if="todos">Ver menos</template>
+        <template v-else>
+          Ver los {{ TEMAS.length }} bloques del día
+          <span class="text-[11px] font-semibold uppercase tracking-[0.08em] opacity-70">
+            · faltan {{ TEMAS.length - TOPE }}
+          </span>
+        </template>
+      </button>
+
       <p class="mt-6 text-[14px] leading-[1.55] text-gris-2">
         El orden puede moverse hasta la semana del evento. La grilla final la reciben primero los
         que ya reservaron.
       </p>
     </div>
 
+    <!-- ── El detalle ─────────────────────────────────────────────
+         <dialog> nativo: trae el foco atrapado, el cierre con Escape y el
+         fondo inerte sin una línea de JS. -->
+    <dialog
+      ref="dlg"
+      class="detalle-bloque"
+      :aria-label="activo ? `Detalle: ${activo.titulo}` : 'Detalle del bloque'"
+      @click="clickFuera"
+      @close="alCerrar"
+    >
+      <div v-if="activo" class="detalle-caja">
+        <button type="button" class="cerrar presionable" aria-label="Cerrar el detalle" @click="cerrar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+          </svg>
+        </button>
+
+        <p class="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <time :datetime="iso(activo.hora)" class="hora text-[1.3rem] text-acento-texto">{{ activo.hora }}</time>
+          <span class="text-[12px] font-semibold uppercase tracking-[0.11em] text-gris-2">
+            {{ activo.dur }} minutos
+          </span>
+          <span v-if="activo.tipo !== 'charla'" class="chip border-acento/45 text-[10px] text-acento-texto">
+            {{ TIPOS_BLOQUE[activo.tipo]?.label }}
+          </span>
+        </p>
+
+        <h3 class="mt-4 text-[1.25rem] font-extrabold leading-[1.2] sm:text-[1.5rem]">
+          {{ activo.titulo }}
+        </h3>
+
+        <div v-if="activo.quien" class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-linea pt-5">
+          <span class="text-[15px] font-semibold">{{ activo.quien }}</span>
+          <span v-if="activo.empresa" class="text-[14px] text-gris">· {{ activo.empresa }}</span>
+          <span v-if="activo.estado" class="punto" :class="`punto-${ESTADOS_BLOQUE[activo.estado].tono}`">
+            {{ ESTADOS_BLOQUE[activo.estado].label }}
+          </span>
+        </div>
+
+        <p class="mt-4 text-[15px] leading-[1.6] text-gris">{{ activo.punta }}</p>
+
+        <div v-if="activo.temas?.length" class="mt-6 border-t border-linea pt-5">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">Qué se toca</p>
+          <ul class="mt-3 grid gap-2">
+            <li v-for="t in activo.temas" :key="t" class="flex gap-2.5 text-[15px] leading-[1.5]">
+              <span class="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-acento" aria-hidden="true"></span>
+              <span>{{ t }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <p v-if="activo.estado === 'abierto'" class="mt-6 rounded-lg border border-linea px-4 py-3 text-[13.5px] leading-[1.5] text-gris-2">
+          El tema está cerrado; el orador todavía no. Lo anunciamos con la grilla final, que
+          reciben primero los que ya reservaron.
+        </p>
+      </div>
+    </dialog>
   </section>
 </template>
 
@@ -158,10 +198,49 @@
 import { ref, computed } from "vue";
 import { TEMAS, TIPOS_BLOQUE, ESTADOS_BLOQUE, BORDES, EVENTO } from "@/data/evento";
 
-/** Sólo uno abierto por vez: con once desplegados la lista deja de leerse. */
-const abierto = ref(null);
-function alternar(id) {
-  abierto.value = abierto.value === id ? null : id;
+/** Cuántos bloques se ven antes de pedir el resto. */
+const TOPE = 5;
+const todos = ref(false);
+const visibles = computed(() => (todos.value ? TEMAS : TEMAS.slice(0, TOPE)));
+
+/*
+  El scroll del fondo, congelado mientras el diálogo está abierto y devuelto
+  al cerrar. Sin esto, `showModal()` mueve la página al enfocar el diálogo y
+  el que cierra vuelve a otro punto del scroll — que es justo lo que un visor
+  sobre la home no tiene que hacer.
+*/
+let scrollGuardado = 0;
+function congelar() {
+  scrollGuardado = window.scrollY;
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollGuardado}px`;
+  document.body.style.width = "100%";
+}
+function descongelar() {
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.width = "";
+  window.scrollTo({ top: scrollGuardado, behavior: "instant" });
+}
+
+const dlg = ref(null);
+const activo = ref(null);
+
+function abrir(b) {
+  activo.value = b;
+  congelar();
+  dlg.value?.showModal();
+}
+function cerrar() {
+  dlg.value?.close();
+}
+/** Clic en el backdrop: el <dialog> recibe el evento cuando se toca afuera. */
+function alCerrar() {
+  activo.value = null;
+  descongelar();
+}
+function clickFuera(e) {
+  if (e.target === dlg.value) cerrar();
 }
 
 /** Minutos desde medianoche, para poder restar horas sin traer una librería. */
@@ -264,13 +343,55 @@ const cifras = computed(() => {
 .punto-medio { color: var(--acento-texto, #4F42C4); }
 .punto-tenue { color: #82828A; }
 
-.desglose {
-  padding: 0 0 1.5rem 5.5rem;
+/* El botón que revela el resto del día. */
+.btn-desglosar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--acento, #695EDE);
+  background: transparent;
+  color: var(--acento-texto, #4F42C4);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
 }
-@media (max-width: 640px) {
-  .desglose { padding-left: 0; }
+.btn-desglosar:hover {
+  background: var(--acento, #695EDE);
+  color: #fff;
 }
 
-.ver-mas-abierto { background: #4F42C4; }
-.ver-mas-abierto::after { content: "−"; }
+.detalle-bloque {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: min(38rem, calc(100vw - 2rem));
+  width: 100%;
+}
+.detalle-bloque::backdrop { background: rgb(10 10 12 / 0.55); }
+.detalle-caja {
+  position: relative;
+  background: var(--papel, #fff);
+  color: inherit;
+  border-radius: 18px;
+  padding: 1.75rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+@media (min-width: 640px) { .detalle-caja { padding: 2.25rem; } }
+
+.cerrar {
+  position: absolute;
+  top: 0.9rem; right: 0.9rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--linea, #E7E4F0);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
 </style>

@@ -40,9 +40,18 @@
     <!-- La reserva, con la prueba ya leída -->
     <RegistroSection />
 
-    <!-- Los otros dos públicos, después del pedido de reserva: el que entra a
-         reservar no tiene que atravesar una oferta que no es para él. -->
-    <SumarseSection class="v-reveal bg-noche-3" />
+    <!--
+      Los otros dos públicos, después del pedido de reserva: el que entra a
+      reservar no tiene que atravesar una oferta que no es para él.
+
+      Sin `v-reveal` y sin fondo propio, a diferencia del resto:
+      · la sección ya trae su `bg-noche-2`, y pasarle otro dejaba dos clases de
+        fondo peleando en el mismo elemento;
+      · el reveal la dejaba en opacity 0 hasta que el observer dispara, y al
+        volver a la home desde otra vista eso son hasta dos segundos de sección
+        en blanco. Es la última del scroll: la animación no compensa el riesgo.
+    -->
+    <SumarseSection />
   </div>
 </template>
 
