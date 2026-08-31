@@ -6,11 +6,9 @@
         Quiénes vienen y qué traen
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Ninguno viene a poner el logo y nada más: Bistrosoft manda al CEO y monta las demos con
-        equipo propio, Avanzia trae al ex-CEO de Dexter y al ex-presidente de la CAME, la
-        Asociación acerca cadenas de otras provincias y la mesa de degustación pone cuatro rondas
-        más el coffee break. Solo publicamos los que ya están cerrados por escrito: cuando
-        cerramos el próximo, lo vas a ver acá.
+        Ninguno viene a poner el logo y nada más. Hay un solo lugar por rubro, y cada uno llega con
+        algo concreto para el día: quién habla, qué se prueba en el salón y qué se come entre
+        bloque y bloque. Cuando entra el próximo rubro, lo vas a ver acá.
       </p>
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2">
@@ -24,22 +22,22 @@
               class="max-h-10 w-auto max-w-[150px] object-contain logo-sponsor brightness-0 invert"
               loading="lazy"
             />
-            <span v-else class="text-[1.5rem] font-black uppercase tracking-[-0.02em]">
+            <span v-else class="text-[1.5rem] font-extrabold uppercase tracking-[-0.02em]">
               {{ p.nombre }}
             </span>
           </div>
 
-          <span
-            class="chip mt-5 self-start"
-            :class="p.tipo === 'Sponsor oficial' ? 'border-acento/50 text-acento-texto' : 'border-white/15 text-gris'"
-          >
-            {{ p.tipo }}
+          <!-- El rubro, no un nivel: los diez lugares valen igual, así que
+               ninguno se resalta por encima de otro. Y es el dato que hace
+               concreta la exclusividad, que antes no aparecía en la página. -->
+          <span class="chip mt-5 self-start border-white/15 text-gris">
+            Rubro · {{ p.rubro }}
           </span>
 
           <p class="mt-5 text-[15px] leading-[1.55] text-gris">{{ p.empresa }}</p>
 
           <div class="mt-6 border-t border-white/10 pt-5">
-            <p class="text-[13px] font-black uppercase tracking-[0.1em] text-acento-texto">
+            <p class="text-[13px] font-semibold uppercase tracking-[0.1em] text-acento-texto">
               {{ p.quien }}
             </p>
             <p class="mt-2 text-[15px] leading-[1.5]">{{ p.aporte }}</p>
@@ -52,7 +50,7 @@
         class="mt-4 flex flex-col gap-5 rounded-2xl border border-dashed border-white/15 p-7 sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h3 class="text-[1.2rem] font-black uppercase leading-tight">
+          <h3 class="text-[1.2rem] font-extrabold uppercase leading-tight">
             Hay lugar para más marcas
           </h3>
           <p class="mt-2 max-w-[52ch] text-[15px] leading-[1.5] text-gris">

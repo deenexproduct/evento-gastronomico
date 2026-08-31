@@ -7,10 +7,12 @@
   -->
   <section id="detras" class="border-b border-linea py-seccion">
     <div class="contenedor">
+      <template v-if="encabezado">
       <p class="rotulo text-gris">Quién organiza</p>
       <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(2rem,6vw,3.5rem)]">
         Las marcas nos venían pidiendo este día.
       </h2>
+      </template>
       <p class="lectura mt-5 text-[17px] text-gris">
         GastroTech lo organiza <strong class="font-bold">Deenex</strong>, la plataforma
         omnicanal donde las marcas de acá abajo manejan todos los días sus canales de venta. Más de
@@ -26,16 +28,16 @@
 
       <div ref="grilla" class="mt-12 grid gap-4 sm:grid-cols-2">
         <div v-for="d in DATOS" :key="d.label" class="tarjeta p-7">
-          <p class="text-[3.4rem] font-black leading-none tracking-[-0.04em] text-acento-texto">
+          <p class="text-[3.4rem] font-extrabold leading-none tracking-[-0.04em] text-acento-texto">
             <span v-if="d.prefijo">{{ d.prefijo }}</span>{{ contados[d.label] }}
           </p>
-          <p class="mt-4 text-[14px] font-black uppercase tracking-[0.1em]">{{ d.label }}</p>
+          <p class="mt-4 text-[14px] font-semibold uppercase tracking-[0.1em]">{{ d.label }}</p>
           <p class="mt-2.5 text-[15px] leading-[1.45] text-gris">{{ d.detalle }}</p>
         </div>
       </div>
 
       <!-- Logos -->
-      <p class="mt-16 text-[13px] font-black uppercase tracking-[0.16em] text-gris-2">
+      <p class="mt-16 text-[13px] font-semibold uppercase tracking-[0.16em] text-gris-2">
         Marcas que trabajan con Deenex
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6 sm:gap-x-10">
@@ -63,6 +65,10 @@
 </template>
 
 <script setup>
+// La vista que la envuelve ya pone el titulo de la pagina: con los dos,
+// el lector lee dos encabezados seguidos diciendo lo mismo.
+defineProps({ encabezado: { type: Boolean, default: true } });
+
 import { reactive, ref, onMounted, onUnmounted } from "vue";
 import { MARCAS_LOGOS } from "@/data/evento";
 

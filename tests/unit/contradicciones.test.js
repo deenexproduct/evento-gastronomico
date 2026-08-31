@@ -48,31 +48,20 @@ function todo() {
   return partes.join("\n");
 }
 
-describe("la mesa redonda", () => {
-  it("no dice una cantidad de voces que la grilla pueda desmentir", () => {
-    // Decía "Cuatro voces del día" —que es la cantidad de TARJETAS de
-    // oradores— mientras el renglón de abajo decía "todos los oradores y
-    // partners". En escenario hay cinco personas: Alan, el CEO de Bistrosoft,
-    // los DOS de Avanzia y el especialista en contenido. Cualquier número
-    // escrito a mano ahí se vuelve a romper cuando cambie la grilla.
-    const mesa = TEMAS.find((b) => b.tipo === "mesa");
-    expect(mesa).toBeTruthy();
-    const numeros = /\b(un|una|dos|tres|cuatro|cinco|seis|siete|ocho)\b/i;
-    expect(mesa.titulo).not.toMatch(numeros);
-    expect(mesa.quien).not.toMatch(numeros);
+describe("el panel de cierre", () => {
+  // La mesa redonda se elimino en la grilla del 30/08 y la reemplazo un panel
+  // de sponsors. Lo que se cuida es lo mismo: que el renglon no prometa una
+  // cantidad de voces que despues la grilla desmienta.
+  const panel = TEMAS.find((t) => t.tipo === "panel");
+
+  it("existe y cierra el dia", () => {
+    expect(panel).toBeTruthy();
+    expect(panel.hora).toBe("17:20");
   });
 
-  it("no cuenta en un renglón lo que en el otro llama «todos»", () => {
-    // Ésta era la contradicción exacta: arriba "Cuatro voces del día", abajo
-    // "todos los oradores y partners", a tres centímetros. O se cuenta, o se
-    // dice "todos"; las dos cosas juntas se desmienten solas.
-    const mesa = TEMAS.find((b) => b.tipo === "mesa");
-    const cuenta = /\b(dos|tres|cuatro|cinco|seis|siete|ocho)\b/i;
-    const todos = /\btodos|todas\b/i;
-    const contradice =
-      (cuenta.test(mesa.titulo) && todos.test(mesa.quien)) ||
-      (todos.test(mesa.titulo) && cuenta.test(mesa.quien));
-    expect(contradice).toBe(false);
+  it("no dice una cantidad de voces que la grilla pueda desmentir", () => {
+    expect(panel.quien).not.toMatch(/\b(tres|cuatro|cinco|seis|\d+)\b/i);
+    expect(panel.punta).not.toMatch(/\b(tres|cuatro|cinco|seis)\s+(sponsors|empresas|proveedores)\b/i);
   });
 });
 
@@ -184,32 +173,23 @@ describe("frases largas repetidas entre secciones", () => {
   });
 });
 
-describe("los tres capítulos", () => {
-  it("solo abren en magenta las tres secciones que abren capítulo", () => {
-    // Doce de quince secciones abrían idénticas: mismo rótulo de 13px en
-    // magenta, mismo padding-top de 96px, mismo h2 en peso 900. Sin variación
-    // no hay capítulos, y el magenta —repartido en 99 elementos— dejaba de
-    // señalar. HomeView ya declara tres capítulos en sus comentarios: "Qué
-    // pasa ese día", "Quién lo hace posible" y "Cómo entrar". El rótulo en
-    // magenta pasa a marcar esos tres y nada más.
-    const conMagenta = [];
-    for (const f of readdirSync(SECCIONES)) {
-      if (!f.endsWith(".vue")) continue;
-      const t = sinComentarios(readFileSync(join(SECCIONES, f), "utf-8"));
-      // Solo el PRIMER rótulo del archivo, que es el que abre la sección.
-      // Los de adentro son otra cosa: #registro tiene uno en el panel de
-      // reserva, que va sobre fondo magenta y ahí el color corresponde.
-      const primero = t.match(/class="rotulo[^"]*"/);
-      if (primero && primero[0].includes("text-acento-texto")) conMagenta.push(f);
-    }
-    expect(conMagenta.sort()).toEqual([
-      "AccesoSection.vue",
-      "BrandsSection.vue",
-      "HeroSection.vue",
-    ]);
+describe("un solo acento", () => {
+  // Convivian dos acentos —el magenta #FF0054 del referente y el violeta de
+  // Deenex— y ninguno de los dos queria decir "esta es LA accion". Quedo el
+  // violeta de marca. Este test evita que el magenta vuelva a entrar.
+  it("no queda magenta en el codigo", () => {
+    const conMagenta = readdirSync(SECCIONES)
+      .filter((n) => n.endsWith(".vue"))
+      .filter((n) => /#(FF0054|E00049|FF5C87|D80047)/i.test(sinComentarios(leer(n))));
+    expect(conMagenta).toEqual([]);
+
+    const css = readFileSync(join(SRC, "styles/main.css"), "utf-8");
+    expect(css).not.toMatch(/#(FF0054|E00049|FF5C87|D80047)/i);
+    // Tambien en rgb(): seis overrides del tema claro escribian el magenta
+    // como rgba(224, 0, 73, …) y el chequeo por hex no los veia.
+    expect(css).not.toMatch(/rgba?\(\s*(255,\s*0,\s*84|224,\s*0,\s*73)/);
   });
 });
-
 describe("preguntas que la página abría y no contestaba", () => {
   it("no nombra el estacionamiento, porque no tiene la respuesta", () => {
     // El rótulo de la sección dice "Cómo llegar" y el texto invitaba a la
@@ -221,12 +201,13 @@ describe("preguntas que la página abría y no contestaba", () => {
   });
 
   it("el FAQ dice si se come, que es la cuenta que hace el que evalúa el domingo", () => {
-    // Nueve horas y media, evento gastronómico, y diez preguntas sin una
-    // sola sobre comida. La respuesta se arma entera con datos que ya
-    // estaban publicados en la jornada.
+    // Nueve horas, evento gastronómico, y diez preguntas sin una sola sobre
+    // comida. La respuesta se arma entera con datos que ya están publicados
+    // en la jornada. Las horas son las de la grilla del 30/08: el coffee de
+    // las 15:30 dejó de existir cuando las pausas pasaron a ser ocho de 10\'.
     const faq = todo();
     expect(faq).toMatch(/¿Se come algo durante el día\?/);
-    for (const dato of ["8:30", "12:45", "13:45", "15:30"]) {
+    for (const dato of ["9:30", "12:45", "13:45"]) {
       expect(faq).toContain(dato);
     }
   });

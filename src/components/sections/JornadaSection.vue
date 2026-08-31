@@ -1,409 +1,276 @@
 <template>
   <!--
-    Los siete bloques como cuadrados iguales, todos a la vista al mismo tiempo.
+    Cronograma vertical, no grilla de cuadrados.
 
-    El detalle NO se abre DENTRO de un cuadrado: si se expandiera en el lugar,
-    ese cuadrado cambiaría de proporción y la grilla de alto, y dejaría de
-    verse entera — que es justamente lo que se pide. El detalle es un panel
-    aparte que se COLOCA dentro de la grilla (ver .panel-jornada): los siete
-    cuadrados nunca cambian de tamaño.
+    Los siete cuadrados eran una grilla de 2/3/4 columnas donde el orden de
+    lectura no era el orden del día: en teléfono se leían de a dos por fila y
+    la hora quedaba como un dato más adentro de una caja. Once bloques en esa
+    forma no se entienden — y once es lo que tiene la grilla del 30/08.
 
-    OJO CON LA VARIANTE CLARA (?claro):
-    · border-linea ya está pisado en el tema claro, así que sirve; los
-      divisores de acá quedaron en border-white/10 y funcionan igual.
-    · Prohibido hover:bg-white/N. La regla html.claro [class*="bg-white/"]
-      matchea por substring y no entiende de variantes: el fondo quedaría
-      aplicado siempre, no solo al pasar el mouse. Acá el hover es de borde.
-    · No se usa .chip: su fondo entra por @apply y html.claro no lo alcanza.
+    Acá el eje es el tiempo y se lee de arriba abajo, que es como se lee una
+    agenda. Cada fila despliega su detalle debajo, sin sacar al lector de la
+    lista: con once bloques, un modal obliga a abrir y cerrar once veces para
+    comparar, y el que evalúa un domingo entero compara.
   -->
-  <section id="jornada" class="border-b border-linea py-16 sm:py-24">
+  <section id="jornada" class="border-b border-linea py-seccion">
     <div class="contenedor">
-      <!-- ── Encabezado ──────────────────────────────────────────────── -->
-      <div class="lg:flex lg:items-end lg:justify-between lg:gap-12">
-        <div>
-          <p class="rotulo text-gris">La jornada</p>
-          <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.55rem,4.6vw,3rem)]">
-            Siete bloques, ninguno de teoría.
-          </h2>
+      <p class="rotulo text-acento-texto">La jornada</p>
+      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5.2vw,3.1rem)]">
+        Once bloques, ninguno de teoría
+      </h2>
+      <p class="lectura mt-5 text-[17px] text-gris">
+        Track único: no hay salas paralelas ni hay que elegir. Tocá cualquier bloque para ver de
+        qué va y quién lo da.
+      </p>
+
+      <!-- Las tres cifras del día, antes de la lista -->
+      <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+        <div v-for="c in cifras" :key="c.r">
+          <dt class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">
+            {{ c.r }}
+          </dt>
+          <dd class="hora mt-1 text-[1.4rem] text-acento-texto">{{ c.n }}</dd>
         </div>
-        <p
-          class="mt-4 hidden max-w-[46ch] text-[15px] leading-[1.5] text-gris lg:mt-0 lg:block lg:text-right"
-        >
-          Track único: no hay salas paralelas ni hay que elegir. Tocá un bloque para ver de qué va.
-        </p>
-      </div>
+      </dl>
 
-      <!-- ── La forma del día ─────────────────────────────────────────── -->
-      <!-- Cinta proporcional a los minutos reales, con las pausas incluidas:
-           es lo que sostiene el "nueve horas" del título, porque los siete
-           bloques por sí solos no las cubren. Es figura, no control. -->
-      <div class="mt-6 sm:mt-7">
-        <div
-          class="cinta flex h-2 w-full gap-[3px] overflow-hidden rounded-full sm:h-2.5"
-          aria-hidden="true"
-        >
-          <span
-            v-for="s in cinta"
-            :key="s.id"
-            class="cinta-seg"
-            :class="s.tipo === 'bloque' ? 'cinta-tramo' : 'cinta-pausa'"
-            :style="{ flex: `${s.min} 1 0%` }"
-          ></span>
-        </div>
+      <!-- ── El cronograma ──────────────────────────────────────── -->
+      <ol class="mt-10 border-t border-linea">
+        <!-- Acreditación -->
+        <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-linea py-4">
+          <time :datetime="iso(BORDES.apertura.hora)" class="hora w-[4.5rem] text-[1rem] text-gris-2">
+            {{ BORDES.apertura.hora }}
+          </time>
+          <span class="text-[15px] text-gris">{{ BORDES.apertura.titulo }}</span>
+        </li>
 
-        <!--
-          Sin esta línea la cinta es una decoración indescifrable: nadie
-          adivina que las barras son bloques y los huecos, degustaciones.
-          Dice lo que se ve, y de paso sostiene el "nueve horas" del título.
-        -->
-        <!-- En teléfono va en una sola línea: con dos, la grilla se caía fuera
-             de la pantalla, que es justo lo que esta sección tiene que evitar. -->
-        <div
-          class="mt-2 flex items-center justify-between gap-x-4 text-[11px] font-bold uppercase tracking-[0.1em] text-gris sm:text-[12px]"
-        >
-          <span class="flex items-center gap-x-4">
-            <span class="flex items-center gap-1.5">
-              <span class="h-2 w-4 shrink-0 rounded-full cinta-tramo" aria-hidden="true"></span>
-              <span class="whitespace-nowrap">7 bloques</span>
-            </span>
-            <span class="hidden items-center gap-1.5 sm:flex">
-              <span class="h-2 w-4 shrink-0 rounded-full cinta-pausa" aria-hidden="true"></span>
-              <span class="whitespace-nowrap">degustación entre medio</span>
-            </span>
-          </span>
-          <span class="whitespace-nowrap tabular-nums text-gris-2">puertas 8:30 · charlas 10 a 18</span>
-        </div>
-      </div>
-
-      <!-- ── Los siete cuadrados ──────────────────────────────────────── -->
-      <!--
-        El panel de detalle es una CELDA MÁS de esta grilla, no un hermano de
-        abajo. Sigue estando fuera de los cuadrados —ninguno cambia de alto ni
-        de proporción al elegir, el aspect-ratio 1/1 no se toca— pero se
-        coloca donde se lo puede ver:
-
-        · Debajo de 1280 ocupa una fila entera JUSTO DEBAJO de la fila del
-          cuadrado tocado: la respuesta nace a 10px del borde de lo que el dedo
-          acaba de tocar, en vez de 736px por debajo del pliegue. La sección no
-          cambia de alto total: el panel ya ocupaba ese alto, antes al final.
-        · De 1280 para arriba se va a la quinta columna y se queda al lado. Ahí
-          los siete cuadrados Y la respuesta entran juntos en una pantalla —el
-          pedido del cliente cumplido de verdad por primera vez— y la sección
-          pasa de 1314px a 892px.
-
-        El orden lo da `order` (ver ordenPanel): la colocación automática de
-        CSS Grid respeta el orden modificado por `order`, así que un elemento
-        a ancho completo empuja al que sigue a una fila nueva sin que haya que
-        calcular filas a mano.
-      -->
-      <ul
-        class="grilla-jornada mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:gap-3 md:grid-cols-3 lg:grid-cols-4"
-      >
-        <li v-for="(b, i) in TEMAS" :key="b.id" :style="{ order: i * 2 }">
-          <button
-            type="button"
-            class="cuadro"
-            :class="elegido === b.id ? 'cuadro-activo' : ''"
-            :aria-pressed="elegido === b.id"
-            @click="elegir(b.id)"
+        <template v-for="(b, i) in TEMAS" :key="b.id">
+          <!-- La pausa que va ANTES de este bloque, calculada, nunca declarada -->
+          <li
+            v-if="pausaAntes(i)"
+            class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-linea py-2.5"
           >
+            <time :datetime="iso(pausaAntes(i).hora)" class="hora w-[4.5rem] text-[0.85rem] text-gris-2">
+              {{ pausaAntes(i).hora }}
+            </time>
+            <span class="text-[13px] text-gris-2">
+              {{ pausaAntes(i).dur }}′ · Degustación y preparación
+            </span>
+          </li>
 
-            <!-- Fila de arriba: el orden del día y el tipo, si no es charla -->
-            <span class="relative flex items-start justify-between gap-2">
-              <!--
-                Un solo número por cuadro. Antes eran tres —la hora, la hora
-                otra vez en grande de fondo, y el orden 01-07— y solo este
-                informa: el de fondo repetía la hora sin los minutos, y el
-                orden ya lo da la posición en la grilla. Ahora ocupa el
-                tamaño que gastaban los tres.
-              -->
-              <span class="block">
-                <time
-                  :datetime="iso(b.hora)"
-                  class="hora block text-[2.1rem] leading-none text-acento-texto sm:text-[2.75rem]"
-                  >{{ b.hora }}</time
+          <li class="border-b border-linea">
+            <button
+              type="button"
+              class="fila-bloque presionable w-full text-left"
+              :aria-expanded="abierto === b.id"
+              :aria-controls="`detalle-${b.id}`"
+              @click="alternar(b.id)"
+            >
+              <time :datetime="iso(b.hora)" class="hora w-[4.5rem] shrink-0 text-[1.05rem]" :class="b.tipo === 'networking' ? 'text-gris-2' : 'text-acento-texto'">
+                {{ b.hora }}
+              </time>
+
+              <span class="min-w-0 flex-1">
+                <span class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                  <span class="text-[11px] font-semibold uppercase tracking-[0.1em] text-gris-2">
+                    {{ b.dur }}′
+                  </span>
+                  <span
+                    v-if="b.tipo !== 'charla'"
+                    class="chip text-[10px]"
+                    :class="b.tipo === 'networking' ? 'border-linea text-gris-2' : 'border-acento/45 text-acento-texto'"
+                  >
+                    {{ TIPOS_BLOQUE[b.tipo]?.label }}
+                  </span>
+                </span>
+
+                <span
+                  class="mt-1.5 block text-[1.02rem] font-extrabold leading-[1.25] sm:text-[1.15rem]"
+                  :class="b.tipo === 'networking' ? 'text-gris' : ''"
                 >
-                <!--
-                  La duración, debajo y no al lado.
+                  {{ b.titulo }}
+                </span>
 
-                  Al lado no entra: en un teléfono el cuadrado mide 163px y la
-                  hora ya se lleva 85; con el pictograma del tipo en la misma
-                  fila, la duración desborda. Debajo, el bloque se lee como una
-                  franja horaria —empieza a las diez, dura tres cuartos— que es
-                  lo que hace que la grilla parezca una agenda y no siete
-                  botones sueltos.
-                -->
-                <span class="mt-1 block text-[9.5px] font-black uppercase leading-none tracking-[0.1em] text-gris sm:text-[10.5px]">
-                  {{ b.dur }} min
+                <span v-if="b.quien" class="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                  <span class="text-[13px] text-gris">{{ b.quien }}</span>
+                  <span v-if="b.estado" class="punto" :class="`punto-${ESTADOS_BLOQUE[b.estado].tono}`">
+                    {{ ESTADOS_BLOQUE[b.estado].label }}
+                  </span>
                 </span>
               </span>
-              <!-- El tipo solo cuando no es charla: cuatro de siete lo son, y
-                   repetir la etiqueta cuatro veces la vacía de significado. -->
-              <Pictograma
-                v-if="b.tipo !== 'charla'"
-                :nombre="TIPOS_BLOQUE[b.tipo].icono"
-                :tam="16"
-                :grosor="2"
-                class="mt-0.5 shrink-0 text-acento-texto"
-              />
-            </span>
 
-            <!-- Fila de abajo: el gancho y quién lo da -->
-            <span class="relative mt-auto block">
-              <span
-                v-if="b.tipo !== 'charla'"
-                class="mb-1.5 block text-[10px] font-black uppercase tracking-[0.14em] text-acento-texto"
-              >
-                {{ TIPOS_BLOQUE[b.tipo].label }}
+              <span class="ver-mas shrink-0" :class="{ 'ver-mas-abierto': abierto === b.id }">
+                {{ abierto === b.id ? "Cerrar" : "Ver detalle" }}
               </span>
-              <span class="titulo block text-[13.5px] leading-[1.15] sm:text-[15px]">
-                {{ b.titulo }}
-              </span>
-              <!-- `quien` en gris y no en magenta: el acento es de la hora. Con
-                   siete nombres pintados también, el color deja de señalar.
+            </button>
 
-                   SE OCULTA EN LOS DOS EXTREMOS, Y LAS DOS VECES POR LA MISMA
-                   RAZÓN MEDIDA: no entra. Debajo de 640px el cuadrado mide
-                   163px. De 1280 para arriba mide 195, porque la quinta
-                   columna se lleva el ancho del panel, y ahí los bloques 5 y 7
-                   recortaban 47 y 19px de este renglón — el nombre salía
-                   cortado a la mitad de una palabra.
-                   No se pierde nada: el nombre vive en el panel de detalle, y
-                   de 1280 para arriba ese panel está SIEMPRE a la vista, al
-                   lado de la grilla. Los dos lugares están atados: si alguna
-                   vez se saca del panel, hay que devolverlo acá. -->
-              <span
-                class="mt-2 hidden text-[11px] font-bold uppercase leading-[1.3] tracking-[0.04em] text-gris sm:block sm:text-[12px] xl:hidden"
-              >
-                {{ b.quien }}
-              </span>
-            </span>
-          </button>
-        </li>
+            <!-- El desglose. v-show y no v-if: el contenido queda en el DOM,
+                 así lo encuentra el buscador del navegador y lo indexa Google. -->
+            <div :id="`detalle-${b.id}`" v-show="abierto === b.id" class="desglose">
+              <div v-if="b.quien" class="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <span class="text-[15px] font-semibold">{{ b.quien }}</span>
+                <span v-if="b.empresa" class="text-[14px] text-gris">· {{ b.empresa }}</span>
+                <span v-if="b.estado" class="punto" :class="`punto-${ESTADOS_BLOQUE[b.estado].tono}`">
+                  {{ ESTADOS_BLOQUE[b.estado].label }}
+                </span>
+              </div>
 
-        <!--
-          La última fila queda con tres bloques y un hueco. En vez de dejarlo
-          vacío entran las dos puntas del día —acreditación y cierre—, que
-          desde que se sacó la línea de contexto no figuraban en ningún lado.
-          Sin borde sólido ni fondo: no es un bloque que se toque.
-        -->
-        <li class="hidden lg:block" :style="{ order: 99 }">
-          <div class="cuadro-puntas">
-            <div v-for="b in [BORDES.apertura, BORDES.cierre]" :key="b.id" class="flex gap-3">
-              <Pictograma
-                :nombre="TIPOS_BLOQUE[b.tipo].icono"
-                :tam="15"
-                :grosor="2"
-                class="mt-1 shrink-0 text-acento-texto"
-              />
-              <span class="min-w-0">
-                <span class="hora block text-[1.05rem] text-acento-texto">{{ b.hora }}</span>
-                <span
-                  class="mt-1 block text-[11px] font-bold uppercase leading-[1.3] tracking-[0.04em] text-gris"
-                  >{{ b.titulo }}</span
-                >
-              </span>
+              <p class="mt-3 max-w-[68ch] text-[15px] leading-[1.6] text-gris">{{ b.punta }}</p>
+
+              <div v-if="b.temas?.length" class="mt-5">
+                <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">
+                  Qué se toca
+                </p>
+                <ul class="mt-2.5 grid gap-2">
+                  <li v-for="t in b.temas" :key="t" class="flex gap-2.5 text-[15px] leading-[1.5]">
+                    <span class="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-acento" aria-hidden="true"></span>
+                    <span>{{ t }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <p v-if="b.estado === 'abierto'" class="mt-5 max-w-[62ch] rounded-lg border border-linea px-4 py-3 text-[13.5px] leading-[1.5] text-gris-2">
+                El tema está cerrado; el orador todavía no. Lo anunciamos con la grilla final, que
+                reciben primero los que ya reservaron.
+              </p>
             </div>
-          </div>
-        </li>
-        <!-- ── El detalle del elegido: fuera de los cuadrados, dentro de la
-             grilla. `order` lo manda a la fila del cuadrado tocado; el
-             min-height evita que la grilla salte de alto al cambiar de
-             bloque, porque las puntas van de 12 a 35 palabras. -->
-        <li
-          ref="panel"
-          class="panel-jornada tarjeta p-5 sm:p-7"
-          :style="{ order: ordenPanel }"
-          aria-live="polite"
-          :aria-label="`Detalle del bloque de las ${actual.hora}`"
-        >
-        <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <time :datetime="iso(actual.hora)" class="hora text-[1.15rem] text-acento-texto">{{
-            actual.hora
-          }}</time>
-          <span class="rotulo text-gris">{{ TIPOS_BLOQUE[actual.tipo].label }}</span>
-        </p>
-        <h3 class="titulo mt-3 max-w-[30ch] text-[1.1rem] sm:text-[1.35rem]">
-          {{ actual.titulo }}
-        </h3>
-        <!--
-          Quién lo da. Es el único lugar donde aparece en teléfono, porque en
-          un cuadro de 163px no entra: sin esto, abajo de 640px no había un
-          solo nombre de orador en toda la página antes de pedir el contacto.
-        -->
-          <p class="rotulo mt-3 text-gris">{{ actual.quien }}</p>
-          <p class="mt-3 max-w-[68ch] text-[15px] leading-[1.55] text-gris sm:text-[16px]">
-            {{ actual.punta }}
-          </p>
-        </li>
-      </ul>
+          </li>
+        </template>
 
-      <p class="mt-4 text-[13px] leading-[1.45] text-gris lg:hidden">
-        Track único, sin salas paralelas. Tocá cualquier bloque para ver de qué va.
-      </p>
+        <!-- Cierre -->
+        <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4">
+          <time :datetime="iso(BORDES.cierre.hora)" class="hora w-[4.5rem] text-[1rem] text-gris-2">
+            {{ BORDES.cierre.hora }}
+          </time>
+          <span class="text-[15px] text-gris">{{ BORDES.cierre.titulo }}</span>
+        </li>
+      </ol>
 
-      <p class="mt-6 max-w-[68ch] text-[15px] text-gris">
-        El orden puede moverse hasta la semana del evento. La grilla final
-        <span class="font-bold text-white">la reciben primero los que ya reservaron</span>.
+      <p class="mt-6 text-[14px] leading-[1.55] text-gris-2">
+        El orden puede moverse hasta la semana del evento. La grilla final la reciben primero los
+        que ya reservaron.
       </p>
     </div>
+
   </section>
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
-import { EVENTO, TEMAS, PAUSAS, BORDES, TIPOS_BLOQUE } from "@/data/evento";
-import Pictograma from "@/components/ui/Pictograma.vue";
+import { ref, computed } from "vue";
+import { TEMAS, TIPOS_BLOQUE, ESTADOS_BLOQUE, BORDES, EVENTO } from "@/data/evento";
 
-const aMin = (h) => {
-  const [a, b] = h.split(":").map(Number);
-  return a * 60 + b;
-};
-const aHora = (m) =>
-  `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
-const iso = (h) => `${EVENTO.fechaISO.slice(0, 10)}T${h.padStart(5, "0")}:00-03:00`;
+/** Sólo uno abierto por vez: con once desplegados la lista deja de leerse. */
+const abierto = ref(null);
+function alternar(id) {
+  abierto.value = abierto.value === id ? null : id;
+}
 
-/**
- * Los huecos se DERIVAN POR RESTA: la duración de cada pausa es la diferencia
- * entre el fin de un bloque (hora + dur) y el arranque del siguiente. Ninguna
- * se escribe a mano, así que si mañana se mueve un horario la sección se
- * corrige sola en vez de mentir. No reemplazar por duraciones fijas.
- */
-const huecos = [];
-TEMAS.forEach((t, i) => {
-  const sig = TEMAS[i + 1];
-  if (!sig) return;
-  const fin = aMin(t.hora) + t.dur;
-  const min = aMin(sig.hora) - fin;
-  if (min <= 0) return;
-  const hora = aHora(fin);
-  huecos.push({
-    id: `h-${hora}`,
-    tipo: "pausa",
-    hora,
-    min,
-    titulo: PAUSAS[hora]?.titulo || "Degustación",
-  });
-});
-
-/**
- * La cinta alterna bloque y pausa en el orden real del día. Los siete bloques
- * cubren siete horas: sin las pausas, el "nueve horas" del título no se
- * sostiene en ningún lado de la sección.
- *
- * `flex: {min} 1 0%` con basis 0 reparte el ancho en proporción exacta a los
- * minutos; con un basis distinto de 0 la proporción deja de ser exacta.
- */
-const cinta = [];
-TEMAS.forEach((t, i) => {
-  cinta.push({ id: t.id, tipo: "bloque", min: t.dur });
-  const h = huecos[i];
-  if (h) cinta.push({ id: h.id, tipo: "pausa", min: h.min });
-});
-
-// El detalle vive en un panel único, fuera de los cuadrados: ninguno cambia
-// de alto ni de proporción al elegir, así la grilla se sigue viendo entera.
-const elegido = ref(TEMAS[0].id);
-const actual = computed(() => TEMAS.find((t) => t.id === elegido.value) || TEMAS[0]);
-const panel = ref(null);
-
-function elegir(id) {
-  elegido.value = id;
-  acercar();
+/** Minutos desde medianoche, para poder restar horas sin traer una librería. */
+function min(hhmm) {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+}
+function aHora(mins) {
+  return `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(mins % 60).padStart(2, "0")}`;
+}
+/** El datetime del <time>, con la fecha del evento. */
+function iso(hhmm) {
+  return `${EVENTO.fechaISO.slice(0, 10)}T${hhmm.padStart(5, "0")}:00-03:00`;
 }
 
 /**
- * El acercamiento mínimo, y sólo cuando hace falta.
- *
- * Con el panel dentro de la grilla la respuesta nace 10px debajo de la fila
- * tocada. Pero si esa fila estaba al pie de la pantalla, nace justo afuera:
- * medido a 393x664, tocando un bloque de la tercera fila el panel queda
- * 196px por debajo del pliegue. Esto lo corrige, acotado a propósito:
- *
- * · No corre de 1280 para arriba: ahí el panel ya está al lado y quieto.
- * · No corre si ya se ve más de la mitad. Que la página se mueva sola bajo
- *   el pulgar es el movimiento con peor prensa que existe; se usa cuando es
- *   la diferencia entre ver la respuesta y no verla.
- * · Nunca desplaza más que el alto del propio panel. Un scrollIntoView acá
- *   puede recorrer media sección y dejar al que tocó mirando pasar la
- *   página — es el mismo motivo por el que el router usa 'auto' y no
- *   'smooth' cuando se entra de afuera.
- * · Con prefers-reduced-motion salta sin animar, pero SALTA: no mostrar lo
- *   que la persona acaba de pedir no es una mejora de accesibilidad. Hay que
- *   consultarlo a mano porque un behavior:"smooth" explícito le gana al
- *   `scroll-behavior: auto` que main.css declara en esa media query.
+ * La pausa anterior a un bloque se CALCULA: fin del bloque previo → arranque
+ * de éste. Nunca se declara en los datos, así que si mañana se mueve un
+ * horario la pausa se recalcula sola y el cronograma no puede mentir.
+ * El networking del mediodía ya es un bloque propio, así que no genera pausa.
  */
-async function acercar() {
-  if (typeof window === "undefined") return;
-  if (window.matchMedia("(min-width: 1280px)").matches) return;
-  await nextTick();
-  const el = panel.value;
-  if (!el) return;
-  const r = el.getBoundingClientRect();
-  const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-  if (r.height === 0 || visible / r.height > 0.5) return;
-  // El tope de "no desplazar más que el alto del panel" vale cuando el panel
-  // nace pegado a la fila tocada. En teléfono va DESPUÉS de los siete, para
-  // que la grilla entre en una pantalla, y ahí ese tope se queda corto:
-  // medido, tocando el primer bloque la respuesta quedaba fuera de la vista
-  // por completo. El destino sigue siendo conocido y corto —el final de una
-  // grilla de 808px—, así que ahí se permite llegar.
-  const alFinal = columnas.value <= 2;
-  const necesario = Math.round(r.bottom - window.innerHeight + 16);
-  const falta = alFinal ? necesario : Math.min(necesario, Math.round(r.height));
-  if (falta <= 0) return;
-  const suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  window.scrollBy({ top: falta, behavior: suave ? "smooth" : "auto" });
+function pausaAntes(i) {
+  if (i === 0) return null;
+  const prev = TEMAS[i - 1];
+  const arranca = min(TEMAS[i].hora);
+  const termina = min(prev.hora) + prev.dur;
+  const dur = arranca - termina;
+  return dur > 0 ? { hora: aHora(termina), dur } : null;
 }
 
-/**
- * Cuántas columnas tiene la grilla ahora mismo. Se lee de matchMedia y no del
- * ancho de la ventana: son exactamente los mismos cortes que declara Tailwind
- * en las clases de arriba (grid-cols-2 / md:grid-cols-3 / lg:grid-cols-4), y
- * si se mueve uno hay que mover el otro. Dos listeners de media query, sin
- * listener de resize: no se dispara en cada píxel al arrastrar la ventana.
- *
- * Arranca en 2 (teléfono) porque es el caso del 100% del público que llega
- * por el link de WhatsApp, y porque en SSR/primer render no hay window.
- */
-const columnas = ref(2);
-const consultas = [];
-function medirColumnas() {
-  const [md, lg] = consultas;
-  columnas.value = lg.matches ? 4 : md.matches ? 3 : 2;
-}
-onMounted(() => {
-  consultas.push(window.matchMedia("(min-width: 768px)"), window.matchMedia("(min-width: 1024px)"));
-  medirColumnas();
-  consultas.forEach((c) => c.addEventListener("change", medirColumnas));
+const cifras = computed(() => {
+  const conOrador = TEMAS.filter((b) => b.tipo !== "networking");
+  const contenido = conOrador.reduce((a, b) => a + b.dur, 0);
+  return [
+    { r: "Bloques", n: conOrador.length },
+    { r: "De contenido", n: `${contenido}′` },
+    { r: "Networking", n: `${TEMAS.filter((b) => b.tipo === "networking").reduce((a, b) => a + b.dur, 0)}′` },
+  ];
 });
-onBeforeUnmount(() => consultas.forEach((c) => c.removeEventListener("change", medirColumnas)));
 
-/**
- * Dónde se coloca el panel dentro de la grilla.
- *
- * Cada cuadrado lleva `order: i * 2`, así queda un número impar libre entre
- * uno y el siguiente. El panel toma el impar que sigue al ÚLTIMO cuadrado de
- * la fila del elegido, de modo que la colocación automática de CSS Grid —que
- * respeta el orden modificado por `order`— lo baje a una fila nueva a ancho
- * completo y empuje al resto hacia abajo.
- *
- * De lg para arriba el panel se coloca a mano en la quinta columna (ver
- * .panel-jornada en main.css), así que este número deja de importar.
- */
-const ordenPanel = computed(() => {
-  // En teléfono el panel va DESPUÉS de los siete, no entre medio. Intercalado
-  // parte la grilla al medio y los siete cuadrados dejan de entrar en una
-  // pantalla, que es lo que se pidió de esta sección. Al final entran los
-  // siete, y de que la respuesta se vea se encarga acercar().
-  if (columnas.value <= 2) return TEMAS.length * 2;
-
-  const i = Math.max(
-    0,
-    TEMAS.findIndex((t) => t.id === elegido.value)
-  );
-  const fila = Math.floor(i / columnas.value);
-  const ultimo = Math.min((fila + 1) * columnas.value - 1, TEMAS.length - 1);
-  return ultimo * 2 + 1;
-});
 </script>
+
+<style scoped>
+.fila-bloque {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.15rem 0;
+  transition: background-color 0.15s;
+}
+.fila-bloque:hover { background-color: rgb(0 0 0 / 0.02); }
+
+/*
+  La pildora es el unico aviso de que la fila se toca: sin ella, once renglones
+  de agenda se leen como una tabla y nadie descubre el detalle. Va en el violeta
+  de marca y chica —11px— para que se repita once veces sin gritar.
+*/
+.ver-mas {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #fff;
+  background: var(--acento, #695EDE);
+  transition: background-color 0.15s, transform 0.15s;
+}
+.ver-mas::after { content: "+"; font-size: 12px; line-height: 1; }
+.fila-bloque:hover .ver-mas { background: #5B4FD6; }
+.fila-bloque:active .ver-mas { transform: scale(0.96); }
+
+/* En telefono el texto no entra al lado del titulo: queda solo el signo. */
+@media (max-width: 480px) {
+  .ver-mas { font-size: 0; padding: 0.32rem 0.5rem; gap: 0; }
+  .ver-mas::after { font-size: 14px; }
+}
+
+/* El estado de cada orador. No es un chip: un chip more pesa lo mismo que el
+   nombre y acá el nombre manda. */
+.punto {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.punto::before {
+  content: "";
+  width: 5px; height: 5px; border-radius: 999px;
+  background: currentColor;
+}
+.punto-firme { color: #2F6E4E; }
+.punto-medio { color: var(--acento-texto, #4F42C4); }
+.punto-tenue { color: #82828A; }
+
+.desglose {
+  padding: 0 0 1.5rem 5.5rem;
+}
+@media (max-width: 640px) {
+  .desglose { padding-left: 0; }
+}
+
+.ver-mas-abierto { background: #4F42C4; }
+.ver-mas-abierto::after { content: "−"; }
+</style>

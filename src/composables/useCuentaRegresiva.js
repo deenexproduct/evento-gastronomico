@@ -43,6 +43,72 @@ const dias = computed(() => {
 
 const estado = computed(() => (dias.value > 0 ? "faltan" : dias.value === 0 ? "hoy" : "pasado"));
 
+/* ── El reloj vivo ───────────────────────────────────────────────────────
+   Segundo reloj, con su propio tick de un segundo, para el contador del hero.
+
+   No se aceleró el de arriba: ese alimenta la cuenta en días de dos secciones
+   y despertar el hilo cada segundo para un número que cambia una vez por día
+   es gasto de batería en un teléfono que puede quedar con la pestaña abierta.
+   Este sólo corre mientras alguien lo consume, y se apaga con la pestaña
+   oculta — si no, sigue sumando ticks en segundo plano y al volver hay que
+   recalcular igual.
+
+   La resta acá SÍ es en milisegundos, a diferencia de `dias`: un contador con
+   horas, minutos y segundos mide tiempo real hasta la apertura de puertas, no
+   días de calendario. Los dos números pueden diferir en uno cerca de la
+   medianoche y es correcto que difieran: cuentan cosas distintas. */
+const vivoAhora = ref(Date.now());
+let vivoSuscriptores = 0;
+let vivoReloj = null;
+
+function tick() {
+  vivoAhora.value = Date.now();
+}
+function arrancarReloj() {
+  if (vivoReloj) return;
+  tick();
+  vivoReloj = setInterval(tick, 1000);
+}
+function pararReloj() {
+  clearInterval(vivoReloj);
+  vivoReloj = null;
+}
+function segunVisibilidad() {
+  if (document.hidden) pararReloj();
+  else arrancarReloj();
+}
+
+const restante = computed(() => {
+  const ms = new Date(EVENTO.fechaISO).getTime() - vivoAhora.value;
+  if (ms <= 0) return { dias: 0, horas: 0, minutos: 0, segundos: 0, vencido: true };
+  const s = Math.floor(ms / 1000);
+  return {
+    dias: Math.floor(s / 86400),
+    horas: Math.floor((s % 86400) / 3600),
+    minutos: Math.floor((s % 3600) / 60),
+    segundos: s % 60,
+    vencido: false,
+  };
+});
+
+export function useRelojEvento() {
+  onMounted(() => {
+    vivoSuscriptores += 1;
+    if (vivoSuscriptores > 1) return;
+    arrancarReloj();
+    document.addEventListener("visibilitychange", segunVisibilidad);
+  });
+
+  onUnmounted(() => {
+    vivoSuscriptores -= 1;
+    if (vivoSuscriptores > 0) return;
+    pararReloj();
+    document.removeEventListener("visibilitychange", segunVisibilidad);
+  });
+
+  return { restante };
+}
+
 export function useCuentaRegresiva() {
   onMounted(() => {
     suscriptores += 1;

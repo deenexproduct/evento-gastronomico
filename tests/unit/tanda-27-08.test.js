@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { EVENTO, NAV_ENLACES, MENSAJES_WA, TEMAS, TIPOS_BLOQUE, PAUSAS } from "@/data/evento";
+import { EVENTO, BLOQUES, MENSAJES_WA, TEMAS, TIPOS_BLOQUE, PAUSAS } from "@/data/evento";
 
 /**
  * Los trece puntos que pidio Alan el 27/08. Un guarda por pedido: si algo de
@@ -128,26 +128,45 @@ describe("13 · el pie", () => {
     expect(pie).not.toContain("Domingo,");
   });
 
-  it("el pie y el nav leen la misma lista", () => {
-    expect(pie).toContain("NAV_ENLACES");
-    expect(nav).toContain("NAV_ENLACES");
-    expect(cuantas(pie, "{ id:")).toBe(0);
-    expect(cuantas(nav, "{ id:")).toBe(0);
+  it("el pie no repite el menu de la cabecera", () => {
+    // Antes los dos leian BLOQUES para no derivar. Desde el 30/08 el pie no
+    // lleva menu: la cabecera es fija y acompania todo el scroll, asi que
+    // repetir las cinco entradas abajo solo alargaba el pie.
+    expect(nav).toContain("BLOQUES");
+    expect(pie).not.toContain("BLOQUES");
+    expect(cuantas(pie, "{ ruta:")).toBe(0);
   });
 
-  it("la lista cubre las cinco secciones y todas existen", () => {
-    expect(NAV_ENLACES).toHaveLength(5);
-    const home = leer("views/HomeView.vue");
-    const componentes = {
-      "que-es": "QueEsSection",
-      jornada: "JornadaSection",
-      partners: "BrandsSection",
-      lugar: "LocationSection",
-      faq: "FAQSection",
+  it("los cinco bloques tienen ruta en el router y una vista que la sirve", () => {
+    // El test viejo pedia que las cinco secciones estuvieran en la home.
+    // Desde que cada bloque es su propia vista, la propiedad equivalente —y
+    // mas fuerte— es que ninguna ruta de la cabecera quede sin destino: un
+    // bloque sin vista es un 404 servido como si fuera la home.
+    expect(BLOQUES).toHaveLength(5);
+    const router = leer("router/index.js");
+    const vistas = {
+      "/que-es": "QueEsView",
+      "/beneficios": "BeneficiosView",
+      "/deadline": "DeadlineView",
+      "/participan": "ParticipanView",
+      "/organiza": "OrganizaView",
     };
-    for (const l of NAV_ENLACES) {
-      expect(home).toContain(componentes[l.id]);
+    for (const b of BLOQUES) {
+      expect(router).toContain(`path: "${b.ruta}"`);
+      expect(router).toContain(vistas[b.ruta]);
+      expect(() => leer(`views/${vistas[b.ruta]}.vue`)).not.toThrow();
     }
+  });
+
+  it("la home quedo como resumen: no reabsorbe el detalle de los bloques", () => {
+    // Si una seccion de detalle vuelve a la home, hay dos lugares contando lo
+    // mismo y el resumen deja de ser resumen.
+    const home = leer("views/HomeView.vue");
+    for (const s of ["QueEsSection", "ElLunesSection", "BrandsSection", "PruebaSection", "FAQSection"]) {
+      expect(home).not.toContain(s);
+    }
+    // Y la jornada si tiene que seguir ahi: es el corazon del resumen.
+    expect(home).toContain("JornadaSection");
   });
 
   it("la fecha sin dia existe en los datos", () => {
@@ -156,8 +175,11 @@ describe("13 · el pie", () => {
 });
 
 describe("6 · la agenda", () => {
-  it("siguen siendo siete bloques y en orden de reloj", () => {
-    expect(TEMAS).toHaveLength(7);
+  it("son once bloques y en orden de reloj", () => {
+    // Eran siete hasta la grilla del 30/08, que la reescribio entera: diez
+    // bloques con orador mas el networking del mediodia, que ahora es un
+    // bloque propio y no una pausa.
+    expect(TEMAS).toHaveLength(11);
     const minutos = TEMAS.map((t) => {
       const [h, m] = t.hora.split(":").map(Number);
       return h * 60 + m;
@@ -175,10 +197,11 @@ describe("6 · la agenda", () => {
   });
 
   it("entra el bloque de IA, corto a proposito", () => {
+    // La grilla del 30/08 lo movio de 13:45 a 16:00 y lo llevo a 30 minutos.
     const ia = TEMAS.find((t) => t.id === "ia");
     expect(ia).toBeDefined();
     expect(ia.dur).toBe(30);
-    expect(ia.hora).toBe("13:45");
+    expect(ia.hora).toBe("16:00");
   });
 
   it("el bloque de la sala cambia de formato y no de tema", () => {
@@ -187,9 +210,6 @@ describe("6 · la agenda", () => {
     expect(TIPOS_BLOQUE.interactivo).toBeDefined();
   });
 
-  it("el bloque mas liviano se corrio a la tarde", () => {
-    expect(TEMAS.find((t) => t.id === "contenido").hora).toBe("16:00");
-  });
 
   it("todo bloque declara un tipo que existe", () => {
     for (const t of TEMAS) expect(TIPOS_BLOQUE[t.tipo]).toBeDefined();

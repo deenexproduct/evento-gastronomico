@@ -10,10 +10,10 @@
     corresponde ahí.
   -->
   <section id="hero" class="relative overflow-hidden pt-[104px]">
-    <!-- Halo del acento, contenido y barato: sin JS ni imágenes -->
+    <!-- Halo del violeta de marca, contenido y barato: sin JS ni imágenes -->
     <div
       class="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[130px]"
-      style="background: radial-gradient(circle, #FF0054 0%, transparent 70%)"
+      style="background: radial-gradient(circle, #695EDE 0%, transparent 70%)"
       aria-hidden="true"
     ></div>
 
@@ -26,6 +26,12 @@
             afuera, estas dos lineas son lo unico que lo dicen en la primera
             pantalla.
 
+            Mismo tratamiento tipografico que el subtitulo de abajo —caja
+            baja, peso medio, sin tracking de rotulo—: lo unico que los separa
+            es el cuerpo. Venia en versales con tracking abierto, que en el
+            mismo bloque que el nombre del evento sumaba un tercer estilo de
+            letra sin que hiciera falta.
+
             Van en DOS lineas a proposito, no por accidente. Los tres datos
             —hotel, ciudad y fecha— no entran en una sola en un telefono de
             375px: el ancho util es 335px y la version mas corta que los
@@ -36,12 +42,37 @@
             de acceso, que es donde significa algo. Y sale "Organiza Deenex":
             quien organiza tiene su propia seccion mas abajo.
           -->
-          <p class="rotulo text-acento-texto text-[12px] leading-[1.7] sm:text-[13px]">
+          <p class="text-[12px] font-medium leading-[1.65] text-gris-2 sm:text-[13px]">
             {{ EVENTO.venue }} · {{ EVENTO.ciudad }}<br />
             {{ EVENTO.fechaLarga }}
           </p>
 
-          <h1 class="display mt-5 text-[clamp(2.6rem,8.5vw,6.5rem)]">
+          <!--
+            El nombre es lo único de nivel 1 en esta pantalla, así que ocupa
+            todo el ancho disponible, que es el máximo peso visual que puede
+            tener sin romper nada.
+
+            El tamaño está MEDIDO, no elegido: "GastroTech" en Panchang 800 con
+            este tracking mide 10,46 px de ancho por cada px de cuerpo. Contra
+            el ancho útil del contenedor —viewport menos 40px de padding en
+            teléfono, 64 de ahí para arriba, con tope de 1200— el máximo que
+            entra va de 8,5vw a 8,7vw según el ancho. 8,2vw deja margen en toda
+            la escala. El piso baja a 1,8rem para que en 375px mande el vw y no
+            el piso: con 2rem quedaba clavado en 335 de 335, sin un píxel de
+            sobra; el techo de 6,6rem es el que corresponde al contenedor
+            ya topado en 1200px.
+
+            Ojo si se cambia la tipografía o el tracking: ese 10,46 se mueve y
+            el titular se corta sin avisar, porque la sección tiene
+            overflow-hidden y no aparece barra de scroll. Se mide con
+            Range.getBoundingClientRect() sobre el h1, no a ojo.
+
+            El interlineado baja a 0.88: en una sola palabra no hay renglón
+            siguiente que proteger.
+          -->
+          <h1
+            class="display mt-4 text-[clamp(1.8rem,8.2vw,6.6rem)] leading-[0.88] tracking-[-0.035em]"
+          >
             {{ EVENTO.nombre }}
           </h1>
 
@@ -55,14 +86,25 @@
             esto de un evento de tecnología cualquiera, y es lo que el lector
             todavía no sabe cuando llega.
           -->
-          <p class="mt-5 max-w-[30ch] text-[clamp(1.35rem,3.2vw,2.1rem)] font-black uppercase leading-[1.08] tracking-[-0.02em]">
-            El primer evento de tecnología
-            <span class="text-acento-texto">centrada en gastronomía.</span>
-          </p>
+          <!--
+            Nivel 2, y se lee como nivel 2: cuerpo simple, caja baja, peso
+            medio. Estaba en la display, en versales y a peso 800 — competía de
+            igual a igual con el nombre del evento, que es lo único que tiene
+            que destacarse acá. Lo que sostiene la jerarquía ahora es el salto
+            de cuerpo y de tipografía, no el grito.
 
-          <p class="mt-5 max-w-[46ch] text-[17px] leading-[1.5] font-medium text-gris sm:text-[19px]">
-            El espacio donde vas a encontrar innovación, tecnología y conceptos para aplicar
-            adentro de tu cadena gastronómica.
+            El acento cae en la invitación y no en la autoría: quién lo hace ya
+            está dicho en el "by Deenex" de la cabecera, y repetirlo acá gasta
+            el único resalte de la frase en un dato que el lector ya leyó.
+
+            Quien organiza se nombra acá arriba y no sólo en el "by Deenex" de
+            la cabecera: es la primera frase que lee el 100% de los que entran,
+            y el respaldo de la empresa es parte de lo que hace creíble a una
+            edición 01 sin historial.
+          -->
+          <p class="mt-6 max-w-[34ch] text-[clamp(1.1rem,2.4vw,1.5rem)] font-medium leading-[1.35]">
+            Deenex crea un espacio para hablar de tecnología vanguardista en el
+            rubro gastronómico <span class="texto-deenex font-bold">y vos podés ser parte.</span>
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -75,28 +117,34 @@
           <!--
             La cuenta regresiva, pegada al botón.
 
-            Estaba adentro del panel de la derecha, a 80px, y era el elemento
-            más grande de esa columna: presionaba sin que nadie hubiera
-            decidido nada todavía. Acá presiona en el único momento en que
-            sirve, que es cuando el lector ya tiene el botón a la vista, y a
-            un tamaño que no le compite al titular.
+            Estaba en días. Ahora corre en tiempo real hasta la apertura de
+            puertas: el segundo que se mueve es lo que convierte una fecha
+            lejana en algo que está pasando ahora.
+
+            Los cuatro números en tabular-nums y con ancho mínimo fijo, si no
+            la fila se corre de costado cada vez que un dígito cambia de 1 a 8.
+            `aria-live="off"`: un lector de pantalla que anuncie cada segundo
+            es inusable, y el dato ya está escrito en la fecha de arriba.
           -->
-          <p class="mt-6 flex items-baseline gap-2.5">
-            <span
-              v-if="estado === 'faltan'"
-              class="font-black tabular-nums leading-none tracking-[-0.04em] text-acento-texto text-[clamp(1.9rem,4.2vw,2.6rem)]"
-              >{{ dias }}</span
-            >
-            <span
-              v-else
-              class="font-black uppercase leading-none tracking-[-0.03em] text-acento-texto text-[clamp(1.4rem,3.4vw,1.9rem)]"
-              >{{ estado === "hoy" ? "Es hoy" : "Ya pasó" }}</span
-            >
-            <span
-              v-if="estado === 'faltan'"
-              class="text-[13px] font-black uppercase tracking-[0.16em] text-gris"
-              >{{ dias === 1 ? "día" : "días" }} para el evento</span
-            >
+          <div v-if="!restante.vencido" class="mt-7" aria-live="off">
+            <div class="flex items-end gap-5 sm:gap-6">
+              <div v-for="u in unidades" :key="u.clave" class="flex flex-col">
+                <span
+                  class="font-display text-[clamp(1.25rem,2.8vw,1.7rem)] font-extrabold leading-none tabular-nums tracking-[-0.02em] texto-deenex"
+                  style="min-width: 2ch; display: inline-block"
+                  >{{ String(u.valor).padStart(2, "0") }}</span
+                >
+                <span class="mt-1 text-[10px] font-medium uppercase tracking-[0.12em] text-gris-2">
+                  {{ u.label }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <p
+            v-else
+            class="mt-7 font-display text-[clamp(1.4rem,3.4vw,1.9rem)] font-extrabold uppercase leading-none texto-deenex"
+          >
+            Es hoy
           </p>
 
           <p class="mt-5 text-[14px] leading-[1.5] text-gris">
@@ -110,13 +158,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
-import { useCuentaRegresiva } from "@/composables/useCuentaRegresiva";
+import { useRelojEvento } from "@/composables/useCuentaRegresiva";
 
 const { total, ocupados, porcentaje, agotado, mostrarCupo } = useCupo();
-const { dias, estado } = useCuentaRegresiva();
+const { restante } = useRelojEvento();
+
+// El orden importa y es de mayor a menor: es como se lee un reloj.
+const unidades = computed(() => [
+  { clave: "d", valor: restante.value.dias, label: "días" },
+  { clave: "h", valor: restante.value.horas, label: "horas" },
+  { clave: "m", valor: restante.value.minutos, label: "min" },
+  { clave: "s", valor: restante.value.segundos, label: "seg" },
+]);
 
 const ancho = ref(0);
 onMounted(() => setTimeout(() => (ancho.value = Math.max(porcentaje.value, 3)), 400));

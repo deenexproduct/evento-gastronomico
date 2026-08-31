@@ -18,7 +18,7 @@
           </h2>
         </div>
         <p v-if="mostrarCupo" class="text-[15px] text-gris">
-          <span class="text-[2rem] font-black leading-none text-white">{{ ocupados }}</span>
+          <span class="text-[2rem] font-extrabold leading-none text-white">{{ ocupados }}</span>
           <span class="ml-2">de {{ total }} lugares tomados</span>
         </p>
       </div>
@@ -29,7 +29,7 @@
           :key="m.nombre"
           class="flex items-baseline justify-between gap-4 bg-noche-2 px-5 py-4"
         >
-          <span class="text-[1.05rem] font-black uppercase tracking-[-0.01em]">{{ m.nombre }}</span>
+          <span class="text-[1.05rem] font-extrabold uppercase tracking-[-0.01em]">{{ m.nombre }}</span>
           <span class="shrink-0 text-[13px] font-semibold text-gris">{{ m.locales }}</span>
         </li>
       </ul>

@@ -8,8 +8,13 @@
 
 :root {
   --noche: #1A1A1A;
-  --acento: #FF0054;
-  --acento-texto: #FF5C87;
+  --acento: #695EDE;
+  --acento-texto: #4F42C4;
+  /* El violeta de marca como TEXTO necesita un tono por tema, igual que el
+     magenta: el #695EDE de la paleta da 4,93:1 sobre blanco pero sólo 3,53:1
+     sobre los negros. Como fondo de botón, en cambio, sirve el mismo en los
+     dos: ahí lo que se mide es el blanco encima. */
+  --deenex-texto: #8579F0; /* 4,96:1 sobre #1A1A1A */
   
   --gris: #A3A3A8;
   --linea: #2E2E33;
@@ -39,7 +44,8 @@ html, body { overflow-x: clip; }
 section[id], main[id] { scroll-margin-top: 88px; }
 
 body {
-  font-family: "Archivo", system-ui, sans-serif;
+  /* Bespoke Sans es el cuerpo de la marca; Archivo queda de respaldo. */
+  font-family: "Bespoke Sans", "Archivo", system-ui, sans-serif;
   background: var(--noche);
   color: #fff;
   font-size: 17px;
@@ -53,12 +59,16 @@ img, video { max-width: 100%; height: auto; display: block; }
 @layer components {
   /* ── Titulares: peso 900 y caja alta, como el referente ─────────────── */
   .display {
-    @apply font-black uppercase leading-[0.95] tracking-[-0.02em];
+    @apply font-display font-extrabold uppercase leading-[0.95] tracking-[-0.02em];
     /* Una palabra larga nunca debe desbordar su caja en pantallas chicas. */
     overflow-wrap: break-word;
   }
+  /* Bespoke Sans, no Panchang. Panchang es una display muy marcada: repetida
+     en los diecisiete titulares de la página deja de señalar y satura. Queda
+     reservada al nombre del evento y al reloj, que es lo que tiene que
+     destacarse. El peso 800 sostiene la presencia sin la display. */
   .titulo {
-    @apply font-black uppercase leading-[1.02] tracking-[-0.02em];
+    @apply font-extrabold uppercase leading-[1.02] tracking-[-0.02em];
     overflow-wrap: break-word;
   }
   .rotulo {
@@ -68,7 +78,7 @@ img, video { max-width: 100%; height: auto; display: block; }
   /* La hora como sistema gráfico propio: es lo que el referente no tiene
      y lo que hace que nuestra jornada no se lea como una grilla más. */
   .hora {
-    @apply font-black leading-[0.85] tracking-[-0.04em] tabular-nums;
+    @apply font-extrabold leading-[0.85] tracking-[-0.04em] tabular-nums;
   }
 
   /* ── Superficies translúcidas ───────────────────────────────────────── */
@@ -83,13 +93,13 @@ img, video { max-width: 100%; height: auto; display: block; }
   /* ── Botones ────────────────────────────────────────────────────────── */
   .btn {
     @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full
-           bg-acento-boton px-8 text-[15px] font-black uppercase tracking-[0.02em] text-white
-           transition-all duration-150 hover:bg-[#D80047] hover:scale-[1.02];
+           bg-deenex px-8 text-[15px] font-medium tracking-[0.005em]
+           text-white transition-all duration-150 hover:bg-deenex-hover hover:scale-[1.02];
   }
   .btn-linea {
     @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full
-           border border-white/25 bg-white/[0.06] px-8 text-[15px] font-black uppercase
-           tracking-[0.02em] text-white transition-all duration-150
+           border border-white/25 bg-white/[0.06] px-8 text-[15px] font-medium
+           tracking-[0.005em] text-white transition-all duration-150
            hover:border-white/60 hover:bg-white/10;
   }
 
@@ -293,11 +303,13 @@ img, video { max-width: 100%; height: auto; display: block; }
 }
 
 /* ── Foco ───────────────────────────────────────────────────────────── */
+.texto-deenex { color: var(--deenex-texto); }
+
 :focus-visible { outline: 3px solid var(--acento-texto); outline-offset: 3px; }
 
 .saltar {
   position: absolute; left: 8px; top: -60px; z-index: 200;
-  background: #E00049; color: #fff;
+  background: #695EDE; color: #fff;
   padding: 14px 22px; font-weight: 800; transition: top .15s;
 }
 .saltar:focus { top: 8px; }
@@ -323,7 +335,7 @@ img, video { max-width: 100%; height: auto; display: block; }
 
 .foto-pendiente {
   background-color: rgba(255,255,255,.04);
-  background-image: repeating-linear-gradient(135deg, rgba(255,0,84,.14) 0 10px, transparent 10px 20px);
+  background-image: repeating-linear-gradient(135deg, rgba(105, 94, 222,.14) 0 10px, transparent 10px 20px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -384,8 +396,9 @@ html.claro {
   --gris: #55535C;
   /* El magenta de superficie también cambia por tema: el del oscuro vibra de
      más sobre blanco. Lo consume todo lo que usa var(--acento). */
-  --acento: #E00049;
-  --acento-texto: #C7003F;
+  --acento: #695EDE;
+  --acento-texto: #4F42C4;
+  --deenex-texto: #695EDE; /* el Majorelle tal cual: 4,93:1 sobre blanco */
   /* Medido: #1A1A1A al 16% sobre blanco da #DADADA (1,42:1), demasiado
      tenue al sol. Al 20% da #CCCCCC (1,61:1) y sigue muy por debajo del
      magenta, que es lo que tiene que mandar. */
@@ -415,7 +428,7 @@ html.claro .border-linea { border-color: rgba(0, 0, 0, .1) !important; }
 html.claro .text-white { color: #1A1A1A !important; }
 html.claro .text-gris { color: #55535C !important; }
 html.claro .text-gris-2 { color: #67656E !important; }
-html.claro .text-acento-texto { color: #C7003F !important; }
+html.claro .text-acento-texto { color: #4F42C4 !important; }
 
 /* Las superficies translúcidas se apoyaban en blanco sobre negro: ahora
    tienen que ser negro sobre blanco o desaparecen. */
@@ -426,9 +439,16 @@ html.claro .tarjeta,
 html.claro .cuadro,
 html.claro [class*="border-white/"] { border-color: rgba(0, 0, 0, .12) !important; }
 /* El elegido tiene que ganarle a la regla de arriba. */
-html.claro .cuadro-activo { border-color: #E00049 !important; }
+html.claro .cuadro-activo { border-color: #695EDE !important; }
 html.claro .bg-acento,
-html.claro .bg-acento-boton { background-color: #E00049 !important; color: #fff !important; }
+html.claro .bg-acento-boton { background-color: #695EDE !important; color: #fff !important; }
+/* El violeta de marca es el mismo en los dos temas, así que acá NO se pisa el
+   fondo — sólo se repone el blanco del texto, que `html.claro .text-white` se
+   lleva puesto. Se toca `color` y no `background-color` a propósito: un
+   !important de fondo en reposo le gana al hover y lo deja muerto (ver el
+   punto 3 del encabezado de este bloque). */
+html.claro .bg-deenex,
+html.claro .btn { color: #fff !important; }
 html.claro .btn { color: #fff !important; }
 html.claro .btn-linea {
   color: #1A1A1A !important;
@@ -449,7 +469,7 @@ html.claro .cuadro:hover { border-color: rgba(0, 0, 0, .35) !important; }
    darla vuelta o el hueco no se ve. */
 html.claro .foto-pendiente {
   background-color: rgba(0, 0, 0, .05);
-  background-image: repeating-linear-gradient(135deg, rgba(224, 0, 73, .16) 0 10px, transparent 10px 20px);
+  background-image: repeating-linear-gradient(135deg, rgba(105, 94, 222, .16) 0 10px, transparent 10px 20px);
 }
 
 /* La landing se imprime y se pasa en PDF. Sin esto, los paneles cerrados de
@@ -493,12 +513,12 @@ html.claro .campo {
   background-color: rgba(0, 0, 0, .035) !important;
 }
 html.claro .campo:focus {
-  border-color: #E00049 !important;
+  border-color: #695EDE !important;
   background-color: #fff !important;
 }
 html.claro .campo-error {
-  border-color: #C7003F !important;
-  background-color: rgba(224, 0, 73, .06) !important;
+  border-color: #4F42C4 !important;
+  background-color: rgba(105, 94, 222, .06) !important;
 }
 html.claro .campo::placeholder { color: #8A8892 !important; }
 
@@ -554,11 +574,11 @@ html.claro img.logo-sponsor:hover { opacity: 1 !important; }
 /* Regresiones que causó este mismo bloque: una declaración !important de
    reposo le gana a la variante de estado, que no lo lleva. Cada override de
    color mató el hover del elemento que cubría. */
-html.claro .bg-acento-boton:hover { background-color: #D80047 !important; }
+html.claro .bg-acento-boton:hover { background-color: #5B4FD6 !important; }
 html.claro .tarjeta:hover { border-color: rgba(0, 0, 0, .28) !important; }
-html.claro .chip[class*="border-acento/"] { border-color: rgba(224, 0, 73, .5) !important; }
-html.claro [class*="text-acento-texto/"] { color: #C7003F !important; }
-html.claro .hover\:text-acento-texto:hover { color: #C7003F !important; }
+html.claro .chip[class*="border-acento/"] { border-color: rgba(105, 94, 222, .5) !important; }
+html.claro [class*="text-acento-texto/"] { color: #4F42C4 !important; }
+html.claro .hover\:text-acento-texto:hover { color: #4F42C4 !important; }
 html.claro .hover\:text-white:hover { color: #000 !important; }
 html.claro [class*="hover:border-white/"]:hover { border-color: rgba(0, 0, 0, .35) !important; }
 
@@ -567,7 +587,7 @@ html.claro [class*="hover:border-white/"]:hover { border-color: rgba(0, 0, 0, .3
 html.claro .bg-linea { background-color: rgba(0, 0, 0, .12) !important; }
 
 /* El texto de error de los dos formularios vive en un <style scoped>. */
-html.claro .error { color: #C7003F !important; }
+html.claro .error { color: #4F42C4 !important; }
 
 /* Las opciones de un <select> las pinta el sistema operativo: sin esto queda
    texto blanco sobre desplegable blanco. */
@@ -578,8 +598,8 @@ html.claro select.campo option { background: #fff !important; color: #1A1A1A !im
 /* Las variantes con opacidad del acento son otra clase, igual que pasó con
    bg-noche/90: ocho superficies seguían con el magenta del tema oscuro. La
    regla del chip es más específica y sigue ganando donde corresponde. */
-html.claro [class*="bg-acento/"] { background-color: rgba(224, 0, 73, .08) !important; }
-html.claro [class*="border-acento/"] { border-color: rgba(224, 0, 73, .45) !important; }
+html.claro [class*="bg-acento/"] { background-color: rgba(105, 94, 222, .08) !important; }
+html.claro [class*="border-acento/"] { border-color: rgba(105, 94, 222, .45) !important; }
 
-html.claro .cinta-tramo { background-color: #E00049; }
+html.claro .cinta-tramo { background-color: #695EDE; }
 html.claro .cinta-pausa { background-color: rgba(0, 0, 0, 0.14); }

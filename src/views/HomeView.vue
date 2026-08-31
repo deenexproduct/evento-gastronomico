@@ -1,96 +1,59 @@
+<!--
+  La home es el resumen ejecutivo de la jornada.
+
+  Se lee de un scroll corto y contesta cuatro cosas: qué es, quiénes vienen,
+  qué pasa ese día y cómo entrar. El detalle de cada bloque vive en su propia
+  vista, a la que se llega desde la cabecera o desde las tarjetas de acá
+  abajo — así el que ya decidió no tiene que atravesar cinco secciones para
+  llegar al botón, y el que quiere profundizar entra por donde le importa.
+
+  La jornada se queda acá y no se va a una vista: es el corazón del resumen.
+  Lo que se viene a hacer ese día ES el programa; sacarlo dejaría una home
+  que habla del evento sin mostrarlo nunca.
+
+  Dos botones en toda la página, y ninguno repetido: el del hero y el del
+  cierre. La barra flotante los acompaña sólo mientras hay scroll por
+  delante.
+-->
 <template>
-  <!--
-    El recorrido: se cuenta qué pasa ese día, se muestra quién lo hace posible,
-    y recién ahí se pide el contacto. Toda la prueba —los partners, la empresa
-    y la persona— quedó del lado de ARRIBA del pedido: antes el que decidía
-    dar su WhatsApp lo hacía sin haber visto un logo ni el nombre de un orador.
-
-    La alternancia de los tres fondos es lo único que separa una sección de la
-    siguiente: no hay bordes. Dos secciones seguidas con el mismo fondo se leen
-    como una sola, así que al mover una hay que revisar sus dos vecinas —y
-    contar también las dos que hoy no se dibujan por tener su array vacío.
-  -->
   <div>
-    <a href="#contenido" class="saltar">Saltar al contenido</a>
-    <Navbar />
+    <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
 
-    <!-- tabindex -1: sin esto el link de salto mueve la página pero no el
-         foco, y el siguiente Tab vuelve al menú que se quería saltear. -->
-    <main id="contenido" tabindex="-1" class="focus:outline-none">
-      <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
+    <!-- Hero · transparente a propósito: se ve el fondo del body -->
+    <HeroSection />
 
-      <!-- Hero · transparente a propósito: lo que se ve es el fondo del body -->
-      <HeroSection />
+    <!-- Los logos apenas termina el hero: la prueba que se lee sin leer, y
+         lo único que impide que el hero transparente se funda con lo que
+         sigue. -->
+    <BarraPartners />
 
-      <!-- Los partners apenas termina el hero. Además es lo único que impide
-           que el hero transparente se funda con la sección siguiente. -->
-      <BarraPartners />
+    <!-- El programa, que es lo que se viene a escuchar -->
+    <JornadaSection class="v-reveal bg-noche-3" />
 
-      <!-- Qué es: responde la primera pregunta del que llega de un anuncio -->
-      <QueEsSection class="v-reveal" />
+    <!-- ── Dónde está el detalle ─────────────────────────────────── -->
 
-      <!-- Del "qué es" se pasa derecho al programa, sin escala. -->
-      <JornadaSection class="v-reveal bg-noche-3" />
+    <BloquesResumen class="v-reveal bg-noche-2" />
 
-      <!-- Con qué volvés, pegado al programa que lo produce -->
-      <ElLunesSection class="v-reveal bg-noche-2" />
+    <!-- ── Cómo entrar ───────────────────────────────────────────── -->
 
-      <!-- ── Quién lo hace posible ─────────────────────────────────── -->
 
-      <!-- Los partners y qué trae cada uno -->
-      <BrandsSection class="v-reveal bg-noche-3" />
+    <!-- La reserva, con la prueba ya leída -->
+    <RegistroSection />
 
-      <!-- Quién está detrás: la empresa abre el capítulo… -->
-      <PruebaSection class="v-reveal bg-noche-2" />
-
-      <!-- …el video se activa solo cuando haya alguno cargado… -->
-      <ReelsSection class="v-reveal bg-noche-3" />
-
-      <!-- ── Cómo entrar ───────────────────────────────────────────── -->
-
-      <!-- La escasez se gasta pegada al pedido, no a mitad de la explicación -->
-      <AccesoSection class="v-reveal" />
-
-      <!-- Quiénes ya confirmaron: último escalón antes de reservar -->
-      <AnotadasSection class="v-reveal" />
-
-      <!-- La reserva, con toda la prueba ya leída -->
-      <RegistroSection />
-
-      <!-- Dónde es -->
-      <LocationSection class="v-reveal bg-noche-3" />
-
-      <!-- Preguntas -->
-      <FAQSection class="v-reveal bg-noche" />
-
-      <!-- Partners y prensa: los otros dos públicos, al final -->
-      <SumarseSection class="v-reveal" />
-    </main>
-
-    <Footer />
-    <BarraFija />
+    <!-- Los otros dos públicos, después del pedido de reserva: el que entra a
+         reservar no tiene que atravesar una oferta que no es para él. -->
+    <SumarseSection class="v-reveal bg-noche-3" />
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted } from "vue";
-import Navbar from "@/components/layout/Navbar.vue";
-import Footer from "@/components/layout/Footer.vue";
-import BarraFija from "@/components/layout/BarraFija.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
-import QueEsSection from "@/components/sections/QueEsSection.vue";
-import ReelsSection from "@/components/sections/ReelsSection.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
-import AccesoSection from "@/components/sections/AccesoSection.vue";
-import ElLunesSection from "@/components/sections/ElLunesSection.vue";
-import AnotadasSection from "@/components/sections/AnotadasSection.vue";
+import BloquesResumen from "@/components/sections/BloquesResumen.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import SumarseSection from "@/components/sections/SumarseSection.vue";
-import BrandsSection from "@/components/sections/BrandsSection.vue";
-import PruebaSection from "@/components/sections/PruebaSection.vue";
-import LocationSection from "@/components/sections/LocationSection.vue";
-import FAQSection from "@/components/sections/FAQSection.vue";
 
 let observer = null;
 let respaldo = null;

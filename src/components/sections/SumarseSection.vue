@@ -17,12 +17,12 @@
         <!-- Sponsors -->
         <article class="tarjeta flex flex-col p-8">
           <span class="chip self-start border-acento/50 text-acento-texto">Marcas</span>
-          <h3 class="mt-5 text-[1.5rem] font-black uppercase leading-[1.1]">
+          <h3 class="mt-5 text-[1.5rem] font-extrabold uppercase leading-[1.1]">
             Sponsors
           </h3>
           <p class="mt-4 text-[16px] leading-[1.55] text-gris">
-            Stand en el salón, demo en vivo dentro del programa y un beneficio para los que
-            estén ese día. Los sponsors no se anuncian hasta estar cerrados por escrito.
+            Stand en el salón, un bloque propio dentro del programa y un beneficio para los que
+            estén ese día. Hay un solo lugar por rubro, y queda asignado al confirmar.
           </p>
 
           <ul class="mt-7 grid gap-px bg-white/10">
@@ -50,7 +50,7 @@
         <!-- Prensa -->
         <article class="tarjeta flex flex-col p-8">
           <span class="chip self-start border-white/15 text-gris">Medios</span>
-          <h3 class="mt-5 text-[1.5rem] font-black uppercase leading-[1.1]">Prensa</h3>
+          <h3 class="mt-5 text-[1.5rem] font-extrabold uppercase leading-[1.1]">Prensa</h3>
           <p class="mt-4 text-[16px] leading-[1.55] text-gris">
             Acreditación para medios del rubro gastronómico y de Córdoba. Alan Tapia queda
             disponible para entrevistas antes y durante la jornada.
@@ -96,7 +96,7 @@ const INCLUYE_PRENSA = [
   "Acreditación para el 20 de septiembre",
   "Gacetilla y material fotográfico",
   "Entrevistas con Alan Tapia y los oradores",
-  "Acceso a la mesa redonda de cierre",
+  "Acceso al panel de cierre",
 ];
 
 const whatsappPartner = linkWa("partner");

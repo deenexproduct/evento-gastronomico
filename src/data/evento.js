@@ -21,10 +21,11 @@ export const EVENTO = {
   // Sin el dia de la semana: el pie lo usaba escrito a mano ("Domingo, 10 a
   // 18"), que es justo la forma que salio de la comunicacion.
   fechaSinDia: "20 de septiembre",
-  // Puertas 8:30, charlas 10 a 18. La hora 9 que figuraba antes no era ni
-  // la de apertura ni la del primer bloque: no existia en ningun lado.
+  // Acreditacion 9:30, charlas 10:00 a 18:05. Lo fijo la grilla del 30/08:
+  // el material anterior decia "puertas y stands desde las 8:30", que era una
+  // hora antes y no coincidia con ningun bloque.
   horario: "10 a 18",
-  puertas: "8:30",
+  puertas: "9:30",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
@@ -34,21 +35,53 @@ export const EVENTO = {
 };
 
 /**
- * Las pestañas de navegación, para el nav de arriba y para el pie.
+ * Los cinco bloques de la cabecera. Cada uno es una vista con su detalle.
  *
- * Estaban duplicadas y ya habían derivado: cinco arriba y tres abajo, así que
- * el pie escondía justo las dos secciones que alguien que llega de un anuncio
- * busca primero. Con una sola lista no pueden volver a separarse.
+ * Una sola lista para el nav de arriba y para el pie: antes estaban duplicadas
+ * y ya habían derivado —cinco arriba y tres abajo—, así que el pie escondía
+ * justo lo que alguien que llega de un anuncio busca primero.
  *
- * El ancla de sponsors sigue siendo #partners: el id no se renombró porque no
- * es comunicación y cambiarlo rompe cualquier link ya compartido.
+ * `corto` es la etiqueta de la barra cuando no entra la larga. Sólo la
+ * definen los dos bloques cuyo nombre completo no entra en una fila de 678px
+ * junto al logo y al botón; los demás usan `label` en los dos lados.
+ *
+ * `resumen` es la línea que se muestra en la tarjeta del bloque cuando se lo
+ * ofrece desde la home. Corta a propósito: si no entra en un renglón, el
+ * bloque está tratando de contar demasiado y le sobra contenido a la home.
  */
-export const NAV_ENLACES = [
-  { id: "que-es", label: "Qué es" },
-  { id: "jornada", label: "Programa" },
-  { id: "partners", label: "Sponsors" },
-  { id: "lugar", label: "Lugar" },
-  { id: "faq", label: "Preguntas" },
+export const BLOQUES = [
+  {
+    ruta: "/que-es",
+    label: "Qué es",
+    titulo: "Qué es GastroTech",
+    resumen: "Para quién es, qué pasa ese día y qué no es.",
+  },
+  {
+    ruta: "/beneficios",
+    label: "Beneficios",
+    titulo: "Con qué te volvés",
+    resumen: "Las seis cosas que te llevás el lunes.",
+  },
+  {
+    ruta: "/deadline",
+    label: "Deadline",
+    titulo: "Hasta cuándo hay lugar",
+    resumen: "Doscientos lugares y una fecha que no se mueve.",
+  },
+  {
+    ruta: "/participan",
+    label: "Quiénes son parte",
+    corto: "Quiénes",
+    titulo: "Quiénes son parte",
+    resumen: "Un lugar por rubro, y qué trae cada uno.",
+  },
+  {
+    ruta: "/organiza",
+    label: "Quién organiza",
+    corto: "Organiza",
+    titulo: "Quién organiza",
+    resumen: "Deenex, y por qué abrimos este espacio.",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -72,93 +105,184 @@ export const CUPO = {
 
 export const TEMAS = [
   {
-    id: "mercado",
+    id: "pagos",
     tramo: "manana",
-    dur: 45,
+    dur: 30,
     hora: "10:00",
     tipo: "charla",
-    titulo: "Quiénes abrieron, quiénes cerraron y qué los separó",
-    quien: "Alan Tapia · Deenex",
+    titulo: "Cómo se entra a una promoción bancaria, y por qué eligen a unos y a otros no",
+    quien: "Rubro pagos",
+    estado: "abierto",
+    empresa: "",
     punta:
-      "2026 es el año en que el rubro se ordenó: se proyectan cuatro mil locales nuevos y doscientas marcas entrando al país, y al mismo tiempo cerraron franquiciados que apenas pasaban el break even. Qué hicieron distinto los que quedaron del lado bueno de esa línea.",
+      "Cómo funciona por dentro una promoción bancaria: quién la arma, qué mira el banco para elegir un comercio y qué se negocia. Cuánto tráfico mueve un día de descuento y qué tiene que tener resuelto la cadena para poder entrar.",
+    temas: ["Quién arma la promoción", "Qué mira el banco", "Qué se negocia y qué no", "Qué hay que tener resuelto"],
+    abre: true,
   },
   {
-    id: "benchmark",
+    id: "patrones",
     tramo: "manana",
     dur: 45,
-    hora: "11:00",
-    tipo: "interactivo",
-    titulo: "Dónde estás parado: los números de la sala",
-    quien: "Alan Tapia · Deenex, con la sala",
+    hora: "10:40",
+    tipo: "charla",
+    titulo: "Los 7 patrones que se repiten en más de 500 locales gastronómicos",
+    quien: "Alan Tapia",
+    estado: "confirmado",
+    empresa: "Deenex Technologies",
     punta:
-      "Al reservar se completa una encuesta anónima de cuatro campos, y los resultados se muestran acá. Cada uno se va sabiendo dónde está su food cost, su ticket promedio y su mezcla de canales contra la mediana de las cadenas que están sentadas al lado.",
+      "Siete patrones que aparecen una y otra vez en la operación de cientos de locales, vistos desde los datos de la plataforma. Cada uno con el número al lado y con qué hicieron distinto los que los corrigieron.",
+    temas: ["Los siete patrones, uno por uno", "El número detrás de cada uno", "Qué hicieron los que los corrigieron"],
+  },
+  {
+    id: "crecer",
+    tramo: "manana",
+    dur: 30,
+    hora: "11:35",
+    tipo: "charla",
+    titulo: "La mayoría de las cadenas no quiebra por vender poco: quiebra creciendo",
+    quien: "Avanzia",
+    estado: "participa",
+    empresa: "Consultoría de gestión",
+    punta:
+      "Qué se rompe cuando una cadena crece más rápido de lo que su operación aguanta, y qué hay que tener montado antes de abrir el próximo local. Mirada de industria, no de producto.",
+    temas: ["Qué se rompe primero al crecer", "Qué montar antes del próximo local", "Casos de cadenas que se rompieron así"],
+  },
+  {
+    id: "desperdicio",
+    tramo: "manana",
+    dur: 30,
+    hora: "12:15",
+    tipo: "charla",
+    titulo: "El desperdicio se lleva el margen de un local entero por año",
+    quien: "Rubro equipamiento de cocina",
+    estado: "abierto",
+    empresa: "",
+    punta:
+      "Medición de desperdicio en tiempo real: qué se puede sensar hoy en una cocina, qué dato produce y qué decisión cambia con ese dato.",
+    temas: ["Qué se puede medir hoy en una cocina", "Qué dato produce cada medición", "Qué decisión cambia con ese dato"],
+  },
+  {
+    id: "networking",
+    tramo: "bisagra",
+    dur: 60,
+    hora: "12:45",
+    tipo: "networking",
+    titulo: "Networking",
+    quien: "",
+    estado: "",
+    empresa: "",
+    punta:
+      "Stands abiertos y mesa de degustación. Acá termina la mañana y arranca la jornada de la tarde: es la hora larga del día para cruzarse con el resto de la sala sin apuro.",
+    temas: [],
   },
   {
     id: "pos",
-    tramo: "manana",
-    dur: 45,
-    hora: "12:00",
-    tipo: "demo",
-    titulo: "Hasta dónde llega hoy el sistema con el que cobrás",
-    quien: "CEO de Bistrosoft",
+    tramo: "tarde",
+    dur: 30,
+    hora: "13:45",
+    tipo: "charla",
+    titulo: "La nueva generación de sistemas POS: lo que hace, y el tuyo todavía no",
+    quien: "Bistrosoft",
+    estado: "participa",
+    empresa: "Punto de venta",
     punta:
-      "Qué cambia cuando todas tus sucursales reportan al mismo lugar y dejás de armar el número a mano. Con demos montadas en el salón.",
+      "Cómo cambió la categoría: de una caja que cobra a un sistema que ordena la operación entera. Qué hace hoy un POS que hace cinco años no existía, y qué información produce que el dueño nunca abre.",
+    temas: ["Qué hace hoy un POS que antes no", "Qué información produce y nadie abre", "Cómo se ordena la operación con eso"],
+  },
+  {
+    id: "benchmark",
+    tramo: "tarde",
+    dur: 45,
+    hora: "14:25",
+    tipo: "interactivo",
+    titulo: "Los números de las 200 cadenas de esta sala, en vivo",
+    quien: "Alan Tapia, con la sala",
+    estado: "confirmado",
+    empresa: "Deenex Technologies",
+    punta:
+      "Los números de la sala, proyectados y comparados en vivo. Cada uno ve dónde está parado respecto de las cadenas que tiene al lado: food cost, ticket promedio y mezcla de canales.",
+    temas: ["Tu food cost contra la mediana de la sala", "Tu ticket promedio", "Tu mezcla de canales"],
+  },
+  {
+    id: "control",
+    tramo: "tarde",
+    dur: 30,
+    hora: "15:20",
+    tipo: "charla",
+    titulo: "El local que nadie controla deja de ser tu marca en tres meses",
+    quien: "Asociación de Marcas y Franquicias",
+    estado: "participa",
+    empresa: "Institucional",
+    punta:
+      "Cómo se sostiene el estándar de una red a distancia: qué mide hoy una central, con qué frecuencia, y qué pasa en el local que hace un trimestre que nadie visita.",
+    temas: ["Qué mide una central y cada cuánto", "Qué pasa en el local sin visitas", "Cómo se sostiene el estándar a distancia"],
   },
   {
     id: "ia",
     tramo: "tarde",
     dur: 30,
-    hora: "13:45",
-    tipo: "charla",
-    titulo: "El 73% invirtió en inteligencia artificial este año. El 29% vio el retorno.",
-    quien: "Especialista en datos e IA aplicada",
-    punta:
-      "Media hora para separar lo que ya devuelve plata en una cadena de varios locales —previsión de demanda, armado de cuadrantes, control de desperdicio— de lo que todavía es una apuesta. Con la cuenta al lado, sin vender nada.",
-  },
-  {
-    id: "conduccion",
-    tramo: "tarde",
-    dur: 45,
-    hora: "14:45",
-    tipo: "charla",
-    titulo: "Cómo se conduce una cadena cuando el mercado se endurece",
-    quien: "Avanzia · ex-CEO de Dexter y ex-presidente de la CAME",
-    punta:
-      "Dos que ya condujeron compañías con cientos de empleados, contando cómo se decide cuando hay gente y plata en juego. El tamaño no cambia la decisión: cambia lo que sale equivocarse. Aplica igual con tres locales que con treinta.",
-  },
-  {
-    id: "contenido",
-    tramo: "tarde",
-    dur: 45,
     hora: "16:00",
     tipo: "charla",
-    titulo: "Cómo se sostiene una marca en varios locales a la vez",
-    quien: "Especialista en contenido y redes",
+    titulo: "La IA ya está adentro de las cadenas más grandes del país",
+    quien: "Rubro datos e inteligencia artificial",
+    estado: "abierto",
+    empresa: "",
     punta:
-      "Qué se graba, con qué frecuencia y cómo se mantiene una sola voz cuando la marca está en cinco puntos. Sin un equipo de diez personas.",
+      "Casos reales de inteligencia artificial implementada en cadenas grandes: qué se automatizó, qué costó y qué devolvió. Incluidos los que no funcionaron, que es lo que nadie cuenta.",
+    temas: ["Qué se automatizó y qué costó", "Qué devolvió, con el número", "Los que no funcionaron"],
   },
   {
-    id: "mesa",
-    tramo: "cierre",
-    dur: 60,
-    hora: "17:00",
-    tipo: "mesa",
-    titulo: "Lo que nadie dice en público",
-    quien: "Mesa redonda · todos los que hablaron",
+    id: "ugc",
+    tramo: "tarde",
+    dur: 30,
+    hora: "16:40",
+    tipo: "charla",
+    titulo: "Cómo crear contenido sin crear contenido",
+    quien: "Rubro marketing y contenido",
+    estado: "abierto",
+    empresa: "",
     punta:
-      "Una hora sentados en el centro del salón, con preguntas abiertas de la sala. Sin guion.",
+      "El contenido lo produce el cliente. Cómo se arma un sistema para que la gente que entra a tus locales genere el material, cómo se lo incentiva, cómo se filtra y cómo se publica sin un equipo de producción atrás.",
+    temas: ["Cómo se incentiva al cliente a grabar", "Cómo se filtra lo que sirve", "Cómo se publica sin equipo propio"],
+  },
+  {
+    id: "panel",
+    tramo: "cierre",
+    dur: 45,
+    hora: "17:20",
+    tipo: "panel",
+    titulo: "Cada proveedor jura que su parte funciona. El conjunto no.",
+    quien: "Panel · varios rubros, con moderación",
+    estado: "abierto",
+    empresa: "",
+    punta:
+      "Integración: por qué una cadena con cinco sistemas que andan bien por separado sigue sin poder cerrar el mes de un tirón. Cada uno defiende su parte y el problema queda a la vista.",
+    temas: ["Dónde se corta la información entre sistemas", "Quién se hace cargo de la integración", "Qué se puede exigir a un proveedor"],
+    cierra: true,
   },
 ];
 
 /** Los cuatro tipos de bloque, con su pictograma y su tinte. */
 export const TIPOS_BLOQUE = {
-  charla: { label: "Charla", icono: "charla", clase: "border-white/15 text-white" },
-  demo: { label: "Demo en vivo", icono: "demo", clase: "border-acento/50 text-acento-texto" },
-  interactivo: { label: "Con la sala", icono: "gente", clase: "border-acento/50 text-acento-texto" },
-  mesa: { label: "Mesa redonda", icono: "mesa", clase: "border-acento bg-acento-boton text-white" },
-  pausa: { label: "Degustación", icono: "degustacion", clase: "border-white/10 text-gris" },
-  apertura: { label: "Puertas", icono: "entrada", clase: "border-white/10 text-gris" },
-  cierre: { label: "Networking", icono: "gente", clase: "border-white/10 text-gris" },
+  charla: { label: "Charla", icono: "charla" },
+  interactivo: { label: "Con la sala", icono: "gente" },
+  networking: { label: "Networking", icono: "gente" },
+  panel: { label: "Panel", icono: "mesa" },
+  pausa: { label: "Degustación", icono: "degustacion" },
+  apertura: { label: "Acreditación", icono: "entrada" },
+  cierre: { label: "Networking", icono: "gente" },
+};
+
+/**
+ * Cómo se rotula a quién da cada bloque. Al aire sólo se nombra lo cerrado:
+ * hoy el único confirmado es Alan. Los que están participando del armado ya
+ * tienen su logo publicado en la barra de arriba, así que se los nombra; los
+ * rubros que todavía se están vendiendo van por rubro y sin marca.
+ */
+export const ESTADOS_BLOQUE = {
+  confirmado: { label: "Confirmado", tono: "firme" },
+  participa: { label: "Participa del armado", tono: "medio" },
+  abierto: { label: "Orador por confirmar", tono: "tenue" },
 };
 
 
@@ -170,37 +294,23 @@ export const TIPOS_BLOQUE = {
  * arranque del siguiente. Si mañana se mueve un horario, la pausa se
  * recalcula sola y la sección no puede mentir.
  */
-export const PAUSAS = {
-  "12:45": {
-    titulo: "Pausa larga",
-    detalle: "Ronda grande de degustación, stands y networking sin apuro.",
-  },
-  "14:15": {
-    titulo: "Degustación y stands",
-    detalle: "Media hora entre el bloque corto y el de conducción, con los stands abiertos.",
-  },
-  "15:30": {
-    titulo: "Coffee break",
-    detalle: "Café y algo dulce antes del último tramo.",
-  },
-};
-
+export const PAUSAS = {};
 /**
- * Las dos puntas del día. Estas sí publican hora: 8:30 y 18:00 ya están al
+ * Las dos puntas del día. Estas sí publican hora: 9:30 y 18:05 ya están al
  * aire en la sección del lugar y en EVENTO.horario.
  */
 export const BORDES = {
   apertura: {
     id: "apertura",
     tipo: "apertura",
-    hora: "8:30",
-    titulo: "Puertas y acreditación",
-    detalle: "Acreditación con el código, café de bienvenida y los stands ya abiertos.",
+    hora: "9:30",
+    titulo: "Acreditación · stands · degustación",
+    detalle: "Te recibimos uno por uno, con los stands y la mesa de degustación ya abiertos.",
   },
   cierre: {
     id: "cierre",
     tipo: "cierre",
-    hora: "18:00",
+    hora: "18:05",
     titulo: "Networking de cierre",
     detalle: "La sala queda abierta hasta que se corta el evento.",
   },
@@ -237,14 +347,22 @@ export const FOTOS = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Sponsors confirmados.
+ * Los sponsors que están participando del armado.
  *
- * REGLA DEL BRIEF: acá solo entra lo cerrado POR ESCRITO. Nada en gestión.
+ * REGLA DEL BRIEF: acá solo entra lo que ya está trabajando en el evento.
+ *
+ * NINGUNO FIRMÓ TODAVÍA, así que la página no dice que lo hicieron. Lo que se
+ * muestra de cada uno es el rubro que ocupa y qué pone en el día — las dos
+ * cosas son verificables y no comprometen a nadie. Un rótulo de estatus
+ * ("sponsor oficial", "confirmado") afirma una firma que no existe, y además
+ * inventa una jerarquía que la política comercial prohíbe: no hay niveles,
+ * todos aportan lo mismo y reciben lo mismo.
  *
  * Para sumar uno hacen falta cinco campos y un archivo, y nada más:
  *   nombre   el nombre de la marca, tal cual lo escribe ella
- *   tipo     "Sponsor oficial" | "Sponsor de contenido" | "Institución que
- *            acompaña" | "Proveedores confirmados"
+ *   rubro    la ranura que ocupa — hay una sola por rubro, y es lo que hace
+ *            concreta la exclusividad. NO es un nivel ni una categoría de
+ *            sponsoreo: los diez valen igual
  *   empresa  a qué se dedica, una línea, para el que no la conoce
  *   quien    la persona concreta que viene — es lo que lo hace creíble
  *   aporte   qué pone en el día: charla, demo, stand, convocatoria
@@ -263,16 +381,16 @@ export const PARTNERS = [
   {
     nombre: "Bistrosoft",
     logo: "bistrosoft.svg",
-    tipo: "Sponsor oficial",
+    rubro: "Punto de venta",
     empresa:
       "Sistema de gestión y punto de venta para gastronomía. Trabaja con locales de todo el país.",
     quien: "Viene el CEO",
-    aporte: "Da la charla sobre la evolución del POS y monta demos en vivo con equipo propio.",
+    aporte: "Da la charla sobre la evolución del POS y monta su stand con equipo propio.",
   },
   {
     nombre: "Avanzia",
     logo: "avanzia.png",
-    tipo: "Sponsor de contenido",
+    rubro: "Consultoría de gestión",
     empresa: "Consultora de gestión y desarrollo de negocios para empresas del rubro.",
     quien: "Traen dos oradores",
     aporte: "El ex-CEO de Dexter y el ex-presidente de la CAME, sobre conducción y mercado.",
@@ -280,7 +398,7 @@ export const PARTNERS = [
   {
     nombre: "Asociación de Marcas y Franquicias",
     logo: "aamf.webp",
-    tipo: "Institución que acompaña",
+    rubro: "Institucional",
     empresa:
       "Nuclea a las marcas y cadenas del país que crecen por franquicia y por locales propios.",
     quien: "Acompaña la convocatoria",
@@ -292,7 +410,7 @@ export const PARTNERS = [
     // nombres, se leía como una que no existe. Su tarjeta en #partners queda.
     enBarra: false,
     logo: "",
-    tipo: "Proveedores confirmados",
+    rubro: "Degustación",
     empresa: "Los proveedores que ponen lo que se come y se toma durante toda la jornada.",
     quien: "Cuatro rondas más una larga",
     aporte: "Alfajores, aceitunas, humus y café entre bloque y bloque, y coffee break a la tarde.",
@@ -322,7 +440,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS con demos en vivo, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Siete bloques a lo largo del día.",
+    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Once bloques a lo largo del día.",
   },
   {
     q: "¿Me van a querer vender algo?",
@@ -330,7 +448,7 @@ export const FAQ = [
   },
   {
     q: "Tengo el local abierto ese día. ¿Cómo hago?",
-    a: "Es la que más nos preguntan, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y la mesa redonda de cierre, que es donde se dice lo que no se dice en público. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
+    a: "Es la que más nos preguntan, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
   },
   {
     q: "¿Cuánto cuesta?",
@@ -358,11 +476,11 @@ export const FAQ = [
   },
   {
     q: "¿Se come algo durante el día?",
-    a: "Sí, y está en la entrada. Café de bienvenida desde las 8:30 con los stands ya abiertos, degustación entre bloque y bloque —alfajores, aceitunas, humus y café, que los ponen los proveedores confirmados—, una pausa larga de 12:45 a 13:45 con la ronda grande, coffee break a las 15:30, y vino, cerveza y café en el cierre.",
+    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:30 con los stands ya abiertos, degustación entre bloque y bloque —alfajores, aceitunas, humus y café, que pone la mesa de degustación—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
   },
   {
     q: "¿Se transmite en vivo?",
-    a: "No. Lo que pasa en la sala pasa estando ahí: las demos se prueban en el salón, la mesa redonda se responde de frente y el networking no tiene versión remota. Lo que sí queda por escrito es el material del día, que les llega a los que asistieron.",
+    a: "No. Lo que pasa en la sala pasa estando ahí: los sistemas se prueban en los stands, el panel se responde de frente y el networking no tiene versión remota. Lo que sí queda por escrito es el material del día, que les llega a los que asistieron.",
   },
   {
     q: "¿Dónde es exactamente?",

@@ -36,21 +36,21 @@
         >
           <div class="flex items-center justify-between gap-3">
             <span
-              class="text-[12px] font-black uppercase tracking-[0.14em]"
+              class="text-[12px] font-semibold uppercase tracking-[0.14em]"
               :class="t.estado === 'actual' ? 'text-acento-texto' : 'text-gris-2'"
             >
               {{ t.etiqueta }}
             </span>
             <span
               v-if="t.estado === 'actual'"
-              class="rounded-full bg-acento-boton px-3 py-1 text-[11px] font-black uppercase tracking-[0.1em] text-white"
+              class="rounded-full bg-acento-boton px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-white"
             >
               {{ agotado ? "Lista abierta" : "Abierto" }}
             </span>
           </div>
 
           <h3
-            class="mt-5 text-[1.35rem] font-black uppercase leading-[1.1] tracking-[-0.02em]"
+            class="mt-5 text-[1.35rem] font-extrabold uppercase leading-[1.1] tracking-[-0.02em]"
             :class="t.estado === 'completo' ? 'text-gris-2' : 'text-white'"
           >
             {{ t.titulo }}
@@ -58,7 +58,7 @@
 
           <p class="mt-6 flex items-baseline gap-2">
             <span
-              class="text-[3.2rem] font-black leading-none tabular-nums tracking-[-0.04em]"
+              class="text-[3.2rem] font-extrabold leading-none tabular-nums tracking-[-0.04em]"
               :class="t.estado === 'actual' ? 'text-white' : 'text-gris-2'"
               >{{ t.cifra }}</span
             >
@@ -86,7 +86,7 @@
           >
           <p
             v-else
-            class="mt-7 rounded-xl border border-white/10 py-4 text-center text-[13px] font-black uppercase tracking-[0.12em] text-gris-2"
+            class="mt-7 rounded-xl border border-white/10 py-4 text-center text-[13px] font-semibold uppercase tracking-[0.12em] text-gris-2"
           >
             {{ t.estado === "completo" ? "Completo" : "Cuando se llene" }}
           </p>

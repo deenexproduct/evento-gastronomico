@@ -24,7 +24,7 @@
                 <Pictograma :nombre="d.icono" :tam="19" />
               </span>
               <div class="min-w-0">
-                <dt class="text-[13px] font-black uppercase tracking-[0.1em] text-gris">
+                <dt class="text-[13px] font-semibold uppercase tracking-[0.1em] text-gris">
                   {{ d.label }}
                 </dt>
                 <dd class="mt-1 text-[17px] font-bold leading-snug">{{ d.valor }}</dd>
@@ -35,7 +35,7 @@
 
           <!-- Logística práctica -->
           <div class="mt-10 border-t border-white/10 pt-8">
-            <p class="text-[13px] font-black uppercase tracking-[0.12em] text-gris-2">
+            <p class="text-[13px] font-semibold uppercase tracking-[0.12em] text-gris-2">
               Antes de venir
             </p>
             <div class="mt-5 grid gap-5">
@@ -44,7 +44,7 @@
                   <Pictograma :nombre="l.icono" :tam="18" />
                 </span>
                 <div class="min-w-0">
-                  <p class="text-[15px] font-black uppercase tracking-[0.02em]">{{ l.titulo }}</p>
+                  <p class="text-[15px] font-semibold uppercase tracking-[0.02em]">{{ l.titulo }}</p>
                   <p class="mt-1 text-[15px] leading-[1.5]" :class="l.pendiente ? 'text-gris-2' : 'text-gris'">
                     {{ l.texto }}
                   </p>
@@ -143,7 +143,7 @@ const LOGISTICA = [
     icono: "reloj",
     titulo: "A qué hora conviene llegar",
     texto:
-      "Las puertas abren 8:30 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
+      "La acreditación abre 9:30 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
   },
   {
     icono: "auto",

@@ -71,10 +71,10 @@
           >
             <Pictograma :nombre="q.icono" :tam="20" />
           </span>
-          <dt class="mt-5 text-[12px] font-black uppercase tracking-[0.12em] text-gris">
+          <dt class="mt-5 text-[12px] font-semibold uppercase tracking-[0.12em] text-gris">
             {{ q.pregunta }}
           </dt>
-          <dd class="mt-2 text-[1.05rem] font-black uppercase leading-[1.15] tracking-[-0.01em]">
+          <dd class="mt-2 text-[1.05rem] font-extrabold uppercase leading-[1.15] tracking-[-0.01em]">
             {{ q.respuesta }}
           </dd>
           <p class="mt-2.5 text-[14px] leading-[1.5] text-gris">{{ q.detalle }}</p>
@@ -83,7 +83,7 @@
 
       <!-- Qué NO es: filtra tan rápido como lo que sí es -->
       <div class="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-        <p class="text-[12px] font-black uppercase tracking-[0.12em] text-gris-2">Qué no es</p>
+        <p class="text-[12px] font-semibold uppercase tracking-[0.12em] text-gris-2">Qué no es</p>
         <div class="mt-4 flex flex-wrap gap-x-8 gap-y-3">
           <span
             v-for="n in NO_ES"

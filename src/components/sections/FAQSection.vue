@@ -1,6 +1,11 @@
 <template>
-  <section id="faq" class="border-b border-linea py-20 sm:py-28">
-    <div class="contenedor">
+  <!--
+    `enPie` es la variante que usa el pie: sin el contenedor propio —el pie ya
+    tiene el suyo y anidarlos duplicaba el padding lateral— y sin el borde de
+    abajo, que se juntaba con el del copyright y dibujaba dos lineas seguidas.
+  -->
+  <section id="faq" :class="enPie ? '' : 'border-b border-linea py-20 sm:py-28'">
+    <div :class="enPie ? '' : 'contenedor'">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
           <p class="rotulo text-gris">Preguntas</p>
@@ -71,6 +76,8 @@
 </template>
 
 <script setup>
+defineProps({ enPie: { type: Boolean, default: false } });
+
 import { ref } from "vue";
 import { FAQ, linkWa } from "@/data/evento";
 

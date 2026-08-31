@@ -10,10 +10,12 @@
             rótulo cambia junto con el titular: si solo cambiara el h2, la
             sección diría lo mismo dos veces seguidas con dos sinónimos.
           -->
+          <template v-if="encabezado">
           <p class="rotulo text-gris">Seis cosas</p>
           <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5vw,3.2rem)]">
             Qué te llevás del evento.
           </h2>
+          </template>
         </div>
 
         <ul class="grid gap-px bg-linea">
@@ -34,5 +36,9 @@
 </template>
 
 <script setup>
+// La vista que la envuelve ya pone el titulo de la pagina: con los dos,
+// el lector lee dos encabezados seguidos diciendo lo mismo.
+defineProps({ encabezado: { type: Boolean, default: true } });
+
 import { EL_LUNES } from "@/data/evento";
 </script>

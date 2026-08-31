@@ -44,11 +44,11 @@
             <template v-if="mostrarCupo">
               <div class="flex items-baseline justify-between gap-4">
                 <span
-                  class="inline-block min-w-[3ch] text-[3rem] font-black leading-none tabular-nums text-acento-texto"
+                  class="inline-block min-w-[3ch] text-[3rem] font-extrabold leading-none tabular-nums text-acento-texto"
                 >
                   {{ cupoContado }}
                 </span>
-                <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
+                <span class="text-right text-[13px] font-semibold uppercase tracking-[0.1em] text-gris">
                   lugares<br />disponibles
                 </span>
               </div>
@@ -72,11 +72,11 @@
             <template v-else>
               <div class="flex items-baseline justify-between gap-4">
                 <span
-                  class="inline-block text-[3rem] font-black leading-none tabular-nums text-acento-texto"
+                  class="inline-block text-[3rem] font-extrabold leading-none tabular-nums text-acento-texto"
                 >
                   {{ total }}
                 </span>
-                <span class="text-right text-[13px] font-black uppercase tracking-[0.1em] text-gris">
+                <span class="text-right text-[13px] font-semibold uppercase tracking-[0.1em] text-gris">
                   lugares<br />en total
                 </span>
               </div>
@@ -126,7 +126,7 @@
               <li v-for="(p, i) in PASOS" :key="i" class="flex items-start gap-3.5">
                 <span
                   aria-hidden="true"
-                  class="mt-px flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-acento-boton text-[12px] font-black tabular-nums"
+                  class="mt-px flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-acento-boton text-[12px] font-extrabold tabular-nums"
                   >{{ i + 1 }}</span
                 >
                 <span class="text-[15px] leading-[1.45] text-gris">{{ p }}</span>
@@ -154,7 +154,7 @@
                  gesto de retención de la página: la mitigación número uno del
                  no-show, que en eventos gratuitos va del 40 al 60%. -->
             <div class="mt-8 border-t border-white/10 pt-7">
-              <p class="text-[13px] font-black uppercase tracking-[0.12em] text-gris">
+              <p class="text-[13px] font-semibold uppercase tracking-[0.12em] text-gris">
                 Agendalo ahora y no te lo olvidás
               </p>
               <div class="mt-4 flex flex-wrap gap-3">
@@ -194,8 +194,8 @@ const { google, urlIcs, nombreArchivo } = useCalendario();
 const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const INCLUYE = [
-  "Los siete bloques y las demos en vivo",
-  "Los stands de los sponsors abiertos desde las 8:30",
+  "Los once bloques del programa, en track único",
+  "Los stands de los sponsors abiertos desde las 9:30",
   "Degustaciones y networking de cierre",
   "La grilla final, antes que el resto",
 ];

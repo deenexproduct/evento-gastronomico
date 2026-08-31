@@ -14,8 +14,8 @@
   -->
   <section id="respaldan" class="border-y border-white/10 bg-noche-2 py-10 sm:py-12">
     <div class="contenedor">
-      <p class="text-center text-[12px] font-black uppercase tracking-[0.18em] text-gris-2">
-        Sponsors confirmados
+      <p class="text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-gris-2">
+        Participan
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">
@@ -29,7 +29,7 @@
           />
           <span
             v-else
-            class="text-[1.05rem] font-black uppercase tracking-[-0.01em] text-white/75 transition-colors duration-200 hover:text-white sm:text-[1.25rem]"
+            class="text-[1.05rem] font-extrabold uppercase tracking-[-0.01em] text-white/75 transition-colors duration-200 hover:text-white sm:text-[1.25rem]"
           >
             {{ p.nombre }}
           </span>

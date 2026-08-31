@@ -82,7 +82,7 @@ export function useCalendario() {
   const titulo = `${EVENTO.nombre} · Jornada de gastronomía y tecnología`;
   const lugar = `${EVENTO.venue}, ${EVENTO.direccion}, Córdoba, Argentina`;
   const detalle =
-    "Un día de charlas, demos en vivo y networking para dueños de cadenas gastronómicas. " +
+    "Un día de charlas y networking para dueños de cadenas gastronómicas. " +
     "Tu lugar está confirmado por WhatsApp: en la puerta alcanza con tu nombre.";
 
   const google = computed(() => {
@@ -121,7 +121,7 @@ export function useCalendario() {
       "BEGIN:VALARM",
       "TRIGGER:-PT2H",
       "ACTION:DISPLAY",
-      `DESCRIPTION:${escapar(`${EVENTO.nombre} es hoy. Te esperamos desde las 8:30.`)}`,
+      `DESCRIPTION:${escapar(`${EVENTO.nombre} es hoy. Te esperamos desde las 9:30.`)}`,
       "END:VALARM",
       "END:VEVENT",
       "END:VCALENDAR",
