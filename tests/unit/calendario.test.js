@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { EVENTO } from "@/data/evento";
+import { EVENTO, DOMINGO } from "@/data/evento";
 
 /**
  * El .ics se genera dentro de un composable que usa onUnmounted, así que la
@@ -8,20 +8,29 @@ import { EVENTO } from "@/data/evento";
  * un evento agendado a las 6 de la mañana es peor que no agendarlo.
  */
 describe("agendado del evento", () => {
-  it("la fecha del evento es el domingo 20 de septiembre de 2026 a las 10", () => {
+  it("la fecha del evento es el sábado 19 de septiembre de 2026 a las 10", () => {
+    // Era domingo 20 hasta el 31/08: la reunión con Gastón Santana partió el
+    // fin de semana en dos y GastroTech quedó el sábado.
     const d = new Date(EVENTO.fechaISO);
     expect(d.getUTCFullYear()).toBe(2026);
     expect(d.getUTCMonth()).toBe(8); // septiembre
-    expect(d.getUTCDate()).toBe(20);
+    expect(d.getUTCDate()).toBe(19);
     // 10:00 en Córdoba (UTC-3) son las 13:00 UTC.
     expect(d.getUTCHours()).toBe(13);
   });
 
-  it("la fecha declarada cae efectivamente en domingo", () => {
-    // Toda la comunicación dice "domingo": si la fecha cambia y cae otro día,
-    // la página entera queda mintiendo.
-    expect(new Date(EVENTO.fechaISO).getUTCDay()).toBe(0);
-    expect(EVENTO.fechaLarga.toLowerCase()).toContain("domingo");
+  it("el día que dice la fecha es el día que cae", () => {
+    // Toda la comunicación nombra el día: si la fecha cambia y cae otro, la
+    // página entera queda mintiendo. Pasó una vez y por eso existe este test.
+    expect(new Date(EVENTO.fechaISO).getUTCDay()).toBe(6); // sábado
+    expect(EVENTO.fechaLarga.toLowerCase()).toContain("sábado");
+  });
+
+  it("el domingo es el día siguiente, y es otro evento", () => {
+    const sabado = new Date(EVENTO.fechaISO);
+    const domingo = new Date(DOMINGO.fechaISO);
+    expect(domingo.getUTCDay()).toBe(0);
+    expect((domingo - sabado) / 86400000).toBe(1);
   });
 
   it("el horario declarado termina después de que empieza", () => {

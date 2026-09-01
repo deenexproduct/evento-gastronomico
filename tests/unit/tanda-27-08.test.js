@@ -170,8 +170,12 @@ describe("13 · el pie", () => {
     expect(home).toContain("BloquesResumen");
   });
 
-  it("la fecha sin dia existe en los datos", () => {
-    expect(EVENTO.fechaSinDia).toBe("20 de septiembre");
+  it("la fecha sin dia existe en los datos y coincide con la fecha real", () => {
+    // Se escribía a mano y quedó desfasada cuando el evento pasó al sábado 19.
+    // Ahora se verifica contra fechaISO, que es el dato del que sale todo lo
+    // demás: si se mueve la fecha, este test avisa antes que la página.
+    const d = new Date(EVENTO.fechaISO);
+    expect(EVENTO.fechaSinDia).toBe(`${d.getUTCDate()} de septiembre`);
   });
 });
 

@@ -8,9 +8,8 @@
     <div :class="enPie ? '' : 'contenedor'">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="rotulo text-gris">Preguntas</p>
-          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,3.6vw,2.8rem)]">
-            Lo que siempre nos preguntan.
+          <h2 class="titulo max-w-[14ch] text-[clamp(1.9rem,3.6vw,2.8rem)]">
+            Preguntas frecuentes
           </h2>
         </div>
 

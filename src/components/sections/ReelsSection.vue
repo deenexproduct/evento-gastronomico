@@ -15,7 +15,7 @@
         Alan lo cuenta en un minuto
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Sin vueltas: qué se va a hablar el 20 de septiembre y por qué te conviene estar.
+        Sin vueltas: qué se va a hablar el 19 de septiembre y por qué te conviene estar.
       </p>
 
       <!-- Carrusel horizontal: en celular se desliza, no se apila -->

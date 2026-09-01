@@ -91,7 +91,7 @@
 </template>
 
 <script setup>
-import { linkWa } from "@/data/evento";
+import { EVENTO, linkWa } from "@/data/evento";
 
 const INCLUYE_PARTNER = [
   "Stand en el salón durante toda la jornada",
@@ -101,7 +101,7 @@ const INCLUYE_PARTNER = [
 ];
 
 const INCLUYE_PRENSA = [
-  "Acreditación para el 20 de septiembre",
+  `Acreditación para el ${EVENTO.fechaSinDia}`,
   "Gacetilla y material fotográfico",
   "Entrevistas con Alan Tapia y los oradores",
   "Acceso al panel de cierre",

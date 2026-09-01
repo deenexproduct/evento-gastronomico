@@ -12,15 +12,19 @@
 export const EVENTO = {
   nombre: "GastroTech",
   organiza: "Deenex",
-  fechaISO: "2026-09-20T10:00:00-03:00",
-  fechaLarga: "Domingo 20 de septiembre de 2026",
-  fechaCorta: "Domingo 20.09.2026",
+  // SÁBADO 19, no domingo 20. Lo cambió la reunión con Gastón Santana del
+  // 31/08: el fin de semana se parte en dos —sábado gastronomía, domingo
+  // emprendedores— y GastroTech es el sábado. Todo el material anterior decía
+  // domingo, así que si algo quedó con la fecha vieja, está mal.
+  fechaISO: "2026-09-19T10:00:00-03:00",
+  fechaLarga: "Sábado 19 de septiembre de 2026",
+  fechaCorta: "Sábado 19.09.2026",
   // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
-  fechaBreve: "Domingo 20.09",
-  fechaNumerica: "20.09.26",
-  // Sin el dia de la semana: el pie lo usaba escrito a mano ("Domingo, 10 a
-  // 18"), que es justo la forma que salio de la comunicacion.
-  fechaSinDia: "20 de septiembre",
+  fechaBreve: "Sábado 19.09",
+  fechaNumerica: "19.09.26",
+  // Sin el dia de la semana: el pie lo usaba escrito a mano, que es justo la
+  // forma que salio de la comunicacion.
+  fechaSinDia: "19 de septiembre",
   // Acreditacion 9:30, charlas 10:00 a 18:05. Lo fijo la grilla del 30/08:
   // el material anterior decia "puertas y stands desde las 8:30", que era una
   // hora antes y no coincidia con ningun bloque.
@@ -32,6 +36,22 @@ export const EVENTO = {
   // Contexto, nunca asistencia propia: las 20.000 son del evento madre.
   eventoMadre: "Córdoba Corazón de Moda",
   eventoMadreCirculacion: "20.000",
+};
+
+/**
+ * El domingo, que es la otra mitad del fin de semana.
+ *
+ * Se publica lo que está decidido y nada más: que existe, para quién es y que
+ * la acreditación es la misma. Conductora, programa y oradores no están
+ * definidos —Alan, textual, el 31/08: «el del domingo no la pensé»—, así que
+ * la página no los promete. Cuando se cierren, entran acá.
+ */
+export const DOMINGO = {
+  fechaISO: "2026-09-20T10:00:00-03:00",
+  fechaLarga: "Domingo 20 de septiembre",
+  titulo: "El domingo es de emprendedores",
+  bajada:
+    "El mismo fin de semana, en el mismo edificio, con una jornada propia para los que están armando su proyecto. Se reserva por el mismo WhatsApp y el programa se anuncia con la grilla final.",
 };
 
 /**
@@ -58,19 +78,25 @@ export const BLOQUES = [
   },
   {
     ruta: "/beneficios",
-    label: "Beneficios",
+    label: "Qué te llevás",
+    corto: "Te llevás",
     titulo: "Con qué te volvés",
     resumen: "Las seis cosas que te llevás el lunes.",
   },
   {
+    // La ruta no cambia: hay links compartidos apuntando acá. Lo que cambia es
+    // la etiqueta — "Deadline" era jerga, en inglés, en una página escrita en
+    // castellano para el dueño de una empresa. Lo que el lector quiere saber
+    // es si todavía hay lugar.
     ruta: "/deadline",
-    label: "Deadline",
+    label: "Si hay lugar",
+    corto: "Lugares",
     titulo: "Hasta cuándo hay lugar",
     resumen: "Doscientos lugares y una fecha que no se mueve.",
   },
   {
     ruta: "/participan",
-    label: "Quiénes son parte",
+    label: "Quiénes vienen",
     corto: "Quiénes",
     titulo: "Quiénes son parte",
     resumen: "Un lugar por rubro, y qué trae cada uno.",
@@ -457,7 +483,7 @@ export const FAQ = [
   },
   {
     q: "Tengo el local abierto ese día. ¿Cómo hago?",
-    a: "Es la que más nos preguntan, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
+    a: "Es la que más nos preguntan, y con un sábado pesa más todavía, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
   },
   {
     q: "¿Cuánto cuesta?",
@@ -490,6 +516,10 @@ export const FAQ = [
   {
     q: "¿Se transmite en vivo?",
     a: "No. Lo que pasa en la sala pasa estando ahí: los sistemas se prueban en los stands, el panel se responde de frente y el networking no tiene versión remota. Lo que sí queda por escrito es el material del día, que les llega a los que asistieron.",
+  },
+  {
+    q: "¿Y el domingo qué pasa?",
+    a: "El fin de semana tiene dos jornadas y GastroTech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
   },
   {
     q: "¿Dónde es exactamente?",
@@ -566,13 +596,13 @@ export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado
     ? [
         "GASTROTECH · LISTA DE ESPERA",
         "",
-        "Hola Alan! Sé que la sala está llena. Quiero quedar en la lista por si se libera un lugar el domingo 20 de septiembre.",
+        `Hola Alan! Sé que la sala está llena. Quiero quedar en la lista por si se libera un lugar el ${EVENTO.fechaLarga.toLowerCase().replace(" de 2026", "")}.`,
         "",
       ]
     : [
         "GASTROTECH · QUIERO IR",
         "",
-        "Hola Alan! Quiero mi lugar para el domingo 20 de septiembre en Córdoba.",
+        `Hola Alan! Quiero mi lugar para el ${EVENTO.fechaLarga.toLowerCase().replace(" de 2026", "")} en ${EVENTO.ciudad}.`,
         "",
       ];
 
@@ -632,11 +662,11 @@ export function linkWaReserva(opciones) {
 export const MENSAJES_WA = {
   registro: mensajeReserva(),
   partner:
-    "QUIERO SER SPONSOR DE GASTROTECH\n\nHola Alan! Me interesa participar como sponsor del evento del 20 de septiembre.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:",
+    `QUIERO SER SPONSOR DE GASTROTECH\n\nHola Alan! Me interesa participar como sponsor del evento del ${EVENTO.fechaSinDia}.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:`,
   prensa:
-    "PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del 20 de septiembre.\n\nMedio:\nMi nombre:\nQué necesitaría:",
+    `PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del ${EVENTO.fechaSinDia}.\n\nMedio:\nMi nombre:\nQué necesitaría:`,
   consulta:
-    "CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del 20 de septiembre:\n\n",
+    `CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del ${EVENTO.fechaSinDia}:\n\n`,
 };
 
 /** Arma el enlace listo para abrir. */

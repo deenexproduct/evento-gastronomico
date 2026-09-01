@@ -104,7 +104,7 @@ export function useCalendario() {
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",
-      "UID:gastrotech-2026-09-20@deenex.tech",
+      `UID:gastrotech-${EVENTO.fechaISO.slice(0, 10)}@deenex.tech`,
       // Momento en que se generó el archivo, no la fecha del evento.
       `DTSTAMP:${aFormatoUTC(new Date())}`,
       `DTSTART:${aFormatoUTC(inicio)}`,
