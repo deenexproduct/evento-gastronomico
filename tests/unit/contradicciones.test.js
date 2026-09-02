@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { TEMAS, MENSAJES_WA, PARTNERS } from "@/data/evento";
+import { TEMAS, MENSAJES_WA, PARTNERS, BORDES, EVENTO } from "@/data/evento";
 
 /**
  * Las contradicciones: cosas que la página afirma en un lado y desmiente en
@@ -264,5 +264,43 @@ describe("el día como argumento", () => {
   it("sigue diciendo qué día es, que es lo que el lector necesita", () => {
     const t = todo();
     expect(t).toMatch(/Domingo 20 de septiembre/i);
+  });
+});
+
+/**
+ * La hora de cierre se declara en tres lugares que no se hablan entre si:
+ * EVENTO.horario ("10 a 18", que es lo que lee el .ics), BORDES.cierre.hora
+ * y la suma de la grilla. Durante un tiempo la grilla termino 18:05 mientras
+ * los otros dos decian 18:00, y ningun test lo vio: el que llegaba a las
+ * 17:55 pensando que quedaban cinco minutos se encontraba con un panel
+ * empezado hacia media hora.
+ *
+ * Se compara la ARITMETICA, no el texto. Si manana se alarga un bloque o se
+ * corre una hora, esto se cae antes de publicarse.
+ */
+describe("la hora a la que termina el dia", () => {
+  const min = (h) => {
+    const [hh, mm] = String(h).split(":").map(Number);
+    return hh * 60 + (mm || 0);
+  };
+  const finDeGrilla = Math.max(...TEMAS.map((b) => min(b.hora) + b.dur));
+
+  it("la grilla termina exactamente cuando arranca el networking de cierre", () => {
+    expect(finDeGrilla).toBe(min(BORDES.cierre.hora));
+  });
+
+  it("el cierre coincide con el horario que publica el .ics", () => {
+    const marcas = String(EVENTO.horario).match(/\d{1,2}(?::\d{2})?/g) || [];
+    expect(marcas).toHaveLength(2);
+    expect(min(BORDES.cierre.hora)).toBe(min(marcas[1]));
+  });
+
+  it("ningun bloque se pasa de la hora declarada", () => {
+    const tarde = TEMAS.filter((b) => min(b.hora) + b.dur > min(BORDES.cierre.hora));
+    expect(tarde.map((b) => `${b.id} ${b.hora}+${b.dur}′`)).toEqual([]);
+  });
+
+  it("la acreditacion abre antes del primer bloque", () => {
+    expect(min(BORDES.apertura.hora)).toBeLessThan(Math.min(...TEMAS.map((b) => min(b.hora))));
   });
 });

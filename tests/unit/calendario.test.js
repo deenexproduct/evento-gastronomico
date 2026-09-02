@@ -8,15 +8,19 @@ import { EVENTO, DOMINGO } from "@/data/evento";
  * un evento agendado a las 6 de la mañana es peor que no agendarlo.
  */
 describe("agendado del evento", () => {
-  it("la fecha del evento es el sábado 19 de septiembre de 2026 a las 10", () => {
+  it("la fecha del evento es el sábado 19 de septiembre de 2026, cuando abren las puertas", () => {
     // Era domingo 20 hasta el 31/08: la reunión con Gastón Santana partió el
     // fin de semana en dos y GastroTech quedó el sábado.
     const d = new Date(EVENTO.fechaISO);
     expect(d.getUTCFullYear()).toBe(2026);
     expect(d.getUTCMonth()).toBe(8); // septiembre
     expect(d.getUTCDate()).toBe(19);
-    // 10:00 en Córdoba (UTC-3) son las 13:00 UTC.
-    expect(d.getUTCHours()).toBe(13);
+    // fechaISO es el ARRANQUE del evento —la acreditación—, no el del primer
+    // bloque: es lo que se agenda el que se baja el .ics, y llegar cuando ya
+    // pasó la acreditación es exactamente lo que no queremos.
+    const [hh, mm] = EVENTO.puertas.split(":").map(Number);
+    expect(d.getUTCHours()).toBe(hh + 3); // Córdoba es UTC-3
+    expect(d.getUTCMinutes()).toBe(mm);
   });
 
   it("el día que dice la fecha es el día que cae", () => {
@@ -30,7 +34,9 @@ describe("agendado del evento", () => {
     const sabado = new Date(EVENTO.fechaISO);
     const domingo = new Date(DOMINGO.fechaISO);
     expect(domingo.getUTCDay()).toBe(0);
-    expect((domingo - sabado) / 86400000).toBe(1);
+    // Por fecha de calendario y no por milisegundos: los dos eventos no
+    // arrancan a la misma hora, así que la resta cruda no da 1 exacto.
+    expect(domingo.getUTCDate() - sabado.getUTCDate()).toBe(1);
   });
 
   it("el horario declarado termina después de que empieza", () => {

@@ -92,7 +92,7 @@
 </template>
 
 <script setup>
-import { EVENTO, DOMINGO } from "@/data/evento";
+import { EVENTO, DOMINGO, TEMAS, BORDES } from "@/data/evento";
 
 const comoLlegar =
   "https://www.google.com/maps/search/?api=1&query=" +
@@ -107,7 +107,7 @@ const datos = [
   {
     r: "Cuándo abre",
     v: `${EVENTO.puertas} · acreditación`,
-    n: `Las charlas arrancan ${EVENTO.horario.split(" a ")[0]} y el día cierra 18:05.`,
+    n: `Las charlas arrancan ${TEMAS[0].hora} y el día cierra ${BORDES.cierre.hora}.`,
   },
   {
     r: "Cómo se entra",

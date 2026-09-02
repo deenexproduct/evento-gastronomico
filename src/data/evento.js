@@ -16,7 +16,7 @@ export const EVENTO = {
   // 31/08: el fin de semana se parte en dos —sábado gastronomía, domingo
   // emprendedores— y GastroTech es el sábado. Todo el material anterior decía
   // domingo, así que si algo quedó con la fecha vieja, está mal.
-  fechaISO: "2026-09-19T10:00:00-03:00",
+  fechaISO: "2026-09-19T09:30:00-03:00",
   fechaLarga: "Sábado 19 de septiembre de 2026",
   fechaCorta: "Sábado 19.09.2026",
   // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
@@ -25,10 +25,21 @@ export const EVENTO = {
   // Sin el dia de la semana: el pie lo usaba escrito a mano, que es justo la
   // forma que salio de la comunicacion.
   fechaSinDia: "19 de septiembre",
-  // Acreditacion 9:30, charlas 10:00 a 18:05. Lo fijo la grilla del 30/08:
-  // el material anterior decia "puertas y stands desde las 8:30", que era una
-  // hora antes y no coincidia con ningun bloque.
-  horario: "10 a 18",
+  // Dos ventanas distintas, y hacen falta las dos.
+  //
+  // `horario` es el evento: arranca 9:30 con la acreditacion y los stands ya
+  // abiertos, y cierra 18:00. Es lo que leen el .ics y el JSON-LD, asi que el
+  // que se lo agenda llega cuando empieza y no con la acreditacion terminada.
+  //
+  // `horarioCharlas` es el escenario: el primer bloque es 10:00. Escribir
+  // "charlas de 9:30" mandaria a la sala a gente que todavia tiene que
+  // acreditarse.
+  //
+  // La grilla del 30/08 fijo las dos. El material anterior decia "puertas y
+  // stands desde las 8:30", que era una hora antes y no coincidia con ningun
+  // bloque.
+  horario: "9:30 a 18",
+  horarioCharlas: "10 a 18",
   puertas: "9:30",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
@@ -274,7 +285,7 @@ export const TEMAS = [
   {
     id: "panel",
     tramo: "cierre",
-    dur: 45,
+    dur: 40,
     hora: "17:20",
     tipo: "panel",
     titulo: "Cada proveedor jura que su parte funciona. El conjunto no.",
@@ -322,7 +333,7 @@ export const ESTADOS_BLOQUE = {
  */
 export const PAUSAS = {};
 /**
- * Las dos puntas del día. Estas sí publican hora: 9:30 y 18:05 ya están al
+ * Las dos puntas del día. Estas sí publican hora: 9:30 y 18:00 ya están al
  * aire en la sección del lugar y en EVENTO.horario.
  */
 export const BORDES = {
@@ -336,7 +347,7 @@ export const BORDES = {
   cierre: {
     id: "cierre",
     tipo: "cierre",
-    hora: "18:05",
+    hora: "18:00",
     titulo: "Networking de cierre",
     detalle: "La sala queda abierta hasta que se corta el evento.",
   },
@@ -534,7 +545,7 @@ export const FAQ = [
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horario}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de GastroTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de GastroTech es aparte.`,
+    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de GastroTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de GastroTech es aparte.`,
   },
 ];
 

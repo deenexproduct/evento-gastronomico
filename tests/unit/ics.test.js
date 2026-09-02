@@ -65,8 +65,14 @@ describe("archivo .ics", () => {
     // mañana cambia el horario, el test acompaña en vez de mentir.
     // Calculado con setHours, una máquina fuera de -03 daba otra duración
     // —o el fin antes del inicio.
-    const [abre, cierra] = EVENTO.horario.match(/\d{1,2}/g).map(Number);
-    expect((fin - inicio) / 3600000).toBe(cierra - abre);
+    // En minutos y no con \d{1,2} suelto: "9:30 a 18" daba [9, 30, 18] y el
+    // test comparaba contra 30 menos 9 sin que nadie lo notara.
+    const enMinutos = (m) => {
+      const [hh, mm] = m.split(":");
+      return Number(hh) * 60 + Number(mm || 0);
+    };
+    const [abre, cierra] = EVENTO.horario.match(/\d{1,2}(?::\d{2})?/g).map(enMinutos);
+    expect((fin - inicio) / 60000).toBe(cierra - abre);
     expect(fin > inicio).toBe(true);
   });
 
