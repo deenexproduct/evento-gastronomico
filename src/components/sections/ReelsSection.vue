@@ -11,7 +11,7 @@
   <section v-if="hayReels" id="reels" class="py-seccion">
     <div class="contenedor">
       <p class="rotulo text-gris">De qué se trata</p>
-      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5.6vw,3.2rem)]">
+      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Alan lo cuenta en un minuto
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">

@@ -12,7 +12,7 @@
           -->
           <template v-if="encabezado">
           <p class="rotulo text-gris">Seis cosas</p>
-          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.9rem,5vw,3.2rem)]">
+          <h2 class="titulo mt-5 max-w-[16ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
             Qué te llevás del evento.
           </h2>
           </template>

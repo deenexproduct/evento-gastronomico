@@ -21,7 +21,7 @@
 
       <p v-if="rotulo" class="rotulo mt-6 text-acento-texto">{{ rotulo }}</p>
 
-      <h1 class="titulo mt-4 max-w-[18ch] text-[clamp(2.1rem,6vw,3.6rem)]">
+      <h1 class="titulo mt-4 max-w-[18ch] text-[clamp(1.7rem,5.2vw,3.1rem)]">
         <slot name="titulo">{{ titulo }}</slot>
       </h1>
 

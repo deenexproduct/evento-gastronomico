@@ -2,7 +2,7 @@
   <section id="partners" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Sponsors</p>
-      <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(2rem,5.6vw,3.4rem)]">
+      <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Quiénes vienen y qué traen
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">

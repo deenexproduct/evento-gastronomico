@@ -15,7 +15,7 @@
   <section id="jornada" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">La jornada</p>
-      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5.2vw,3.1rem)]">
+      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Once bloques, ninguno de teoría
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">

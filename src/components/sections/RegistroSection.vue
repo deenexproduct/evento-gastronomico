@@ -19,7 +19,7 @@
             {{ agotado ? "Lista de espera" : "Reservá tu lugar" }}
           </p>
 
-          <h2 class="titulo mt-4 text-[clamp(2rem,5.6vw,3.4rem)]">
+          <h2 class="titulo mt-4 text-[clamp(1.4rem,4.4vw,2.85rem)]">
             <template v-if="agotado">La sala se llenó. Anotate igual.</template>
             <template v-else>Un mensaje y tu lugar queda tomado.</template>
           </h2>

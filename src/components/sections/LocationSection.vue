@@ -9,7 +9,7 @@
       <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div>
           <p class="rotulo text-gris">Cómo llegar</p>
-          <h2 class="titulo mt-4 text-[clamp(1.9rem,5.6vw,3.2rem)]">
+          <h2 class="titulo mt-4 text-[clamp(1.4rem,4.4vw,2.85rem)]">
             {{ EVENTO.venue }}, Córdoba
           </h2>
           <p class="mt-5 max-w-[44ch] text-[17px] text-gris">

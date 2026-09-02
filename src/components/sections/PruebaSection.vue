@@ -9,7 +9,7 @@
     <div class="contenedor">
       <template v-if="encabezado">
       <p class="rotulo text-gris">Quién organiza</p>
-      <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(2rem,6vw,3.5rem)]">
+      <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Las marcas nos venían pidiendo este día.
       </h2>
       </template>

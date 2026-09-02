@@ -13,7 +13,7 @@
   <section id="donde" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Dónde y a qué hora</p>
-      <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.9rem,5vw,3rem)]">
+      <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Un salón propio, con entrada por lista
       </h2>
 

@@ -24,7 +24,7 @@
         <div class="relative">
           <p class="rotulo text-acento-texto">Fuera de programa</p>
 
-          <h2 class="titulo mt-4 max-w-[17ch] text-[clamp(1.9rem,5vw,3rem)]">
+          <h2 class="titulo mt-4 max-w-[17ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
             Ese día también se graba el podcast
           </h2>
 

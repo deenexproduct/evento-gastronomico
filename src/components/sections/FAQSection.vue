@@ -8,7 +8,7 @@
     <div :class="enPie ? '' : 'contenedor'">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <h2 class="titulo max-w-[14ch] text-[clamp(1.9rem,3.6vw,2.8rem)]">
+          <h2 class="titulo max-w-[14ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
             Preguntas frecuentes
           </h2>
         </div>

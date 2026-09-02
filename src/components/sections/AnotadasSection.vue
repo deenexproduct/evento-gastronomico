@@ -13,7 +13,7 @@
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <p class="rotulo text-gris">Ya confirmaron</p>
-          <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(2rem,5.6vw,3.4rem)]">
+          <h2 class="titulo mt-4 max-w-[16ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
             Quiénes van a estar en la sala
           </h2>
         </div>

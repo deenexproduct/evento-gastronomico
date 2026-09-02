@@ -23,7 +23,7 @@
             párrafo de al lado y encima rompía en cinco líneas, dejando media
             columna derecha en blanco. El titular enmarca, el párrafo detalla.
           -->
-          <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(2rem,6vw,3.6rem)]">
+          <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
             Un día de tendencias e innovación para tu cadena.
           </h2>
         </div>

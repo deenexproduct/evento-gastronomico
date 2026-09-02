@@ -14,7 +14,7 @@
   <section id="bloques" class="border-y border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Si querés más</p>
-      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5vw,3rem)]">
+      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Cinco respuestas, sin salir de acá
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">

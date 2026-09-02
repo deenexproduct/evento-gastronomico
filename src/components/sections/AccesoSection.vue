@@ -8,7 +8,7 @@
   <section id="acceso" class="border-b border-linea bg-noche-3 py-seccion">
     <div class="contenedor">
       <p class="rotulo text-center text-acento-texto">Los lugares</p>
-      <h2 class="titulo mt-4 text-center text-[clamp(2rem,6vw,3.5rem)]">
+      <h2 class="titulo mt-4 text-center text-[clamp(1.4rem,4.4vw,2.85rem)]">
         Hay lugar hasta que se llene
       </h2>
       <p class="lectura mx-auto mt-5 text-center text-[17px] text-gris">
