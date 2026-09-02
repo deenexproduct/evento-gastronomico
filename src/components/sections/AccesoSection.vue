@@ -7,8 +7,14 @@
   -->
   <section id="acceso" class="border-b border-linea bg-noche-3 py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-center text-acento-texto">Edición 01</p>
-      <h2 class="titulo mt-4 text-center text-[clamp(2rem,6vw,3.5rem)]">Asegurá tu lugar</h2>
+      <p class="rotulo text-center text-acento-texto">Los lugares</p>
+      <h2 class="titulo mt-4 text-center text-[clamp(2rem,6vw,3.5rem)]">
+        Hay lugar hasta que se llene
+      </h2>
+      <p class="lectura mx-auto mt-5 text-center text-[17px] text-gris">
+        No hay fecha de cierre: las reservas quedan abiertas mientras haya
+        sillas. Cuando se completan las {{ total }}, se abre la lista de espera.
+      </p>
       <p class="mx-auto mt-5 max-w-[52ch] text-center text-[17px] text-gris">
         La entrada no tiene costo. Lo que es limitado es el salón: entran {{ total }} personas y cuando se
         llena, se cierran las reservas.

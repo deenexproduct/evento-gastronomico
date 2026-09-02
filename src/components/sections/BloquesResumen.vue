@@ -78,6 +78,7 @@ import { ref, shallowRef } from "vue";
 import { BLOQUES } from "@/data/evento";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
+import AccesoSection from "@/components/sections/AccesoSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
 import PruebaSection from "@/components/sections/PruebaSection.vue";
@@ -90,7 +91,10 @@ import PruebaSection from "@/components/sections/PruebaSection.vue";
 const SECCIONES = shallowRef({
   "/que-es": QueEsSection,
   "/beneficios": ElLunesSection,
-  "/deadline": RegistroSection,
+  // Contesta la pregunta que da nombre al bloque: cuántos lugares se tomaron,
+  // cuántos quedan y qué pasa cuando se llene. Montaba el panel de reserva,
+  // que dice cómo se reserva y no hasta cuándo.
+  "/deadline": AccesoSection,
   "/participan": BrandsSection,
   "/organiza": PruebaSection,
 }).value;

@@ -13,6 +13,8 @@
     </CabeceraVista>
 
     <AnotadasSection />
+    <AccesoSection />
+
     <RegistroSection />
     <SiguienteBloque />
   </div>
@@ -22,5 +24,6 @@
 import CabeceraVista from "@/components/layout/CabeceraVista.vue";
 import SiguienteBloque from "@/components/layout/SiguienteBloque.vue";
 import AnotadasSection from "@/components/sections/AnotadasSection.vue";
+import AccesoSection from "@/components/sections/AccesoSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 </script>

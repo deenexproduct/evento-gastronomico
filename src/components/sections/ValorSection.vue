@@ -17,13 +17,13 @@
   <section id="valor" class="py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Cómo es el día</p>
-      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(2rem,5.6vw,3.5rem)]">
-        Un evento de veinte mil personas. Una sala de doscientas.
+      <h2 class="titulo mt-4 max-w-[17ch] text-[clamp(2rem,5.6vw,3.5rem)]">
+        Así es el día, de la puerta al cierre
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
         GastroTech pasa adentro del Hotel Quinto Centenario, el mismo día que Córdoba Corazón de
-        Moda ocupa el resto del centro de convenciones. Vos entrás a los dos, pero la jornada se
-        hace en un salón propio con entrada por lista.
+        Moda ocupa el resto del centro de convenciones. Entrás a los dos con la misma
+        acreditación, y la jornada se hace en un salón propio.
       </p>
 
       <ol class="ruta mt-14 sm:mt-16">
@@ -77,26 +77,26 @@ import { NO_ES } from "@/data/evento";
 const hitos = [
   {
     r: "Al llegar",
-    t: "El edificio, lleno",
-    d: "Ese fin de semana el centro de convenciones recibe Córdoba Corazón de Moda: pasarela, diseño y marcas, con circulación durante todo el día. Tu acreditación de GastroTech te habilita ese evento también, sin trámite aparte.",
-    dato: "Más de 20.000 personas circulando por el edificio",
+    t: "Llegás a un edificio en movimiento",
+    d: "Ese fin de semana el centro de convenciones recibe Córdoba Corazón de Moda: pasarela, diseño y marcas, con gente circulando todo el día. Tu acreditación de GastroTech te habilita ese evento también, sin trámite aparte.",
+    dato: "Más de 20.000 personas ese fin de semana",
   },
   {
     r: "Adentro",
-    t: "Un salón propio, y sólo para los que reservaron",
-    d: "La jornada no se hace en el pasillo: es una sala aparte con entrada por lista, sin público general. Dueños, socios y gerentes generales de cadenas con varios locales. Con quién te sentás es tan parte del día como quién habla.",
+    t: "Y entrás a una sala tranquila",
+    d: "La jornada tiene su propio salón, con entrada por lista y sin público general. Alrededor tuyo hay dueños, socios y gerentes generales de cadenas con varios locales: con quién te sentás es tan parte del día como quién habla.",
     dato: "200 lugares · entrada por lista",
   },
   {
     r: "Durante el día",
-    t: "Los proveedores del rubro, comparados de una",
-    d: "Un lugar por rubro y cada empresa manda a quien decide. Ves el sistema andando, preguntás por tu caso y comparás en una jornada lo que de otra forma son meses de reuniones sueltas. Track único: nadie se pierde nada por elegir mal.",
-    dato: "Diez rubros, una empresa por rubro",
+    t: "Ves a todos los proveedores el mismo día",
+    d: "Un lugar por rubro, y cada empresa manda a quien decide. Ves el sistema funcionando, preguntás por tu caso y comparás en una tarde lo que si no son meses de reuniones sueltas. Un solo escenario: no hay que elegir entre salas.",
+    dato: "Diez rubros, una empresa cada uno",
   },
   {
     r: "A puertas cerradas",
-    t: "El podcast, entre empresarios",
-    d: "Una conversación grabada sobre lo que la tecnología está moviendo en el rubro: qué mercado se abre, qué conflictos aparecen y cómo responde el negocio. Se hace ese mismo día, adentro del evento.",
+    t: "Y se graba el podcast, entre empresarios",
+    d: "Una charla entre empresarios sobre lo que la tecnología está moviendo en el rubro: qué mercado se abre, qué se pone difícil y cómo responde el negocio. Se graba ese mismo día, adentro del evento.",
     dato: null,
   },
 ];
