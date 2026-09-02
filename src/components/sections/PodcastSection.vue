@@ -10,9 +10,10 @@
   hablar en el escenario, y recién entonces se le cuenta que además hay algo
   que no está en la grilla.
 
-  No dice horario. La grilla del 30/08 dejó el podcast fuera del programa y
-  todavía no tiene franja ni conductor: publicar una hora sería prometer algo
-  que no está decidido.
+  Dice que Alan está, y nada más sobre quiénes: es lo único confirmado. La
+  grilla del 30/08 dejó el podcast fuera del programa y todavía no tiene
+  franja, ni conductor, ni los otros invitados — publicar una hora o un nombre
+  sería prometer algo que no está decidido.
 -->
 <template>
   <section id="podcast" class="py-seccion">
@@ -28,9 +29,10 @@
           </h2>
 
           <p class="mt-6 max-w-[56ch] text-[1.05rem] leading-[1.6] text-gris">
-            Una charla entre empresarios, a puertas cerradas, sobre lo que la tecnología está
-            moviendo en el rubro: qué mercado se abre, qué se pone difícil y cómo responde el
-            negocio. No es una entrevista ni una charla del escenario.
+            <span class="texto-deenex font-bold">Alan Tapia</span> se sienta con otros empresarios
+            del rubro, a puertas cerradas, a hablar de lo que la tecnología está moviendo: qué
+            mercado se abre, qué se pone difícil y cómo responde el negocio. No es una entrevista
+            ni una charla del escenario.
           </p>
 
           <ul class="mt-8 grid gap-3 sm:grid-cols-3">
@@ -47,10 +49,12 @@
 </template>
 
 <script setup>
+/* Los tres puntos no repiten lo que ya dice el párrafo de arriba: Alan y el
+   "a puertas cerradas" están ahí, así que acá va lo que falta. */
 const puntos = [
-  "Entre empresarios del rubro",
-  "A puertas cerradas, grabado",
-  "Sale después por los canales de Deenex",
+  "Entre pares, sin escenario",
+  "Se graba ese mismo día",
+  "Después sale por los canales de Deenex",
 ];
 </script>
 
