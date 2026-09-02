@@ -221,22 +221,32 @@ function ir(id) {
     permanente no se lee.
   · con prefers-reduced-motion no arranca y queda GastroTech fijo.
 */
-const QUIETO = 4200; // lo que dura cada palabra legible
-const CRUCE = 900; // lo que tarda el cruce, y lo que dura el humo
+const QUIETO = 4600; // lo que dura cada palabra legible
+const ANTICIPO = 380; // el humo entra ANTES del cambio y lo cubre
+const CRUCE = 1500; // lo que queda encendido después del cambio
 
 const enDeenex = ref(false);
 const mutando = ref(false);
 let tQuieto = null;
+let tCambio = null;
 let tCruce = null;
 
+/*
+  El orden importa y es lo que hacía que el cambio se viera brusco: el humo y
+  el texto arrancaban juntos, así que la palabra ya se había ido cuando la
+  nube recién empezaba a formarse. Ahora el humo entra primero, y el texto
+  cambia cuando la nube ya está: el ojo ve una disolución, no un corte.
+*/
 function alternar() {
   tQuieto = setTimeout(() => {
     mutando.value = true;
-    enDeenex.value = !enDeenex.value;
-    tCruce = setTimeout(() => {
-      mutando.value = false;
-      alternar();
-    }, CRUCE);
+    tCambio = setTimeout(() => {
+      enDeenex.value = !enDeenex.value;
+      tCruce = setTimeout(() => {
+        mutando.value = false;
+        alternar();
+      }, CRUCE);
+    }, ANTICIPO);
   }, QUIETO);
 }
 
@@ -246,6 +256,7 @@ onMounted(() => {
 });
 onUnmounted(() => {
   clearTimeout(tQuieto);
+  clearTimeout(tCambio);
   clearTimeout(tCruce);
 });
 </script>
@@ -265,7 +276,10 @@ onUnmounted(() => {
 }
 .capa {
   grid-area: 1 / 1;
-  transition: opacity 0.75s ease, filter 0.75s ease, transform 0.75s ease;
+  transition:
+    opacity 1.05s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 1.05s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.05s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 .capa-abs {
@@ -279,8 +293,8 @@ onUnmounted(() => {
    y no como un apagón. */
 .capa-fuera {
   opacity: 0;
-  filter: blur(14px);
-  transform: translateY(-0.06em) scale(0.985);
+  filter: blur(9px);
+  transform: translateY(-0.035em) scale(0.992);
   pointer-events: none;
 }
 /* "by" va en el cuerpo y en gris: es una preposición, no parte del nombre. */
@@ -311,7 +325,7 @@ onUnmounted(() => {
     radial-gradient(45% 55% at 30% 50%, color-mix(in srgb, var(--acento, #695ede) 42%, transparent), transparent 70%),
     radial-gradient(40% 50% at 68% 45%, color-mix(in srgb, var(--acento, #695ede) 30%, transparent), transparent 72%);
   filter: blur(38px);
-  transition: opacity 0.45s ease, transform 0.9s ease;
+  transition: opacity 0.6s ease-out, transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .humo-activo {
   opacity: 1;

@@ -27,7 +27,13 @@
       </p>
 
       <ol class="ruta mt-14 sm:mt-16">
-        <li v-for="(h, i) in hitos" :key="h.t" class="hito">
+        <li
+          v-for="(h, i) in hitos"
+          :key="h.t"
+          class="hito"
+          :class="{ alcanzado: alcanzados[i] }"
+          :ref="(el) => (nodos[i] = el)"
+        >
           <span class="hito-marca" aria-hidden="true">
             <span class="hito-punto"></span>
           </span>
@@ -66,6 +72,8 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+
 import { NO_ES } from "@/data/evento";
 
 /*
@@ -100,6 +108,56 @@ const hitos = [
     dato: null,
   },
 ];
+
+/*
+  El recorrido se enciende a medida que se lo lee.
+
+  Cada hito toma color cuando llega al tercio superior de la pantalla, y se
+  queda encendido: el lector ve por dónde va y cuánto le falta, que es lo que
+  convierte cuatro bloques en un camino. No se apaga al volver hacia arriba —
+  un recorrido que se borra al retroceder confunde en vez de orientar.
+
+  Con prefers-reduced-motion entra todo encendido de una: la información es la
+  misma, sin el movimiento.
+*/
+const nodos = ref([]);
+const alcanzados = ref(hitos.map(() => false));
+let observador = null;
+
+onMounted(() => {
+  const quieto = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  if (quieto || !("IntersectionObserver" in window)) {
+    alcanzados.value = hitos.map(() => true);
+    return;
+  }
+
+  observador = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const i = nodos.value.indexOf(e.target);
+        if (i > -1) alcanzados.value[i] = true;
+        observador.unobserve(e.target);
+      });
+    },
+    // -32% abajo: el hito se enciende cuando llegó al tercio superior, no
+    // apenas asoma por el borde inferior de la pantalla.
+    { rootMargin: "0px 0px -45% 0px", threshold: 0 }
+  );
+  nodos.value.forEach((n) => n && observador.observe(n));
+
+  /*
+    La red de seguridad iba a los 2,6 segundos y encendía el recorrido entero
+    antes de que nadie llegara a leerlo: el efecto no existía para el que
+    scrollea a ritmo normal. Ahora sólo cubre el caso real —que el observer
+    nunca dispare— y espera lo suficiente como para no pisarlo.
+  */
+  setTimeout(() => {
+    if (alcanzados.value.every((a) => !a)) alcanzados.value = hitos.map(() => true);
+  }, 12000);
+});
+
+onUnmounted(() => observador?.disconnect());
 </script>
 
 <style scoped>
@@ -115,6 +173,15 @@ const hitos = [
 }
 
 .hito {
+  /* El estado del hito viaja por variables, no por reglas que compiten:
+     una sola declaración por elemento y el color lo decide el <li>. */
+  --punto-borde: var(--linea-fuerte, #d5d0e4);
+  --punto-fondo: var(--papel, #fff);
+  --punto-escala: 1;
+  --linea-avance: 0;
+  --cuerpo-op: 0;
+  --cuerpo-y: 10px;
+
   position: relative;
   display: grid;
   grid-template-columns: 2rem 1fr;
@@ -140,23 +207,63 @@ const hitos = [
   position: absolute;
   top: 1.5rem;
   bottom: -0.45rem;
-  width: 1px;
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--acento, #695ede) 35%, transparent),
-    color-mix(in srgb, var(--acento, #695ede) 8%, transparent)
-  );
+  width: 2px;
+  border-radius: 2px;
+  background: var(--linea, #e7e4f0);
+}
+/*
+  El tramo de color se dibuja encima del gris y crece de arriba abajo. Es
+  `transform` y no `height` a propósito: la altura obliga al navegador a
+  recalcular el layout en cada cuadro, y esto corre en el compositor.
+*/
+.hito:not(:last-child) .hito-marca::before {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  bottom: -0.45rem;
+  width: 2px;
+  border-radius: 2px;
+  z-index: 1;
+  background: var(--acento, #695ede);
+  transform: scaleY(var(--linea-avance));
+  transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hito.alcanzado {
+  --punto-borde: var(--acento, #695ede);
+  --punto-fondo: var(--acento, #695ede);
+  --punto-escala: 1.15;
+  --linea-avance: 1;
+  --cuerpo-op: 1;
+  --cuerpo-y: 0px;
 }
 
 .hito-punto {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 999px;
-  border: 2px solid var(--acento, #695ede);
-  background: var(--papel, #fff);
+  border: 2px solid var(--punto-borde);
+  background: var(--punto-fondo);
+  transform: scale(var(--punto-escala));
   flex-shrink: 0;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  /* Al llegar se rellena y crece apenas: el acuse de recibo de que el lector
+     pasó por acá. */
+  transition: border-color 0.4s ease, background-color 0.4s ease, transform 0.4s ease;
+}
+
+/* El texto entra con el punto, no antes: si el bloque ya se leyó y el punto
+   todavía está gris, el encendido llega tarde y se nota. */
+.hito > div {
+  opacity: var(--cuerpo-op);
+  transform: translateY(var(--cuerpo-y));
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hito { --cuerpo-op: 1; --cuerpo-y: 0px; }
+  .hito > div, .hito-punto, .hito:not(:last-child) .hito-marca::before { transition: none; }
 }
 
 .hito-rotulo {
