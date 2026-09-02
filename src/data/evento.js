@@ -579,7 +579,10 @@ export const REELS = [
 ];
 
 
-export const WHATSAPP_ORGANIZADOR = "5491154596266";
+// El número por el que entra toda la convocatoria. Formato wa.me: sin +, sin
+// espacios y con el 9 de celular. Es el único lugar donde vive: los cinco
+// mensajes y los seis botones lo toman de acá.
+export const WHATSAPP_ORGANIZADOR = "5491133302145";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mensajes de WhatsApp.
@@ -674,6 +677,9 @@ export const MENSAJES_WA = {
   registro: mensajeReserva(),
   partner:
     `QUIERO SER SPONSOR DE GASTROTECH\n\nHola Alan! Me interesa participar como sponsor del evento del ${EVENTO.fechaSinDia}.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:`,
+  // El del tablero de rubros arranca por el rubro, que es lo que ahí se está
+  // mirando; el de "sumate de otra forma" es el genérico.
+  rubro: `QUIERO UN RUBRO DE GASTROTECH\n\nHola! Vi que quedan rubros libres para el ${EVENTO.fechaSinDia} y quiero saber si el mío está disponible.\n\nMarca:\nRubro que nos interesa:\nA qué nos dedicamos:`,
   prensa:
     `PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del ${EVENTO.fechaSinDia}.\n\nMedio:\nMi nombre:\nQué necesitaría:`,
   consulta:

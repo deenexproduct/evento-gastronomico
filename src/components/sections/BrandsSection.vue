@@ -83,5 +83,5 @@ const partners = PARTNERS.map((p) => {
   return { ...p, src: clave ? archivos[clave] : "" };
 });
 
-const whatsappPartners = linkWa("partner");
+const whatsappPartners = linkWa("rubro");
 </script>

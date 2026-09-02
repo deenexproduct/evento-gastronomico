@@ -126,7 +126,13 @@
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#reservar" class="btn" @click.prevent="ir('reservar')">{{
+            <!--
+              Abre WhatsApp directo. Antes hacía scroll hasta el panel de
+              reserva —ocho pantallas— y ahí había OTRO botón que recién
+              entonces abría el chat: tres toques para una acción que el
+              lector cree que es una.
+            -->
+            <a :href="enlaceReserva" target="_blank" rel="noopener noreferrer" class="btn">{{
               agotado ? "Entrar a la lista" : "Quiero mi lugar"
             }}</a>
             <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
@@ -177,12 +183,13 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from "vue";
-import { EVENTO } from "@/data/evento";
+import { EVENTO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRelojEvento } from "@/composables/useCuentaRegresiva";
 
 const { total, ocupados, porcentaje, agotado, mostrarCupo } = useCupo();
 const { restante } = useRelojEvento();
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 // El orden importa y es de mayor a menor: es como se lee un reloj.
 const unidades = computed(() => [

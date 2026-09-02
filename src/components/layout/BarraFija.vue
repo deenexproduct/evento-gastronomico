@@ -42,9 +42,10 @@
         </div>
 
         <a
-          href="#reservar"
+          :href="enlaceReserva"
+          target="_blank"
+          rel="noopener noreferrer"
           class="presionable inline-flex min-h-[44px] shrink-0 items-center rounded-full bg-acento-boton px-5 text-[0.85rem] font-semibold text-white transition-colors hover:bg-deenex-hover sm:px-6"
-          @click.prevent="ir"
         >
           {{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}
         </a>
@@ -54,8 +55,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { EVENTO } from "@/data/evento";
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { EVENTO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { barraVisible as visible } from "@/composables/useBarraReserva";
 

@@ -33,7 +33,29 @@
 
       </div>
 
-      <p class="mt-10 pt-6 text-[12px] tracking-[0.08em] text-gris-2">
+      <!--
+        El contacto, que se había perdido al reordenar el pie. Es la única
+        salida a WhatsApp que no pide nada: para el que tiene una duda y no
+        quiere reservar todavía.
+      -->
+      <nav class="mt-8 flex flex-wrap items-center gap-x-6" aria-label="Contacto">
+        <a
+          :href="whatsappConsulta"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
+          >Escribinos por WhatsApp<span class="sr-only"> (abre en una pestaña nueva)</span></a
+        >
+        <a
+          href="https://deenex.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex min-h-[44px] items-center text-[0.9rem] text-gris transition-colors hover:text-acento-texto"
+          >deenex.tech<span class="sr-only"> (abre en una pestaña nueva)</span></a
+        >
+      </nav>
+
+      <p class="mt-8 pt-6 text-[12px] tracking-[0.08em] text-gris-2">
         © {{ anio }} Deenex.tech · {{ EVENTO.ciudad }}
       </p>
     </div>
@@ -41,9 +63,10 @@
 </template>
 
 <script setup>
-import { EVENTO } from "@/data/evento";
+import { EVENTO, linkWa } from "@/data/evento";
 
 const anio = new Date().getFullYear();
+const whatsappConsulta = linkWa("consulta");
 </script>
 
 <style scoped>
