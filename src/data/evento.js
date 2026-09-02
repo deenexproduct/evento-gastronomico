@@ -594,7 +594,6 @@ export const WHATSAPP_ORGANIZADOR = "5491133302145";
 /**
  * El mensaje de reserva. Es todo lo que queda del formulario.
  *
- * Los renglones en blanco son los campos que antes se tipeaban en la página.
  * El orden importa: en el celular la caja de texto de WhatsApp muestra las
  * primeras líneas y el resto hay que scrollearlo, así que primero va lo que ya
  * viene resuelto y después lo que hay que completar.
@@ -605,85 +604,39 @@ export const WHATSAPP_ORGANIZADOR = "5491133302145";
  * · publicar — se pregunta en la conversación, que deja el sí por escrito con
  *              nombre y fecha: mejor consentimiento que un checkbox.
  */
-export function mensajeReserva({ locales = "", temas = [], personas = 1, agotado = false } = {}) {
-  const lineas = agotado
-    ? [
-        "GASTROTECH · LISTA DE ESPERA",
-        "",
-        `Hola Alan! Sé que la sala está llena. Quiero quedar en la lista por si se libera un lugar el ${EVENTO.fechaLarga.toLowerCase().replace(" de 2026", "")}.`,
-        "",
-      ]
-    : [
-        "GASTROTECH · QUIERO IR",
-        "",
-        `Hola Alan! Quiero mi lugar para el ${EVENTO.fechaLarga.toLowerCase().replace(" de 2026", "")} en ${EVENTO.ciudad}.`,
-        "",
-      ];
+/**
+ * El mensaje de reserva, sobre la base única.
+ *
+ * Antes traía un rótulo en mayúsculas y cinco renglones para completar a mano
+ * —nombre, marca, locales, rol, mail—. En el teclado de un teléfono eso son
+ * cinco campos que la mayoría borra antes de mandar, y el dato se perdía
+ * igual. Ahora el mensaje se manda de una y los datos se piden en la
+ * conversación, que es donde contestar cuesta un toque.
+ */
+/**
+ * Con quién se habla del otro lado. Está en una constante porque aparece en
+ * los seis mensajes: si cambia la persona que atiende, cambia acá y nada más.
+ */
+const SALUDO = "Hola Romina!";
 
-  // Cuántos van. Con cupo duro de 200 es el dato operativo que hoy no se
-  // pregunta en ningún lado: sin esto, 200 mensajes son 200 personas y en la
-  // puerta aparecen 260. Solo se escribe si no es 1, que es el default: un
-  // renglón "Vamos 1" no informa nada y ocupa la primera pantalla del chat.
-  if (personas > 1) lineas.push(`Vamos ${personas} (yo + ${personas - 1} de mi equipo)`);
-
-  lineas.push(
-    "Nombre:",
-    "Marca:",
-    "Cuántos locales tengo:",
-    "Mi rol:",
-    // El paréntesis no es adorno: un renglón que dice solo "Mail:" se saltea.
-    // Con la razón adentro se completa, y el mail es el dato más frágil que
-    // queda ahora que no hay formulario.
-    "Mi mail (ahí me mandan la grilla final):"
-  );
-
-  // El tema es el renglón que convierte una plantilla en una conversación. No
-  // entra en la lista de espera: preguntarle el tema a alguien que no entra es
-  // una falta de respeto.
-  // El renglón del tema llega en blanco en el 100% de los mensajes: nadie
-  // tipea un tema libre desde el teléfono. Si la persona marcó algo arriba,
-  // sale escrito. El prefijo NO cambia —los tests lo verifican por toContain—
-  // y con la lista vacía el string es idéntico al de siempre.
-  if (!agotado) {
-    lineas.push(
-      "",
-      temas.length
-        ? `Me interesaría que se hable de: ${temas.join(" · ")}`
-        : "Me interesaría que se hable de:"
-    );
-  }
-
-  return lineas.join("\n");
+export function mensajeReserva({ agotado = false } = {}) {
+  return agotado
+    ? `${SALUDO} Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`
+    : `${SALUDO} Quiero reservar mi lugar para el evento del ${EVENTO.fechaSinDia}.`;
 }
 
 /** El enlace de reserva, listo para abrir. */
-/**
- * Cuantos renglones en blanco trae el mensaje de reserva.
- *
- * La pagina lo dice en voz alta antes de que la persona toque el boton, y
- * decia "cuatro" cuando eran seis: el que abria WhatsApp encontraba mas
- * trabajo del prometido justo en el paso donde se decide. Contarlo del
- * mensaje real es lo unico que evita que los dos vuelvan a separarse.
- */
-export const RENGLONES_RESERVA = mensajeReserva()
-  .split("\n")
-  .filter((linea) => linea.trim().endsWith(":")).length;
-
 export function linkWaReserva(opciones) {
   return `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(mensajeReserva(opciones))}`;
 }
 
 export const MENSAJES_WA = {
   registro: mensajeReserva(),
-  partner:
-    `QUIERO SER SPONSOR DE GASTROTECH\n\nHola Alan! Me interesa participar como sponsor del evento del ${EVENTO.fechaSinDia}.\n\nMarca:\nA qué nos dedicamos:\nQué nos interesaría aportar:`,
-  // El del tablero de rubros arranca por el rubro, que es lo que ahí se está
-  // mirando; el de "sumate de otra forma" es el genérico.
-  rubro: `QUIERO UN RUBRO DE GASTROTECH\n\nHola! Vi que quedan rubros libres para el ${EVENTO.fechaSinDia} y quiero saber si el mío está disponible.\n\nMarca:\nRubro que nos interesa:\nA qué nos dedicamos:`,
-  prensa:
-    `PRENSA · ACREDITACIÓN GASTROTECH\n\nHola Alan! Quiero acreditarme para cubrir el evento del ${EVENTO.fechaSinDia}.\n\nMedio:\nMi nombre:\nQué necesitaría:`,
-  consulta:
-    `CONSULTA GASTROTECH\n\nHola! Tengo una consulta sobre el evento del ${EVENTO.fechaSinDia}:\n\n`,
+  partner: `${SALUDO} Me interesa participar como sponsor del evento del ${EVENTO.fechaSinDia}.`,
+  // El del tablero pregunta por el rubro, que es lo que ahí se está mirando.
+  rubro: `${SALUDO} Quiero consultar por un rubro libre del evento del ${EVENTO.fechaSinDia}.`,
+  prensa: `${SALUDO} Quiero acreditarme como prensa para el evento del ${EVENTO.fechaSinDia}.`,
+  consulta: `${SALUDO} Tengo una consulta sobre el evento del ${EVENTO.fechaSinDia}.`,
 };
 
 /** Arma el enlace listo para abrir. */

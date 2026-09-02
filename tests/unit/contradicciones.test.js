@@ -27,6 +27,14 @@ function leer(nombre) {
  * cerrar en un archivo se come el texto de los que vienen atrás, y el conteo
  * da de menos sin avisar. Me pasó escribiendo este test: contaba 2 donde hay 4.
  */
+/** Todo el texto publicado, para chequear promesas que ya no viajan en el mensaje. */
+function leerTodo() {
+  return readdirSync(SECCIONES)
+    .filter((n) => n.endsWith(".vue"))
+    .map((n) => leer(n))
+    .join("\n");
+}
+
 function sinComentarios(txt) {
   return txt
     .replace(/<!--[\s\S]*?-->/g, " ")
@@ -78,7 +86,7 @@ describe("la reserva", () => {
     // WhatsApp, y el diferenciador se desarma veinte píxeles más abajo.
     const registro = leer("RegistroSection.vue");
     const parrafos = registro.split(/<\/p>/);
-    const conCuenta = parrafos.filter((p) => p.includes("RENGLONES_RESERVA"));
+    const conCuenta = parrafos.filter((p) => p.includes("lo mandás y listo"));
     expect(conCuenta.length).toBeGreaterThan(0);
     for (const p of conCuenta) expect(p).not.toMatch(/sin formulario/i);
   });
@@ -86,10 +94,15 @@ describe("la reserva", () => {
 
 describe("la grilla", () => {
   it("donde se promete como entregable, se aclara que es la final", () => {
-    // La grilla del día está publicada once secciones más arriba, con hora y
-    // título en los siete bloques. Prometerla como premio por reservar sin
-    // decir "final" es prometer algo que el lector ya tiene.
-    expect(MENSAJES_WA.registro).toMatch(/grilla final/i);
+    // La grilla del día está publicada más arriba, con hora y título. Cuando
+    // se la promete como entregable hay que decir "final": prometer "la
+    // grilla" a secas es prometer algo que el lector ya tiene.
+    //
+    // Ya no viaja en el mensaje de WhatsApp —que pasó a una sola línea— sino
+    // en la página, que es donde el lector la lee antes de reservar.
+    const enLaPagina = leerTodo();
+    expect(enLaPagina).toMatch(/grilla final/i);
+    expect(MENSAJES_WA.registro).not.toMatch(/\bla grilla\b(?! final)/i);
 
     const registro = leer("RegistroSection.vue");
     const promesas = registro.match(/La grilla[^"']*/g) || [];

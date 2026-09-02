@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { EVENTO, TEMAS, EL_LUNES, RENGLONES_RESERVA, mensajeReserva } from "@/data/evento";
+import { EVENTO, TEMAS, EL_LUNES, mensajeReserva } from "@/data/evento";
 
 /**
  * Las promesas que la propia página puede desmentir.
@@ -69,17 +69,16 @@ describe("promesas que la página podría desmentir sola", () => {
     expect(textoPublicado()).not.toMatch(/grilla primero/i);
   });
 
-  it("dice tantos renglones como los que el mensaje realmente trae", () => {
-    const enBlanco = mensajeReserva()
-      .split("\n")
-      .filter((l) => l.trim().endsWith(":")).length;
-    expect(RENGLONES_RESERVA).toBe(enBlanco);
-    expect(RENGLONES_RESERVA).toBeGreaterThan(0);
-
-    // Y que nadie vuelva a escribirlo a mano al lado del botón.
-    const registro = readFileSync(join(SRC, "components/sections/RegistroSection.vue"), "utf-8");
-    expect(registro).toMatch(/\{\{ RENGLONES_RESERVA \}\} renglones/);
-    expect(registro).not.toMatch(/(cuatro|cinco|seis|tres) renglones/i);
+  it("no promete renglones que el mensaje ya no trae", () => {
+    // El mensaje pasó a una sola línea: pedía cinco campos a mano y en el
+    // teclado de un teléfono eso se borra antes de mandar. Si vuelve la
+    // promesa sin los campos, la página miente sobre lo que va a pasar.
+    const registro = readFileSync(
+      join(process.cwd(), "src/components/sections/RegistroSection.vue"),
+      "utf-8"
+    );
+    expect(registro).not.toMatch(/renglones y lo mandás/);
+    expect(mensajeReserva().split("\n")).toHaveLength(1);
   });
 
   it("el cupo sigue siendo el que dice ser", () => {

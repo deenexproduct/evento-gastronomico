@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { mensajeReserva, linkWaReserva, WHATSAPP_ORGANIZADOR } from "@/data/evento";
+import {
+  EVENTO,
+  MENSAJES_WA,
+  mensajeReserva,
+  linkWaReserva,
+  WHATSAPP_ORGANIZADOR,
+} from "@/data/evento";
 
 /**
  * El mensaje de WhatsApp es todo lo que queda del formulario de registro.
@@ -7,59 +13,40 @@ import { mensajeReserva, linkWaReserva, WHATSAPP_ORGANIZADOR } from "@/data/even
  * la persona lo manda igual y el dato se pierde en el chat.
  */
 describe("el mensaje de reserva", () => {
-  it("pide los datos que antes pedía el formulario", () => {
+  /*
+    El mensaje pasó a una sola línea sobre una base común: "Hola Romina!
+    <acción> del evento del <fecha>". Antes traía un asunto en mayúsculas y
+    cinco campos para completar a mano —nombre, marca, locales, rol, mail—.
+    En el teclado de un teléfono esos cinco campos se borran antes de mandar
+    y el dato se perdía igual; ahora se piden en la conversación.
+  */
+  it("es una sola línea, sin campos para completar", () => {
     const m = mensajeReserva();
-    expect(m).toContain("Nombre:");
-    expect(m).toContain("Marca:");
-    expect(m).toContain("Cuántos locales tengo:");
-    expect(m).toContain("Mi rol:");
-    expect(m).toContain("Mi mail");
+    expect(m.split("\n")).toHaveLength(1);
+    expect(m).not.toMatch(/:\s*$/);
   });
 
-  it("le da una razón al mail, que es el dato más frágil que queda", () => {
-    // Un renglón que dice solo "Mail:" se saltea. Con la razón adentro se
-    // completa, y sin formulario no hay otra forma de conseguirlo.
-    expect(mensajeReserva()).toMatch(/Mi mail \([^)]+\):/);
+  it("saluda a quien atiende y nombra la fecha real", () => {
+    const m = mensajeReserva();
+    expect(m).toContain("Hola Romina!");
+    expect(m).toContain(EVENTO.fechaSinDia);
   });
 
-  it("arranca con un asunto en mayúsculas para poder filtrar el chat", () => {
-    // Con doscientas conversaciones, saber de qué va cada una sin abrirla
-    // deja de ser un detalle.
-    expect(mensajeReserva().split("\n")[0]).toBe("GASTROTECH · QUIERO IR");
-    expect(mensajeReserva({ agotado: true }).split("\n")[0]).toBe("GASTROTECH · LISTA DE ESPERA");
+  it("la lista de espera dice que es lista de espera", () => {
+    // Si el que no entra manda el mismo texto que el que reserva, del otro
+    // lado se le contesta que tiene lugar.
+    expect(mensajeReserva({ agotado: true })).toMatch(/lista de espera/i);
+    expect(mensajeReserva({ agotado: true })).not.toBe(mensajeReserva());
   });
 
-  it("no le pregunta el tema a quien no entra", () => {
-    expect(mensajeReserva()).toContain("Me interesaría que se hable de:");
-    expect(mensajeReserva({ agotado: true })).not.toContain("Me interesaría");
-  });
-
-  it("escribe cuántos van, y solo cuando son más de uno", () => {
-    // Con cupo duro de 200, doscientos mensajes no son doscientas personas.
-    expect(mensajeReserva({ personas: 3 })).toContain("Vamos 3 (yo + 2 de mi equipo)");
-    // "Vamos 1" no informa nada y se come la primera pantalla del chat.
-    expect(mensajeReserva({ personas: 1 })).not.toContain("Vamos");
-    expect(mensajeReserva()).not.toContain("Vamos");
-    // En la lista de espera SÍ va: son tres lugares que hay que liberar.
-    expect(mensajeReserva({ personas: 2, agotado: true })).toContain("Vamos 2");
-  });
-
-  it("lo resuelto va antes de lo que hay que completar", () => {
-    // En el celular WhatsApp muestra las primeras líneas y el resto hay que
-    // scrollearlo. Si "Vamos 3" cae debajo de los renglones en blanco, la
-    // persona lo borra creyendo que es parte de lo que tiene que llenar.
-    const l = mensajeReserva({ locales: "6 a 15 locales", personas: 3 }).split("\n");
-    expect(l.findIndex((x) => x.startsWith("Vamos"))).toBeLessThan(l.indexOf("Nombre:"));
-    expect(l.findIndex((x) => x.startsWith("Locales:"))).toBeLessThan(l.indexOf("Nombre:"));
-  });
-
-  it("arma un enlace al número del organizador y sobrevive a la codificación", () => {
-    const url = linkWaReserva();
-    expect(url.startsWith(`https://wa.me/${WHATSAPP_ORGANIZADOR}?text=`)).toBe(true);
-    // Las tildes y el · tienen que volver intactos: si se rompen, el mensaje
-    // llega con caracteres raros y parece spam.
-    const texto = decodeURIComponent(url.split("text=")[1]);
-    expect(texto).toContain("GASTROTECH · QUIERO IR");
-    expect(texto).toContain("Mi mail");
+  it("los seis mensajes comparten la base y se diferencian en la acción", () => {
+    const todos = [...Object.values(MENSAJES_WA), mensajeReserva({ agotado: true })];
+    for (const m of todos) {
+      expect(m).toContain("Hola Romina!");
+      expect(m).toContain(EVENTO.fechaSinDia);
+      expect(m.split("\n")).toHaveLength(1);
+    }
+    // Ninguno repetido: cada botón tiene que llegar distinto a la bandeja.
+    expect(new Set(todos).size).toBe(todos.length);
   });
 });

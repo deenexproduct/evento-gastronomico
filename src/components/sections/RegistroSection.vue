@@ -113,9 +113,8 @@
             <p class="rotulo text-acento-texto">Reserva directa</p>
             <h3 class="titulo mt-3 text-[clamp(1.5rem,3.2vw,2rem)]">Se reserva por WhatsApp</h3>
             <p class="mt-4 max-w-[40ch] text-[16px] leading-[1.55] text-gris">
-              Te abrimos el chat con el mensaje ya escrito: completás
-              {{ RENGLONES_RESERVA }} renglones y lo mandás. Del otro lado contesta una persona,
-              no un mail automático.
+              Te abrimos el chat con el mensaje ya escrito: lo mandás y listo. Del otro lado
+              contesta una persona, no un mail automático.
             </p>
 
             <!-- Los tres pasos reemplazan la barra de progreso "1 de 2" y
@@ -180,7 +179,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { linkWaReserva, RENGLONES_RESERVA } from "@/data/evento";
+import { linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
@@ -202,7 +201,7 @@ const INCLUYE = [
 
 const PASOS = [
   "Tocás el botón y se abre WhatsApp con el mensaje ya escrito.",
-  "Completás los renglones en blanco y lo mandás.",
+  "Lo mandás sin escribir nada más.",
   "Te contestamos confirmando, y tu lugar queda tomado.",
 ];
 </script>
