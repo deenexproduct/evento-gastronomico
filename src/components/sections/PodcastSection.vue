@@ -1,10 +1,10 @@
 <!--
   El podcast, con sección propia.
 
-  Venía como un hito más de una lista y como una tarjeta dentro de "qué es":
-  en los dos lugares quedaba al nivel de un dato de logística. Es lo único del
-  día que no le pasa a todo el mundo —se graba a puertas cerradas— así que
-  merece parar el scroll, no compartir fila.
+  Es una pieza de Deenex que se graba adentro del evento, no una actividad más
+  de la grilla: por eso la sección lo dice desde el rótulo —"el podcast de
+  Deenex"— y no como "algo que además pasa ese día". Para el sponsor y para el
+  invitado, estar ahí adentro es parte de lo que se lleva.
 
   Va DESPUÉS de la jornada a propósito: primero el lector sabe qué se va a
   hablar en el escenario, y recién entonces se le cuenta que además hay algo
@@ -22,17 +22,17 @@
         <span class="halo" aria-hidden="true"></span>
 
         <div class="relative">
-          <p class="rotulo text-acento-texto">Fuera de programa</p>
+          <p class="rotulo text-acento-texto">El podcast de Deenex</p>
 
-          <h2 class="titulo mt-4 max-w-[17ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-            Ese día también se graba el podcast
+          <h2 class="titulo mt-4 max-w-[19ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
+            Deenex abre su podcast y lo graba ahí adentro
           </h2>
 
-          <p class="mt-6 max-w-[56ch] text-[1.05rem] leading-[1.6] text-gris">
-            <span class="texto-deenex font-bold">Alan Tapia</span> se sienta con otros empresarios
-            del rubro, a puertas cerradas, a hablar de lo que la tecnología está moviendo: qué
-            mercado se abre, qué se pone difícil y cómo responde el negocio. No es una entrevista
-            ni una charla del escenario.
+          <p class="mt-6 max-w-[58ch] text-[1.05rem] leading-[1.6] text-gris">
+            Una sala privada, dentro del evento, donde
+            <span class="texto-deenex font-bold">Alan Tapia</span>, su CEO y co-fundador, se
+            sienta con empresarios invitados a conversar sobre el impacto de la tecnología en el
+            rubro gastronómico, y sobre lo que va apareciendo alrededor.
           </p>
 
           <ul class="mt-8 grid gap-3 sm:grid-cols-3">
@@ -40,7 +40,7 @@
           </ul>
 
           <p class="mt-7 text-[14px] leading-[1.55] text-gris-2">
-            Se anuncia con la grilla final quiénes se sientan y en qué momento del día.
+            Los invitados y el momento del día se anuncian con la grilla final.
           </p>
         </div>
       </div>
@@ -52,8 +52,8 @@
 /* Los tres puntos no repiten lo que ya dice el párrafo de arriba: Alan y el
    "a puertas cerradas" están ahí, así que acá va lo que falta. */
 const puntos = [
-  "Entre pares, sin escenario",
-  "Se graba ese mismo día",
+  "Sala privada, por invitación",
+  "Conversación entre empresarios",
   "Después sale por los canales de Deenex",
 ];
 </script>

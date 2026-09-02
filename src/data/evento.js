@@ -198,7 +198,7 @@ export const TEMAS = [
     estado: "",
     empresa: "",
     punta:
-      "Stands abiertos y mesa de degustación. Acá termina la mañana y arranca la jornada de la tarde: es la hora larga del día para cruzarse con el resto de la sala sin apuro.",
+      "Stands abiertos y la sala suelta. Acá termina la mañana y arranca la jornada de la tarde: es la hora larga del día para cruzarse con el resto sin apuro.",
     temas: [],
   },
   {
@@ -294,7 +294,7 @@ export const TIPOS_BLOQUE = {
   interactivo: { label: "Con la sala", icono: "gente" },
   networking: { label: "Networking", icono: "gente" },
   panel: { label: "Panel", icono: "mesa" },
-  pausa: { label: "Degustación", icono: "degustacion" },
+  pausa: { label: "Pausa", icono: "degustacion" },
   apertura: { label: "Acreditación", icono: "entrada" },
   cierre: { label: "Networking", icono: "gente" },
 };
@@ -314,7 +314,7 @@ export const ESTADOS_BLOQUE = {
 
 /**
  * Solo los huecos que tienen nombre propio, indexados por la hora que el
- * componente CALCULA. Los que no figuran caen al default "Degustación".
+ * componente CALCULA. Los que no figuran caen al default "Pausa".
  *
  * La duración nunca se declara acá: se resta entre el fin de un bloque y el
  * arranque del siguiente. Si mañana se mueve un horario, la pausa se
@@ -330,8 +330,8 @@ export const BORDES = {
     id: "apertura",
     tipo: "apertura",
     hora: "9:30",
-    titulo: "Acreditación · stands · degustación",
-    detalle: "Te recibimos uno por uno, con los stands y la mesa de degustación ya abiertos.",
+    titulo: "Acreditación y stands abiertos",
+    detalle: "Te recibimos uno por uno, con los stands ya abiertos.",
   },
   cierre: {
     id: "cierre",
@@ -522,7 +522,7 @@ export const FAQ = [
   },
   {
     q: "¿Se come algo durante el día?",
-    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:30 con los stands ya abiertos, degustación entre bloque y bloque —alfajores, aceitunas, humus y café, que pone la mesa de degustación—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
+    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:30 con los stands ya abiertos, algo para picar entre bloque y bloque —alfajores, aceitunas, humus y café—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
   },
   {
     q: "¿Se transmite en vivo?",

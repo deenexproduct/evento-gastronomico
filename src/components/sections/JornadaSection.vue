@@ -51,7 +51,7 @@
               {{ pausaAntes(i).hora }}
             </time>
             <span class="text-[13px] text-gris-2">
-              {{ pausaAntes(i).dur }}′ · Degustación y preparación
+              {{ pausaAntes(i).dur }}′ · Pausa
             </span>
           </li>
 
