@@ -31,7 +31,9 @@
           :aria-label="`Abrir: ${b.titulo}`"
           @click="abrir(b)"
         >
-          <span class="bloque-n" aria-hidden="true">{{ String(i + 1).padStart(2, "0") }}</span>
+          <span class="bloque-n" aria-hidden="true">
+            {{ i + 1 }}<span class="bloque-total">/{{ BLOQUES.length }}</span>
+          </span>
           <span class="bloque-titulo">{{ b.titulo }}</span>
           <span class="bloque-resumen">{{ b.resumen }}</span>
           <span class="ver-bloque">
@@ -167,20 +169,42 @@ function clickFuera(e) {
   .tarjeta-bloque, .tarjeta-bloque:hover { transform: none; transition: border-color 0.18s; }
 }
 
-/* El número, del mismo sistema que la sección de por qué ir: es lo que hace
-   que las dos series se lean como parte de la misma página. */
+/*
+  El número, en disco y chico.
+
+  Iba a 2,4rem en violeta claro: pesaba más que el título de la tarjeta y no
+  ordenaba nada, porque cinco números sueltos no se leen como una secuencia.
+  Acá es un disco del mismo lenguaje que las horas de la jornada —el círculo
+  es el elemento que dice "esto se toca" en toda la página— y lleva el total
+  al lado, así el lector sabe cuántos hay sin contarlos.
+*/
 .bloque-n {
-  font-family: "Panchang", sans-serif;
-  font-weight: 800;
-  font-size: 2.4rem;
-  line-height: 0.85;
-  letter-spacing: -0.04em;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.06em;
+  min-width: 3.15rem;
+  height: 2.3rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--acento, #695ede) 28%, transparent);
+  background: color-mix(in srgb, var(--acento, #695ede) 6%, transparent);
+  color: var(--acento-texto, #4f42c4);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
-  color: color-mix(in srgb, var(--acento, #695ede) 20%, transparent);
-  transition: color 0.18s;
+  transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+}
+.bloque-total {
+  font-weight: 500;
+  opacity: 0.55;
 }
 .tarjeta-bloque:hover .bloque-n {
-  color: color-mix(in srgb, var(--acento, #695ede) 45%, transparent);
+  background: var(--acento, #695ede);
+  border-color: var(--acento, #695ede);
+  color: #fff;
 }
 
 .bloque-titulo {
