@@ -619,10 +619,19 @@ export const WHATSAPP_ORGANIZADOR = "5491133302145";
  */
 const SALUDO = "Hola Romina!";
 
-export function mensajeReserva({ agotado = false } = {}) {
-  return agotado
-    ? `${SALUDO} Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`
-    : `${SALUDO} Quiero reservar mi lugar para el evento del ${EVENTO.fechaSinDia}.`;
+export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
+  if (agotado) {
+    return `${SALUDO} Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`;
+  }
+
+  /*
+    Cuántos van es el único dato que la conversación no recupera sin costo: el
+    cupo se cuenta por persona, así que 200 mensajes que dicen "quiero mi
+    lugar" pueden ser 260 personas en la puerta. Va en la misma línea y sólo
+    cuando son más de uno — un "vamos 1" no informa nada y alarga el mensaje.
+  */
+  const base = `${SALUDO} Quiero reservar mi lugar para el evento del ${EVENTO.fechaSinDia}`;
+  return personas > 1 ? `${base}, vamos ${personas}.` : `${base}.`;
 }
 
 /** El enlace de reserva, listo para abrir. */

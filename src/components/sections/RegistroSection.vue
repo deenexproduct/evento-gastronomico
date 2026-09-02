@@ -132,11 +132,39 @@
               </li>
             </ol>
 
+            <!--
+              Cuántos van, antes del botón.
+
+              Es el único dato que la conversación no recupera sin costo: el
+              cupo se cuenta por persona, así que doscientos mensajes que dicen
+              "quiero mi lugar" pueden ser doscientas sesenta personas en la
+              puerta. No es un formulario —no hay campos ni validación—: son
+              cuatro botones que cambian una palabra del mensaje.
+            -->
+            <div v-if="!agotado" class="mt-8">
+              <p class="text-[13px] font-semibold uppercase tracking-[0.1em] text-gris-2">
+                ¿Cuántos van?
+              </p>
+              <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Cuántas personas van">
+                <button
+                  v-for="n in [1, 2, 3, 4]"
+                  :key="n"
+                  type="button"
+                  class="cuantos presionable"
+                  :class="{ 'cuantos-activo': personas === n }"
+                  :aria-pressed="personas === n"
+                  @click="personas = n"
+                >
+                  {{ n === 4 ? "4 o más" : n }}
+                </button>
+              </div>
+            </div>
+
             <a
               :href="enlaceReserva"
               target="_blank"
               rel="noopener noreferrer"
-              class="btn mt-8 w-full"
+              class="btn mt-5 w-full"
             >
               {{ agotado ? "Anotarme en la lista" : "Reservar por WhatsApp" }}
               <span class="sr-only"> (abre WhatsApp en una pestaña nueva)</span>
@@ -178,7 +206,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCalendario } from "@/composables/useCalendario";
@@ -190,7 +218,8 @@ const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.val
 const { google, urlIcs, nombreArchivo } = useCalendario();
 
 
-const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
+const personas = ref(1);
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value, personas: personas.value }));
 
 const INCLUYE = [
   "Los once bloques del programa, en track único",
@@ -205,3 +234,28 @@ const PASOS = [
   "Te contestamos confirmando, y tu lugar queda tomado.",
 ];
 </script>
+
+<style scoped>
+/* Los cuatro botones de "cuántos van". Píldoras, no un select: a un toque de
+   distancia y sin abrir nada. */
+.cuantos {
+  min-width: 3rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--linea, #e7e4f0);
+  background: var(--papel, #fff);
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.cuantos:hover { border-color: color-mix(in srgb, var(--acento, #695ede) 45%, transparent); }
+.cuantos-activo {
+  background: var(--acento, #695ede);
+  border-color: var(--acento, #695ede);
+  color: #fff;
+}
+</style>
