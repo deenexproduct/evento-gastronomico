@@ -115,7 +115,10 @@ const CLAVES = [
     icono: "gente",
     pregunta: "Para quién",
     respuesta: "Dueños de cadenas",
-    detalle: "Cadenas con más de un local. Dueño, socio o gerente general: el que decide, no el que ejecuta.",
+    // "el que decide, no el que ejecuta" separaba a la sala en dos y dejaba a
+    // media industria del lado equivocado. La calificación se sostiene igual
+    // nombrando los roles: quien tiene esos cargos ya sabe si es él.
+    detalle: "Cadenas con más de un local. Dueño, socio o gerente general.",
   },
   {
     icono: "entrada",
