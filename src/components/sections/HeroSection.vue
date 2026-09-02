@@ -79,7 +79,19 @@
               que es. Lo animado va aria-hidden.
             -->
             <span class="sr-only">{{ EVENTO.nombre }}</span>
-            <span aria-hidden="true">{{ mostrado }}</span>
+
+            <!--
+              Las dos palabras van APILADAS, no una reemplazando a la otra:
+              así el titular no cambia de ancho a mitad de la transición y
+              nada de abajo se mueve. El humo va detrás de las dos.
+            -->
+            <span class="mutante" aria-hidden="true">
+              <span class="humo" :class="{ 'humo-activo': mutando }"></span>
+              <span class="capa" :class="{ 'capa-fuera': enDeenex }">{{ EVENTO.nombre }}</span>
+              <span class="capa capa-abs" :class="{ 'capa-fuera': !enDeenex }">
+                <span class="capa-by">by</span>{{ EVENTO.organiza }}
+              </span>
+            </span>
           </h1>
 
           <!--
@@ -191,68 +203,123 @@ function ir(id) {
 }
 
 /*
-  GastroTech se decodifica en Deenex y vuelve.
+  GastroTech se disuelve en humo violeta y aparece "by Deenex".
 
-  No es un fundido: las letras pasan por caracteres intermedios antes de
-  asentarse, que es el gesto que le corresponde a una marca cuyo logo son
-  nodos conectados. Un crossfade diría "acá hay dos palabras"; esto dice
-  "una es la otra".
+  La primera versión revolvía las letras. Era vistoso y era el gesto
+  equivocado: un titular que se desarma dice inestabilidad, y este titular es
+  el nombre del evento. Acá las dos palabras se cruzan con un desenfoque
+  corto y una nube violeta que crece y se apaga entre las dos — el cambio se
+  siente, no se sufre.
 
-  Reglas que lo mantienen honesto:
-  · el <h1> sigue conteniendo "GastroTech" en texto real, en un sr-only. Lo
-    que se anima es un span aria-hidden, así que ni Google ni un lector de
-    pantalla ven la palabra cambiada.
-  · el ciclo descansa mucho más de lo que anima: la palabra está quieta el
-    88% del tiempo. Un titular que se mueve todo el rato no se lee.
-  · con prefers-reduced-motion no arranca nunca y queda GastroTech fijo.
+  Lo que lo mantiene honesto:
+  · el <h1> conserva "GastroTech" como texto real en un sr-only. Lo animado
+    es aria-hidden, así que ni el buscador ni un lector de pantalla ven el
+    titular cambiado.
+  · las dos capas están apiladas, así que el ancho del titular nunca cambia y
+    nada de lo que está debajo se mueve.
+  · la palabra está quieta el 90% del tiempo. Un titular en movimiento
+    permanente no se lee.
+  · con prefers-reduced-motion no arranca y queda GastroTech fijo.
 */
-const PALABRAS = [EVENTO.nombre, EVENTO.organiza];
-const GLIFOS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/<>";
-const QUIETO = 3800; // lo que dura cada palabra legible
-const PASO = 45; // cada cuánto avanza la decodificación
+const QUIETO = 4200; // lo que dura cada palabra legible
+const CRUCE = 900; // lo que tarda el cruce, y lo que dura el humo
 
-const mostrado = ref(EVENTO.nombre);
-let temporizador = null;
-let cuadro = null;
+const enDeenex = ref(false);
+const mutando = ref(false);
+let tQuieto = null;
+let tCruce = null;
 
-function decodificar(destino, listo) {
-  const desde = mostrado.value;
-  const largo = Math.max(desde.length, destino.length);
-  let paso = 0;
-  clearInterval(cuadro);
-  cuadro = setInterval(() => {
-    let salida = "";
-    for (let i = 0; i < largo; i++) {
-      // Cada letra se fija en un momento distinto: la palabra se resuelve de
-      // izquierda a derecha en vez de aparecer entera de golpe.
-      const fijaEn = i * 2;
-      if (paso >= fijaEn + 6) salida += destino[i] ?? "";
-      else if (paso >= fijaEn) salida += GLIFOS[Math.floor(Math.random() * GLIFOS.length)];
-      else salida += desde[i] ?? "";
-    }
-    mostrado.value = salida;
-    paso++;
-    if (paso > largo * 2 + 6) {
-      clearInterval(cuadro);
-      mostrado.value = destino;
-      listo();
-    }
-  }, PASO);
-}
-
-function ciclar(i = 0) {
-  temporizador = setTimeout(() => {
-    const siguiente = PALABRAS[(i + 1) % PALABRAS.length];
-    decodificar(siguiente, () => ciclar(i + 1));
+function alternar() {
+  tQuieto = setTimeout(() => {
+    mutando.value = true;
+    enDeenex.value = !enDeenex.value;
+    tCruce = setTimeout(() => {
+      mutando.value = false;
+      alternar();
+    }, CRUCE);
   }, QUIETO);
 }
 
 onMounted(() => {
   if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-  ciclar();
+  alternar();
 });
 onUnmounted(() => {
-  clearTimeout(temporizador);
-  clearInterval(cuadro);
+  clearTimeout(tQuieto);
+  clearTimeout(tCruce);
 });
 </script>
+
+<style scoped>
+/* ── El cruce del titular ──────────────────────────────────────────── */
+
+/*
+  Las dos palabras ocupan la misma celda: la que está fuera no empuja a la
+  otra ni cambia el ancho del bloque. `inline-grid` en vez de posición
+  absoluta pura para que el <h1> conserve la altura de una línea real.
+*/
+.mutante {
+  position: relative;
+  display: inline-grid;
+  isolation: isolate;
+}
+.capa {
+  grid-area: 1 / 1;
+  transition: opacity 0.75s ease, filter 0.75s ease, transform 0.75s ease;
+  white-space: nowrap;
+}
+.capa-abs {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.28em;
+}
+/* La que sale se desenfoca y sube apenas: es lo que la hace leer como humo
+   y no como un apagón. */
+.capa-fuera {
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(-0.06em) scale(0.985);
+  pointer-events: none;
+}
+/* "by" va en el cuerpo y en gris: es una preposición, no parte del nombre. */
+.capa-by {
+  font-family: "Bespoke Sans", sans-serif;
+  font-weight: 500;
+  font-size: 0.32em;
+  letter-spacing: 0;
+  color: var(--gris, #6b6779);
+  align-self: center;
+}
+
+/*
+  El humo: una nube violeta detrás del texto que crece y se apaga durante el
+  cruce. Va en z-index -1 para no tapar las letras y es inerte al puntero.
+*/
+.humo {
+  position: absolute;
+  z-index: -1;
+  left: -8%;
+  right: -8%;
+  top: -60%;
+  bottom: -60%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.85);
+  background:
+    radial-gradient(45% 55% at 30% 50%, color-mix(in srgb, var(--acento, #695ede) 42%, transparent), transparent 70%),
+    radial-gradient(40% 50% at 68% 45%, color-mix(in srgb, var(--acento, #695ede) 30%, transparent), transparent 72%);
+  filter: blur(38px);
+  transition: opacity 0.45s ease, transform 0.9s ease;
+}
+.humo-activo {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capa { transition: none; }
+  .humo { display: none; }
+}
+</style>
