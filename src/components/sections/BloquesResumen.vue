@@ -13,16 +13,16 @@
 <template>
   <section id="bloques" class="border-y border-linea py-seccion">
     <div class="contenedor">
-      <p class="rotulo text-gris-2">El detalle</p>
-      <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.9rem,5vw,3rem)]">
-        Todo lo demás, sin scrollear de más
+      <p class="rotulo text-acento-texto">Si querés más</p>
+      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.9rem,5vw,3rem)]">
+        Cinco respuestas, sin salir de acá
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Cada bloque se abre acá mismo, sin salir de la página. No hace falta
-        leerlos en orden ni leerlos todos.
+        Se abren sobre esta misma página. No hace falta leerlos en orden ni
+        leerlos todos.
       </p>
 
-      <div class="mt-12 grid gap-px bg-linea sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <button
           v-for="(b, i) in BLOQUES"
           :key="b.ruta"
@@ -31,16 +31,12 @@
           :aria-label="`Abrir: ${b.titulo}`"
           @click="abrir(b)"
         >
-          <span class="text-[13px] font-semibold uppercase tracking-[0.1em] text-gris-2 tabular-nums">
-            {{ String(i + 1).padStart(2, "0") }}
-          </span>
-          <span class="mt-1 text-[1.2rem] font-extrabold uppercase leading-tight">
-            {{ b.titulo }}
-          </span>
-          <span class="text-[15px] leading-[1.5] text-gris">{{ b.resumen }}</span>
-          <span class="ver-bloque mt-4">
+          <span class="bloque-n" aria-hidden="true">{{ String(i + 1).padStart(2, "0") }}</span>
+          <span class="bloque-titulo">{{ b.titulo }}</span>
+          <span class="bloque-resumen">{{ b.resumen }}</span>
+          <span class="ver-bloque">
             Ver
-            <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+            <span aria-hidden="true" class="flecha">→</span>
           </span>
         </button>
       </div>
@@ -138,24 +134,75 @@ function clickFuera(e) {
 </script>
 
 <style scoped>
+/*
+  Tarjeta con cuerpo propio, no celda de una grilla pegada.
+
+  Antes eran cinco celdas separadas por una línea de un píxel: se leían como
+  una tabla y ninguna invitaba a tocarse. Ahora cada una tiene su caja, su
+  aire y una reacción al hover —sube dos píxeles y el borde toma el violeta—,
+  que es lo que dice "esto se abre" sin escribirlo.
+*/
 .tarjeta-bloque {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   align-items: flex-start;
   text-align: left;
-  padding: 1.75rem;
+  padding: 1.9rem 1.75rem 1.6rem;
+  min-height: 15rem;
+  border-radius: 16px;
+  border: 1px solid var(--linea, #e7e4f0);
   background: var(--papel, #fff);
   color: inherit;
-  border: none;
   cursor: pointer;
-  transition: background-color 0.15s;
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s, box-shadow 0.18s;
 }
-.tarjeta-bloque:hover { background: color-mix(in srgb, var(--acento, #695EDE) 5%, transparent); }
+.tarjeta-bloque:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--acento, #695ede) 40%, transparent);
+  box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--acento, #695ede) 70%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-bloque, .tarjeta-bloque:hover { transform: none; transition: border-color 0.18s; }
+}
+
+/* El número, del mismo sistema que la sección de por qué ir: es lo que hace
+   que las dos series se lean como parte de la misma página. */
+.bloque-n {
+  font-family: "Panchang", sans-serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--acento, #695ede) 20%, transparent);
+  transition: color 0.18s;
+}
+.tarjeta-bloque:hover .bloque-n {
+  color: color-mix(in srgb, var(--acento, #695ede) 45%, transparent);
+}
+
+.bloque-titulo {
+  margin-top: 1.1rem;
+  font-size: 1.22rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.bloque-resumen {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--gris, #6b6779);
+}
 
 /* El "Ver" es el que avisa que la tarjeta se toca, así que va en el violeta
    de marca y con forma de botón — antes era un texto más de la tarjeta. */
 .ver-bloque {
+  margin-top: auto;
+  padding-top: 1.4rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -169,6 +216,8 @@ function clickFuera(e) {
   transition: background-color 0.15s;
 }
 .tarjeta-bloque:hover .ver-bloque { background: #5B4FD6; }
+.flecha { transition: transform 0.18s; }
+.tarjeta-bloque:hover .flecha { transform: translateX(3px); }
 
 .visor {
   border: none;

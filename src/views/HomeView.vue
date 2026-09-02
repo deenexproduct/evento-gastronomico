@@ -17,7 +17,7 @@
 -->
 <template>
   <div>
-    <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
+    <!-- ── Qué es y por qué ir ───────────────────────────────────── -->
 
     <!-- Hero · transparente a propósito: se ve el fondo del body -->
     <HeroSection />
@@ -27,50 +27,53 @@
          sigue. -->
     <BarraPartners />
 
-    <!-- El programa, que es lo que se viene a escuchar -->
+    <!--
+      Por qué ir, y va ANTES del programa.
+
+      La home abría con el cronograma: se le mostraba una grilla de horarios a
+      alguien que todavía no sabía qué resuelve el día. La propuesta de valor
+      vivía detrás de una tarjeta, así que el que llegaba de un anuncio nunca
+      la leía. Este es el bloque que contesta "por qué me conviene ir".
+    -->
+    <ValorSection class="v-reveal" />
+
+    <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
+
     <JornadaSection class="v-reveal bg-noche-3" />
 
-    <!-- ── Dónde está el detalle ─────────────────────────────────── -->
-
-    <BloquesResumen class="v-reveal bg-noche-2" />
+    <!--
+      Dónde y a qué hora, ANTES del pedido de reserva. Estaba después: se le
+      pedía el sí sin haberle dicho dónde queda ni a qué hora abre.
+    -->
+    <DondeSection class="v-reveal bg-noche-2" />
 
     <!-- ── Cómo entrar ───────────────────────────────────────────── -->
 
-
-    <!-- La reserva, con la prueba ya leída -->
+    <!-- La reserva, con toda la información ya leída -->
     <RegistroSection />
+
+    <!-- ── Para el que quiere más ────────────────────────────────── -->
+
+    <BloquesResumen class="v-reveal bg-noche-3" />
 
     <!--
       Los otros dos públicos, después del pedido de reserva: el que entra a
       reservar no tiene que atravesar una oferta que no es para él.
-
-      Sin `v-reveal` y sin fondo propio, a diferencia del resto:
-      · la sección ya trae su `bg-noche-2`, y pasarle otro dejaba dos clases de
-        fondo peleando en el mismo elemento;
-      · el reveal la dejaba en opacity 0 hasta que el observer dispara, y al
-        volver a la home desde otra vista eso son hasta dos segundos de sección
-        en blanco. Es la última del scroll: la animación no compensa el riesgo.
     -->
-    <!--
-      Dónde, a qué hora y qué más entra con la acreditación. Sale de /que-es:
-      es lo que se busca cuando ya se decidió ir, y allá estaba a dos clics.
-    -->
-    <DondeSection />
-
     <SumarseSection />
 
     <!--
       Las preguntas cierran el home y sólo el home. Vivían dentro de /que-es,
       cerradas y a cuatro pantallas de scroll de una vista que hay que abrir a
       propósito: la pieza que mejor resuelve dudas era la que menos se leía.
-      Acá las ve cualquiera que llegue al final del recorrido principal.
     -->
-    <FAQSection class="bg-noche" />
+    <FAQSection class="v-reveal bg-noche" />
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted } from "vue";
+import ValorSection from "@/components/sections/ValorSection.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
