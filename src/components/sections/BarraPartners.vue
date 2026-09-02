@@ -18,22 +18,36 @@
         Participan
       </p>
 
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">
-        <template v-for="p in partnersBarra" :key="p.nombre">
-          <img
-            v-if="p.src"
-            :src="p.src"
-            :alt="p.nombre"
-            class="h-11 w-auto max-w-[170px] object-contain opacity-70 logo-sponsor brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-[3.25rem]"
-            loading="lazy"
-          />
-          <span
-            v-else
-            class="text-[1.05rem] font-extrabold uppercase tracking-[-0.01em] text-white/75 transition-colors duration-200 hover:text-white sm:text-[1.25rem]"
+      <!--
+        La lista va DOS veces: la segunda es la que evita el salto cuando el
+        bucle vuelve al principio. La copia es aria-hidden para que un lector
+        de pantalla no anuncie ocho marcas donde hay cuatro.
+      -->
+      <div class="marco-logos mt-8">
+        <div class="cinta-logos">
+          <div
+            v-for="(vuelta, v) in 2"
+            :key="v"
+            class="flex shrink-0 items-center gap-x-12 pr-12 sm:gap-x-16 sm:pr-16"
+            :aria-hidden="v === 1 ? 'true' : undefined"
           >
-            {{ p.nombre }}
-          </span>
-        </template>
+            <template v-for="p in partnersBarra" :key="p.nombre + v">
+              <img
+                v-if="p.src"
+                :src="p.src"
+                :alt="v === 0 ? p.nombre : ''"
+                class="h-11 w-auto max-w-[170px] shrink-0 object-contain opacity-70 logo-sponsor brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-[3.25rem]"
+                loading="lazy"
+              />
+              <span
+                v-else
+                class="shrink-0 whitespace-nowrap text-[1.05rem] font-extrabold uppercase tracking-[-0.01em] text-white/75 transition-colors duration-200 hover:text-white sm:text-[1.25rem]"
+              >
+                {{ p.nombre }}
+              </span>
+            </template>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -56,3 +70,44 @@ const partners = PARTNERS.map((p) => {
 // y sigue teniendo su tarjeta en #partners, que es donde se explica qué es.
 const partnersBarra = partners.filter((p) => p.enBarra !== false);
 </script>
+
+<style scoped>
+/*
+  Los logos se desplazan solos, en bucle lento.
+
+  Con cuatro marcas la fila quedaba corta y centrada: se leía como un pie de
+  página y no como una franja de respaldo. El movimiento le da vida a la
+  primera pantalla y sugiere que la lista sigue creciendo, que es exactamente
+  lo que pasa: quedan cinco rubros por cerrar.
+
+  Se pausa al pasar el mouse, para poder mirar un logo sin perseguirlo.
+*/
+@keyframes desfile {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.cinta-logos {
+  display: flex;
+  width: max-content;
+  animation: desfile 38s linear infinite;
+}
+.cinta-logos:hover { animation-play-state: paused; }
+
+/* Se difumina en los bordes: sin esto los logos entran y salen de golpe
+   contra el borde del contenedor. */
+.marco-logos {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-logos {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .marco-logos { -webkit-mask-image: none; mask-image: none; }
+}
+</style>

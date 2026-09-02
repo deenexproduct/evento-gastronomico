@@ -37,6 +37,26 @@
       </div>
 
       <!-- Logos -->
+      <!--
+        Alan, acá y no en "qué es": esta es la sección que contesta quién está
+        detrás, y tenerlo en dos lugares obligaba a mantener el mismo dato dos
+        veces. Su nombre va en el violeta de marca — estaba en `text-papel`,
+        que en fondo claro es blanco sobre blanco y lo dejaba invisible.
+      -->
+      <div class="tarjeta mt-12 p-7">
+        <p class="text-[12px] font-semibold uppercase tracking-[0.12em] text-gris-2">
+          Quién da la cara
+        </p>
+        <p class="mt-4 max-w-[62ch] text-[1.05rem] leading-[1.55]">
+          <span class="texto-deenex font-bold">Alan Tapia</span>, CEO y co-fundador de Deenex,
+          abre la jornada y comparte el escenario con otros empresarios del sector.
+        </p>
+        <p class="mt-3 max-w-[62ch] text-[15px] leading-[1.55] text-gris">
+          La sostienen los que ya tomaron estas decisiones adentro de su propia operación, no
+          consultores hablando de casos ajenos.
+        </p>
+      </div>
+
       <p class="mt-16 text-[13px] font-semibold uppercase tracking-[0.16em] text-gris-2">
         Marcas que trabajan con Deenex
       </p>

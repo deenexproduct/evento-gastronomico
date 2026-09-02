@@ -343,6 +343,17 @@ export const BORDES = {
 };
 
 
+/**
+ * Las cuatro confusiones que aparecen solas. Viven acá y no en un componente
+ * porque las usa el recorrido de la home y las repite el deck: un solo lugar.
+ */
+export const NO_ES = [
+  "Una feria de comida",
+  "Un curso ni una capacitación",
+  "Una ronda de reuniones agendadas",
+  "Un evento para público general",
+];
+
 /** Con qué volvés al local. Verbo + resultado tangible, sin adjetivos. */
 export const EL_LUNES = [
   "Qué tecnología está usando hoy el resto del rubro, contada por los que la implementan",

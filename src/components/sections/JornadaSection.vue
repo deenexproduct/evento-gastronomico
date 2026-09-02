@@ -24,12 +24,10 @@
       </p>
 
       <!-- Las tres cifras del día, antes de la lista -->
-      <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-        <div v-for="c in cifras" :key="c.r">
-          <dt class="text-[11px] font-semibold uppercase tracking-[0.12em] text-gris-2">
-            {{ c.r }}
-          </dt>
-          <dd class="hora mt-1 text-[1.4rem] text-acento-texto">{{ c.n }}</dd>
+      <dl class="mt-9 flex flex-wrap gap-x-4 gap-y-4">
+        <div v-for="c in cifras" :key="c.r" class="ficha">
+          <dd class="ficha-n">{{ c.n }}</dd>
+          <dt class="ficha-r">{{ c.r }}</dt>
         </div>
       </dl>
 
@@ -64,7 +62,11 @@
               :aria-label="`Ver el detalle del bloque de las ${b.hora}: ${b.titulo}`"
               @click="abrir(b)"
             >
-              <time :datetime="iso(b.hora)" class="hora w-[4.5rem] shrink-0 text-[1.05rem]" :class="b.tipo === 'networking' ? 'text-gris-2' : 'text-acento-texto'">
+              <time
+                :datetime="iso(b.hora)"
+                class="disco-hora"
+                :class="b.tipo === 'networking' ? 'disco-suave' : ''"
+              >
                 {{ b.hora }}
               </time>
 
@@ -393,5 +395,69 @@ const cifras = computed(() => {
   background: transparent;
   color: inherit;
   cursor: pointer;
+}
+
+/*
+  La hora, en disco.
+
+  Era una columna de texto alineada a la izquierda: correcta y fría. El disco
+  le da al renglón un punto de apoyo redondo —el mismo lenguaje que los puntos
+  del recorrido de arriba— y hace que la fila se lea como algo que se toca, no
+  como una celda de tabla. Al pasar el mouse se rellena, que es el aviso de
+  que hay algo detrás.
+*/
+.disco-hora {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.1rem;
+  height: 4.1rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--acento, #695ede) 30%, transparent);
+  background: color-mix(in srgb, var(--acento, #695ede) 6%, transparent);
+  color: var(--acento-texto, #4f42c4);
+  font-family: "Panchang", sans-serif;
+  font-weight: 800;
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.18s, border-color 0.18s, transform 0.18s;
+}
+.disco-suave {
+  border-color: var(--linea, #e7e4f0);
+  background: transparent;
+  color: var(--gris-2, #82828a);
+}
+.fila-bloque:hover .disco-hora {
+  background: var(--acento, #695ede);
+  border-color: var(--acento, #695ede);
+  color: #fff;
+  transform: scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fila-bloque:hover .disco-hora { transform: none; }
+}
+
+/* Las tres cifras del día: fichas, no números sueltos. Un número grande sin
+   caja obliga a leer el rótulo para saber de qué es. */
+.ficha {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--linea, #e7e4f0);
+}
+.ficha-n {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--acento-texto, #4f42c4);
+}
+.ficha-r {
+  font-size: 0.82rem;
+  color: var(--gris, #6b6779);
 }
 </style>
