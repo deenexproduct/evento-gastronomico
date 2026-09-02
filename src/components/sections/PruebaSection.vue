@@ -48,8 +48,9 @@
           Quién da la cara
         </p>
         <p class="mt-4 max-w-[62ch] text-[1.05rem] leading-[1.55]">
-          <span class="texto-deenex font-bold">Alan Tapia</span>, CEO y co-fundador de Deenex,
-          abre la jornada y comparte el escenario con otros empresarios del sector.
+          Quien fundó Deenex y hoy la dirige,
+          <span class="texto-deenex font-bold">Alan Tapia</span>, abre la jornada y comparte el
+          escenario con otros empresarios del sector.
         </p>
         <p class="mt-3 max-w-[62ch] text-[15px] leading-[1.55] text-gris">
           La sostienen los que ya tomaron estas decisiones adentro de su propia operación, no

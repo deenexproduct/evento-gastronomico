@@ -30,9 +30,9 @@
 
           <p class="mt-6 max-w-[58ch] text-[1.05rem] leading-[1.6] text-gris">
             Una sala privada, dentro del evento, donde
-            <span class="texto-deenex font-bold">Alan Tapia</span>, su CEO y co-fundador, se
-            sienta con empresarios invitados a conversar sobre el impacto de la tecnología en el
-            rubro gastronómico, y sobre lo que va apareciendo alrededor.
+            <span class="texto-deenex font-bold">Alan Tapia</span>, CEO y co-fundador de Deenex,
+            se sienta con empresarios invitados a conversar sobre el impacto de la tecnología en
+            el rubro gastronómico, y sobre lo que va apareciendo alrededor.
           </p>
 
           <ul class="mt-8 grid gap-3 sm:grid-cols-3">
