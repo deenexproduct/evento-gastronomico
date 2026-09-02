@@ -73,7 +73,13 @@
           <h1
             class="display mt-4 text-[clamp(1.8rem,8.2vw,6.6rem)] leading-[0.88] tracking-[-0.035em]"
           >
-            {{ EVENTO.nombre }}
+            <!--
+              El nombre real, para el buscador y para un lector de pantalla:
+              el efecto es visual y no puede cambiar lo que la página dice
+              que es. Lo animado va aria-hidden.
+            -->
+            <span class="sr-only">{{ EVENTO.nombre }}</span>
+            <span aria-hidden="true">{{ mostrado }}</span>
           </h1>
 
           <!--
@@ -158,7 +164,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { EVENTO } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRelojEvento } from "@/composables/useCuentaRegresiva";
@@ -183,4 +189,70 @@ watch(porcentaje, (v) => {
 function ir(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
+
+/*
+  GastroTech se decodifica en Deenex y vuelve.
+
+  No es un fundido: las letras pasan por caracteres intermedios antes de
+  asentarse, que es el gesto que le corresponde a una marca cuyo logo son
+  nodos conectados. Un crossfade diría "acá hay dos palabras"; esto dice
+  "una es la otra".
+
+  Reglas que lo mantienen honesto:
+  · el <h1> sigue conteniendo "GastroTech" en texto real, en un sr-only. Lo
+    que se anima es un span aria-hidden, así que ni Google ni un lector de
+    pantalla ven la palabra cambiada.
+  · el ciclo descansa mucho más de lo que anima: la palabra está quieta el
+    88% del tiempo. Un titular que se mueve todo el rato no se lee.
+  · con prefers-reduced-motion no arranca nunca y queda GastroTech fijo.
+*/
+const PALABRAS = [EVENTO.nombre, EVENTO.organiza];
+const GLIFOS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/<>";
+const QUIETO = 3800; // lo que dura cada palabra legible
+const PASO = 45; // cada cuánto avanza la decodificación
+
+const mostrado = ref(EVENTO.nombre);
+let temporizador = null;
+let cuadro = null;
+
+function decodificar(destino, listo) {
+  const desde = mostrado.value;
+  const largo = Math.max(desde.length, destino.length);
+  let paso = 0;
+  clearInterval(cuadro);
+  cuadro = setInterval(() => {
+    let salida = "";
+    for (let i = 0; i < largo; i++) {
+      // Cada letra se fija en un momento distinto: la palabra se resuelve de
+      // izquierda a derecha en vez de aparecer entera de golpe.
+      const fijaEn = i * 2;
+      if (paso >= fijaEn + 6) salida += destino[i] ?? "";
+      else if (paso >= fijaEn) salida += GLIFOS[Math.floor(Math.random() * GLIFOS.length)];
+      else salida += desde[i] ?? "";
+    }
+    mostrado.value = salida;
+    paso++;
+    if (paso > largo * 2 + 6) {
+      clearInterval(cuadro);
+      mostrado.value = destino;
+      listo();
+    }
+  }, PASO);
+}
+
+function ciclar(i = 0) {
+  temporizador = setTimeout(() => {
+    const siguiente = PALABRAS[(i + 1) % PALABRAS.length];
+    decodificar(siguiente, () => ciclar(i + 1));
+  }, QUIETO);
+}
+
+onMounted(() => {
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  ciclar();
+});
+onUnmounted(() => {
+  clearTimeout(temporizador);
+  clearInterval(cuadro);
+});
 </script>
