@@ -17,7 +17,7 @@
 -->
 <template>
   <div>
-    <!-- ── Qué es y por qué ir ───────────────────────────────────── -->
+    <!-- ── Qué es ─────────────────────────────────────────────────── -->
 
     <!-- Hero · transparente a propósito: se ve el fondo del body -->
     <HeroSection />
@@ -28,28 +28,33 @@
     <BarraPartners />
 
     <!--
-      Por qué ir, y va ANTES del programa.
+      Qué es GastroTech, acá y no detrás de una tarjeta.
 
-      La home abría con el cronograma: se le mostraba una grilla de horarios a
-      alguien que todavía no sabía qué resuelve el día. La propuesta de valor
-      vivía detrás de una tarjeta, así que el que llegaba de un anuncio nunca
-      la leía. Este es el bloque que contesta "por qué me conviene ir".
+      Es la misma sección que sirve la vista /que-es, no una copia: un segundo
+      texto que mantener es como se desincronizan los datos en este repo.
     -->
-    <ValorSection class="v-reveal" />
+    <QueEsSection class="v-reveal" />
 
     <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
 
     <JornadaSection class="v-reveal bg-noche-3" />
 
     <!--
-      Dónde y a qué hora, ANTES del pedido de reserva. Estaba después: se le
-      pedía el sí sin haberle dicho dónde queda ni a qué hora abre.
+      El podcast, después de la jornada: primero el lector sabe qué se habla
+      en el escenario, y recién entonces que además hay algo fuera de la
+      grilla. Con sección propia porque es lo único del día que no le pasa a
+      todo el mundo.
     -->
-    <DondeSection class="v-reveal bg-noche-2" />
+    <PodcastSection class="v-reveal bg-noche-2" />
+
+    <!--
+      Dónde y a qué hora, antes del pedido de reserva: no se le puede pedir el
+      sí a alguien que todavía no sabe dónde queda.
+    -->
+    <DondeSection class="v-reveal" />
 
     <!-- ── Cómo entrar ───────────────────────────────────────────── -->
 
-    <!-- La reserva, con toda la información ya leída -->
     <RegistroSection />
 
     <!-- ── Para el que quiere más ────────────────────────────────── -->
@@ -62,18 +67,15 @@
     -->
     <SumarseSection />
 
-    <!--
-      Las preguntas cierran el home y sólo el home. Vivían dentro de /que-es,
-      cerradas y a cuatro pantallas de scroll de una vista que hay que abrir a
-      propósito: la pieza que mejor resuelve dudas era la que menos se leía.
-    -->
+    <!-- Las preguntas cierran el recorrido -->
     <FAQSection class="v-reveal bg-noche" />
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted } from "vue";
-import ValorSection from "@/components/sections/ValorSection.vue";
+import QueEsSection from "@/components/sections/QueEsSection.vue";
+import PodcastSection from "@/components/sections/PodcastSection.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";

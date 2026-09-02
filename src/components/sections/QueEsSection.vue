@@ -81,12 +81,33 @@
         </div>
       </dl>
 
+      <!--
+        El filtro, al final: recién cuando el lector entendió la propuesta
+        puede decidir si es para él. Ponerlo antes es pedirle que descarte
+        algo que todavía no sabe qué es.
+      -->
+      <div class="no-es">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.13em] text-gris-2">
+          Qué no es
+        </p>
+        <ul class="mt-4 flex flex-wrap gap-x-8 gap-y-3">
+          <li v-for="n in NO_ES" :key="n" class="flex items-center gap-2.5 text-[15px] text-gris">
+            <span class="no-cruz" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                <path d="M4 4l8 8M12 4l-8 8" />
+              </svg>
+            </span>
+            {{ n }}
+          </li>
+        </ul>
+      </div>
+
     </div>
   </section>
 </template>
 
 <script setup>
-import { EVENTO } from "@/data/evento";
+import { EVENTO, NO_ES } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
 const CLAVES = [
@@ -106,3 +127,22 @@ const CLAVES = [
 ];
 
 </script>
+
+<style scoped>
+.no-es {
+  margin-top: 1rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 16px;
+  border: 1px dashed var(--linea-fuerte, #d5d0e4);
+}
+.no-cruz {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  flex-shrink: 0;
+}
+</style>

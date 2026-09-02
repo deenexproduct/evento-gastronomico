@@ -160,11 +160,12 @@ describe("13 · el pie", () => {
 
   it("la home resume el detalle y no lo reabsorbe entero", () => {
     const home = leer("views/HomeView.vue");
-    // La home ofrece los cinco bloques como tarjetas; no monta sus secciones
-    // en línea. Las dos excepciones son deliberadas: las preguntas cierran el
-    // recorrido principal, y el bloque del lugar es lo que se busca cuando ya
-    // se decidió ir. El resto sigue detrás de su tarjeta.
-    for (const s of ["QueEsSection", "ElLunesSection", "PruebaSection", "BrandsSection"]) {
+    // La home ofrece los cinco bloques como tarjetas y no monta sus secciones
+    // en línea, salvo las que el recorrido principal necesita: qué es —el que
+    // llega de un anuncio tiene que poder entenderlo sin abrir nada—, el lugar
+    // y las preguntas. Lo que sigue detrás de su tarjeta es el detalle, no la
+    // propuesta.
+    for (const s of ["ElLunesSection", "PruebaSection", "BrandsSection"]) {
       expect(home).not.toContain(s);
     }
     expect(home).toContain("BloquesResumen");
