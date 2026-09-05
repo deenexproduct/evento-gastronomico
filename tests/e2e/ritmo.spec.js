@@ -132,7 +132,7 @@ test("todo botón magenta pleno lleva a reservar", async ({ page }) => {
       const href = el.getAttribute("href") || "";
       const reserva =
         href === "#reservar" ||
-        /GASTROTECH%20%C2%B7%20QUIERO|GASTROTECH · QUIERO/i.test(decodeURI(href)) ||
+        /Quiero reservar mi lugar/i.test(decodeURI(href)) ||
         /reservar|quiero mi lugar|anotarme/i.test(el.innerText);
       if (!reserva) out.push(el.innerText.trim().slice(0, 40) + " → " + href.slice(0, 45));
     }

@@ -118,6 +118,10 @@ describe("archivo .ics", () => {
     const { ics, google } = await generarIcs();
     const rango = new URL(google).searchParams.get("dates");
     expect(rango).toBe(`${ics.match(/DTSTART:(\S+)/)[1]}/${ics.match(/DTEND:(\S+)/)[1]}`);
-    expect(google).toContain(encodeURIComponent(EVENTO.nombre));
+    // El nombre tiene que llegar al enlace, pero no se compara la CODIFICACION:
+    // URLSearchParams escribe el espacio como "+" y encodeURIComponent como
+    // "%20". Las dos son validas y Google acepta las dos. Comparar bytes daba
+    // verde solo mientras el nombre no tuvo espacios.
+    expect(new URL(google).searchParams.get("text")).toContain(EVENTO.nombre);
   });
 });

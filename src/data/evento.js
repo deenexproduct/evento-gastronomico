@@ -10,11 +10,11 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const EVENTO = {
-  nombre: "GastroTech",
+  nombre: "Sabores Tech",
   organiza: "Deenex",
   // SÁBADO 19, no domingo 20. Lo cambió la reunión con Gastón Santana del
   // 31/08: el fin de semana se parte en dos —sábado gastronomía, domingo
-  // emprendedores— y GastroTech es el sábado. Todo el material anterior decía
+  // emprendedores— y Sabores Tech es el sábado. Todo el material anterior decía
   // domingo, así que si algo quedó con la fecha vieja, está mal.
   fechaISO: "2026-09-19T09:30:00-03:00",
   fechaLarga: "Sábado 19 de septiembre de 2026",
@@ -84,7 +84,7 @@ export const BLOQUES = [
   {
     ruta: "/que-es",
     label: "Qué es",
-    titulo: "Qué es GastroTech",
+    titulo: "Qué es Sabores Tech",
     resumen: "Para quién es, qué pasa ese día y qué no es.",
   },
   {
@@ -541,11 +541,11 @@ export const FAQ = [
   },
   {
     q: "¿Y el domingo qué pasa?",
-    a: "El fin de semana tiene dos jornadas y GastroTech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
+    a: "El fin de semana tiene dos jornadas y Sabores Tech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de GastroTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de GastroTech es aparte.`,
+    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de Sabores Tech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de Sabores Tech es aparte.`,
   },
 ];
 

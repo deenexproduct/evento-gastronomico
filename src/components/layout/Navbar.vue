@@ -32,7 +32,7 @@
       <div class="flex flex-wrap items-center gap-x-3 py-3.5 sm:flex-nowrap sm:gap-x-4 lg:gap-x-6">
         <RouterLink to="/" class="flex min-h-[44px] shrink-0 items-center gap-2 lg:gap-3">
           <span class="font-display text-[0.85rem] font-extrabold uppercase tracking-[-0.015em] text-white lg:text-[0.95rem]">
-            GastroTech
+            Sabores Tech
           </span>
           <!--
             "by Deenex" en el violeta de marca y en peso medio: acompaña al

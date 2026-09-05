@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 /**
  * El link que se comparte.
  *
- * Con el router en modo hash, "gastrotech.ar/#registro" le llega al router
+ * Con el router en modo hash, "saborestech.ar/#registro" le llega al router
  * como la ruta "/registro". Sin una ruta comodín que la absorba no matchea
  * nada y la landing renderiza VACÍA: cero secciones, pantalla negra. Es
  * exactamente el link que se pega en un WhatsApp, en un mail o en una pauta,

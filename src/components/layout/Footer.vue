@@ -2,7 +2,7 @@
   <!--
     El pie cierra con la empresa, no con el evento.
 
-    Antes era una segunda portada: el nombre GastroTech a 5rem, la fecha, el
+    Antes era una segunda portada: el nombre del evento a 5rem, la fecha, el
     cupo y otro botón de reserva. Repetía entera la primera pantalla justo
     después de la sección que ya pide la reserva, y el botón era la quinta
     instancia del mismo CTA. Lo que falta al final del scroll no es volver a
@@ -72,7 +72,7 @@ const whatsappConsulta = linkWa("consulta");
 <style scoped>
 /*
   El wordmark de la empresa, no el del evento: por eso NO usa .display, que es
-  Panchang y está reservada al nombre de GastroTech y al reloj. Acá pesa el
+  Panchang y está reservada al nombre del evento y al reloj. Acá pesa el
   cuerpo, no la display — el pie cierra, no abre.
 */
 .marca-deenex {

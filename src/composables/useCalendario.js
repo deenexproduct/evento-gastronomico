@@ -100,10 +100,14 @@ export function useCalendario() {
     [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Deenex//GastroTech//ES",
+      "PRODID:-//Deenex//Sabores Tech//ES",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",
+      // El UID NO se renombra con el evento, a proposito: es la identidad del
+      // evento para el calendario. Si cambia, el que ya se bajo el .ics no ve
+      // una actualizacion — le aparece un segundo evento al lado del viejo.
+      // "gastrotech" aca no lo ve nadie; un duplicado en la agenda, si.
       `UID:gastrotech-${EVENTO.fechaISO.slice(0, 10)}@deenex.tech`,
       // Momento en que se generó el archivo, no la fecha del evento.
       `DTSTAMP:${aFormatoUTC(new Date())}`,
@@ -141,5 +145,5 @@ export function useCalendario() {
     if (url) URL.revokeObjectURL(url);
   });
 
-  return { google, urlIcs, nombreArchivo: "gastrotech-20-09.ics" };
+  return { google, urlIcs, nombreArchivo: "sabores-tech-19-09.ics" };
 }

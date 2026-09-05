@@ -8,7 +8,7 @@
   <div>
     <CabeceraVista rotulo="El organizador" titulo="Quién organiza">
       <template #bajada>
-        GastroTech lo organiza Deenex. En tres años trabajando con dueños de
+        Sabores Tech lo organiza Deenex. En tres años trabajando con dueños de
         cadenas apareció siempre la misma escena, y este día es la respuesta.
       </template>
     </CabeceraVista>

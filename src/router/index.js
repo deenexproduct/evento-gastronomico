@@ -10,7 +10,7 @@ import HomeView from "@/views/HomeView.vue";
  * interesa y el que no, no lo tiene que scrollear igual.
  *
  * MODO HASH, y eso condiciona todo lo de abajo: el navegador y el router se
- * pelean por el mismo símbolo. "gastrotech.ar/#registro" le llega al router
+ * pelean por el mismo símbolo. "saborestech.ar/#registro" le llega al router
  * como la ruta "/registro". Antes eso lo absorbía una sola comodín que
  * devolvía la home; ahora que hay rutas de verdad, los anclas viejos que ya
  * circulan por WhatsApp, mail y pauta tienen que seguir llegando a algún

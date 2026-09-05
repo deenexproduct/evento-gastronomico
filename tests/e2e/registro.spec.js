@@ -19,7 +19,10 @@ test("el botón de reservar abre WhatsApp con el mensaje escrito", async ({ page
   expect(href).toContain("wa.me/5491154596266");
 
   const texto = decodeURIComponent(href.split("text=")[1]);
-  expect(texto).toContain("GASTROTECH · QUIERO IR");
+  // El noscript manda el MISMO mensaje que el boton real: si se separan, el
+  // que entra sin JS pide otra cosa que el que entra con JS.
+  expect(texto).toContain("Quiero reservar mi lugar");
+  expect(texto).toContain("19 de septiembre");
   expect(texto).toContain("Nombre:");
   expect(texto).toContain("Mi mail");
 });

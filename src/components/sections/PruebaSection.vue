@@ -14,14 +14,14 @@
       </h2>
       </template>
       <p class="lectura mt-5 text-[17px] text-gris">
-        GastroTech lo organiza <strong class="font-bold">Deenex</strong>, la plataforma
+        Sabores Tech lo organiza <strong class="font-bold">Deenex</strong>, la plataforma
         omnicanal donde las marcas de acá abajo manejan todos los días sus canales de venta. Más de
         350 marcas de foodservice y gastronomía la usan para lo mismo: tener en un solo lugar lo
         que pasa en todos sus locales, en vez de armar el número a mano sucursal por sucursal.
       </p>
       <p class="lectura mt-4 text-[17px] text-gris">
         En tres años trabajando con dueños de cadenas apareció siempre la misma escena: decisiones
-        grandes tomadas con información que nadie mira, y nadie con quién contrastarlas. GastroTech
+        grandes tomadas con información que nadie mira, y nadie con quién contrastarlas. Sabores Tech
         es la respuesta a eso, y por eso no se cobra la entrada: el valor está en quién se sienta
         en la sala.
       </p>

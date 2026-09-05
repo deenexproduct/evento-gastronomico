@@ -28,7 +28,7 @@
     <BarraPartners />
 
     <!--
-      Qué es GastroTech, acá y no detrás de una tarjeta.
+      Qué es Sabores Tech, acá y no detrás de una tarjeta.
 
       Es la misma sección que sirve la vista /que-es, no una copia: un segundo
       texto que mantener es como se desincronizan los datos en este repo.

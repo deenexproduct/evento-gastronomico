@@ -137,7 +137,7 @@ const LOGISTICA = [
     icono: "gente",
     titulo: "Tu acreditación también entra a Córdoba Corazón de Moda",
     texto:
-      "GastroTech pasa en un salón propio, con entrada por lista. La misma acreditación te habilita Córdoba Corazón de Moda, el evento que ocupa el resto del centro de convenciones ese día y por el que circulan unas 20.000 personas.",
+      "Sabores Tech pasa en un salón propio, con entrada por lista. La misma acreditación te habilita Córdoba Corazón de Moda, el evento que ocupa el resto del centro de convenciones ese día y por el que circulan unas 20.000 personas.",
   },
   {
     icono: "reloj",

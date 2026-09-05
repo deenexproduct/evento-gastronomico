@@ -6,7 +6,7 @@
 -->
 <template>
   <div>
-    <CabeceraVista rotulo="El evento" titulo="Qué es GastroTech">
+    <CabeceraVista rotulo="El evento" titulo="Qué es Sabores Tech">
       <template #bajada>
         Un día de tendencias e innovación para dueños de cadenas gastronómicas.
         Track único, once bloques y doscientas personas que deciden.

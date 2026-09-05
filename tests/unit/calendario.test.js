@@ -10,7 +10,7 @@ import { EVENTO, DOMINGO } from "@/data/evento";
 describe("agendado del evento", () => {
   it("la fecha del evento es el sábado 19 de septiembre de 2026, cuando abren las puertas", () => {
     // Era domingo 20 hasta el 31/08: la reunión con Gastón Santana partió el
-    // fin de semana en dos y GastroTech quedó el sábado.
+    // fin de semana en dos y el evento quedó el sábado.
     const d = new Date(EVENTO.fechaISO);
     expect(d.getUTCFullYear()).toBe(2026);
     expect(d.getUTCMonth()).toBe(8); // septiembre

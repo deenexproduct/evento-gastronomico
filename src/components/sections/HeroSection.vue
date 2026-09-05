@@ -52,15 +52,28 @@
             todo el ancho disponible, que es el máximo peso visual que puede
             tener sin romper nada.
 
-            El tamaño está MEDIDO, no elegido: "GastroTech" en Panchang 800 con
-            este tracking mide 10,46 px de ancho por cada px de cuerpo. Contra
-            el ancho útil del contenedor —viewport menos 40px de padding en
-            teléfono, 64 de ahí para arriba, con tope de 1200— el máximo que
-            entra va de 8,5vw a 8,7vw según el ancho. 8,2vw deja margen en toda
-            la escala. El piso baja a 1,8rem para que en 375px mande el vw y no
-            el piso: con 2rem quedaba clavado en 335 de 335, sin un píxel de
-            sobra; el techo de 6,6rem es el que corresponde al contenedor
-            ya topado en 1200px.
+            El tamaño está MEDIDO, no elegido: "Sabores Tech" en Panchang 800
+            con este tracking mide 11,53 px de ancho por cada px de cuerpo.
+            Medido en el navegador con Range.getBoundingClientRect() y la
+            fuente ya cargada, no a ojo.
+
+            El ancho ÚTIL del contenedor no es 1200: es 1200 menos 64 de
+            padding, o sea 1136, y ahí topa. El comentario anterior decía 1200
+            y por eso el techo quedaba 27px pasado sin que se viera.
+
+            Contra ese útil —viewport menos 40px de padding en teléfono, 64 de
+            ahí para arriba, tope 1136— el máximo que entra va de 7,59vw a
+            320px hasta 8,13vw a 1024. 7,2vw deja margen en toda la escala.
+
+            El techo es 6rem: 96px × 11,53 = 1107 contra 1136 útiles. Con
+            6,3rem el texto medía 1163 y se cortaba de 1440 para arriba. El
+            piso es 1,4rem, que sólo gobierna por debajo de 311px; con 1,6 el
+            texto medía 295 contra 280 útiles en un teléfono de 320.
+
+            Ojo si se cambia el NOMBRE, la tipografía o el tracking: ese 11,53
+            se mueve y el titular se corta sin avisar, porque la sección tiene
+            overflow-hidden y no aparece barra de scroll. Pasó al renombrar
+            —"GastroTech" medía 10,46 y el nombre nuevo es 10% más ancho.
 
             Ojo si se cambia la tipografía o el tracking: ese 10,46 se mueve y
             el titular se corta sin avisar, porque la sección tiene
@@ -71,7 +84,7 @@
             siguiente que proteger.
           -->
           <h1
-            class="display mt-4 text-[clamp(1.8rem,8.2vw,6.6rem)] leading-[0.88] tracking-[-0.035em]"
+            class="display mt-4 text-[clamp(1.4rem,7.2vw,6rem)] leading-[0.88] tracking-[-0.035em]"
           >
             <!--
               El nombre real, para el buscador y para un lector de pantalla:
@@ -210,7 +223,7 @@ function ir(id) {
 }
 
 /*
-  GastroTech se disuelve en humo violeta y aparece "by Deenex".
+  Sabores Tech se disuelve en humo violeta y aparece "by Deenex".
 
   La primera versión revolvía las letras. Era vistoso y era el gesto
   equivocado: un titular que se desarma dice inestabilidad, y este titular es
@@ -219,14 +232,14 @@ function ir(id) {
   siente, no se sufre.
 
   Lo que lo mantiene honesto:
-  · el <h1> conserva "GastroTech" como texto real en un sr-only. Lo animado
+  · el <h1> conserva "Sabores Tech" como texto real en un sr-only. Lo animado
     es aria-hidden, así que ni el buscador ni un lector de pantalla ven el
     titular cambiado.
   · las dos capas están apiladas, así que el ancho del titular nunca cambia y
     nada de lo que está debajo se mueve.
   · la palabra está quieta el 90% del tiempo. Un titular en movimiento
     permanente no se lee.
-  · con prefers-reduced-motion no arranca y queda GastroTech fijo.
+  · con prefers-reduced-motion no arranca y queda Sabores Tech fijo.
 */
 const QUIETO = 4600; // lo que dura cada palabra legible
 const ANTICIPO = 380; // el humo entra ANTES del cambio y lo cubre
