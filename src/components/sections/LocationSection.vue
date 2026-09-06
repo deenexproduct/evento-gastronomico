@@ -143,7 +143,7 @@ const LOGISTICA = [
     icono: "reloj",
     titulo: "A qué hora conviene llegar",
     texto:
-      "La acreditación abre 9:30 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
+      "La acreditación abre 9:00 y la primera charla arranca 10. Si venís temprano recorrés los stands sin gente encima.",
   },
   {
     icono: "auto",

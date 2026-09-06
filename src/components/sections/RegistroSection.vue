@@ -223,7 +223,7 @@ const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value, per
 
 const INCLUYE = [
   "Los once bloques del programa, en track único",
-  "Los stands de los sponsors abiertos desde las 9:30",
+  "Los stands de los sponsors abiertos desde las 9:00",
   "Las pausas y el networking de cierre",
   "La grilla final, antes que el resto",
 ];

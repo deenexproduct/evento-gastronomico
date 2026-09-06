@@ -16,7 +16,11 @@ export const EVENTO = {
   // 31/08: el fin de semana se parte en dos —sábado gastronomía, domingo
   // emprendedores— y SaboresTech es el sábado. Todo el material anterior decía
   // domingo, así que si algo quedó con la fecha vieja, está mal.
-  fechaISO: "2026-09-19T09:30:00-03:00",
+  // La hora de acá es la de la ACREDITACIÓN, no la del primer bloque: es lo
+  // que leen el .ics, el JSON-LD y la cuenta regresiva. Si dijera 10:00 —la
+  // hora del escenario—, el que se lo agenda llegaría con la acreditación
+  // terminada, que es un error que este archivo ya tuvo.
+  fechaISO: "2026-09-19T09:00:00-03:00",
   fechaLarga: "Sábado 19 de septiembre de 2026",
   fechaCorta: "Sábado 19.09.2026",
   // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
@@ -27,20 +31,23 @@ export const EVENTO = {
   fechaSinDia: "19 de septiembre",
   // Dos ventanas distintas, y hacen falta las dos.
   //
-  // `horario` es el evento: arranca 9:30 con la acreditacion y los stands ya
+  // `horario` es el evento: arranca 9:00 con la acreditacion y los stands ya
   // abiertos, y cierra 18:00. Es lo que leen el .ics y el JSON-LD, asi que el
   // que se lo agenda llega cuando empieza y no con la acreditacion terminada.
   //
   // `horarioCharlas` es el escenario: el primer bloque es 10:00. Escribir
-  // "charlas de 9:30" mandaria a la sala a gente que todavia tiene que
-  // acreditarse.
+  // "charlas de 9" mandaria a la sala a gente que todavia tiene que
+  // acreditarse. Ahora la acreditacion tiene una hora entera por delante del
+  // primer bloque, no media.
   //
-  // La grilla del 30/08 fijo las dos. El material anterior decia "puertas y
-  // stands desde las 8:30", que era una hora antes y no coincidia con ningun
-  // bloque.
-  horario: "9:30 a 18",
+  // Esta hora ya se movio tres veces: 8:30 en el material viejo, 9:30 en la
+  // grilla del 30/08, y 9:00 ahora. Cada vez quedaron restos en los lugares
+  // que la escriben a mano —el respaldo sin JS de index.html, el JSON-LD, la
+  // tarjeta de og-image.py y cuatro textos—, asi que si se vuelve a mover,
+  // hay que barrer los tres formatos: "9:00", "9 a 18" y el ISO de fechaISO.
+  horario: "9 a 18",
   horarioCharlas: "10 a 18",
-  puertas: "9:30",
+  puertas: "9:00",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
@@ -338,14 +345,14 @@ export const ESTADOS_BLOQUE = {
  */
 export const PAUSAS = {};
 /**
- * Las dos puntas del día. Estas sí publican hora: 9:30 y 18:00 ya están al
+ * Las dos puntas del día. Estas sí publican hora: 9:00 y 18:00 ya están al
  * aire en la sección del lugar y en EVENTO.horario.
  */
 export const BORDES = {
   apertura: {
     id: "apertura",
     tipo: "apertura",
-    hora: "9:30",
+    hora: "9:00",
     titulo: "Acreditación y stands abiertos",
     detalle: "Te recibimos uno por uno, con los stands ya abiertos.",
   },
@@ -538,7 +545,7 @@ export const FAQ = [
   },
   {
     q: "¿Se come algo durante el día?",
-    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:30 con los stands ya abiertos, algo para picar entre bloque y bloque —alfajores, aceitunas, humus y café—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
+    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:00 con los stands ya abiertos, algo para picar entre bloque y bloque —alfajores, aceitunas, humus y café—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
   },
   {
     q: "¿Se transmite en vivo?",

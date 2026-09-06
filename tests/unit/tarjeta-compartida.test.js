@@ -43,12 +43,24 @@ describe("tarjeta compartida (og-image.py)", () => {
   });
 
   it("publica el horario del evento, que arranca con la acreditación", () => {
-    // EVENTO.horario es "9:30 a 18" y la tarjeta lo escribe con la h final.
+    // La tarjeta lo escribe con la h final: "9 a 18 h".
     expect(dibujo).toContain(`${EVENTO.horario} h`);
   });
 
-  it("no arrastra el horario viejo que empezaba a las 9 en punto", () => {
-    expect(dibujo).not.toMatch(/·\s+9 a 18 h/);
+  /*
+    Este caso empezó prohibiendo "9 a 18 h" —era el horario viejo, de cuando la
+    apertura decía 9 en punto y la grilla del 30/08 la corrigió a 9:30—. Después
+    la apertura se movió otra vez, a 9:00, y "9 a 18 h" pasó a ser el dato
+    correcto: el test estaba prohibiendo justo lo que había que publicar.
+
+    Por eso ahora no lista horarios prohibidos sino que exige que el .py NO
+    tenga ninguna hora de apertura distinta de la que declara evento.js. Así el
+    caso sigue sirviendo la próxima vez que se mueva, sin volver a editarlo.
+  */
+  it("no arrastra ninguna hora de apertura que evento.js ya no declara", () => {
+    const horasEnLaTarjeta = dibujo.match(/\b\d{1,2}(?::\d{2})?\s+a\s+18\s*h/g) || [];
+    expect(horasEnLaTarjeta).toHaveLength(1);
+    expect(horasEnLaTarjeta[0]).toContain(EVENTO.horario);
   });
 
   it("dice el mismo lugar y la misma ciudad que el resto del sitio", () => {

@@ -225,7 +225,11 @@ describe("preguntas que la página abría y no contestaba", () => {
     // las 15:30 dejó de existir cuando las pausas pasaron a ser ocho de 10\'.
     const faq = todo();
     expect(faq).toMatch(/¿Se come algo durante el día\?/);
-    for (const dato of ["9:30", "12:45", "13:45"]) {
+    // La hora de apertura sale de EVENTO.puertas y no va escrita acá: ya se
+    // movió tres veces —8:30, 9:30 y ahora 9:00— y cada vez este test hubo que
+    // tocarlo a mano. Las otras dos son horas de la grilla, que no dependen de
+    // la apertura.
+    for (const dato of [EVENTO.puertas, "12:45", "13:45"]) {
       expect(faq).toContain(dato);
     }
   });

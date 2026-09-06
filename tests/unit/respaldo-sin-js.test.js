@@ -13,7 +13,7 @@ import { EVENTO, CUPO, WHATSAPP_ORGANIZADOR, mensajeReserva } from "@/data/event
  *
  * Y se desactualizó, tres veces a la vez: convocaba al domingo 20 cuando el
  * evento ya era el sábado 19, saludaba a Alan cuando ya atiende Romina, y
- * anunciaba puertas 8:30 cuando la grilla del 30/08 fijó 9:30. Los tests que
+ * anunciaba una hora de puertas que ya no era. Los tests que
  * había miraban sólo el <head> —los meta y el JSON-LD—, así que el cuerpo pasó
  * por cuatro correcciones de fecha sin que nada se pusiera en rojo.
  *
