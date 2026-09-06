@@ -29,23 +29,33 @@ export const EVENTO = {
   // Sin el dia de la semana: el pie lo usaba escrito a mano, que es justo la
   // forma que salio de la comunicacion.
   fechaSinDia: "19 de septiembre",
-  // Dos ventanas distintas, y hacen falta las dos.
+  // CUATRO ventanas, y cada una contesta una pregunta distinta. Mezclarlas es
+  // lo que ya rompio esta pagina tres veces.
   //
-  // `horario` es el evento: arranca 9:00 con la acreditacion y los stands ya
-  // abiertos, y cierra 18:00. Es lo que leen el .ics y el JSON-LD, asi que el
-  // que se lo agenda llega cuando empieza y no con la acreditacion terminada.
+  // `horario` es EL EVENTO ENTERO: 9:00 con la acreditacion y los stands ya
+  // abiertos, hasta las 21:00 cuando se corta el networking. Es lo que leen el
+  // .ics y el JSON-LD, o sea lo que queda agendado en el telefono de la gente.
+  // Si dijera "9 a 18", al que se lo agenda le suena la alarma de fin tres
+  // horas antes de que el evento termine.
+  //
+  // `horarioJornada` es el programa: de 9 a 18, acreditacion y charlas. Es lo
+  // que contesta "cuanto dura el dia de trabajo".
+  //
+  // `horarioNetworking` es lo que sigue: de 18 a 21, sin escenario.
   //
   // `horarioCharlas` es el escenario: el primer bloque es 10:00. Escribir
   // "charlas de 9" mandaria a la sala a gente que todavia tiene que
-  // acreditarse. Ahora la acreditacion tiene una hora entera por delante del
-  // primer bloque, no media.
+  // acreditarse.
   //
-  // Esta hora ya se movio tres veces: 8:30 en el material viejo, 9:30 en la
-  // grilla del 30/08, y 9:00 ahora. Cada vez quedaron restos en los lugares
-  // que la escriben a mano —el respaldo sin JS de index.html, el JSON-LD, la
-  // tarjeta de og-image.py y cuatro textos—, asi que si se vuelve a mover,
-  // hay que barrer los tres formatos: "9:00", "9 a 18" y el ISO de fechaISO.
-  horario: "9 a 18",
+  // Estas horas ya se movieron: la apertura fue 8:30, despues 9:30 y ahora
+  // 9:00; el cierre fue 18:00 y ahora 21:00. Cada vez quedaron restos en los
+  // lugares que las escriben a mano —el respaldo sin JS de index.html, el
+  // endDate del JSON-LD, la tarjeta de og-image.py y los textos del FAQ—, asi
+  // que si se vuelven a mover hay que barrer los tres formatos: "9:00",
+  // "9 a 21" y el ISO de fechaISO.
+  horario: "9 a 21",
+  horarioJornada: "9 a 18",
+  horarioNetworking: "18 a 21",
   horarioCharlas: "10 a 18",
   puertas: "9:00",
   ciudad: "Córdoba",
@@ -349,8 +359,17 @@ export const ESTADOS_BLOQUE = {
  */
 export const PAUSAS = {};
 /**
- * Las dos puntas del día. Estas sí publican hora: 9:00 y 18:00 ya están al
- * aire en la sección del lugar y en EVENTO.horario.
+ * Las dos puntas del día. Estas sí publican hora: 9:00, 18:00 y 21:00 ya están
+ * al aire en la sección del lugar y en EVENTO.horario.
+ *
+ * OJO CON `cierre`: su `hora` es cuando ARRANCA el networking, no cuando
+ * termina el evento. Son las 18:00, que es también cuando termina la grilla —de
+ * ahí que un test verifique que el último bloque cae exactamente ahí—. El
+ * evento sigue tres horas más y termina a las 21:00, que es lo que dice
+ * `hasta` y lo que tiene que leer el .ics.
+ *
+ * Confundir esas dos es el error que hay que evitar: si el .ics tomara `hora`,
+ * la alarma de fin sonaría tres horas antes de que la sala se vacíe.
  */
 export const BORDES = {
   apertura: {
@@ -364,8 +383,9 @@ export const BORDES = {
     id: "cierre",
     tipo: "cierre",
     hora: "18:00",
+    hasta: "21:00",
     titulo: "Networking de cierre",
-    detalle: "La sala queda abierta hasta que se corta el evento.",
+    detalle: "Termina la grilla y la sala queda suelta hasta las 21.",
   },
 };
 
@@ -589,7 +609,7 @@ export const FAQ = [
   },
   {
     q: "Tengo el local abierto ese día. ¿Cómo hago?",
-    a: "Es la que más nos preguntan, y con un sábado pesa más todavía, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
+    a: "Es la que más nos preguntan, y con un sábado pesa más todavía, así que va derecho: no hace falta que estés las doce horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
   },
   {
     q: "¿Cuánto cuesta?",

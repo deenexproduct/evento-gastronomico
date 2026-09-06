@@ -153,7 +153,7 @@ def generar(oscuro=True):
     d.line([64, 458, W - 64, 458], fill=linea, width=1)
     fd = f(25, 500)
     cap(d, (64, 495), "Un día entero de charlas, demos en vivo y networking.", fd, gris)
-    cap(d, (64, 533), "Hotel Quinto Centenario, Córdoba  ·  9 a 18 h", fd, gris)
+    cap(d, (64, 533), "Hotel Quinto Centenario, Córdoba  ·  9 a 21 h", fd, gris)
     espaciado(d, (64, 584), "DIEZ BLOQUES  ·  UN SOLO TRACK  ·  SE RESERVA POR WHATSAPP",
               f(20), acento, 2.2)
     return img

@@ -57,10 +57,20 @@ describe("tarjeta compartida (og-image.py)", () => {
     tenga ninguna hora de apertura distinta de la que declara evento.js. Así el
     caso sigue sirviendo la próxima vez que se mueva, sin volver a editarlo.
   */
-  it("no arrastra ninguna hora de apertura que evento.js ya no declara", () => {
-    const horasEnLaTarjeta = dibujo.match(/\b\d{1,2}(?::\d{2})?\s+a\s+18\s*h/g) || [];
-    expect(horasEnLaTarjeta).toHaveLength(1);
-    expect(horasEnLaTarjeta[0]).toContain(EVENTO.horario);
+  /*
+    Este caso ya se rompió dos veces por escribir la hora adentro del regex.
+    Primero prohibía "9 a 18 h" como horario viejo, y cuando la apertura volvió
+    a las 9:00 pasó a prohibir el dato correcto. Después buscaba "... a 18 h"
+    con el 18 fijo, y se cayó cuando el cierre pasó a las 21.
+
+    Ahora el patrón no menciona ninguna hora: busca cualquier ventana "N a N h"
+    y exige que haya UNA sola y que sea la que declara evento.js. Así sobrevive
+    a que se muevan las dos puntas.
+  */
+  it("no arrastra ninguna ventana horaria que evento.js ya no declara", () => {
+    const ventanas = dibujo.match(/\b\d{1,2}(?::\d{2})?\s+a\s+\d{1,2}(?::\d{2})?\s*h/g) || [];
+    expect(ventanas).toHaveLength(1);
+    expect(ventanas[0]).toContain(EVENTO.horario);
   });
 
   it("dice el mismo lugar y la misma ciudad que el resto del sitio", () => {

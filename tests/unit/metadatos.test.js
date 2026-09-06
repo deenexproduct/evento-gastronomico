@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { EVENTO, CUPO } from "@/data/evento";
+import { EVENTO, CUPO, BORDES } from "@/data/evento";
 
 /**
  * index.html tiene los datos del evento escritos a mano por triplicado: en las
@@ -23,9 +23,24 @@ describe("metadatos del sitio", () => {
     expect(jsonLd.startDate).toBe(EVENTO.fechaISO);
   });
 
-  it("el JSON-LD termina a la hora que dice el horario", () => {
-    const cierre = Number(EVENTO.horario.split("a")[1].trim().split(":")[0]);
-    expect(new Date(jsonLd.endDate).getUTCHours()).toBe(cierre + 3); // -03 a UTC
+  /*
+    Compara INSTANTES, no horas UTC sueltas.
+
+    La versión anterior hacía `getUTCHours()` contra `cierre + 3`, y eso se
+    rompió solo cuando el evento pasó a terminar 21:00: en -03 eso es
+    medianoche UTC, así que getUTCHours devuelve 0 y la cuenta esperaba 24. El
+    test daba rojo con el dato bien puesto.
+
+    Construyendo el instante esperado desde BORDES.cierre.hasta y el día de
+    fechaISO, el cruce de medianoche deja de importar — y de paso el test pasa
+    a verificar contra el dato que manda, que es hasta cuándo se corta la sala
+    y no hasta cuándo dura la grilla.
+  */
+  it("el JSON-LD termina cuando se corta la sala", () => {
+    const dia = EVENTO.fechaISO.slice(0, 10);
+    const [hh, mm = "00"] = BORDES.cierre.hasta.split(":");
+    const esperado = new Date(`${dia}T${hh.padStart(2, "0")}:${mm.padStart(2, "0")}:00-03:00`);
+    expect(new Date(jsonLd.endDate).getTime()).toBe(esperado.getTime());
     expect(new Date(jsonLd.endDate) > new Date(jsonLd.startDate)).toBe(true);
   });
 

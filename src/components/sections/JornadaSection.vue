@@ -27,18 +27,30 @@
         Todo esto pasa el mismo día
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Track único: no hay salas paralelas ni hay que elegir qué perderse. De
-        {{ EVENTO.horarioCharlas }}, con la acreditación abierta desde las {{ EVENTO.puertas }}.
+        Track único: no hay salas paralelas ni hay que elegir qué perderse. La
+        acreditación abre a las {{ EVENTO.puertas }} y la sala queda suelta hasta las
+        {{ BORDES.cierre.hasta.replace(":00", "") }}.
       </p>
 
       <!--
-        Las tres cifras del día, antes de la lista. Salen calculadas de TEMAS y
-        no escritas a mano: si la grilla se mueve, se mueven solas.
+        Cómo se parte el día, en vez de las tres cifras que había acá —10
+        bloques, 340' de contenido, 60' de networking—. Esos números describían
+        la grilla, que es justo lo que esta sección dejó de mostrar: contar
+        bloques cuando no se ve ninguno obliga al lector a creer en un número
+        que no puede verificar.
+
+        Las dos franjas contestan lo que sí se pregunta el que evalúa dedicarle
+        un sábado: cuánto dura el programa y hasta cuándo se queda la gente. Las
+        horas salen de EVENTO, no escritas acá.
       -->
       <dl class="mt-9 flex flex-wrap gap-x-4 gap-y-4">
-        <div v-for="c in cifras" :key="c.r" class="ficha">
-          <dd class="ficha-n">{{ c.n }}</dd>
-          <dt class="ficha-r">{{ c.r }}</dt>
+        <div class="ficha">
+          <dd class="ficha-n">{{ EVENTO.horarioJornada }}</dd>
+          <dt class="ficha-r">Jornada</dt>
+        </div>
+        <div class="ficha">
+          <dd class="ficha-n">{{ EVENTO.horarioNetworking }}</dd>
+          <dt class="ficha-r">Networking</dt>
         </div>
       </dl>
 
@@ -69,25 +81,18 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { EVENTO, TEMAS, QUE_HAY } from "@/data/evento";
+import { EVENTO, BORDES, QUE_HAY } from "@/data/evento";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
 /*
-  Las cifras se calculan de la grilla real aunque la grilla ya no se muestre.
-  Es lo que impide que la sección diga un número y el .ics otro: el día sigue
-  teniendo la duración que tiene, no la que alguien escriba acá.
+  Ya no hay nada que calcular acá. Las cifras que se mostraban —bloques,
+  minutos de contenido, minutos de networking— salían de TEMAS con un computed;
+  al reemplazarlas por las dos franjas horarias, que son datos declarados en
+  EVENTO, el componente dejó de necesitar lógica.
+
+  TEMAS sigue vivo en evento.js: lo usan el .ics, la sección del lugar y los
+  tests que verifican que la grilla cierre donde arranca el networking.
 */
-const cifras = computed(() => {
-  const conOrador = TEMAS.filter((b) => b.tipo !== "networking");
-  const contenido = conOrador.reduce((a, b) => a + b.dur, 0);
-  const networking = TEMAS.filter((b) => b.tipo === "networking").reduce((a, b) => a + b.dur, 0);
-  return [
-    { r: "Bloques", n: conOrador.length },
-    { r: "De contenido", n: `${contenido}′` },
-    { r: "Networking", n: `${networking}′` },
-  ];
-});
 </script>
 
 <style scoped>

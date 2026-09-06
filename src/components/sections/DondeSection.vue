@@ -107,7 +107,12 @@ const datos = [
   {
     r: "Cuándo abre",
     v: `${EVENTO.puertas} · acreditación`,
-    n: `Las charlas arrancan ${TEMAS[0].hora} y el día cierra ${BORDES.cierre.hora}.`,
+    // El cierre que se publica acá es el del EVENTO (BORDES.cierre.hasta, las
+    // 21) y no el de la grilla (BORDES.cierre.hora, las 18): el lector que mira
+    // esta ficha está calculando a qué hora se va, no cuándo termina el último
+    // bloque. Las 18 se dicen igual, como el momento en que arranca el
+    // networking.
+    n: `Las charlas arrancan ${TEMAS[0].hora}, la grilla termina ${BORDES.cierre.hora} y el networking sigue hasta las ${BORDES.cierre.hasta.replace(":00", "")}.`,
   },
   {
     r: "Cómo se entra",
