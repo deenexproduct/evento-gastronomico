@@ -1,19 +1,23 @@
 <!--
   El podcast, con sección propia.
 
-  Es una pieza de Deenex que se graba adentro del evento, no una actividad más
-  de la grilla: por eso la sección lo dice desde el rótulo —"el podcast de
-  Deenex"— y no como "algo que además pasa ese día". Para el sponsor y para el
-  invitado, estar ahí adentro es parte de lo que se lleva.
+  Se presenta como lo que es para el que lee: un podcast que se graba adentro
+  del evento, con referentes del rubro. Decía "el podcast de Deenex" y "Deenex
+  abre su podcast", que es la misma postura que se sacó del hero —la empresa
+  como sujeto de lo que pasa—, y encima en la sección donde más ajena suena:
+  el lector no puede entrar a una sala que se presenta como de otro.
+
+  Quién lo produce no se esconde: sigue dicho abajo, donde se cuenta por dónde
+  sale después. Lo que cambia es que ya no abre la sección.
 
   Va DESPUÉS de la jornada a propósito: primero el lector sabe qué se va a
   hablar en el escenario, y recién entonces se le cuenta que además hay algo
   que no está en la grilla.
 
-  Dice que Alan está, y nada más sobre quiénes: es lo único confirmado. La
-  grilla del 30/08 dejó el podcast fuera del programa y todavía no tiene
-  franja, ni conductor, ni los otros invitados — publicar una hora o un nombre
-  sería prometer algo que no está decidido.
+  Sobre los nombres: sólo Alan está confirmado. La grilla del 30/08 dejó el
+  podcast fuera del programa y todavía no tiene franja, ni conductor, ni los
+  otros invitados — publicar una hora o un nombre sería prometer algo que no
+  está decidido.
 -->
 <template>
   <section id="podcast" class="py-seccion">
@@ -22,17 +26,17 @@
         <span class="halo" aria-hidden="true"></span>
 
         <div class="relative">
-          <p class="rotulo text-acento-texto">El podcast de Deenex</p>
+          <p class="rotulo text-acento-texto">Podcast</p>
 
           <h2 class="titulo mt-4 max-w-[19ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-            Deenex abre su podcast y lo graba ahí adentro
+            Un podcast con referentes, grabado ahí adentro
           </h2>
 
           <p class="mt-6 max-w-[58ch] text-[1.05rem] leading-[1.6] text-gris">
             Una sala privada, dentro del evento, donde
-            <span class="texto-deenex font-bold">Alan Tapia</span>, CEO y co-fundador de Deenex,
-            se sienta con empresarios invitados a conversar sobre el impacto de la tecnología en
-            el rubro gastronómico, y sobre lo que va apareciendo alrededor.
+            <span class="texto-deenex font-bold">referentes del rubro</span> se sientan a conversar
+            sobre el impacto de la tecnología en la gastronomía y sobre lo que va apareciendo
+            alrededor. Conduce Alan Tapia.
           </p>
 
           <ul class="mt-8 grid gap-3 sm:grid-cols-3">
@@ -49,11 +53,15 @@
 </template>
 
 <script setup>
-/* Los tres puntos no repiten lo que ya dice el párrafo de arriba: Alan y el
-   "a puertas cerradas" están ahí, así que acá va lo que falta. */
+/* Los tres puntos no repiten lo que ya dice el párrafo de arriba: la sala
+   privada y quién conduce están ahí, así que acá va lo que falta.
+
+   El tercero es el único lugar de la sección donde se nombra a Deenex, y
+   corresponde: es un dato verificable —por dónde sale el episodio después— y
+   no la autoría del espacio. */
 const puntos = [
   "Sala privada, por invitación",
-  "Conversación entre empresarios",
+  "Conversación entre referentes del rubro",
   "Después sale por los canales de Deenex",
 ];
 </script>
