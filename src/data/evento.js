@@ -598,7 +598,13 @@ export const REELS = [
 // El número por el que entra toda la convocatoria. Formato wa.me: sin +, sin
 // espacios y con el 9 de celular. Es el único lugar donde vive: los cinco
 // mensajes y los seis botones lo toman de acá.
-export const WHATSAPP_ORGANIZADOR = "5491133302145";
+//
+// +54 9 3518 010147, que es 351 —Córdoba— y no 11: la convocatoria pasa a un
+// número local. Antes era el 11 3330-2145, y antes de ése el personal de Alan.
+// Ojo al cambiarlo: index.html lo tiene escrito a mano en el respaldo sin
+// JavaScript, porque ese bloque no puede importar nada. Lo vigila
+// tests/unit/respaldo-sin-js.test.js.
+export const WHATSAPP_ORGANIZADOR = "5493518010147";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mensajes de WhatsApp.
@@ -635,9 +641,17 @@ export const WHATSAPP_ORGANIZADOR = "5491133302145";
  */
 const SALUDO = "Hola Romina!";
 
+/*
+  El de reserva NO usa SALUDO y es el único de los seis: abre con "Buenas!" y
+  no nombra a nadie del otro lado.
+
+  Los otros cinco siguen saludando a Romina, que es quien atiende. Si el número
+  nuevo lo atiende otra persona, lo que hay que cambiar es SALUDO —una línea, y
+  los cinco se mueven juntos—; este no la nombra, así que no se entera.
+*/
 export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
   if (agotado) {
-    return `${SALUDO} Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`;
+    return `Buenas! Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`;
   }
 
   /*
@@ -646,7 +660,12 @@ export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
     lugar" pueden ser 260 personas en la puerta. Va en la misma línea y sólo
     cuando son más de uno — un "vamos 1" no informa nada y alarga el mensaje.
   */
-  const base = `${SALUDO} Quiero reservar mi lugar para el evento del ${EVENTO.fechaSinDia}`;
+  /*
+    La fecha va en el mensaje aunque el pedido era sólo "quiero sumarme al
+    evento": del otro lado entran también los mensajes del domingo, que es otra
+    jornada, y sin la fecha hay que preguntar a cuál de las dos.
+  */
+  const base = `Buenas! Quiero sumarme al evento del ${EVENTO.fechaSinDia}`;
   return personas > 1 ? `${base}, vamos ${personas}.` : `${base}.`;
 }
 
