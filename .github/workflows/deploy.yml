@@ -32,6 +32,18 @@ jobs:
 
       - run: npm ci
 
+      # La compuerta. Sin esta línea el deploy publicaba pase lo que pase, y
+      # los tests eran documentación en vez de protección: cada vez que un dato
+      # quedó desincronizado —el horario en tres lugares que no coincidían, la
+      # fecha vieja colgada, el respaldo sin JS convocando al domingo 20— la
+      # suite podría haberlo atrapado y nadie la corría.
+      #
+      # Van sólo los unitarios. Los e2e de Playwright necesitan
+      # `npx playwright install` y hoy tienen aserciones desactualizadas: si se
+      # suman ahora, el deploy queda bloqueado por tests rojos que no son
+      # defectos del sitio. Entran cuando estén verdes, en un job aparte.
+      - run: npm test
+
       # GITHUB_PAGES activa el base "/evento-gastronomico/" de vite.config.js
       - run: npm run build
         env:

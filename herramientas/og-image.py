@@ -1,6 +1,26 @@
 # -*- coding: utf-8 -*-
 """Genera la imagen que levantan WhatsApp, LinkedIn e Instagram al compartir.
 
+╔══════════════════════════════════════════════════════════════════════════╗
+║  NO CORRAS ESTE SCRIPT SIN LEER ESTO.                                    ║
+║                                                                          ║
+║  El public/og-image.png que está publicado HOY no salió de acá. Se       ║
+║  rehízo por fuera en el commit 3f1fbab, que cambió el PNG y no tocó este ║
+║  archivo: la tarjeta publicada tiene el nombre en dos líneas, la paleta  ║
+║  violeta, la caja del cupo más chica y el pie con acreditación, charlas  ║
+║  y cierre. Nada de eso está acá abajo.                                   ║
+║                                                                          ║
+║  O sea: correr `python herramientas/og-image.py public` PISA la tarjeta  ║
+║  buena con la composición vieja —una sola línea, magenta, otro pie—.     ║
+║  Los DATOS de acá abajo sí están al día (nombre, fecha, horario y        ║
+║  cantidad de bloques), y hay un test que los vigila                      ║
+║  (tests/unit/tarjeta-compartida.test.js); lo que está viejo es el        ║
+║  DIBUJO.                                                                 ║
+║                                                                          ║
+║  Antes de regenerar hay que traer a este script la composición que está  ║
+║  publicada, y comparar el PNG resultante contra el que hay en public/.   ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
 Es la primera superficie de la marca: el 100% del público la ve en el chat
 antes de abrir la página. Por eso se compone en Archivo, la misma tipografía
 que usa el sitio. Antes se componía en Segoe UI Bold, que en Windows existe y
@@ -102,7 +122,7 @@ def generar(oscuro=True):
     d.rectangle([0, 0, W, 8], fill=caja)
 
     espaciado(d, (64, 60), "DEENEX PRESENTA", f(21), acento, 2.6)
-    fecha = "CÓRDOBA  ·  20.09.2026"
+    fecha = "CÓRDOBA  ·  19.09.2026"
     fu = f(21)
     espaciado(d, (W - 64 - ancho(d, fecha, fu, 2.6), 60), fecha, fu, gris, 2.6)
     d.line([64, 96, W - 64, 96], fill=linea, width=1)
@@ -122,16 +142,19 @@ def generar(oscuro=True):
     cap(d, (1036 - ancho(d, "es la sala entera", fp) / 2, 324),
         "es la sala entera", fp, (255, 255, 255))
 
-    # El nombre, en tamaño de cartel
-    cap(d, (60, 209), "GASTROTECH", f(108), tinta)
+    # El nombre, en tamaño de cartel.
+    # Cuerpo 100 y no 108: "SABORESTECH" a 108 mide 905 px, termina en x=965 y
+    # se mete 29 px DEBAJO de la caja del cupo, que arranca en x=936. A 100
+    # mide 836 y deja 40 px de aire. Medido con d.textlength() y la misma f().
+    cap(d, (60, 209), "SABORESTECH", f(100), tinta)
     cap(d, (64, 315), "GASTRONOMÍA Y TECNOLOGÍA", f(44), acento)
     cap(d, (64, 369), "PARA DUEÑOS DE CADENAS", f(44), tinta)
 
     d.line([64, 458, W - 64, 458], fill=linea, width=1)
     fd = f(25, 500)
     cap(d, (64, 495), "Un día entero de charlas, demos en vivo y networking.", fd, gris)
-    cap(d, (64, 533), "Hotel Quinto Centenario, Córdoba  ·  9 a 18 h", fd, gris)
-    espaciado(d, (64, 584), "SIETE BLOQUES  ·  UN SOLO TRACK  ·  SE RESERVA POR WHATSAPP",
+    cap(d, (64, 533), "Hotel Quinto Centenario, Córdoba  ·  9:30 a 18 h", fd, gris)
+    espaciado(d, (64, 584), "DIEZ BLOQUES  ·  UN SOLO TRACK  ·  SE RESERVA POR WHATSAPP",
               f(20), acento, 2.2)
     return img
 

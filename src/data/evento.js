@@ -10,11 +10,11 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const EVENTO = {
-  nombre: "Sabores Tech",
+  nombre: "SaboresTech",
   organiza: "Deenex",
   // SÁBADO 19, no domingo 20. Lo cambió la reunión con Gastón Santana del
   // 31/08: el fin de semana se parte en dos —sábado gastronomía, domingo
-  // emprendedores— y Sabores Tech es el sábado. Todo el material anterior decía
+  // emprendedores— y SaboresTech es el sábado. Todo el material anterior decía
   // domingo, así que si algo quedó con la fecha vieja, está mal.
   fechaISO: "2026-09-19T09:30:00-03:00",
   fechaLarga: "Sábado 19 de septiembre de 2026",
@@ -44,6 +44,11 @@ export const EVENTO = {
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
+  // La bajada de la marca del evento, en una línea. Es la misma que compone la
+  // tarjeta de WhatsApp (herramientas/og-image.py, en dos renglones) y la que
+  // cierra el pie. El .py no puede importar este archivo —es Python—, así que
+  // si esto cambia hay que cambiarlo también allá.
+  bajada: "Gastronomía y tecnología para dueños de cadenas",
   // Contexto, nunca asistencia propia: las 20.000 son del evento madre.
   eventoMadre: "Córdoba Corazón de Moda",
   eventoMadreCirculacion: "20.000",
@@ -84,7 +89,7 @@ export const BLOQUES = [
   {
     ruta: "/que-es",
     label: "Qué es",
-    titulo: "Qué es Sabores Tech",
+    titulo: "Qué es SaboresTech",
     resumen: "Para quién es, qué pasa ese día y qué no es.",
   },
   {
@@ -541,11 +546,11 @@ export const FAQ = [
   },
   {
     q: "¿Y el domingo qué pasa?",
-    a: "El fin de semana tiene dos jornadas y Sabores Tech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
+    a: "El fin de semana tiene dos jornadas y SaboresTech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
   },
   {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de Sabores Tech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de Sabores Tech es aparte.`,
+    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de SaboresTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de SaboresTech es aparte.`,
   },
 ];
 

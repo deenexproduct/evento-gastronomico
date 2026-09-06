@@ -100,7 +100,7 @@ export function useCalendario() {
     [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Deenex//Sabores Tech//ES",
+      "PRODID:-//Deenex//SaboresTech//ES",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",
@@ -145,5 +145,5 @@ export function useCalendario() {
     if (url) URL.revokeObjectURL(url);
   });
 
-  return { google, urlIcs, nombreArchivo: "sabores-tech-19-09.ics" };
+  return { google, urlIcs, nombreArchivo: "saborestech-19-09.ics" };
 }
