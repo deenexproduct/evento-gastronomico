@@ -49,7 +49,12 @@
         proyecto usa pictogramas.
       -->
       <ul class="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
-        <li v-for="item in QUE_HAY" :key="item.titulo" class="flex gap-4">
+        <li
+          v-for="(item, i) in QUE_HAY"
+          :key="item.titulo"
+          class="item-jornada flex gap-4"
+          :style="{ '--orden': i }"
+        >
           <span class="disco-icono" aria-hidden="true">
             <Pictograma :nombre="item.icono" :tam="20" />
           </span>
@@ -87,8 +92,42 @@ const cifras = computed(() => {
 
 <style scoped>
 /*
+  ── La entrada escalonada ─────────────────────────────────────────────
+
+  Los ocho ítems no aparecen de golpe: entran de a uno, 55 ms de diferencia
+  entre vecinos. Ocho por 55 son 440 ms de cascada, que es lo que tarda el ojo
+  en recorrer la lista de arriba abajo — más lento se siente lento, y más
+  rápido no se lee como cascada sino como un parpadeo.
+
+  NO monta un IntersectionObserver propio: se cuelga del .v-reveal que ya
+  maneja HomeView, igual que hace .cinta en main.css. Ese sistema trae además
+  el respaldo de dos segundos que revela todo si el observer no dispara.
+
+  Y respeta la regla de la casa: el estado oculto SÓLO existe bajo
+  .reveal-listo, la clase que el script pone en el <html> recién cuando
+  confirmó que puede revelar. Si el JavaScript no llega, los ocho ítems se ven
+  igual — una animación de entrada no puede dejar media sección en blanco.
+*/
+.item-jornada {
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  /* El índice lo pone el v-for como --orden; acá se convierte en tiempo. */
+  transition-delay: calc(var(--orden, 0) * 55ms);
+}
+.reveal-listo .v-reveal:not(.v-reveal-visible) .item-jornada {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/*
   El disco del ícono: el mismo lenguaje redondo que usaba el disco de la hora
-  en el cronograma que había acá. Sin hover, porque ya no hay nada que abrir.
+  en el cronograma que había acá.
+
+  Al pasar el mouse se rellena y el ícono pasa a blanco. En el cronograma ese
+  relleno avisaba "esto se toca"; acá no hay nada que abrir, así que es sólo
+  peso visual — por eso el ítem entero no se mueve ni cambia el cursor: no
+  promete un clic que no existe.
 */
 .disco-icono {
   flex-shrink: 0;
@@ -101,6 +140,39 @@ const cifras = computed(() => {
   border: 1px solid color-mix(in srgb, var(--acento, #695ede) 30%, transparent);
   background: color-mix(in srgb, var(--acento, #695ede) 6%, transparent);
   color: var(--acento-texto, #4f42c4);
+  transition:
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.item-jornada:hover .disco-icono {
+  background: var(--acento, #695ede);
+  border-color: var(--acento, #695ede);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+/*
+  Repite el selector completo, no alcanza con .item-jornada: una media query no
+  suma especificidad y la regla de arriba le ganaría. Es la misma trampa que
+  main.css documenta para .v-reveal.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .item-jornada {
+    transition: none;
+    transition-delay: 0s;
+  }
+  .reveal-listo .v-reveal:not(.v-reveal-visible) .item-jornada {
+    opacity: 1;
+    transform: none;
+  }
+  .disco-icono {
+    transition: none;
+  }
+  .item-jornada:hover .disco-icono {
+    transform: none;
+  }
 }
 
 /* Las tres cifras del día: fichas, no números sueltos. Un número grande sin
