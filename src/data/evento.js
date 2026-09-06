@@ -371,6 +371,74 @@ export const BORDES = {
 
 
 /**
+ * Qué va a haber ese día, sin hora.
+ *
+ * Reemplaza al cronograma hora por hora en la home. La grilla completa sigue
+ * viva en TEMAS —la usan el .ics, las cifras del día y la sección del lugar—,
+ * pero dejó de ser lo que se muestra: once renglones con hora exacta obligan a
+ * publicar quién da cada uno, y hoy cuatro de diez dicen "orador por
+ * confirmar". Enumerar lo que hay dice lo mismo sin pedir prestado un dato que
+ * todavía no está cerrado.
+ *
+ * Cada línea sale de algo que ya está en este archivo o en el padrón de
+ * sponsors: ninguna promete nada nuevo.
+ *
+ * Sobre la degustación y el coffee break: el commit af88276 los sacó del
+ * cronograma porque las ocho pausas decían "Degustación y preparación" una
+ * debajo de otra y la palabra aparecía más veces que cualquier título del día.
+ * Eso NO los eliminó del evento —siguen en el aporte de "La mesa de
+ * degustación", en PARTNERS—. Nombrarlos una vez acá es lo contrario de aquel
+ * problema: una mención, no ocho.
+ */
+export const QUE_HAY = [
+  {
+    icono: "chip",
+    titulo: "Referentes tecnológicos",
+    detalle: "Los que ya lo implementaron en sus locales, contando qué costó y qué devolvió.",
+  },
+  {
+    icono: "charla",
+    titulo: "Charlas",
+    // "Track único" NO va acá: lo dice la bajada de la sección, dos renglones
+    // más arriba, y repetirlo en la misma pantalla gasta uno de los ocho
+    // renglones que tiene esta lista para decir algo nuevo.
+    detalle: "De 30 y 45 minutos, cada una sobre un problema concreto de la operación.",
+  },
+  {
+    icono: "mesa",
+    titulo: "Paneles",
+    detalle: "Varios rubros discutiendo el mismo problema, con moderación.",
+  },
+  {
+    icono: "estrella",
+    titulo: "Invitado especial",
+    // Sin nombre a propósito: la regla del brief es que al aire sólo se nombra
+    // lo cerrado. Cuando esté firmado, entra el nombre acá.
+    detalle: "El nombre se anuncia antes del evento.",
+  },
+  {
+    icono: "demo",
+    titulo: "Stands",
+    detalle: "Sistemas andando, no en una slide: te parás adelante y preguntás por tu caso.",
+  },
+  {
+    icono: "degustacion",
+    titulo: "Degustación",
+    detalle: "Alfajores, aceitunas, humus y café entre bloque y bloque.",
+  },
+  {
+    icono: "gente",
+    titulo: "Networking",
+    detalle: "Una hora larga al mediodía, con los stands abiertos y la sala suelta.",
+  },
+  {
+    icono: "cafe",
+    titulo: "Coffee break",
+    detalle: "A la tarde, en el corte entre bloque y bloque.",
+  },
+];
+
+/**
  * Las cuatro confusiones que aparecen solas. Viven acá y no en un componente
  * porque las usa el recorrido de la home y las repite el deck: un solo lugar.
  */
@@ -513,7 +581,7 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Once bloques a lo largo del día.",
+    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Diez bloques a lo largo del día, más una hora de networking.",
   },
   {
     q: "¿Me van a querer vender algo?",
