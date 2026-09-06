@@ -113,34 +113,42 @@
           </h1>
 
           <!--
-            Antes había dos bajadas seguidas: una rosa con la categoría y otra
-            gris con la promesa. La categoría pasó a la línea de datos de abajo
-            y queda una sola frase, que es la que tiene que leerse.
-          -->
-          <!--
-            El acento cae en "centrada en gastronomía": eso es lo que separa
-            esto de un evento de tecnología cualquiera, y es lo que el lector
-            todavía no sabe cuando llega.
-          -->
-          <!--
+            La única promesa de la página, y el sujeto es el LECTOR.
+
+            Decía "Deenex crea un espacio para hablar de tecnología
+            vanguardista en el rubro gastronómico y vos podés ser parte". Tres
+            problemas en una frase: el sujeto era el organizador, así que el
+            lector entraba como invitado a algo ajeno; "tecnología
+            vanguardista" es una categoría y no un beneficio; y "vos podés ser
+            parte" no afirma nada. La decisión es que esto es un espacio y
+            punto, sin la empresa por detrás en la comunicación.
+
+            Quién organiza se sigue diciendo donde corresponde —el "by Deenex"
+            de la cabecera, que está en todas las pantallas, y la vista
+            /organiza entera—, pero no acá, que es donde el lector decide si
+            esto es para él.
+
+            Y ahora la frase califica al público. Antes la palabra "cadena" no
+            aparecía en toda la primera pantalla: había que scrollear hasta la
+            tarjeta de QueEsSection para saber para quién era el evento. El
+            og:title de index.html sí lo decía, así que la previsualización de
+            WhatsApp calificaba mejor al lector que la propia página.
+
+            Este bloque tenía TRES comentarios encima, y dos se contradecían:
+            uno pedía que el acento no cayera en la autoría y el siguiente que
+            el respaldo de la empresa fuera lo primero que se lee. Quedan
+            resumidos en este.
+
             Nivel 2, y se lee como nivel 2: cuerpo simple, caja baja, peso
             medio. Estaba en la display, en versales y a peso 800 — competía de
             igual a igual con el nombre del evento, que es lo único que tiene
-            que destacarse acá. Lo que sostiene la jerarquía ahora es el salto
-            de cuerpo y de tipografía, no el grito.
-
-            El acento cae en la invitación y no en la autoría: quién lo hace ya
-            está dicho en el "by Deenex" de la cabecera, y repetirlo acá gasta
-            el único resalte de la frase en un dato que el lector ya leyó.
-
-            Quien organiza se nombra acá arriba y no sólo en el "by Deenex" de
-            la cabecera: es la primera frase que lee el 100% de los que entran,
-            y el respaldo de la empresa es parte de lo que hace creíble a una
-            edición 01 sin historial.
+            que destacarse acá. Lo que sostiene la jerarquía es el salto de
+            cuerpo y de tipografía, no el grito.
           -->
           <p class="mt-6 max-w-[34ch] text-[clamp(1.1rem,2.4vw,1.5rem)] font-medium leading-[1.35]">
-            Deenex crea un espacio para hablar de tecnología vanguardista en el
-            rubro gastronómico <span class="texto-deenex font-bold">y vos podés ser parte.</span>
+            Un día entre dueños de cadenas gastronómicas:
+            <span class="texto-deenex font-bold">qué están aplicando los que crecen</span>, contado
+            por los que ya lo implementaron en sus locales.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">

@@ -129,7 +129,11 @@ export const BLOQUES = [
     label: "Quién organiza",
     corto: "Organiza",
     titulo: "Quién organiza",
-    resumen: "Deenex, y por qué abrimos este espacio.",
+    // "Deenex, y por qué abrimos este espacio" repetía en la home la postura
+    // que se sacó del hero: la empresa como sujeto. Acá el dato SÍ corresponde
+    // —es la tarjeta que lleva a la vista de quién organiza— pero como
+    // respuesta a una pregunta del lector, no como autoría reclamada.
+    resumen: "Quién está detrás y con qué credencial.",
   },
 ];
 
