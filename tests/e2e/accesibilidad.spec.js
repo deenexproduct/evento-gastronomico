@@ -63,20 +63,53 @@ test("todo el texto pasa contraste AA", async ({ page }) => {
   expect(fallas, `Elementos bajo el mínimo: ${JSON.stringify(fallas, null, 1)}`).toEqual([]);
 });
 
+/*
+  ESTE CASO ESTABA MIDIENDO MAL, y de la peor forma: reportaba seis anclas rotas
+  que no existen.
+
+  Con el router en createWebHashHistory, los RouterLink del header renderizan
+  hrefs como "#/que-es" o "#/deadline". Eso es una RUTA del router, no un ancla
+  a un id. El test los juntaba con los anclas de verdad y se los pasaba a
+  querySelector, que además revienta con "#/" porque no es un selector CSS
+  válido — el catch los marcaba rotos sin siquiera mirar.
+
+  Era correcto cuando se escribió, en agosto, con el Navbar apuntando a #hero y
+  #registro. Lo rompió el commit que metió RouterLink en el header, el 31/08.
+
+  Ahora separa las dos cosas: las rutas se validan contra el router y las
+  anclas contra el DOM, con getElementById para no depender de que el id sea un
+  selector CSS legal.
+*/
 test("ningún enlace interno apunta a un ancla inexistente", async ({ page }) => {
   const rotas = await page.evaluate(() => {
-    const anclas = [...document.querySelectorAll('a[href^="#"]')]
+    // Un ancla de verdad: "#algo", nunca "#/algo" ni "#" solo.
+    const ES_ANCLA = /^#(?!\/)[A-Za-z][\w:.-]*$/;
+    const hrefs = [...document.querySelectorAll('a[href^="#"]')]
       .map((a) => a.getAttribute("href"))
-      .filter((h) => h && h.length > 1);
-    return [...new Set(anclas)].filter((h) => {
-      try {
-        return !document.querySelector(h);
-      } catch {
-        return true;
-      }
-    });
+      .filter((h) => h && ES_ANCLA.test(h));
+    return [...new Set(hrefs)].filter((h) => !document.getElementById(h.slice(1)));
   });
   expect(rotas, `Anclas sin destino: ${rotas.join(", ")}`).toEqual([]);
+});
+
+/*
+  Y las rutas del router, que es lo que el caso de arriba confundía con anclas.
+  Se validan contra el propio router: que resuelvan a una ruta con componente y
+  no caigan todas en la comodín.
+*/
+test("cada ruta del nav resuelve a una vista real", async ({ page }) => {
+  const rotas = await page.evaluate(() => {
+    const app = document.querySelector("#app").__vue_app__;
+    const router = app?.config?.globalProperties?.$router;
+    if (!router) return ["no se pudo leer el router"];
+    const rutas = [...document.querySelectorAll('a[href^="#/"]')]
+      .map((a) => a.getAttribute("href").slice(1));
+    return [...new Set(rutas)].filter((r) => {
+      const m = router.resolve(r);
+      return !m.matched.length || m.matched.some((x) => x.name === "resto");
+    });
+  });
+  expect(rotas, `Rutas que no resuelven: ${rotas.join(", ")}`).toEqual([]);
 });
 
 test("el respaldo revela el contenido aunque el observer no dispare", async ({ page }) => {
@@ -118,9 +151,28 @@ test("la estructura de encabezados es correcta", async ({ page }) => {
   expect(saltos).toEqual([]);
 });
 
+/*
+  OJO CON EL PREDICADO DE LAS IMÁGENES: alt="" NO es una falta.
+
+  Este caso contaba 4 imágenes sin alt y las cuatro estaban bien. Son la copia
+  duplicada de la cinta de logos de BarraPartners —la marquesina repite los
+  logos para que el loop no corte— y viven dentro de un div con
+  aria-hidden="true", con alt="" deliberado. Eso es exactamente lo que
+  corresponde a una imagen decorativa: alt="" le dice al lector de pantalla
+  "saltea esto", que es distinto de no tener el atributo.
+
+  El predicado viejo era !i.alt || !i.alt.trim(), que no distingue "sin
+  atributo" de "vacío a propósito" y contaba la decisión correcta como falta.
+  Y antes pasaba por vacío: en la fecha del test no había ni un logo cargado.
+
+  Ahora exige el ATRIBUTO —hasAttribute— y saltea lo que cuelga de un
+  aria-hidden, que por definición no lo anuncia nadie.
+*/
 test("no hay imágenes sin alt ni campos sin etiqueta", async ({ page }) => {
   const problemas = await page.evaluate(() => ({
-    imgSinAlt: [...document.querySelectorAll("img")].filter((i) => !i.alt || !i.alt.trim()).length,
+    imgSinAlt: [...document.querySelectorAll("img")].filter(
+      (i) => !i.closest('[aria-hidden="true"]') && !i.hasAttribute("alt")
+    ).length,
     camposSinLabel: [...document.querySelectorAll("input,select")].filter(
       (e) =>
         e.type !== "checkbox" &&

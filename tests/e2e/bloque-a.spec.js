@@ -64,15 +64,21 @@ for (const ancho of ANCHOS) {
     // que sostenerla en los dos casos, porque el texto vuelve solo con que un
     // sponsor no traiga archivo.
     await page.setViewportSize({ width: ancho, height: 900 });
-    await page.goto("/");
+    await page.goto("/#/participan");
     await revelar(page);
 
-    const encimados = await page.evaluate(() => {
+    const medido = await page.evaluate(() => {
       const out = [];
-      for (const art of document.querySelectorAll("#partners article")) {
+      const arts = [...document.querySelectorAll("#partners article")];
+      // Cuántas tarjetas se llegaron a medir de verdad. Sin esto el caso pasa
+      // en verde cuando no encuentra ninguna, que es lo que venía haciendo:
+      // iba a "/" y #partners no está en la home desde el 31/08.
+      let medidas = 0;
+      for (const art of arts) {
         const cabecera = art.firstElementChild;
         const chip = art.querySelector(".chip");
         if (!cabecera || !chip) continue;
+        medidas++;
         // Lo que se mide es el CONTENIDO de la cabecera —el logo o el nombre
         // escrito—, no su caja. La caja tiene alto fijo y no crece: lo que se
         // derrama es el texto de adentro, así que midiendo la caja el test
@@ -83,9 +89,11 @@ for (const ancho of ANCHOS) {
         const solape = Math.round(Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
         if (solape > 0) out.push((art.innerText || "").trim().slice(0, 30) + ": " + solape + "px");
       }
-      return out;
+      return { encimados: out, medidas };
     });
-    expect(encimados).toEqual([]);
+
+    expect(medido.medidas, "no se midió ninguna tarjeta de partner").toBeGreaterThan(0);
+    expect(medido.encimados).toEqual([]);
   });
 
   test(`a ${ancho}: el texto de "Qué te llevás" no llega pegado al borde`, async ({ page }) => {
@@ -93,7 +101,7 @@ for (const ancho of ANCHOS) {
     // renglones no tenían relleno propio: el "01" arrancaba en el borde y el
     // texto cortaba contra el otro.
     await page.setViewportSize({ width: ancho, height: 900 });
-    await page.goto("/");
+    await page.goto("/#/beneficios");
     await revelar(page);
 
     const pad = await page.locator("#el-lunes li").first().evaluate((el) => {
@@ -109,7 +117,7 @@ test("la grilla de partners no deja una tarjeta sola con la fila vacía", async 
   // Cuatro tarjetas en tres columnas dejaban la cuarta sola con dos tercios
   // de fila en blanco, y se leía como si faltara un partner.
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
+  await page.goto("/#/participan");
   await revelar(page);
 
   const filas = await page.evaluate(() => {
@@ -120,6 +128,23 @@ test("la grilla de partners no deja una tarjeta sola con la fila vacía", async 
     );
     return { total: arts.length, porFila };
   });
+
+  /*
+    ESTA GUARDA ES EL CASO, no un preámbulo.
+
+    Este test pasó en verde durante una semana SIN EJECUTAR UNA SOLA ASERCIÓN:
+    iba a "/" y ahí #partners no existe desde que la home pasó a ser resumen y
+    BrandsSection se mudó a /participan. `arts` quedaba vacío, `porFila`
+    también, y el for de abajo no iteraba nunca. Un test que no encuentra nada
+    es indistinguible de uno que encuentra todo bien — y este además tapaba que
+    estaba mirando la página equivocada.
+
+    Con el goto arreglado la guarda es barata; lo que no es barato es no
+    tenerla.
+  */
+  expect(filas.total, "no se encontró ninguna tarjeta de partner").toBeGreaterThan(0);
+  expect(filas.porFila.length).toBeGreaterThan(0);
+
   // Ninguna fila puede quedar con menos de la mitad de las tarjetas de la
   // fila más llena.
   const max = Math.max(...filas.porFila);
@@ -130,19 +155,27 @@ test("solo el tramo activo de #acceso lleva su cifra en negro", async ({ page })
   // El "0" de la lista de espera pesaba lo mismo que el "115" que sí importa:
   // el elemento tipográfico más grande de esa tarjeta era un cero.
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
+  await page.goto("/#/deadline");
   await revelar(page);
 
   const cifras = await page.evaluate(() => {
     return [...document.querySelectorAll("#acceso article")].map((a) => ({
       txt: a.querySelector("p span").innerText.trim(),
       color: getComputedStyle(a.querySelector("p span")).color,
-      activo: !!a.querySelector('a[href="#reservar"]'),
+      // El tramo activo es el ÚNICO que tiene un enlace de acción. Se detectaba
+      // por a[href="#reservar"], y ese href ya no existe: el CTA del tramo
+      // abierto pasó a ser el enlace directo a WhatsApp, porque dentro del
+      // diálogo de la home el scroll a #reservar no podía funcionar —el visor
+      // congela el fondo con position:fixed—. Detectarlo por "tiene un enlace"
+      // en vez de por una URL concreta lo deja atado a la estructura y no al
+      // destino, que ya cambió dos veces.
+      activo: !!a.querySelector("a[href]"),
     }));
   });
 
+  expect(cifras.length, "no se encontró ningún tramo en #acceso").toBeGreaterThan(0);
   const activo = cifras.find((c) => c.activo);
-  expect(activo).toBeTruthy();
+  expect(activo, "ningún tramo tiene enlace de acción").toBeTruthy();
 
   // El color de la cifra del tramo activo no puede repetirse en ningún otro:
   // si se repite, hay dos números compitiendo por la misma atención y uno de
