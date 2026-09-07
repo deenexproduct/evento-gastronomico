@@ -444,8 +444,26 @@ test("ninguna respuesta termina con una palabra sola colgada", async ({ page }) 
   await page.goto("/");
   await page.waitForLoadState("networkidle");
   await revelarTodo(page);
-  await page.evaluate(() => document.querySelectorAll("details").forEach((d) => (d.open = true)));
-  await page.waitForTimeout(400);
+  /*
+    LAS RESPUESTAS DEL FAQ HAY QUE ABRIRLAS DE VERDAD.
+
+    Acá decía `querySelectorAll("details").forEach(d => d.open = true)`, y en
+    esta app no hay un solo <details>: el FAQ son botones con aria-expanded y
+    un panel que cerrado mide cero de alto. O sea que la línea no matcheaba
+    nada, las diez respuestas quedaban en altura cero, el medidor las descarta
+    por no tener caja y devolvía "" para todas. El caso se llama "ninguna
+    respuesta termina con una palabra sola colgada" y era exactamente lo que no
+    estaba mirando: los párrafos más largos de la página.
+
+    Se abren clickeando, que es como los abre una persona.
+  */
+  const botones = page.locator("#faq h3 button");
+  const cuantos = await botones.count();
+  expect(cuantos, "no se encontró ningún botón de FAQ para abrir").toBeGreaterThan(5);
+  for (let i = 0; i < cuantos; i++) {
+    await botones.nth(i).click();
+  }
+  await page.waitForTimeout(500);
 
   const r = await page.evaluate(() => {
     const w = (p) => {
@@ -465,7 +483,9 @@ test("ninguna respuesta termina con una palabra sola colgada", async ({ page }) 
       }
       return linea.trim();
     };
-    const ps = [...document.querySelectorAll("main p")].filter(
+    // p, li, dd y figcaption: los cuatro que cubre la regla de main.css. Esto
+    // miraba sólo <p>, así que la mitad del arreglo quedaba sin vigilar.
+    const ps = [...document.querySelectorAll("main p, main li, main dd, main figcaption")].filter(
       (p) => (p.innerText || "").trim().length > 80
     );
     const viudas = [];

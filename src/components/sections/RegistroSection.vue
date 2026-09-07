@@ -108,7 +108,23 @@
           quedaba 2.056px más abajo del pliegue — dos pantallas y media después
           de tocar algo que dice "Quiero mi lugar".
         -->
-        <div id="reservar" class="scroll-mt-24 lg:sticky lg:top-[104px] lg:self-start">
+        <!--
+          El scroll-mt sigue a --alto-nav como el de las secciones.
+
+          Era scroll-mt-24, o sea 96px fijos. La regla de main.css no lo
+          alcanza porque apunta a section[id] y main[id], y esto es un div, así
+          que quedaba solo con su valor a mano: con el nav de 117 en teléfono
+          el bloque aparecía 21px debajo de la barra, y 65px a 320. Y no es un
+          ancla cualquiera: acá redirigen los enlaces viejos que se compartieron
+          por WhatsApp.
+
+          96 son los 73 del nav en escritorio más 23 de aire, así que la cuenta
+          conserva ese ancho exacto y arregla los otros.
+        -->
+        <div
+          id="reservar"
+          class="scroll-mt-[calc(var(--alto-nav,73px)+23px)] lg:sticky lg:top-[calc(var(--alto-nav,73px)+31px)] lg:self-start"
+        >
           <div class="rounded-2xl border border-acento/40 bg-acento/[0.07] p-6 sm:p-9">
             <p class="rotulo text-acento-texto">Reserva directa</p>
             <h3 class="titulo mt-3 text-[clamp(1.5rem,3.2vw,2rem)]">Se reserva por WhatsApp</h3>

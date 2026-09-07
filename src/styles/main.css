@@ -94,8 +94,8 @@ img, video { max-width: 100%; height: auto; display: block; }
   `pretty` es exactamente para esto: el navegador reparte las últimas líneas
   para que ninguna quede huérfana, sin tocar las anteriores. Va sobre el
   elemento, no sobre una clase, así que `text-balance` —que es la misma
-  propiedad con otra estrategia y se usa a mano en los titulares y en la bajada
-  del pie— le gana por especificidad y sigue mandando donde está puesta.
+  propiedad con otra estrategia y se usa a mano en un solo lugar, la bajada del
+  pie— le gana por especificidad y sigue mandando ahí.
 
   Donde el navegador no lo soporta se ignora y el texto se parte como hoy: no
   hay nada que degradar.

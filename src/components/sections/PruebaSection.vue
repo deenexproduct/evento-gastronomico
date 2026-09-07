@@ -62,23 +62,22 @@
         Marcas que trabajan con Deenex
       </p>
       <!--
-        Dos columnas que llenan el ancho en teléfono; la fila corrida de
-        siempre de 640px para arriba.
+        Tantas columnas como entren, y que llenen el ancho.
 
-        Los casilleros eran de 120px fijos a cualquier ancho. A 375px entran
-        dos por fila —120+32+120 = 272— y los 55px que sobraban se acumulaban
-        todos contra el borde derecho: el muro de doce marcas quedaba corrido a
-        la izquierda, sin alinear ni con el rótulo ni con el borde de la
-        sección. Centrarlo lo empeoraba de otra forma, porque entonces no
-        alineaba con "Marcas que trabajan con Deenex", que va a la izquierda.
+        Los casilleros eran de 120px fijos: a 375px entran dos por fila y lo
+        que sobraba se acumulaba contra el borde derecho, con el muro sin
+        alinear ni con el rótulo ni con el borde de la sección. Lo primero que
+        probé fue grid-cols-2, y arreglaba 375 rompiendo todo lo de al lado:
+        dejaba DOS columnas fijas hasta 640px, así que a 639 —donde antes
+        entraban cuatro— quedaban dos logos flotando en 599px de ancho.
 
-        Con grid de dos columnas cada casillero mide lo que le toca y los dos
-        bordes cierran donde tienen que cerrar. El logo sigue centrado adentro
-        del suyo y con su tope de 120px, así que ninguno se agranda por tener
-        más lugar.
+        auto-fit resuelve las dos cosas de una: mete las columnas que entren
+        con 120px de mínimo, y con 1fr de máximo se reparten el sobrante en vez
+        de dejarlo al final. Dos a 375, tres a 560, cuatro a 639, y de ahí para
+        arriba las que den.
       -->
       <div
-        class="mt-8 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:flex sm:flex-wrap sm:gap-x-10"
+        class="mt-8 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] items-center gap-x-8 gap-y-6 sm:gap-x-10"
       >
         <!--
           La caja reserva el espacio antes de que cargue el logo, así la página
@@ -89,7 +88,7 @@
         <div
           v-for="logo in logos"
           :key="logo.src"
-          class="grid h-7 w-full place-items-center sm:h-9 sm:w-[120px]"
+          class="grid h-7 w-full place-items-center sm:h-9"
         >
           <img
             :src="logo.src"

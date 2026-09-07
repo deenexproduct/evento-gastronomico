@@ -10,7 +10,21 @@
   persona lee la página entera sin saber cuándo es el evento.
 -->
 <template>
-  <header class="border-b border-linea pb-10 pt-[140px] sm:pt-[112px] lg:pt-[124px]">
+  <!--
+    El colchón de arriba sigue al nav, no a tres números.
+
+    Eran 140 / 112 / 124px fijos, y el aire real que dejaban sobre la barra era
+    23 / 39 / 51px en cada tramo —más aire cuanto más grande la pantalla, que
+    es lo buscado—. Lo que fallaba es el piso: a 320px el nav mide 161 y el
+    colchón seguía siendo 140, así que el encabezado de la vista arrancaba 10px
+    TAPADO. Con la fuente de respaldo del runner eso pasa también a 360.
+
+    Cada tramo conserva su aire y su valor: con el nav en 117 / 73 / 73 las
+    cuentas dan 140 / 112 / 124, exactamente lo que había.
+  -->
+  <header
+    class="border-b border-linea pb-10 pt-[calc(var(--alto-nav,117px)+23px)] sm:pt-[calc(var(--alto-nav,73px)+39px)] lg:pt-[calc(var(--alto-nav,73px)+51px)]"
+  >
     <div class="contenedor">
       <RouterLink
         to="/"
