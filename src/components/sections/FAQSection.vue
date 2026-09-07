@@ -23,7 +23,30 @@
     <div :class="enPie ? '' : 'contenedor'">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <h2 class="titulo max-w-[14ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
+          <!--
+            El coeficiente es 4.0vw y no 4.4, y desde lg la palabra no se parte.
+
+            A 1024px —el ancho exacto donde arranca esta grilla de 12— la
+            columna del titular mide 293px y "FRECUENTES" a 4.4vw pedía 284:
+            nueve píxeles de margen sobre casi trescientos. Con `overflow-wrap:
+            break-word`, que `.titulo` pone a propósito para que una palabra
+            larga no desborde en teléfono, esos 9px son la diferencia entre un
+            titular y "Preguntas frecuente / s". El runner del CI lo partió con
+            su propia fuente; acá entraba por un pelo.
+
+            Con 4.0vw el margen pasa de 9 a 35px, o sea aguanta una fuente 12%
+            más ancha. Y el tope de 2.85rem se toca a 1140px en vez de a 1036,
+            así que de ahí para arriba el titular mide exactamente lo mismo que
+            antes: lo único que cambia es esa franja de cien píxeles.
+
+            El overflow-wrap vuelve a normal desde lg porque ahí ya no hay
+            riesgo de desborde y sí de corte: si algún día no entra, que se
+            salga de la caja —eso se ve y se arregla— en vez de partirse en una
+            letra suelta, que pasa desapercibido.
+          -->
+          <h2
+            class="titulo max-w-[14ch] text-[clamp(1.4rem,4vw,2.85rem)] lg:[overflow-wrap:normal]"
+          >
             Preguntas frecuentes
           </h2>
         </div>
