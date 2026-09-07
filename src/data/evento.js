@@ -785,6 +785,27 @@ export function linkWaReserva(opciones) {
   return `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(mensajeReserva(opciones))}`;
 }
 
+/*
+  CUÁL USA QUÉ BOTÓN, hoy:
+
+    partner   → SumarseSection, "Quiero ser sponsor"
+    prensa    → SumarseSection, "Pedir acreditación"
+    rubro     → BrandsSection, el tablero de rubros libres
+    registro  → NADIE lo lee por acá. El botón de reserva usa linkWaReserva(),
+                que llama a mensajeReserva() directo para poder pasarle cuántos
+                van y si el cupo está agotado. Esta clave queda como el texto de
+                referencia del mensaje base, y la usan los tests.
+    consulta  → NADIE. Y no es un olvido: era el enlace "Escribinos por
+                WhatsApp" del pie, que salió cuando el pie pasó a cerrar sólo
+                con el nombre del evento y su bajada.
+
+  Ese último es el único hueco real del embudo. Era la salida sin compromiso
+  —para el que tiene una duda y todavía no quiere reservar— y hoy no hay
+  ninguna: los otros cinco botones piden algo concreto. El texto se conserva
+  porque el hueco es una decisión de producto pendiente, no un descarte: si
+  vuelve una salida de consulta, el mensaje ya está escrito y saluda igual que
+  los demás.
+*/
 export const MENSAJES_WA = {
   registro: mensajeReserva(),
   partner: `${SALUDO} Me interesa participar como sponsor del evento del ${EVENTO.fechaSinDia}.`,

@@ -79,7 +79,7 @@ describe("8 y 9 · las dos tarjetas de riesgo no vuelven", () => {
 });
 
 describe("10 · el otro evento del edificio es un beneficio, no una advertencia", () => {
-  const lugar = leer("components/sections/LocationSection.vue");
+  const lugar = leer("components/sections/DondeSection.vue");
 
   it("dice que la acreditacion tambien entra", () => {
     expect(lugar).toContain("Córdoba Corazón de Moda");
@@ -266,7 +266,7 @@ describe("evento.js no vuelve a tener cuatro agendas", () => {
 
 describe("10 · el evento madre se cuenta igual en toda la pagina", () => {
   const datos = readFileSync(join(SRC, "data/evento.js"), "utf-8");
-  const seccion = readFileSync(join(SECCIONES, "LocationSection.vue"), "utf-8");
+  const seccion = readFileSync(join(SECCIONES, "DondeSection.vue"), "utf-8");
   const todo = datos + seccion;
 
   it("si se vende como acceso incluido, no se describe tambien como molestia", () => {
