@@ -59,22 +59,15 @@
         una promesa del mismo peso que el horario, y no lo es.
       -->
       <!--
-        El domingo. Se publica lo que está decidido —que existe, para quién es
-        y que se reserva igual— y nada más: conductora, programa y oradores no
-        están definidos, así que la página no los promete.
-      -->
-      <div class="cortesia mt-4">
-        <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-acento-texto">
-          {{ DOMINGO.fechaLarga }}
-        </p>
-        <p class="mt-2.5 max-w-[46ch] text-[1.05rem] font-semibold leading-[1.35]">
-          {{ DOMINGO.titulo }}
-        </p>
-        <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.55] text-gris">
-          {{ DOMINGO.bajada }}
-        </p>
-      </div>
+        Acá iba la caja del domingo —la jornada de emprendedores del día
+        siguiente—. Sale de la landing entera por decisión de contenido.
 
+        Además de que no era este evento, ocupaba el peor lugar posible: el
+        rótulo violeta en versales decía "Domingo 20 de septiembre" y era lo
+        primero que engancha el ojo del que escanea, dos bloques antes del
+        pedido de reserva. La página convoca al sábado 19 y el dato más visible
+        de esa zona era otra fecha.
+      -->
       <div class="cortesia mt-4">
         <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-acento-texto">
           Además
@@ -92,7 +85,7 @@
 </template>
 
 <script setup>
-import { EVENTO, DOMINGO, TEMAS, BORDES } from "@/data/evento";
+import { EVENTO, TEMAS, BORDES } from "@/data/evento";
 
 const comoLlegar =
   "https://www.google.com/maps/search/?api=1&query=" +

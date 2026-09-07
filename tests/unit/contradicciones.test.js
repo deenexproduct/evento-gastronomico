@@ -252,22 +252,40 @@ describe("los beneficios de los partners", () => {
 });
 
 describe("el día como argumento", () => {
-  it("no usa el domingo como precio del evento", () => {
+  it("no usa el día del evento como su precio", () => {
     // Alan: "no me parece que tengamos que hacer tanto énfasis en eso". La
     // distinción: decir QUÉ DÍA es, es un dato que el lector necesita; usar
     // el día como lo que el evento cuesta es hablar de lo que pierde en vez
     // de lo que gana. Estaba en cuatro lugares, y uno era la respuesta a
     // "cuánto sale" en la primera sección de contenido.
+    //
+    // Los patrones dicen "domingo" porque el evento era domingo cuando esto
+    // se escribió. Se dejan —son texto que no puede volver— y se suman los
+    // equivalentes con sábado, que es el día de hoy.
     const t = todo();
     expect(t).not.toMatch(/cuesta un domingo/i);
     expect(t).not.toMatch(/te cuesta el domingo/i);
     expect(t).not.toMatch(/respuesta:\s*"Un domingo"/i);
     expect(t).not.toMatch(/Es domingo y trabajo/i);
+    expect(t).not.toMatch(/cuesta un sábado/i);
+    expect(t).not.toMatch(/te cuesta el sábado/i);
   });
 
-  it("sigue diciendo qué día es, que es lo que el lector necesita", () => {
+  /*
+    Exigía que la página dijera "Domingo 20 de septiembre" —la jornada de
+    emprendedores del día siguiente— porque en ese momento se publicaba en la
+    home. Esa jornada salió de la landing entera, así que el test pasó a pedir
+    un texto que ya no puede existir.
+
+    Lo que el caso protege sigue valiendo, sólo que apuntando al día que
+    importa: que la página diga cuándo es SaboresTech. Y de paso ahora vigila
+    que la fecha del domingo no vuelva a colarse, que es la confusión que ya
+    costó una corrección en todo el repo.
+  */
+  it("dice qué día es el evento, y no menciona la jornada del domingo", () => {
     const t = todo();
-    expect(t).toMatch(/Domingo 20 de septiembre/i);
+    expect(t).toContain(EVENTO.fechaLarga);
+    expect(t).not.toMatch(/Domingo 20 de septiembre/i);
   });
 });
 

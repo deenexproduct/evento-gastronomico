@@ -71,21 +71,22 @@ export const EVENTO = {
   eventoMadreCirculacion: "20.000",
 };
 
-/**
- * El domingo, que es la otra mitad del fin de semana.
+/*
+ * ACÁ VIVÍA `DOMINGO`, la jornada de emprendedores del día siguiente.
  *
- * Se publica lo que está decidido y nada más: que existe, para quién es y que
- * la acreditación es la misma. Conductora, programa y oradores no están
- * definidos —Alan, textual, el 31/08: «el del domingo no la pensé»—, así que
- * la página no los promete. Cuando se cierren, entran acá.
+ * Sale de la landing entera por decisión de contenido: esta página convoca a
+ * SaboresTech, que es el sábado 19, y el domingo es otro evento con otro
+ * público. Nunca terminó de estar definido —conductora, programa y oradores
+ * quedaron abiertos desde el 31/08— así que lo único que aportaba era una
+ * segunda fecha compitiendo con la que hay que retener.
+ *
+ * Y competía en el peor lugar: su rótulo violeta en versales decía "Domingo 20
+ * de septiembre" dos bloques antes del pedido de reserva, que es exactamente
+ * la confusión de fecha que ya costó una corrección en todo el repo.
+ *
+ * Si el domingo vuelve, vuelve como su propia landing o como una sección
+ * después del CTA, nunca antes.
  */
-export const DOMINGO = {
-  fechaISO: "2026-09-20T10:00:00-03:00",
-  fechaLarga: "Domingo 20 de septiembre",
-  titulo: "El domingo es de emprendedores",
-  bajada:
-    "El mismo fin de semana, en el mismo edificio, con una jornada propia para los que están armando su proyecto. Se reserva por el mismo WhatsApp y el programa se anuncia con la grilla final.",
-};
 
 /**
  * Los cinco bloques de la cabecera. Cada uno es una vista con su detalle.
@@ -645,10 +646,6 @@ export const FAQ = [
   {
     q: "¿Se transmite en vivo?",
     a: "No. Lo que pasa en la sala pasa estando ahí: los sistemas se prueban en los stands, el panel se responde de frente y el networking no tiene versión remota. Lo que sí queda por escrito es el material del día, que les llega a los que asistieron.",
-  },
-  {
-    q: "¿Y el domingo qué pasa?",
-    a: "El fin de semana tiene dos jornadas y SaboresTech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
   },
   {
     q: "¿Dónde es exactamente?",
