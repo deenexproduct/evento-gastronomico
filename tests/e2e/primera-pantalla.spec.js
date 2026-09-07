@@ -48,16 +48,26 @@ test("la primera pantalla del teléfono dice dónde es y qué día", async ({ pa
   expect(cortado).toBe(false);
 });
 
-test("la barra fija no muestra texto cortado en ningún ancho", async ({ page }) => {
-  // Acompaña dieciséis pantallas: un texto cortado ahí se ve más veces que
-  // cualquier otra cosa de la página. Decía "DOMINGO 20.09.2026 · HOT…".
-  for (const width of [360, 375, 390, 414, 600, 640, 700, 768, 1024, 1440]) {
+test("la barra de reserva no muestra texto cortado en ningún ancho", async ({ page }) => {
+  /*
+    Acompaña dieciséis pantallas: un texto cortado ahí se ve más veces que
+    cualquier otra cosa de la página. Decía "DOMINGO 20.09.2026 · HOT…".
+
+    LA PIEZA CAMBIA SEGÚN EL ANCHO, y el caso tiene que seguirla. Abajo de
+    640px la barra flotante ya no existe: la reemplaza la píldora del dock, que
+    lleva el mismo CTA y el mismo contador pero a ancho completo y pegada al
+    borde. Mirar sólo `.barra-flotante` dejaría sin vigilancia justo la mitad
+    del rango por donde entra la mayoría del tráfico, que es donde el texto
+    tiene menos lugar.
+  */
+  for (const width of [320, 360, 375, 390, 414, 600, 640, 700, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto("/");
     await page.evaluate(() => window.scrollTo(0, 3000));
 
-    const barra = page.locator(".barra-flotante");
-    await expect(barra).toBeVisible();
+    const enTelefono = width < 640;
+    const barra = page.locator(enTelefono ? ".dock-movil" : ".barra-flotante");
+    await expect(barra, `a ${width}px no se encontró la pieza de reserva`).toBeVisible();
 
     const cortados = await barra.evaluate((b) => {
       const fuera = [];

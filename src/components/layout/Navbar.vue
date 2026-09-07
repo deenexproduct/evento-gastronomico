@@ -26,8 +26,11 @@
 <template>
   <header
     ref="cabecera"
-    class="fixed inset-x-0 top-0 z-[100] border-b transition-colors duration-300"
-    :class="scrolled ? 'border-white/10 bg-noche/90 backdrop-blur-md' : 'border-transparent bg-noche'"
+    class="cabecera fixed inset-x-0 top-0 z-[100] border-b transition-colors duration-300"
+    :class="[
+      scrolled ? 'border-white/10 bg-noche/90 backdrop-blur-md' : 'border-transparent bg-noche',
+      retraida ? 'cabecera-arriba' : '',
+    ]"
   >
     <div class="contenedor">
       <div class="flex flex-wrap items-center gap-x-3 py-3.5 sm:flex-nowrap sm:gap-x-4 lg:gap-x-6">
@@ -57,7 +60,7 @@
           se lee como un subrayado roto debajo de las pestañas.
         -->
         <nav
-          class="order-last -mb-1 flex w-full min-w-0 items-center gap-3 overflow-x-auto pb-1 [scrollbar-width:none] sm:order-none sm:w-auto sm:flex-1 sm:gap-2.5 lg:gap-5 xl:gap-7 [&::-webkit-scrollbar]:hidden"
+          class="order-last -mb-1 hidden w-full min-w-0 items-center gap-3 overflow-x-auto pb-1 [scrollbar-width:none] sm:order-none sm:flex sm:w-auto sm:flex-1 sm:gap-2.5 lg:gap-5 xl:gap-7 [&::-webkit-scrollbar]:hidden"
           aria-label="Secciones"
         >
           <RouterLink
@@ -77,13 +80,20 @@
             {{ agotado ? "Cupo completo" : mostrarCupo ? `${restantes} lugares` : `${total} lugares` }}
           </span>
           <!--
-            Se esconde cuando la barra flotante de la home está en pantalla:
-            si no, quedan dos píldoras magenta idénticas a la vez.
+            De 640px para arriba se esconde cuando la barra flotante de la home
+            está en pantalla: si no, quedan dos píldoras violetas idénticas a la
+            vez. Ese turno lo arbitra useBarraReserva.js.
+
+            Abajo de 640 no existe: el CTA de teléfono vive en el dock de abajo
+            y es el único. Eso es lo que le permite a esta cabecera retraerse
+            sin llevarse ningún acceso a reservar —en teléfono no lleva más que
+            el wordmark— y es también lo que evita que el turno tenga que
+            contemplar un tercer participante.
           -->
           <RouterLink
             v-if="!barraVisible"
             to="/deadline"
-            class="presionable inline-flex min-h-[44px] items-center rounded-full bg-deenex px-3.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-deenex-hover sm:px-4 lg:px-5"
+            class="presionable hidden min-h-[44px] items-center rounded-full bg-deenex px-3.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-deenex-hover sm:inline-flex sm:px-4 lg:px-5"
           >
             {{ agotado ? "Lista de espera" : "Reservar" }}
           </RouterLink>
@@ -108,8 +118,38 @@ const cabecera = ref(null);
 function rutaActiva(r) {
   return ruta.path === r;
 }
+/*
+  La cabecera se va al bajar y vuelve al subir, sólo en teléfono.
+
+  Es la mitad del cambio que de verdad recupera pantalla. Con las pestañas
+  mudadas al dock, en teléfono esta barra lleva únicamente el wordmark: no hay
+  navegación ni CTA adentro, así que esconderla mientras alguien lee no le
+  saca nada, y son 73px de vuelta. Medido, el cromo pasa de 199px a 97 mientras
+  se lee: del 25% de la pantalla al 12%.
+
+  Vuelve con el gesto de subir, que es el mismo con el que uno busca el menú.
+
+  · El umbral de 8px es para que el rebote elástico de iOS y los saltos de un
+    píxel del scroll suave no la hagan parpadear.
+  · Arriba de todo siempre está: si no, la primera pantalla arranca sin marca.
+  · De 640px para arriba nunca se retrae, porque ahí adentro viven las cinco
+    pestañas y la píldora de reserva. La regla vive en el CSS de abajo y no en
+    esta condición: así el estado de Vue es uno solo y el ancho lo decide el
+    medio que sabe de anchos.
+  · Con prefers-reduced-motion la transición no corre, pero el retraerse sí:
+    lo que molesta es el deslizamiento, no que la barra no esté.
+*/
+const retraida = ref(false);
+let ultimaY = 0;
+
 function onScroll() {
-  scrolled.value = window.scrollY > 24;
+  const y = window.scrollY;
+  scrolled.value = y > 24;
+
+  const salto = y - ultimaY;
+  if (Math.abs(salto) < 8) return;
+  retraida.value = salto > 0 && y > 120;
+  ultimaY = y;
 }
 
 /*
@@ -139,6 +179,7 @@ function onScroll() {
 let observador = null;
 
 onMounted(() => {
+  ultimaY = window.scrollY;
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
@@ -170,3 +211,25 @@ onUnmounted(() => {
   observador?.disconnect();
 });
 </script>
+
+<style scoped>
+/*
+  La retracción es sólo de teléfono: de 640px para arriba esta barra lleva las
+  cinco pestañas y la píldora de reserva, y esconderlas al bajar sería sacarle
+  al lector la navegación y la conversión de la mano.
+
+  Se mueve con transform y no con altura: la altura la leen --alto-nav, el
+  hero, CabeceraVista y el scroll-margin de las anclas, y si cambiara al
+  scrollear todos esos se recalcularían en cada rueda del mouse. Trasladada,
+  la caja sigue midiendo lo mismo.
+*/
+.cabecera {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s;
+}
+@media (max-width: 639px) {
+  .cabecera-arriba { transform: translateY(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cabecera { transition: background-color 0.3s, border-color 0.3s; }
+}
+</style>

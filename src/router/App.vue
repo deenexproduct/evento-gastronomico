@@ -22,6 +22,14 @@
 
     <Footer />
     <BarraFija v-if="esHome" />
+
+    <!--
+      El dock va en TODAS las vistas y no sólo en la home, al revés que la
+      barra flotante. Es la navegación de teléfono: si no estuviera en
+      /que-es o /participan, el lector entraría a una vista interna y se
+      quedaría sin forma de ir a las otras cuatro salvo volviendo atrás.
+    -->
+    <DockMovil />
   </div>
 </template>
 
@@ -31,6 +39,7 @@ import { RouterView, useRoute } from "vue-router";
 import Navbar from "@/components/layout/Navbar.vue";
 import Footer from "@/components/layout/Footer.vue";
 import BarraFija from "@/components/layout/BarraFija.vue";
+import DockMovil from "@/components/layout/DockMovil.vue";
 
 const ruta = useRoute();
 const esHome = computed(() => ruta.path === "/");

@@ -82,6 +82,21 @@ body {
 img, video { max-width: 100%; height: auto; display: block; }
 
 /*
+  El dock de teléfono es fijo y tapa el final de la página.
+
+  Sin este colchón, los últimos 97px de cada vista quedan debajo de la barra y
+  no hay scroll que los alcance: en la home eso es el pie entero, y en las
+  vistas internas el último bloque. Es el mismo defecto que tenía el nav por
+  arriba, del otro lado de la pantalla.
+
+  --alto-dock-real la publica DockMovil.vue midiéndose, por lo mismo que el nav
+  publica la suya: el alto cambia cuando la píldora se pliega, cuando el
+  teléfono tiene barra de gesto y si algún día entra una sexta pestaña. El
+  respaldo de 0 es para escritorio y para el primer frame, donde no hay dock.
+*/
+body { padding-bottom: var(--alto-dock-real, 0px); }
+
+/*
   Ninguna respuesta termina con una palabra sola colgada.
 
   Medido con un Range sobre la última línea real de cada párrafo, la home a

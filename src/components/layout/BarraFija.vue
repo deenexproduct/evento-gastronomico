@@ -2,6 +2,13 @@
   <!--
     Barra de conversión persistente. Aparece pasado el hero y se esconde
     cuando el formulario está en pantalla, donde ya no aporta y tapa campos.
+
+    DE 640px PARA ARRIBA. En teléfono la reemplaza el dock, que lleva el mismo
+    CTA con el mismo contador pero a ancho completo y pegado al borde, junto a
+    las cinco pestañas. Este componente igual se sigue montando en la home
+    aunque no se vea: sus dos IntersectionObserver son los que alimentan
+    `barraVisible`, que es de lo que depende la píldora del header para
+    turnarse con ella. Apagarlo con v-if dejaría ese turno sin árbitro.
   -->
   <Transition name="subir">
     <!--
@@ -11,7 +18,7 @@
     -->
     <div
       v-if="visible"
-      class="barra-fija pointer-events-none fixed inset-x-0 bottom-0 z-[90] px-3 pb-3 sm:px-6 sm:pb-5"
+      class="barra-fija pointer-events-none fixed inset-x-0 bottom-0 z-[90] hidden px-3 pb-3 sm:block sm:px-6 sm:pb-5"
     >
       <div
         class="barra-flotante pointer-events-auto mx-auto flex max-w-[1080px] items-center justify-between gap-4 rounded-2xl border border-linea bg-noche/95 px-4 py-3 backdrop-blur-md sm:gap-5 sm:rounded-full sm:px-5"
