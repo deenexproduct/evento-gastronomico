@@ -20,7 +20,63 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # ── Los unitarios: rápidos, y son la compuerta de todo lo demás ──────────
+  #
+  # Sin esta compuerta el deploy publicaba pase lo que pase, y los tests eran
+  # documentación en vez de protección: cada vez que un dato quedó
+  # desincronizado —el horario en tres lugares que no coincidían, la fecha
+  # vieja colgada, el respaldo sin JS convocando al domingo 20— la suite podría
+  # haberlo atrapado y nadie la corría.
+  unitarios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  # ── Los e2e: lentos, y por eso van en su propio job ──────────────────────
+  #
+  # Corren en paralelo con los unitarios y el build no espera por ellos: el
+  # deploy sí. Así un rojo de Playwright frena la publicación sin alargar el
+  # camino de los otros dos.
+  #
+  # NUNCA HABÍAN CORRIDO, ni acá ni en una máquina: faltaban los navegadores.
+  # La primera vez que se ejecutaron, 14 de 52 casos fallaban —tests que se
+  # habían quedado mirando una página de hace dos rediseños, y dos que pasaban
+  # en verde sin ejecutar una sola aserción—. Hoy son 114 verdes entre
+  # escritorio y teléfono.
+  #
+  # `--with-deps` instala las librerías de sistema que Chromium necesita en el
+  # runner; sin eso el navegador baja pero no arranca. Sólo chromium: los dos
+  # proyectos del config —desktop y mobile— son el mismo motor con distinto
+  # viewport, así que bajar firefox y webkit sería pagar minutos por nada.
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+
+      # Cuando algo se cae, el reporte dice en qué píxel: sin esto hay que
+      # reproducirlo a ciegas en local.
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   build:
+    needs: unitarios
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,18 +87,6 @@ jobs:
           cache: npm
 
       - run: npm ci
-
-      # La compuerta. Sin esta línea el deploy publicaba pase lo que pase, y
-      # los tests eran documentación en vez de protección: cada vez que un dato
-      # quedó desincronizado —el horario en tres lugares que no coincidían, la
-      # fecha vieja colgada, el respaldo sin JS convocando al domingo 20— la
-      # suite podría haberlo atrapado y nadie la corría.
-      #
-      # Van sólo los unitarios. Los e2e de Playwright necesitan
-      # `npx playwright install` y hoy tienen aserciones desactualizadas: si se
-      # suman ahora, el deploy queda bloqueado por tests rojos que no son
-      # defectos del sitio. Entran cuando estén verdes, en un job aparte.
-      - run: npm test
 
       # GITHUB_PAGES activa el base "/evento-gastronomico/" de vite.config.js
       - run: npm run build
@@ -55,7 +99,9 @@ jobs:
           path: dist
 
   deploy:
-    needs: build
+    # Las dos suites tienen que estar verdes para publicar. build ya depende de
+    # unitarios; e2e va listado igual porque el deploy es lo que se frena.
+    needs: [build, e2e]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

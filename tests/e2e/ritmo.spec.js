@@ -184,12 +184,27 @@ test("el mapa de Google no se descarga hasta que alguien lo pide", async ({ page
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForTimeout(2500);
 
+  // La guarda de fondo, que sigue valiendo igual: cero pedidos a Google.
   expect(deGoogle).toEqual([]);
-  await expect(page.locator("#lugar iframe")).toHaveCount(0);
 
-  // Y sigue estando a un toque para el que lo quiere arrastrar.
-  await page.getByRole("button", { name: /ver el mapa/i }).click();
-  await expect(page.locator("#lugar iframe")).toHaveCount(1);
+  /*
+    LA SEGUNDA MITAD DE ESTE CASO CAMBIÓ DE FORMA, no de intención.
+
+    Esperaba un botón "ver el mapa" que insertaba el iframe en #lugar. Hoy no
+    hay iframe en ninguna parte: la sección se llama #donde y el mapa es un
+    ENLACE EXTERNO —"Abrir en Maps"— que se abre en otra pestaña. Es la versión
+    más barata todavía de la misma decisión: cero KB en vez de 443.
+
+    Así que se verifica lo que hay: que no quede ningún iframe embebido y que
+    el acceso al mapa siga estando a un toque.
+  */
+  await expect(page.locator("#donde iframe")).toHaveCount(0);
+
+  const aMaps = page.locator('#donde a[href*="google.com/maps"]');
+  await expect(aMaps).toHaveCount(1);
+  await expect(aMaps).toHaveAttribute("target", "_blank");
+  // Y lleva a la dirección real, no a una búsqueda vacía.
+  await expect(aMaps).toHaveAttribute("href", /Quinto\+?%?20?Centenario|Duarte/i);
 });
 
 test("solo dos logos del muro siguen trayendo su propia caja", async ({ page }) => {
@@ -201,15 +216,37 @@ test("solo dos logos del muro siguen trayendo su propia caja", async ({ page }) 
   // archivo recortado. Este test fija dónde estamos y falla si aparece un
   // tercero.
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
+  // #detras es PruebaSection y vive en /organiza: la home dejó de montarla el
+  // 31/08, así que este caso venía midiendo una sección que no estaba.
+  await page.goto("/#/organiza");
   await revelarTodo(page);
   await page.evaluate(() => {
     document.querySelectorAll(".barra-fija, header").forEach((e) => (e.style.visibility = "hidden"));
   });
 
-  const fondo = await page.evaluate(
-    () => getComputedStyle(document.querySelector("#detras")).backgroundColor
-  );
+  /*
+    EL FONDO EFECTIVO, no el de la sección.
+
+    Esto tomaba getComputedStyle("#detras").backgroundColor a secas, y en
+    /organiza esa sección es TRANSPARENTE: devuelve "rgba(0, 0, 0, 0)". Al
+    parsear los números daba [0,0,0] y comparaba los logos contra NEGRO, así
+    que los ocho de fondo claro salían marcados "con caja" — un falso positivo
+    de manual, que además habría mandado a recortar ocho archivos que están bien.
+
+    Se sube por los ancestros hasta el primero con fondo opaco, que es contra
+    lo que el logo se ve de verdad.
+  */
+  const fondo = await page.evaluate(() => {
+    let el = document.querySelector("#detras");
+    while (el) {
+      const c = getComputedStyle(el).backgroundColor;
+      const p = c.match(/[\d.]+/g)?.map(Number) || [];
+      const alfa = p.length === 4 ? p[3] : 1;
+      if (alfa > 0.9) return c;
+      el = el.parentElement;
+    }
+    return "rgb(255, 255, 255)";
+  });
   const f = fondo.match(/\d+/g).map(Number);
   const conCaja = [];
 
@@ -253,11 +290,32 @@ test("cada pestaña del nav lleva a una sección que existe y ninguna se corta",
   for (const ancho of [1024, 1280, 1600]) {
     await page.setViewportSize({ width: ancho, height: 800 });
     await page.goto("/");
+    /*
+      Los hrefs del nav son RUTAS del router en modo hash —"#/que-es"—, no
+      anclas a un id. El test se los pasaba a querySelector, que devuelve null
+      para todos y encima revienta con "#/" porque no es selector CSS válido:
+      las cinco pestañas salían como "rotas". Es el mismo error que tenía
+      accesibilidad.spec.js.
+
+      Una ruta se valida contra el router; un ancla, contra el DOM. Acá son
+      todas rutas, así que se resuelven con router.resolve y se comprueba que
+      no caigan en la comodín.
+    */
     const r = await page.evaluate(() => {
       const enlaces = [...document.querySelectorAll("header nav a")];
+      const router = document.querySelector("#app").__vue_app__?.config?.globalProperties?.$router;
+      const roto = (a) => {
+        const href = a.getAttribute("href") || "";
+        if (href.startsWith("#/")) {
+          if (!router) return true;
+          const m = router.resolve(href.slice(1));
+          return !m.matched.length || m.matched.some((x) => x.name === "resto");
+        }
+        return !document.getElementById(href.replace(/^#/, ""));
+      };
       return {
         n: enlaces.length,
-        rotos: enlaces.filter((a) => !document.querySelector(a.getAttribute("href"))).map((a) => a.innerText),
+        rotos: enlaces.filter(roto).map((a) => a.innerText),
         cortados: enlaces.filter((a) => a.scrollWidth > a.clientWidth + 1).map((a) => a.innerText),
       };
     });
@@ -274,14 +332,37 @@ test("ningún logo de sponsor queda invisible sobre el fondo claro", async ({ pa
   // pinta de negro todo píxel opaco sin tocar la transparencia. Este test
   // falla si entra un logo nuevo que el filtro no alcanza.
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
+  // #partners vive en /participan, y ahí está también la cinta de #respaldan:
+  // en la home este caso sólo veía la cinta y ninguna tarjeta.
+  await page.goto("/#/participan");
   await revelarTodo(page);
   await page.evaluate(() => {
     document.querySelectorAll(".barra-fija, header").forEach((e) => (e.style.visibility = "hidden"));
   });
 
+  /*
+    LA MARQUESINA SE FRENA ANTES DE MEDIR, y sin eso este caso no puede pasar
+    nunca: la cinta de #respaldan se desplaza en loop infinito con CSS, y
+    scrollIntoViewIfNeeded espera a que el elemento esté "stable". Un elemento
+    en animación permanente no se estabiliza jamás, así que el test moría por
+    timeout de 30s en el primer logo — no porque hubiera un logo invisible.
+
+    Parar la animación no falsea la medición: lo que se mide es cuánta tinta
+    tiene el logo renderizado, y eso no depende de dónde esté la cinta.
+  */
+  await page.evaluate(() => {
+    for (const e of document.querySelectorAll("#respaldan *")) {
+      e.style.animation = "none";
+      e.style.transition = "none";
+    }
+  });
+
   const invisibles = [];
-  for (const img of await page.$$("#respaldan img, #partners article img")) {
+  const imgs = await page.$$("#respaldan img, #partners article img");
+  // Si no hay ninguna imagen, este caso no está midiendo nada: es la falla que
+  // ya tuvieron dos tests de bloque-a, pasando en verde por vacío.
+  expect(imgs.length, "no se encontró ningún logo para medir").toBeGreaterThan(0);
+  for (const img of imgs) {
     const src = (await img.getAttribute("src")).split("/").pop().split("?")[0];
     await img.scrollIntoViewIfNeeded();
     const buf = await img.screenshot();

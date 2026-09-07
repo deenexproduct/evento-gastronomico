@@ -38,10 +38,27 @@ html { scroll-behavior: smooth; }
    llegó a quedarse pegado por esto. clip recorta igual sin crear contexto. */
 html, body { overflow-x: clip; }
 
-/* El nav mide 73 px y está fijo arriba. Sin este margen, cada salto de ancla
-   —el menú, los botones de reservar, un link compartido con #registro— deja
-   el título de la sección escondido debajo de la barra. */
-section[id], main[id] { scroll-margin-top: 88px; }
+/* El nav está fijo arriba, así que sin este margen cada salto de ancla —el
+   menú, los botones de reservar, un link compartido con #registro— deja el
+   título de la sección escondido debajo de la barra.
+
+   Y NO MIDE LO MISMO EN TODOS LADOS, que es lo que este bloque no contemplaba:
+   por debajo de 640px las cinco pestañas caen a una segunda línea y el nav pasa
+   de 73 px a 117. El margen era 88 para todo, así que en teléfono el título
+   quedaba 29 px por debajo de la barra en cada salto — justo lo que la regla
+   existe para evitar, y justo en el ancho por donde entra la mayoría del
+   tráfico.
+
+   Medido con getBoundingClientRect sobre el header: 117 px a 375 y a 639,
+   73 px de 640 para arriba. Los valores llevan un poco de aire encima.
+
+   Lo vigila tests/e2e/enlaces-compartidos.spec.js, que compara el margen contra
+   el alto real del nav en los dos proyectos de Playwright —desktop y mobile—,
+   así que si el nav vuelve a crecer el test lo dice. */
+section[id], main[id] { scroll-margin-top: 132px; }
+@media (min-width: 640px) {
+  section[id], main[id] { scroll-margin-top: 88px; }
+}
 
 body {
   /* Bespoke Sans es el cuerpo de la marca; Archivo queda de respaldo. */
