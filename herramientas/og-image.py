@@ -1,25 +1,29 @@
 # -*- coding: utf-8 -*-
 """Genera la imagen que levantan WhatsApp, LinkedIn e Instagram al compartir.
 
-╔══════════════════════════════════════════════════════════════════════════╗
-║  NO CORRAS ESTE SCRIPT SIN LEER ESTO.                                    ║
-║                                                                          ║
-║  El public/og-image.png que está publicado HOY no salió de acá. Se       ║
-║  rehízo por fuera en el commit 3f1fbab, que cambió el PNG y no tocó este ║
-║  archivo: la tarjeta publicada tiene el nombre en dos líneas, la paleta  ║
-║  violeta, la caja del cupo más chica y el pie con acreditación, charlas  ║
-║  y cierre. Nada de eso está acá abajo.                                   ║
-║                                                                          ║
-║  O sea: correr `python herramientas/og-image.py public` PISA la tarjeta  ║
-║  buena con la composición vieja —una sola línea, magenta, otro pie—.     ║
-║  Los DATOS de acá abajo sí están al día (nombre, fecha, horario y        ║
-║  cantidad de bloques), y hay un test que los vigila                      ║
-║  (tests/unit/tarjeta-compartida.test.js); lo que está viejo es el        ║
-║  DIBUJO.                                                                 ║
-║                                                                          ║
-║  Antes de regenerar hay que traer a este script la composición que está  ║
-║  publicada, y comparar el PNG resultante contra el que hay en public/.   ║
-╚══════════════════════════════════════════════════════════════════════════╝
+ESTE SCRIPT VUELVE A SER LA FUENTE DEL PNG PUBLICADO. Durante un tiempo no lo
+fue: el commit 3f1fbab rehízo public/og-image.png por fuera y no tocó este
+archivo, así que la tarjeta publicada quedó en violeta y con otra composición
+mientras acá seguía la versión magenta.
+
+Se dejó así a propósito —regenerar habría pisado la tarjeta buena con el dibujo
+viejo— y el aviso que había acá decía que lo único desactualizado era el DIBUJO.
+Eso dejó de ser cierto el día que cambiaron el nombre y dos horas: el PNG quedó
+diciendo "SABORES TECH" con espacio, "Acreditación 9:30" y "cierre 18:00", tres
+datos que ya no eran los del sitio, en la superficie que ve el 100% de la
+convocatoria antes de abrir la página.
+
+Ahora la composición violeta está acá y el PNG sale de correr:
+
+    python herramientas/og-image.py public
+
+DOS COSAS AL REGENERAR:
+  · Mirá el PNG. tests/unit/tarjeta-compartida.test.js vigila los DATOS de este
+    archivo contra evento.js, pero ningún test mira el dibujo.
+  · WhatsApp cachea la previsualización POR URL. Cambiar el archivo no actualiza
+    los links que ya circulan: hay que forzar el rescrapeo o publicar la imagen
+    con un nombre nuevo y repuntar og:image, twitter:image y el "image" del
+    JSON-LD.
 
 Es la primera superficie de la marca: el 100% del público la ve en el chat
 antes de abrir la página. Por eso se compone en Archivo, la misma tipografía
@@ -52,9 +56,14 @@ DEST = sys.argv[1] if len(sys.argv) > 1 else "."
 # en el deploy sin que ningún archivo del proyecto la referencie.
 REVISION = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_revision")
 W, H = 1200, 630
-MAGENTA = (255, 0, 84)
-MAGENTA_TXT = (255, 92, 135)
-MAGENTA_CLARO = (224, 0, 73)
+# El violeta de marca, #695EDE. La tarjeta se componía en magenta —(255,0,84)—
+# hasta que la paleta del sitio se unificó en el violeta de Deenex; el PNG
+# publicado ya venía en violeta desde 3f1fbab y este script era lo único que
+# seguía en magenta.
+VIOLETA = (105, 94, 222)          # #695EDE, el de la caja y el filete
+VIOLETA_TXT = (154, 146, 240)     # aclarado, para texto sobre el fondo oscuro
+VIOLETA_CLARO = (79, 66, 196)     # #4F42C4, el --acento-texto del sitio: es el
+                                  # que tiene contraste suficiente sobre blanco
 
 FUENTES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fuentes")
 VARIABLE = os.path.join(FUENTES, "Archivo-Variable.ttf")
@@ -112,8 +121,8 @@ def generar(oscuro=True):
     tinta   = (255, 255, 255) if oscuro else (26, 26, 26)
     gris    = (163, 163, 168) if oscuro else (85, 83, 92)
     linea   = (42, 42, 42) if oscuro else (224, 222, 219)
-    acento  = MAGENTA_TXT if oscuro else MAGENTA_CLARO
-    caja    = MAGENTA if oscuro else MAGENTA_CLARO
+    acento  = VIOLETA_TXT if oscuro else VIOLETA_CLARO
+    caja    = VIOLETA
 
     img = Image.new("RGB", (W, H), fondo)
     d = ImageDraw.Draw(img)
@@ -147,13 +156,20 @@ def generar(oscuro=True):
     # se mete 29 px DEBAJO de la caja del cupo, que arranca en x=936. A 100
     # mide 836 y deja 40 px de aire. Medido con d.textlength() y la misma f().
     cap(d, (60, 209), "SABORESTECH", f(100), tinta)
-    cap(d, (64, 315), "GASTRONOMÍA Y TECNOLOGÍA", f(44), acento)
-    cap(d, (64, 369), "PARA DUEÑOS DE CADENAS", f(44), tinta)
+    # La bajada va en caja mixta, no en versales: es la composición que quedó
+    # publicada en 3f1fbab y separa mejor la marca —que sí va en versales— de
+    # lo que la explica. Medido a 44 con peso 700: 547 px y 519 px contra los
+    # 872 que hay hasta la caja del cupo.
+    fb = f(44, 700)
+    cap(d, (64, 318), "Gastronomía y tecnología", fb, tinta)
+    cap(d, (64, 372), "para dueños de cadenas", fb, acento)
 
     d.line([64, 458, W - 64, 458], fill=linea, width=1)
     fd = f(25, 500)
-    cap(d, (64, 495), "Un día entero de charlas, demos en vivo y networking.", fd, gris)
-    cap(d, (64, 533), "Hotel Quinto Centenario, Córdoba  ·  9 a 21 h", fd, gris)
+    # Las dos líneas del pie llevan los datos que se movieron hoy. Medidas a 25
+    # con peso 500: 846 px y 727 px contra los 1072 útiles.
+    cap(d, (64, 495), "Un día entero de charlas y networking. Hotel Quinto Centenario, Córdoba.", fd, gris)
+    cap(d, (64, 533), "Acreditación 9:00 · charlas de 10 a 18 · networking hasta las 21.", fd, gris)
     espaciado(d, (64, 584), "DIEZ BLOQUES  ·  UN SOLO TRACK  ·  SE RESERVA POR WHATSAPP",
               f(20), acento, 2.2)
     return img

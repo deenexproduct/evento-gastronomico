@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { EVENTO, CUPO } from "@/data/evento";
+import { EVENTO, CUPO, BORDES } from "@/data/evento";
 
 /**
  * La tarjeta que levantan WhatsApp, LinkedIn e Instagram al compartir el link.
@@ -42,35 +42,42 @@ describe("tarjeta compartida (og-image.py)", () => {
     expect(dibujo).not.toContain("20.09.2026");
   });
 
-  it("publica el horario del evento, que arranca con la acreditación", () => {
-    // La tarjeta lo escribe con la h final: "9 a 18 h".
-    expect(dibujo).toContain(`${EVENTO.horario} h`);
+  /*
+    Este caso se rompió TRES veces por escribir horas adentro del test, y cada
+    rotura enseñó lo mismo:
+
+      1. Prohibía "9 a 18 h" como horario viejo. Cuando la apertura volvió a las
+         9:00, pasó a prohibir el dato correcto.
+      2. Buscaba "... a 18 h" con el 18 fijo. Se cayó cuando el cierre pasó a
+         las 21.
+      3. Exigía el rango `${EVENTO.horario} h`. Se cayó cuando la tarjeta dejó
+         de publicar un rango y pasó a decir las tres horas por separado, que es
+         más claro para el que la lee en el chat.
+
+    La lección es que el FORMATO de la tarjeta no es asunto de este test: lo que
+    tiene que garantizar es que cada hora impresa salga de evento.js. Por eso
+    ahora verifica los tres datos por separado y contra la fuente, sin asumir
+    cómo están redactados.
+  */
+  it("publica la hora de acreditación que declara evento.js", () => {
+    expect(dibujo).toContain(EVENTO.puertas);
   });
 
-  /*
-    Este caso empezó prohibiendo "9 a 18 h" —era el horario viejo, de cuando la
-    apertura decía 9 en punto y la grilla del 30/08 la corrigió a 9:30—. Después
-    la apertura se movió otra vez, a 9:00, y "9 a 18 h" pasó a ser el dato
-    correcto: el test estaba prohibiendo justo lo que había que publicar.
+  it("publica la ventana de charlas que declara evento.js", () => {
+    expect(dibujo).toContain(EVENTO.horarioCharlas);
+  });
 
-    Por eso ahora no lista horarios prohibidos sino que exige que el .py NO
-    tenga ninguna hora de apertura distinta de la que declara evento.js. Así el
-    caso sigue sirviendo la próxima vez que se mueva, sin volver a editarlo.
-  */
-  /*
-    Este caso ya se rompió dos veces por escribir la hora adentro del regex.
-    Primero prohibía "9 a 18 h" como horario viejo, y cuando la apertura volvió
-    a las 9:00 pasó a prohibir el dato correcto. Después buscaba "... a 18 h"
-    con el 18 fijo, y se cayó cuando el cierre pasó a las 21.
+  it("publica la hora en que se corta la sala", () => {
+    // "21:00" en los datos, "21" en la tarjeta: alcanza con la hora.
+    expect(dibujo).toContain(BORDES.cierre.hasta.split(":")[0]);
+  });
 
-    Ahora el patrón no menciona ninguna hora: busca cualquier ventana "N a N h"
-    y exige que haya UNA sola y que sea la que declara evento.js. Así sobrevive
-    a que se muevan las dos puntas.
-  */
-  it("no arrastra ninguna ventana horaria que evento.js ya no declara", () => {
-    const ventanas = dibujo.match(/\b\d{1,2}(?::\d{2})?\s+a\s+\d{1,2}(?::\d{2})?\s*h/g) || [];
-    expect(ventanas).toHaveLength(1);
-    expect(ventanas[0]).toContain(EVENTO.horario);
+  it("no arrastra ninguna hora que evento.js ya no declara", () => {
+    // 9:30 y 8:30 fueron aperturas anteriores; "cierre 18:00" fue el cierre
+    // anterior. Ninguna puede seguir impresa en la tarjeta.
+    expect(dibujo).not.toContain("9:30");
+    expect(dibujo).not.toContain("8:30");
+    expect(dibujo).not.toMatch(/cierre\s+18/i);
   });
 
   it("dice el mismo lugar y la misma ciudad que el resto del sitio", () => {
@@ -88,11 +95,16 @@ describe("tarjeta compartida (og-image.py)", () => {
 
   /**
    * El conteo de bloques no sale de TEMAS.length: la página lo escribe a mano
-   * en cinco lugares y hoy dice "once". Lo que este test impide es que la
-   * tarjeta se quede sola en un número distinto, que es lo que pasó con
-   * "SIETE BLOQUES" durante dos versiones de la grilla.
+   * en siete lugares y hoy dice DIEZ, que es la cantidad de temas con orador
+   * —TEMAS tiene once entradas y una es el networking del mediodía—.
+   *
+   * Este caso impide que la tarjeta se quede sola en un número distinto, que
+   * es lo que pasó con "SIETE BLOQUES" durante dos versiones de la grilla y
+   * después con "ONCE" cuando el resto ya decía diez.
    */
-  it("no se queda con un conteo de bloques que la página ya no usa", () => {
+  it("dice el mismo conteo de bloques que la página", () => {
+    expect(dibujo).toContain("DIEZ BLOQUES");
     expect(dibujo).not.toContain("SIETE BLOQUES");
+    expect(dibujo).not.toContain("ONCE BLOQUES");
   });
 });
