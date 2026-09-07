@@ -59,32 +59,36 @@
         una promesa del mismo peso que el horario, y no lo es.
       -->
       <!--
-        El domingo. Se publica lo que está decidido —que existe, para quién es
-        y que se reserva igual— y nada más: conductora, programa y oradores no
-        están definidos, así que la página no los promete.
+        Acá iba la caja del domingo —la jornada de emprendedores del día
+        siguiente—. Sale de la landing entera por decisión de contenido.
+
+        Además de que no era este evento, ocupaba el peor lugar posible: el
+        rótulo violeta en versales decía "Domingo 20 de septiembre" y era lo
+        primero que engancha el ojo del que escanea, dos bloques antes del
+        pedido de reserva. La página convoca al sábado 19 y el dato más visible
+        de esa zona era otra fecha.
+      -->
+      <!--
+        El rótulo dice "de regalo" y no "además": es lo mismo que decía antes,
+        contado desde lo que el lector se lleva y no desde lo que la página
+        agrega. Es el único beneficio de la landing que no cuesta nada montar y
+        que ya está cerrado —la acreditación es la misma—, así que conviene que
+        se lea como lo que es.
+
+        Sigue sin prometer nada del otro evento más allá del acceso: qué pasa
+        adentro de Córdoba Corazón de Moda no lo maneja este equipo.
       -->
       <div class="cortesia mt-4">
         <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-acento-texto">
-          {{ DOMINGO.fechaLarga }}
+          De regalo por venir
         </p>
         <p class="mt-2.5 max-w-[46ch] text-[1.05rem] font-semibold leading-[1.35]">
-          {{ DOMINGO.titulo }}
+          Te regalamos el acceso a {{ EVENTO.eventoMadre }}
         </p>
         <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.55] text-gris">
-          {{ DOMINGO.bajada }}
-        </p>
-      </div>
-
-      <div class="cortesia mt-4">
-        <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-acento-texto">
-          Además
-        </p>
-        <p class="mt-2.5 max-w-[46ch] text-[1.05rem] font-semibold leading-[1.35]">
-          Tu acreditación también te habilita Córdoba Corazón de Moda
-        </p>
-        <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.55] text-gris">
-          Es el evento que ocupa el resto del centro de convenciones ese mismo día, y por el que
-          circulan más de 20.000 personas. Entrás con la misma credencial, sin trámite aparte.
+          Se hace en el mismo lugar y el mismo día: ocupa el resto del centro de convenciones y por
+          ahí circulan más de {{ EVENTO.eventoMadreCirculacion }} personas. Entrás con tu misma
+          credencial, sin pagar ni tramitar nada aparte.
         </p>
       </div>
     </div>
@@ -92,7 +96,7 @@
 </template>
 
 <script setup>
-import { EVENTO, DOMINGO, TEMAS, BORDES } from "@/data/evento";
+import { EVENTO, TEMAS, BORDES } from "@/data/evento";
 
 const comoLlegar =
   "https://www.google.com/maps/search/?api=1&query=" +
@@ -107,7 +111,12 @@ const datos = [
   {
     r: "Cuándo abre",
     v: `${EVENTO.puertas} · acreditación`,
-    n: `Las charlas arrancan ${TEMAS[0].hora} y el día cierra ${BORDES.cierre.hora}.`,
+    // El cierre que se publica acá es el del EVENTO (BORDES.cierre.hasta, las
+    // 21) y no el de la grilla (BORDES.cierre.hora, las 18): el lector que mira
+    // esta ficha está calculando a qué hora se va, no cuándo termina el último
+    // bloque. Las 18 se dicen igual, como el momento en que arranca el
+    // networking.
+    n: `Las charlas arrancan ${TEMAS[0].hora}, la grilla termina ${BORDES.cierre.hora} y el networking sigue hasta las ${BORDES.cierre.hasta.replace(":00", "")}.`,
   },
   {
     r: "Cómo se entra",

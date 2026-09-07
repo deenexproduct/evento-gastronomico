@@ -5,6 +5,7 @@ import {
   mensajeReserva,
   linkWaReserva,
   WHATSAPP_ORGANIZADOR,
+  TOPE_PERSONAS,
 } from "@/data/evento";
 
 /**
@@ -26,9 +27,20 @@ describe("el mensaje de reserva", () => {
     expect(m).not.toMatch(/:\s*$/);
   });
 
-  it("saluda a quien atiende y nombra la fecha real", () => {
+  /*
+    El de reserva es el único de los seis que NO nombra a quien atiende: abre
+    con "Buenas!". Los otros cinco siguen saludando a Romina.
+
+    La asimetría es deliberada y conviene entenderla antes de "arreglarla": el
+    de reserva es el que manda alguien que todavía no habló con nadie, así que
+    saludar por nombre a una persona que no conoce suena a plantilla. Los otros
+    cinco los manda alguien que ya está en conversación —sponsor, prensa, rubro,
+    consulta—.
+  */
+  it("abre sin nombrar a nadie y nombra la fecha real", () => {
     const m = mensajeReserva();
-    expect(m).toContain("Hola Romina!");
+    expect(m).toMatch(/^Buenas!/);
+    expect(m).not.toContain("Romina");
     expect(m).toContain(EVENTO.fechaSinDia);
   });
 
@@ -42,11 +54,54 @@ describe("el mensaje de reserva", () => {
   it("los seis mensajes comparten la base y se diferencian en la acción", () => {
     const todos = [...Object.values(MENSAJES_WA), mensajeReserva({ agotado: true })];
     for (const m of todos) {
-      expect(m).toContain("Hola Romina!");
+      // La base común son estas dos: una sola línea y la fecha adentro. El
+      // saludo dejó de serlo cuando el de reserva pasó a "Buenas!".
       expect(m).toContain(EVENTO.fechaSinDia);
       expect(m.split("\n")).toHaveLength(1);
     }
     // Ninguno repetido: cada botón tiene que llegar distinto a la bandeja.
     expect(new Set(todos).size).toBe(todos.length);
+  });
+
+  /*
+    Los cinco que NO son de reserva sí comparten el saludo, y tienen que
+    seguir compartiéndolo: la constante SALUDO existe para que cambiar quién
+    atiende sea una línea. Este test es el que se rompe si alguien escribe uno
+    a mano.
+  */
+  it("los cinco de conversación saludan todos a la misma persona", () => {
+    const deConversacion = Object.entries(MENSAJES_WA)
+      .filter(([clave]) => clave !== "registro")
+      .map(([, m]) => m);
+    expect(deConversacion).toHaveLength(4);
+    for (const m of deConversacion) expect(m).toContain("Hola Romina!");
+  });
+
+  /*
+    El número vive en una sola constante y el enlace tiene que salir de ahí.
+    Escribirlo a mano en un componente es como quedaron circulando dos números
+    distintos la última vez que cambió.
+  */
+  it("el enlace de reserva sale del número que declara evento.js", () => {
+    expect(linkWaReserva()).toContain(`wa.me/${WHATSAPP_ORGANIZADOR}`);
+    expect(WHATSAPP_ORGANIZADOR).toMatch(/^549\d{10}$/);
+  });
+
+  /*
+    El selector de "cuántos van" topa en 4, y ese 4 significa "cuatro o más".
+    El mensaje decía "vamos 4" a secas: del otro lado se anotaban cuatro lugares
+    para un grupo que podía ser de siete. Ahora los dos leen TOPE_PERSONAS y
+    dicen lo mismo.
+  */
+  it("en el tope, el mensaje dice lo mismo que el botón: cuatro o más", () => {
+    const enElTope = mensajeReserva({ personas: TOPE_PERSONAS });
+    expect(enElTope).toContain(`vamos ${TOPE_PERSONAS} o más`);
+    // Y por encima del tope no inventa una cifra que el selector no ofrece.
+    expect(mensajeReserva({ personas: TOPE_PERSONAS + 5 })).toBe(enElTope);
+  });
+
+  it("por debajo del tope dice la cifra exacta", () => {
+    expect(mensajeReserva({ personas: 2 })).toContain("vamos 2.");
+    expect(mensajeReserva({ personas: 1 })).not.toContain("vamos");
   });
 });

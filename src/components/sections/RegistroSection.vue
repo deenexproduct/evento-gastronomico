@@ -133,38 +133,26 @@
             </ol>
 
             <!--
-              Cuántos van, antes del botón.
+              ACÁ ESTABA EL SELECTOR DE "¿CUÁNTOS VAN?", y sale por decisión de
+              producto: un toque y listo.
 
-              Es el único dato que la conversación no recupera sin costo: el
-              cupo se cuenta por persona, así que doscientos mensajes que dicen
+              Eran cuatro botones que cambiaban una palabra del mensaje, y
+              existían por una razón real que conviene no perder de vista: el
+              cupo se cuenta POR PERSONA, así que doscientos mensajes que dicen
               "quiero mi lugar" pueden ser doscientas sesenta personas en la
-              puerta. No es un formulario —no hay campos ni validación—: son
-              cuatro botones que cambian una palabra del mensaje.
-            -->
-            <div v-if="!agotado" class="mt-8">
-              <p class="text-[13px] font-semibold uppercase tracking-[0.1em] text-gris-2">
-                ¿Cuántos van?
-              </p>
-              <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Cuántas personas van">
-                <button
-                  v-for="n in [1, 2, 3, 4]"
-                  :key="n"
-                  type="button"
-                  class="cuantos presionable"
-                  :class="{ 'cuantos-activo': personas === n }"
-                  :aria-pressed="personas === n"
-                  @click="personas = n"
-                >
-                  {{ n === 4 ? "4 o más" : n }}
-                </button>
-              </div>
-            </div>
+              puerta. Ese dato ahora hay que preguntarlo en la conversación.
 
+              El intercambio es deliberado: se cambia un dato que se recuperaba
+              solo por un camino de un solo toque. Es la misma regla que ya
+              gobierna el resto de la reserva —sin formulario, sin nada que
+              elegir antes— y la que protege el caso "la reserva es un solo
+              botón, sin nada que elegir antes" de tests/e2e/registro.spec.js.
+            -->
             <a
               :href="enlaceReserva"
               target="_blank"
               rel="noopener noreferrer"
-              class="btn mt-5 w-full"
+              class="btn mt-8 w-full"
             >
               {{ agotado ? "Anotarme en la lista" : "Reservar por WhatsApp" }}
               <span class="sr-only"> (abre WhatsApp en una pestaña nueva)</span>
@@ -218,12 +206,11 @@ const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.val
 const { google, urlIcs, nombreArchivo } = useCalendario();
 
 
-const personas = ref(1);
-const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value, personas: personas.value }));
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const INCLUYE = [
-  "Los once bloques del programa, en track único",
-  "Los stands de los sponsors abiertos desde las 9:30",
+  "Los diez bloques del programa, en track único",
+  "Los stands de los sponsors abiertos desde las 9:00",
   "Las pausas y el networking de cierre",
   "La grilla final, antes que el resto",
 ];
@@ -236,26 +223,5 @@ const PASOS = [
 </script>
 
 <style scoped>
-/* Los cuatro botones de "cuántos van". Píldoras, no un select: a un toque de
-   distancia y sin abrir nada. */
-.cuantos {
-  min-width: 3rem;
-  min-height: 44px;
-  padding: 0 1rem;
-  border-radius: 999px;
-  border: 1px solid var(--linea, #e7e4f0);
-  background: var(--papel, #fff);
-  color: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
-}
-.cuantos:hover { border-color: color-mix(in srgb, var(--acento, #695ede) 45%, transparent); }
-.cuantos-activo {
-  background: var(--acento, #695ede);
-  border-color: var(--acento, #695ede);
-  color: #fff;
-}
+/* El CSS de .cuantos se fue con el selector de "cuántos van". */
 </style>

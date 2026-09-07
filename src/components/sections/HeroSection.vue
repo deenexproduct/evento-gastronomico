@@ -19,8 +19,24 @@
 
     <div class="contenedor relative py-12 sm:py-16">
       <div class="grid items-start gap-10">
-        <!-- Columna del mensaje -->
-        <div>
+        <!--
+          Columna del mensaje.
+
+          min-w-0 no es decorativo: por defecto un ítem de grid tiene
+          min-width:auto, o sea que no se encoge por debajo del contenido más
+          ancho que lleva adentro. Ese contenido es el h1, que va en una sola
+          palabra y no puede partirse.
+
+          La escala del titular está calculada para que entre a root 16px, pero
+          el clamp tiene el piso en rem: si el lector agranda la letra del
+          navegador, el piso crece mientras el contenedor sigue midiendo en vw.
+          Con min-width:auto la columna se estira detrás del texto, la sección
+          tiene overflow-hidden y el resultado es que se corta el titular Y la
+          columna entera —fecha, promesa y botones— sin que aparezca barra de
+          scroll. Con min-w-0 la columna se encoge y el nombre se parte en dos
+          renglones, que es feo pero se lee.
+        -->
+        <div class="min-w-0">
           <!--
             Donde y cuando, antes que nada. Con el panel de la derecha
             afuera, estas dos lineas son lo unico que lo dicen en la primera
@@ -52,10 +68,15 @@
             todo el ancho disponible, que es el máximo peso visual que puede
             tener sin romper nada.
 
-            El tamaño está MEDIDO, no elegido: "Sabores Tech" en Panchang 800
-            con este tracking mide 11,53 px de ancho por cada px de cuerpo.
+            El tamaño está MEDIDO, no elegido: "SaboresTech" en Panchang 800
+            con este tracking mide 11,38 px de ancho por cada px de cuerpo.
             Medido en el navegador con Range.getBoundingClientRect() y la
             fuente ya cargada, no a ojo.
+
+            Ese 11,38 es del nombre SIN espacio. La versión con espacio,
+            "Sabores Tech", medía 11,53: el espacio pesa. La escala de abajo se
+            calculó para 11,53, así que con 11,38 entra con MÁS aire y no hubo
+            que tocarla.
 
             El ancho ÚTIL del contenedor no es 1200: es 1200 menos 64 de
             padding, o sea 1136, y ahí topa. El comentario anterior decía 1200
@@ -65,20 +86,21 @@
             ahí para arriba, tope 1136— el máximo que entra va de 7,59vw a
             320px hasta 8,13vw a 1024. 7,2vw deja margen en toda la escala.
 
-            El techo es 6rem: 96px × 11,53 = 1107 contra 1136 útiles. Con
+            El techo es 6rem: 96px × 11,38 = 1092 contra 1136 útiles. Con
             6,3rem el texto medía 1163 y se cortaba de 1440 para arriba. El
             piso es 1,4rem, que sólo gobierna por debajo de 311px; con 1,6 el
             texto medía 295 contra 280 útiles en un teléfono de 320.
 
-            Ojo si se cambia el NOMBRE, la tipografía o el tracking: ese 11,53
+            Ojo si se cambia el NOMBRE, la tipografía o el tracking: ese número
             se mueve y el titular se corta sin avisar, porque la sección tiene
-            overflow-hidden y no aparece barra de scroll. Pasó al renombrar
-            —"GastroTech" medía 10,46 y el nombre nuevo es 10% más ancho.
+            overflow-hidden y no aparece barra de scroll. Ya pasó dos veces al
+            renombrar.
 
-            Ojo si se cambia la tipografía o el tracking: ese 10,46 se mueve y
-            el titular se corta sin avisar, porque la sección tiene
-            overflow-hidden y no aparece barra de scroll. Se mide con
-            Range.getBoundingClientRect() sobre el h1, no a ojo.
+            Este bloque llegó a tener DOS párrafos de advertencia con dos
+            ratios distintos —11,53 y 10,46, de dos nombres distintos— uno
+            debajo del otro. Un comentario que se contradice a sí mismo hace
+            recalibrar escalas que estaban bien: queda UNA sola medición, y es
+            la del nombre que hay en evento.js.
 
             El interlineado baja a 0.88: en una sola palabra no hay renglón
             siguiente que proteger.
@@ -87,55 +109,62 @@
             class="display mt-4 text-[clamp(1.4rem,7.2vw,6rem)] leading-[0.88] tracking-[-0.035em]"
           >
             <!--
-              El nombre real, para el buscador y para un lector de pantalla:
-              el efecto es visual y no puede cambiar lo que la página dice
-              que es. Lo animado va aria-hidden.
-            -->
-            <span class="sr-only">{{ EVENTO.nombre }}</span>
+              El nombre y nada más. Acá había un cruce animado: la palabra se
+              disolvía en humo violeta y aparecía "by Deenex", alternando cada
+              6,5 s. Se sacó por decisión de marca —el titular más grande de la
+              página pasaba la mitad del tiempo diciendo el nombre del
+              organizador y no el del evento, en una edición 01 que tiene que
+              instalar el suyo—.
 
-            <!--
-              Las dos palabras van APILADAS, no una reemplazando a la otra:
-              así el titular no cambia de ancho a mitad de la transición y
-              nada de abajo se mueve. El humo va detrás de las dos.
+              No estaba mal resuelto: tenía las capas apiladas para que el
+              ancho no saltara, el nombre real en un sr-only para buscador y
+              lector de pantalla, y corte con prefers-reduced-motion. Se fue
+              entero con su andamiaje, así que si alguien lo extraña, esto no
+              se "restaura": se vuelve a decidir.
+
+              Quien organiza se sigue diciendo en el "by Deenex" de la barra de
+              arriba, que está en todas las pantallas, y en su propia sección.
             -->
-            <span class="mutante" aria-hidden="true">
-              <span class="humo" :class="{ 'humo-activo': mutando }"></span>
-              <span class="capa" :class="{ 'capa-fuera': enDeenex }">{{ EVENTO.nombre }}</span>
-              <span class="capa capa-abs" :class="{ 'capa-fuera': !enDeenex }">
-                <span class="capa-by">by</span>{{ EVENTO.organiza }}
-              </span>
-            </span>
+            {{ EVENTO.nombre }}
           </h1>
 
           <!--
-            Antes había dos bajadas seguidas: una rosa con la categoría y otra
-            gris con la promesa. La categoría pasó a la línea de datos de abajo
-            y queda una sola frase, que es la que tiene que leerse.
-          -->
-          <!--
-            El acento cae en "centrada en gastronomía": eso es lo que separa
-            esto de un evento de tecnología cualquiera, y es lo que el lector
-            todavía no sabe cuando llega.
-          -->
-          <!--
+            La única promesa de la página, y el sujeto es el LECTOR.
+
+            Decía "Deenex crea un espacio para hablar de tecnología
+            vanguardista en el rubro gastronómico y vos podés ser parte". Tres
+            problemas en una frase: el sujeto era el organizador, así que el
+            lector entraba como invitado a algo ajeno; "tecnología
+            vanguardista" es una categoría y no un beneficio; y "vos podés ser
+            parte" no afirma nada. La decisión es que esto es un espacio y
+            punto, sin la empresa por detrás en la comunicación.
+
+            Quién organiza se sigue diciendo donde corresponde —el "by Deenex"
+            de la cabecera, que está en todas las pantallas, y la vista
+            /organiza entera—, pero no acá, que es donde el lector decide si
+            esto es para él.
+
+            Y ahora la frase califica al público. Antes la palabra "cadena" no
+            aparecía en toda la primera pantalla: había que scrollear hasta la
+            tarjeta de QueEsSection para saber para quién era el evento. El
+            og:title de index.html sí lo decía, así que la previsualización de
+            WhatsApp calificaba mejor al lector que la propia página.
+
+            Este bloque tenía TRES comentarios encima, y dos se contradecían:
+            uno pedía que el acento no cayera en la autoría y el siguiente que
+            el respaldo de la empresa fuera lo primero que se lee. Quedan
+            resumidos en este.
+
             Nivel 2, y se lee como nivel 2: cuerpo simple, caja baja, peso
             medio. Estaba en la display, en versales y a peso 800 — competía de
             igual a igual con el nombre del evento, que es lo único que tiene
-            que destacarse acá. Lo que sostiene la jerarquía ahora es el salto
-            de cuerpo y de tipografía, no el grito.
-
-            El acento cae en la invitación y no en la autoría: quién lo hace ya
-            está dicho en el "by Deenex" de la cabecera, y repetirlo acá gasta
-            el único resalte de la frase en un dato que el lector ya leyó.
-
-            Quien organiza se nombra acá arriba y no sólo en el "by Deenex" de
-            la cabecera: es la primera frase que lee el 100% de los que entran,
-            y el respaldo de la empresa es parte de lo que hace creíble a una
-            edición 01 sin historial.
+            que destacarse acá. Lo que sostiene la jerarquía es el salto de
+            cuerpo y de tipografía, no el grito.
           -->
           <p class="mt-6 max-w-[34ch] text-[clamp(1.1rem,2.4vw,1.5rem)] font-medium leading-[1.35]">
-            Deenex crea un espacio para hablar de tecnología vanguardista en el
-            rubro gastronómico <span class="texto-deenex font-bold">y vos podés ser parte.</span>
+            Un día entre dueños de cadenas gastronómicas:
+            <span class="texto-deenex font-bold">qué están aplicando los que crecen</span>, contado
+            por los que ya lo implementaron en sus locales.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -148,7 +177,7 @@
             <a :href="enlaceReserva" target="_blank" rel="noopener noreferrer" class="btn">{{
               agotado ? "Entrar a la lista" : "Quiero mi lugar"
             }}</a>
-            <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
+            <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver qué pasa ese día</a>
           </div>
 
           <!--
@@ -213,7 +242,14 @@ const unidades = computed(() => [
 ]);
 
 const ancho = ref(0);
-onMounted(() => setTimeout(() => (ancho.value = Math.max(porcentaje.value, 3)), 400));
+// El timer se guarda y se limpia: son 400 ms, pero si el componente se
+// desmonta antes —navegar a una vista interna apenas carga la home— el
+// callback despierta sobre un ref de un componente que ya no existe.
+let tAncho = null;
+onMounted(() => {
+  tAncho = setTimeout(() => (ancho.value = Math.max(porcentaje.value, 3)), 400);
+});
+onUnmounted(() => clearTimeout(tAncho));
 watch(porcentaje, (v) => {
   if (ancho.value > 0) ancho.value = Math.max(v, 3);
 });
@@ -223,137 +259,30 @@ function ir(id) {
 }
 
 /*
-  Sabores Tech se disuelve en humo violeta y aparece "by Deenex".
+  Acá vivía el cruce del titular: el nombre se disolvía en humo violeta y
+  aparecía "by Deenex", con tres temporizadores encadenados (QUIETO 4600,
+  ANTICIPO 380, CRUCE 1500), su función alternar() y su limpieza.
 
-  La primera versión revolvía las letras. Era vistoso y era el gesto
-  equivocado: un titular que se desarma dice inestabilidad, y este titular es
-  el nombre del evento. Acá las dos palabras se cruzan con un desenfoque
-  corto y una nube violeta que crece y se apaga entre las dos — el cambio se
-  siente, no se sufre.
-
-  Lo que lo mantiene honesto:
-  · el <h1> conserva "Sabores Tech" como texto real en un sr-only. Lo animado
-    es aria-hidden, así que ni el buscador ni un lector de pantalla ven el
-    titular cambiado.
-  · las dos capas están apiladas, así que el ancho del titular nunca cambia y
-    nada de lo que está debajo se mueve.
-  · la palabra está quieta el 90% del tiempo. Un titular en movimiento
-    permanente no se lee.
-  · con prefers-reduced-motion no arranca y queda Sabores Tech fijo.
+  Se sacó entero por decisión de marca, no por un defecto. Ver el comentario
+  del h1, arriba.
 */
-const QUIETO = 4600; // lo que dura cada palabra legible
-const ANTICIPO = 380; // el humo entra ANTES del cambio y lo cubre
-const CRUCE = 1500; // lo que queda encendido después del cambio
-
-const enDeenex = ref(false);
-const mutando = ref(false);
-let tQuieto = null;
-let tCambio = null;
-let tCruce = null;
-
-/*
-  El orden importa y es lo que hacía que el cambio se viera brusco: el humo y
-  el texto arrancaban juntos, así que la palabra ya se había ido cuando la
-  nube recién empezaba a formarse. Ahora el humo entra primero, y el texto
-  cambia cuando la nube ya está: el ojo ve una disolución, no un corte.
-*/
-function alternar() {
-  tQuieto = setTimeout(() => {
-    mutando.value = true;
-    tCambio = setTimeout(() => {
-      enDeenex.value = !enDeenex.value;
-      tCruce = setTimeout(() => {
-        mutando.value = false;
-        alternar();
-      }, CRUCE);
-    }, ANTICIPO);
-  }, QUIETO);
-}
-
-onMounted(() => {
-  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-  alternar();
-});
-onUnmounted(() => {
-  clearTimeout(tQuieto);
-  clearTimeout(tCambio);
-  clearTimeout(tCruce);
-});
 </script>
 
 <style scoped>
-/* ── El cruce del titular ──────────────────────────────────────────── */
+/* ── El titular ────────────────────────────────────────────────────── */
 
 /*
-  Las dos palabras ocupan la misma celda: la que está fuera no empuja a la
-  otra ni cambia el ancho del bloque. `inline-grid` en vez de posición
-  absoluta pura para que el <h1> conserve la altura de una línea real.
-*/
-.mutante {
-  position: relative;
-  display: inline-grid;
-  isolation: isolate;
-}
-.capa {
-  grid-area: 1 / 1;
-  transition:
-    opacity 1.05s cubic-bezier(0.4, 0, 0.2, 1),
-    filter 1.05s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 1.05s cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-}
-.capa-abs {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: baseline;
-  gap: 0.28em;
-}
-/* La que sale se desenfoca y sube apenas: es lo que la hace leer como humo
-   y no como un apagón. */
-.capa-fuera {
-  opacity: 0;
-  filter: blur(9px);
-  transform: translateY(-0.035em) scale(0.992);
-  pointer-events: none;
-}
-/* "by" va en el cuerpo y en gris: es una preposición, no parte del nombre. */
-.capa-by {
-  font-family: "Bespoke Sans", sans-serif;
-  font-weight: 500;
-  font-size: 0.32em;
-  letter-spacing: 0;
-  color: var(--gris, #6b6779);
-  align-self: center;
-}
+  Acá vivían .mutante, .capa, .capa-abs, .capa-fuera, .capa-by, .humo y
+  .humo-activo, más un @media de prefers-reduced-motion que sólo apagaba esas
+  transiciones. Salieron con el cruce del titular: sin capas que apilar no hay
+  grid que sostener, sin transición no hay movimiento que reducir.
 
-/*
-  El humo: una nube violeta detrás del texto que crece y se apaga durante el
-  cruce. Va en z-index -1 para no tapar las letras y es inerte al puntero.
+  El titular NO lleva white-space: nowrap. La tentación es ponerlo —lo traía
+  .capa mientras existía— pero acá haría daño: anularía el overflow-wrap de
+  .display, y si el lector agranda la letra del navegador el clamp crece por
+  el piso en rem mientras el contenedor sigue en vw. Con nowrap eso se corta
+  en silencio dentro del overflow-hidden de la sección; sin nowrap el nombre
+  se parte en dos renglones, que es feo pero se lee. Entre invisible y feo,
+  feo.
 */
-.humo {
-  position: absolute;
-  z-index: -1;
-  left: -8%;
-  right: -8%;
-  top: -60%;
-  bottom: -60%;
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0.85);
-  background:
-    radial-gradient(45% 55% at 30% 50%, color-mix(in srgb, var(--acento, #695ede) 42%, transparent), transparent 70%),
-    radial-gradient(40% 50% at 68% 45%, color-mix(in srgb, var(--acento, #695ede) 30%, transparent), transparent 72%);
-  filter: blur(38px);
-  transition: opacity 0.6s ease-out, transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.humo-activo {
-  opacity: 1;
-  transform: scale(1.08);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .capa { transition: none; }
-  .humo { display: none; }
-}
 </style>

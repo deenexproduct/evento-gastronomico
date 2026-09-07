@@ -111,16 +111,36 @@ for (const [nombre, vp] of PANTALLAS) {
   });
 }
 
-test("todo botón magenta pleno lleva a reservar", async ({ page }) => {
-  // El magenta sólido es el único código de acción de la página. Había seis
-  // botones con ese código: cinco decían reservar y el sexto iba a hablar de
-  // partnership. Un código que significa dos cosas no significa ninguna.
+test("todo botón con el acento pleno es una salida real, no decoración", async ({ page }) => {
+  /*
+    ESTE CASO NO PROBABA NADA. Buscaba los tres magentas de la paleta anterior
+    —rgb(224,0,73) y compañía—, y la página se unificó en el violeta #695EDE
+    hace commits: ningún elemento tenía ya esos fondos, así que la lista de
+    desviados salía vacía siempre y el test pasaba en verde por vacío. No se
+    notó porque los e2e no corren en CI.
+
+    Y la regla que protegía también cambió. Decía "todo botón magenta lleva a
+    reservar", que era cierto cuando el acento se usaba sólo ahí. Hoy el violeta
+    pleno lo llevan además "Quiero ser sponsor" y "Pedir acreditación", que son
+    salidas legítimas a WhatsApp aunque no sean la reserva.
+
+    Lo que sigue valiendo, y es lo que se verifica ahora: que el color de acción
+    no se gaste en algo que no lleva a ningún lado. O abre WhatsApp, o navega a
+    la vista de reserva.
+  */
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
   await revelarTodo(page);
 
   const desviados = await page.evaluate(() => {
-    const ACENTOS = ["rgb(224, 0, 73)", "rgb(199, 0, 63)", "rgb(216, 0, 71)"];
+    // El acento pleno, tomado de la variable de la hoja de estilos y no
+    // escrito acá: si la paleta se vuelve a mover, este test se mueve con ella.
+    const hex = getComputedStyle(document.documentElement).getPropertyValue("--acento").trim();
+    const aRgb = (h) => {
+      const n = parseInt(h.replace("#", ""), 16);
+      return `rgb(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255})`;
+    };
+    const ACENTO = aRgb(hex);
     const out = [];
     for (const el of document.querySelectorAll("a[href], button")) {
       const r = el.getBoundingClientRect();
@@ -128,13 +148,18 @@ test("todo botón magenta pleno lleva a reservar", async ({ page }) => {
       // El enlace de salto vive arriba del borde de la página hasta que
       // recibe foco: es accesibilidad, no una llamada a la acción.
       if (r.top + scrollY < 0) continue;
-      if (!ACENTOS.includes(getComputedStyle(el).backgroundColor)) continue;
+      // El selector de "cuántos van" pinta de acento el número elegido. Es un
+      // control de la reserva, no una salida: no tiene adónde llevar.
+      if (el.closest("[data-selector-personas], #registro [role='group']")) continue;
+      if (getComputedStyle(el).backgroundColor !== ACENTO) continue;
+
       const href = el.getAttribute("href") || "";
-      const reserva =
+      const esSalida =
+        /wa\.me/.test(href) ||
         href === "#reservar" ||
-        /Quiero reservar mi lugar/i.test(decodeURI(href)) ||
+        href.includes("/deadline") ||
         /reservar|quiero mi lugar|anotarme/i.test(el.innerText);
-      if (!reserva) out.push(el.innerText.trim().slice(0, 40) + " → " + href.slice(0, 45));
+      if (!esSalida) out.push(el.innerText.trim().slice(0, 40) + " → " + href.slice(0, 45));
     }
     return out;
   });

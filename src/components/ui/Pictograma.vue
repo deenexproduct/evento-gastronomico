@@ -84,6 +84,25 @@
     <template v-else-if="nombre === 'flecha'">
       <path d="M4 12h15M13 6l6 6-6 6" />
     </template>
+
+    <template v-else-if="nombre === 'chip'">
+      <!-- Chip con patas: la tecnología del día, no un engranaje genérico -->
+      <rect x="7.5" y="7.5" width="9" height="9" rx="1.5" />
+      <path d="M10 4v3.5M14 4v3.5M10 16.5V20M14 16.5V20" />
+      <path d="M4 10h3.5M4 14h3.5M16.5 10H20M16.5 14H20" />
+    </template>
+
+    <template v-else-if="nombre === 'estrella'">
+      <!-- Estrella: el invitado que no está en la grilla del resto -->
+      <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85z" />
+    </template>
+
+    <template v-else-if="nombre === 'cafe'">
+      <!-- Taza con asa y vapor: el corte, distinto de la copa de degustación -->
+      <path d="M4 9.5h12v5.5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" />
+      <path d="M16 11h1.75a2.25 2.25 0 0 1 0 4.5H16" />
+      <path d="M7.5 3v2.5M11 3v2.5" />
+    </template>
   </svg>
 </template>
 

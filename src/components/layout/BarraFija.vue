@@ -124,6 +124,20 @@ onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
   observer?.disconnect();
   observerPie?.disconnect();
+  /*
+    Y se apaga el estado compartido, que es lo que no hacía.
+
+    `barraVisible` es un ref de MÓDULO: sobrevive al componente. Esta barra sólo
+    se monta en la home (App.vue la envuelve en v-if="esHome"), así que al
+    navegar a una vista interna se desmontaba dejando el ref en true. El Navbar
+    esconde su píldora justo cuando ese ref es true —se turnan para no mostrar
+    dos botones iguales a la vez—, de modo que en /que-es y /beneficios no
+    quedaba NINGÚN acceso a reservar en pantalla, y no volvía hasta recargar.
+
+    Una línea, y es el único lugar donde puede ir: el componente que enciende
+    el estado es el que tiene que apagarlo.
+  */
+  visible.value = false;
 });
 
 function ir() {

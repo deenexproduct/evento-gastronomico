@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { TEMAS, MENSAJES_WA, PARTNERS, BORDES, EVENTO } from "@/data/evento";
+import { TEMAS, MENSAJES_WA, PARTNERS, BORDES, EVENTO, FAQ } from "@/data/evento";
 
 /**
  * Las contradicciones: cosas que la página afirma en un lado y desmiente en
@@ -225,7 +225,11 @@ describe("preguntas que la página abría y no contestaba", () => {
     // las 15:30 dejó de existir cuando las pausas pasaron a ser ocho de 10\'.
     const faq = todo();
     expect(faq).toMatch(/¿Se come algo durante el día\?/);
-    for (const dato of ["9:30", "12:45", "13:45"]) {
+    // La hora de apertura sale de EVENTO.puertas y no va escrita acá: ya se
+    // movió tres veces —8:30, 9:30 y ahora 9:00— y cada vez este test hubo que
+    // tocarlo a mano. Las otras dos son horas de la grilla, que no dependen de
+    // la apertura.
+    for (const dato of [EVENTO.puertas, "12:45", "13:45"]) {
       expect(faq).toContain(dato);
     }
   });
@@ -248,32 +252,57 @@ describe("los beneficios de los partners", () => {
 });
 
 describe("el día como argumento", () => {
-  it("no usa el domingo como precio del evento", () => {
+  it("no usa el día del evento como su precio", () => {
     // Alan: "no me parece que tengamos que hacer tanto énfasis en eso". La
     // distinción: decir QUÉ DÍA es, es un dato que el lector necesita; usar
     // el día como lo que el evento cuesta es hablar de lo que pierde en vez
     // de lo que gana. Estaba en cuatro lugares, y uno era la respuesta a
     // "cuánto sale" en la primera sección de contenido.
+    //
+    // Los patrones dicen "domingo" porque el evento era domingo cuando esto
+    // se escribió. Se dejan —son texto que no puede volver— y se suman los
+    // equivalentes con sábado, que es el día de hoy.
     const t = todo();
     expect(t).not.toMatch(/cuesta un domingo/i);
     expect(t).not.toMatch(/te cuesta el domingo/i);
     expect(t).not.toMatch(/respuesta:\s*"Un domingo"/i);
     expect(t).not.toMatch(/Es domingo y trabajo/i);
+    expect(t).not.toMatch(/cuesta un sábado/i);
+    expect(t).not.toMatch(/te cuesta el sábado/i);
   });
 
-  it("sigue diciendo qué día es, que es lo que el lector necesita", () => {
+  /*
+    Exigía que la página dijera "Domingo 20 de septiembre" —la jornada de
+    emprendedores del día siguiente— porque en ese momento se publicaba en la
+    home. Esa jornada salió de la landing entera, así que el test pasó a pedir
+    un texto que ya no puede existir.
+
+    Lo que el caso protege sigue valiendo, sólo que apuntando al día que
+    importa: que la página diga cuándo es SaboresTech. Y de paso ahora vigila
+    que la fecha del domingo no vuelva a colarse, que es la confusión que ya
+    costó una corrección en todo el repo.
+  */
+  it("dice qué día es el evento, y no menciona la jornada del domingo", () => {
     const t = todo();
-    expect(t).toMatch(/Domingo 20 de septiembre/i);
+    expect(t).toContain(EVENTO.fechaLarga);
+    expect(t).not.toMatch(/Domingo 20 de septiembre/i);
   });
 });
 
 /**
- * La hora de cierre se declara en tres lugares que no se hablan entre si:
- * EVENTO.horario ("10 a 18", que es lo que lee el .ics), BORDES.cierre.hora
- * y la suma de la grilla. Durante un tiempo la grilla termino 18:05 mientras
- * los otros dos decian 18:00, y ningun test lo vio: el que llegaba a las
- * 17:55 pensando que quedaban cinco minutos se encontraba con un panel
- * empezado hacia media hora.
+ * La hora de cierre se declara en lugares que no se hablan entre si:
+ * EVENTO.horario (lo que lee el .ics), BORDES.cierre y la suma de la grilla.
+ * Durante un tiempo la grilla termino 18:05 mientras los otros dos decian
+ * 18:00, y ningun test lo vio: el que llegaba a las 17:55 pensando que
+ * quedaban cinco minutos se encontraba con un panel empezado hacia media hora.
+ *
+ * AHORA HAY DOS CIERRES Y NO SON EL MISMO:
+ *   BORDES.cierre.hora  (18:00) — termina la GRILLA y arranca el networking.
+ *   BORDES.cierre.hasta (21:00) — termina el EVENTO y se corta la sala.
+ *
+ * EVENTO.horario tiene que cubrir hasta el segundo, porque es lo que queda
+ * agendado en el telefono de la gente: si el .ics terminara a las 18, la
+ * alarma de fin sonaria tres horas antes de que la sala se vacie.
  *
  * Se compara la ARITMETICA, no el texto. Si manana se alarga un bloque o se
  * corre una hora, esto se cae antes de publicarse.
@@ -289,10 +318,35 @@ describe("la hora a la que termina el dia", () => {
     expect(finDeGrilla).toBe(min(BORDES.cierre.hora));
   });
 
-  it("el cierre coincide con el horario que publica el .ics", () => {
+  it("el .ics cubre hasta que se corta la sala, no hasta que termina la grilla", () => {
     const marcas = String(EVENTO.horario).match(/\d{1,2}(?::\d{2})?/g) || [];
     expect(marcas).toHaveLength(2);
-    expect(min(BORDES.cierre.hora)).toBe(min(marcas[1]));
+    // La punta de EVENTO.horario es el fin del EVENTO: BORDES.cierre.hasta.
+    expect(min(BORDES.cierre.hasta)).toBe(min(marcas[1]));
+    // Y arranca cuando abre la acreditacion, no cuando arranca el escenario.
+    expect(min(BORDES.apertura.hora)).toBe(min(marcas[0]));
+  });
+
+  it("el networking de cierre va despues de la grilla y antes del corte", () => {
+    expect(min(BORDES.cierre.hora)).toBeLessThan(min(BORDES.cierre.hasta));
+    expect(finDeGrilla).toBeLessThanOrEqual(min(BORDES.cierre.hora));
+  });
+
+  /*
+    Las tres franjas que publica EVENTO tienen que encajar entre si: la jornada
+    va de la apertura al fin de la grilla, el networking de ahi al corte, y el
+    horario del evento cubre las dos. Si alguien mueve una y se olvida de otra,
+    esto se cae.
+  */
+  it("las franjas publicadas encajan con las puntas del dia", () => {
+    const puntas = (rango) => (String(rango).match(/\d{1,2}(?::\d{2})?/g) || []).map(min);
+    const [jorIni, jorFin] = puntas(EVENTO.horarioJornada);
+    const [netIni, netFin] = puntas(EVENTO.horarioNetworking);
+
+    expect(jorIni).toBe(min(BORDES.apertura.hora));
+    expect(jorFin).toBe(min(BORDES.cierre.hora));
+    expect(netIni).toBe(min(BORDES.cierre.hora)); // el networking arranca donde termina la jornada
+    expect(netFin).toBe(min(BORDES.cierre.hasta));
   });
 
   it("ningun bloque se pasa de la hora declarada", () => {
@@ -302,5 +356,34 @@ describe("la hora a la que termina el dia", () => {
 
   it("la acreditacion abre antes del primer bloque", () => {
     expect(min(BORDES.apertura.hora)).toBeLessThan(Math.min(...TEMAS.map((b) => min(b.hora))));
+  });
+
+  /*
+    Ninguna hora escrita en una respuesta del FAQ puede caer en un horario que
+    la grilla no tiene.
+
+    Es el caso que faltaba: la respuesta "¿me van a querer vender algo?" decía
+    que el CEO de Bistrosoft mostraba su sistema "a las 12" cuando su bloque es
+    a las 13:45, y a las 12 no arranca nada. El dato era verificable a un scroll
+    de distancia, en la respuesta cuyo único valor es hablar derecho.
+
+    No exige que el FAQ mencione horas —puede no hacerlo—: exige que las que
+    mencione existan como arranque de un bloque o como una de las puntas del
+    día.
+  */
+  it("las horas que menciona el FAQ existen en la grilla", () => {
+    const validas = new Set([
+      ...TEMAS.map((b) => min(b.hora)),
+      min(BORDES.apertura.hora),
+      min(BORDES.cierre.hora),
+      min(BORDES.cierre.hasta),
+    ]);
+    const fuera = [];
+    for (const { q, a } of FAQ) {
+      for (const marca of String(a).match(/\b\d{1,2}:\d{2}\b/g) || []) {
+        if (!validas.has(min(marca))) fuera.push(`${marca} en "${q}"`);
+      }
+    }
+    expect(fuera).toEqual([]);
   });
 });

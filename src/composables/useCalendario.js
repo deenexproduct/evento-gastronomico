@@ -59,7 +59,7 @@ function plegar(linea) {
 }
 
 /**
- * Duración leída del horario declarado ("10 a 18" → 9 h). Se calcula como
+ * Duración leída del horario declarado ("9 a 21" → 12 h). Se calcula como
  * diferencia de minutos y se suma al instante de inicio: hacerlo con setHours
  * escribiría hora local del navegador, y una máquina configurada fuera de
  * Argentina generaría un evento de otra duración —o con el fin antes del
@@ -100,7 +100,7 @@ export function useCalendario() {
     [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Deenex//Sabores Tech//ES",
+      "PRODID:-//Deenex//SaboresTech//ES",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",
@@ -125,7 +125,7 @@ export function useCalendario() {
       "BEGIN:VALARM",
       "TRIGGER:-PT2H",
       "ACTION:DISPLAY",
-      `DESCRIPTION:${escapar(`${EVENTO.nombre} es hoy. Te esperamos desde las 9:30.`)}`,
+      `DESCRIPTION:${escapar(`${EVENTO.nombre} es hoy. Te esperamos desde las ${EVENTO.puertas}.`)}`,
       "END:VALARM",
       "END:VEVENT",
       "END:VCALENDAR",
@@ -145,5 +145,5 @@ export function useCalendario() {
     if (url) URL.revokeObjectURL(url);
   });
 
-  return { google, urlIcs, nombreArchivo: "sabores-tech-19-09.ics" };
+  return { google, urlIcs, nombreArchivo: "saborestech-19-09.ics" };
 }

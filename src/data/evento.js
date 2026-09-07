@@ -10,13 +10,17 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const EVENTO = {
-  nombre: "Sabores Tech",
+  nombre: "SaboresTech",
   organiza: "Deenex",
   // SÁBADO 19, no domingo 20. Lo cambió la reunión con Gastón Santana del
   // 31/08: el fin de semana se parte en dos —sábado gastronomía, domingo
-  // emprendedores— y Sabores Tech es el sábado. Todo el material anterior decía
+  // emprendedores— y SaboresTech es el sábado. Todo el material anterior decía
   // domingo, así que si algo quedó con la fecha vieja, está mal.
-  fechaISO: "2026-09-19T09:30:00-03:00",
+  // La hora de acá es la de la ACREDITACIÓN, no la del primer bloque: es lo
+  // que leen el .ics, el JSON-LD y la cuenta regresiva. Si dijera 10:00 —la
+  // hora del escenario—, el que se lo agenda llegaría con la acreditación
+  // terminada, que es un error que este archivo ya tuvo.
+  fechaISO: "2026-09-19T09:00:00-03:00",
   fechaLarga: "Sábado 19 de septiembre de 2026",
   fechaCorta: "Sábado 19.09.2026",
   // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
@@ -25,45 +29,64 @@ export const EVENTO = {
   // Sin el dia de la semana: el pie lo usaba escrito a mano, que es justo la
   // forma que salio de la comunicacion.
   fechaSinDia: "19 de septiembre",
-  // Dos ventanas distintas, y hacen falta las dos.
+  // CUATRO ventanas, y cada una contesta una pregunta distinta. Mezclarlas es
+  // lo que ya rompio esta pagina tres veces.
   //
-  // `horario` es el evento: arranca 9:30 con la acreditacion y los stands ya
-  // abiertos, y cierra 18:00. Es lo que leen el .ics y el JSON-LD, asi que el
-  // que se lo agenda llega cuando empieza y no con la acreditacion terminada.
+  // `horario` es EL EVENTO ENTERO: 9:00 con la acreditacion y los stands ya
+  // abiertos, hasta las 21:00 cuando se corta el networking. Es lo que leen el
+  // .ics y el JSON-LD, o sea lo que queda agendado en el telefono de la gente.
+  // Si dijera "9 a 18", al que se lo agenda le suena la alarma de fin tres
+  // horas antes de que el evento termine.
+  //
+  // `horarioJornada` es el programa: de 9 a 18, acreditacion y charlas. Es lo
+  // que contesta "cuanto dura el dia de trabajo".
+  //
+  // `horarioNetworking` es lo que sigue: de 18 a 21, sin escenario.
   //
   // `horarioCharlas` es el escenario: el primer bloque es 10:00. Escribir
-  // "charlas de 9:30" mandaria a la sala a gente que todavia tiene que
+  // "charlas de 9" mandaria a la sala a gente que todavia tiene que
   // acreditarse.
   //
-  // La grilla del 30/08 fijo las dos. El material anterior decia "puertas y
-  // stands desde las 8:30", que era una hora antes y no coincidia con ningun
-  // bloque.
-  horario: "9:30 a 18",
+  // Estas horas ya se movieron: la apertura fue 8:30, despues 9:30 y ahora
+  // 9:00; el cierre fue 18:00 y ahora 21:00. Cada vez quedaron restos en los
+  // lugares que las escriben a mano —el respaldo sin JS de index.html, el
+  // endDate del JSON-LD, la tarjeta de og-image.py y los textos del FAQ—, asi
+  // que si se vuelven a mover hay que barrer los tres formatos: "9:00",
+  // "9 a 21" y el ISO de fechaISO.
+  horario: "9 a 21",
+  horarioJornada: "9 a 18",
+  horarioNetworking: "18 a 21",
   horarioCharlas: "10 a 18",
-  puertas: "9:30",
+  puertas: "9:00",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
+  // La bajada de la marca del evento, en una línea. Es la misma que compone la
+  // tarjeta de WhatsApp (herramientas/og-image.py, en dos renglones) y la que
+  // cierra el pie. El .py no puede importar este archivo —es Python—, así que
+  // si esto cambia hay que cambiarlo también allá.
+  bajada: "Gastronomía y tecnología para dueños de cadenas",
   // Contexto, nunca asistencia propia: las 20.000 son del evento madre.
   eventoMadre: "Córdoba Corazón de Moda",
   eventoMadreCirculacion: "20.000",
 };
 
-/**
- * El domingo, que es la otra mitad del fin de semana.
+/*
+ * ACÁ VIVÍA `DOMINGO`, la jornada de emprendedores del día siguiente.
  *
- * Se publica lo que está decidido y nada más: que existe, para quién es y que
- * la acreditación es la misma. Conductora, programa y oradores no están
- * definidos —Alan, textual, el 31/08: «el del domingo no la pensé»—, así que
- * la página no los promete. Cuando se cierren, entran acá.
+ * Sale de la landing entera por decisión de contenido: esta página convoca a
+ * SaboresTech, que es el sábado 19, y el domingo es otro evento con otro
+ * público. Nunca terminó de estar definido —conductora, programa y oradores
+ * quedaron abiertos desde el 31/08— así que lo único que aportaba era una
+ * segunda fecha compitiendo con la que hay que retener.
+ *
+ * Y competía en el peor lugar: su rótulo violeta en versales decía "Domingo 20
+ * de septiembre" dos bloques antes del pedido de reserva, que es exactamente
+ * la confusión de fecha que ya costó una corrección en todo el repo.
+ *
+ * Si el domingo vuelve, vuelve como su propia landing o como una sección
+ * después del CTA, nunca antes.
  */
-export const DOMINGO = {
-  fechaISO: "2026-09-20T10:00:00-03:00",
-  fechaLarga: "Domingo 20 de septiembre",
-  titulo: "El domingo es de emprendedores",
-  bajada:
-    "El mismo fin de semana, en el mismo edificio, con una jornada propia para los que están armando su proyecto. Se reserva por el mismo WhatsApp y el programa se anuncia con la grilla final.",
-};
 
 /**
  * Los cinco bloques de la cabecera. Cada uno es una vista con su detalle.
@@ -84,7 +107,7 @@ export const BLOQUES = [
   {
     ruta: "/que-es",
     label: "Qué es",
-    titulo: "Qué es Sabores Tech",
+    titulo: "Qué es SaboresTech",
     resumen: "Para quién es, qué pasa ese día y qué no es.",
   },
   {
@@ -117,7 +140,11 @@ export const BLOQUES = [
     label: "Quién organiza",
     corto: "Organiza",
     titulo: "Quién organiza",
-    resumen: "Deenex, y por qué abrimos este espacio.",
+    // "Deenex, y por qué abrimos este espacio" repetía en la home la postura
+    // que se sacó del hero: la empresa como sujeto. Acá el dato SÍ corresponde
+    // —es la tarjeta que lleva a la vista de quién organiza— pero como
+    // respuesta a una pregunta del lector, no como autoría reclamada.
+    resumen: "Quién está detrás y con qué credencial.",
   },
 ];
 
@@ -130,7 +157,7 @@ export const BLOQUES = [
 
 export const CUPO = {
   total: 200,
-  ocupados: 85, // ← actualizar a mano hasta que el endpoint esté conectado
+  ocupados: 127, // ← actualizar a mano hasta que el endpoint esté conectado
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -333,14 +360,23 @@ export const ESTADOS_BLOQUE = {
  */
 export const PAUSAS = {};
 /**
- * Las dos puntas del día. Estas sí publican hora: 9:30 y 18:00 ya están al
- * aire en la sección del lugar y en EVENTO.horario.
+ * Las dos puntas del día. Estas sí publican hora: 9:00, 18:00 y 21:00 ya están
+ * al aire en la sección del lugar y en EVENTO.horario.
+ *
+ * OJO CON `cierre`: su `hora` es cuando ARRANCA el networking, no cuando
+ * termina el evento. Son las 18:00, que es también cuando termina la grilla —de
+ * ahí que un test verifique que el último bloque cae exactamente ahí—. El
+ * evento sigue tres horas más y termina a las 21:00, que es lo que dice
+ * `hasta` y lo que tiene que leer el .ics.
+ *
+ * Confundir esas dos es el error que hay que evitar: si el .ics tomara `hora`,
+ * la alarma de fin sonaría tres horas antes de que la sala se vacíe.
  */
 export const BORDES = {
   apertura: {
     id: "apertura",
     tipo: "apertura",
-    hora: "9:30",
+    hora: "9:00",
     titulo: "Acreditación y stands abiertos",
     detalle: "Te recibimos uno por uno, con los stands ya abiertos.",
   },
@@ -348,11 +384,83 @@ export const BORDES = {
     id: "cierre",
     tipo: "cierre",
     hora: "18:00",
+    hasta: "21:00",
     titulo: "Networking de cierre",
-    detalle: "La sala queda abierta hasta que se corta el evento.",
+    detalle: "Termina la grilla y la sala queda suelta hasta las 21.",
   },
 };
 
+
+/**
+ * Qué va a haber ese día, sin hora.
+ *
+ * Reemplaza al cronograma hora por hora en la home. La grilla completa sigue
+ * viva en TEMAS —la usan el .ics, las cifras del día y la sección del lugar—,
+ * pero dejó de ser lo que se muestra: once renglones con hora exacta obligan a
+ * publicar quién da cada uno, y hoy cuatro de diez dicen "orador por
+ * confirmar". Enumerar lo que hay dice lo mismo sin pedir prestado un dato que
+ * todavía no está cerrado.
+ *
+ * Cada línea sale de algo que ya está en este archivo o en el padrón de
+ * sponsors: ninguna promete nada nuevo.
+ *
+ * Sobre la degustación y el coffee break: el commit af88276 los sacó del
+ * cronograma porque las ocho pausas decían "Degustación y preparación" una
+ * debajo de otra y la palabra aparecía más veces que cualquier título del día.
+ * Eso NO los eliminó del evento —siguen en el aporte de "La mesa de
+ * degustación", en PARTNERS—. Nombrarlos una vez acá es lo contrario de aquel
+ * problema: una mención, no ocho.
+ */
+export const QUE_HAY = [
+  {
+    icono: "chip",
+    titulo: "Referentes tecnológicos",
+    detalle: "Los que ya lo implementaron en sus locales, contando qué costó y qué devolvió.",
+  },
+  {
+    icono: "charla",
+    titulo: "Charlas",
+    // "Track único" NO va acá: lo dice la bajada de la sección, dos renglones
+    // más arriba, y repetirlo en la misma pantalla gasta uno de los ocho
+    // renglones que tiene esta lista para decir algo nuevo.
+    detalle: "De 30 y 45 minutos, cada una sobre un problema concreto de la operación.",
+  },
+  {
+    icono: "mesa",
+    titulo: "Paneles",
+    detalle: "Varios rubros discutiendo el mismo problema, con moderación.",
+  },
+  {
+    icono: "estrella",
+    titulo: "Invitado especial",
+    // Sin nombre a propósito: la regla del brief es que al aire sólo se nombra
+    // lo cerrado. Cuando esté firmado, entra el nombre acá.
+    detalle: "El nombre se anuncia antes del evento.",
+  },
+  {
+    icono: "demo",
+    titulo: "Stands",
+    detalle: "Sistemas andando, no en una slide: te parás adelante y preguntás por tu caso.",
+  },
+  {
+    icono: "degustacion",
+    titulo: "Degustación",
+    detalle: "Alfajores, aceitunas, humus y café entre bloque y bloque.",
+  },
+  {
+    icono: "gente",
+    // "del mediodía" no es adorno: la ficha de arriba de esta misma sección
+    // publica "18 a 21 · Networking", que es el de cierre. Sin el apellido, la
+    // pantalla decía dos veces "Networking" con dos horarios distintos.
+    titulo: "Networking del mediodía",
+    detalle: "Una hora larga entre bloque y bloque, con los stands abiertos y la sala suelta.",
+  },
+  {
+    icono: "cafe",
+    titulo: "Coffee break",
+    detalle: "A la tarde, en el corte entre bloque y bloque.",
+  },
+];
 
 /**
  * Las cuatro confusiones que aparecen solas. Viven acá y no en un componente
@@ -497,15 +605,15 @@ export const MARCAS_LOGOS = [
 export const FAQ = [
   {
     q: "¿De qué se habla exactamente?",
-    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Once bloques a lo largo del día.",
+    a: "De tendencias e innovación aplicadas a una cadena: el estado real del mercado con números, tus propios indicadores comparados en vivo con los del resto de la sala, la evolución de los sistemas POS, qué inteligencia artificial ya devuelve plata en varios locales y cuál todavía no, cómo se conduce una cadena cuando el mercado se endurece, y cómo se sostiene una marca en varios puntos a la vez. Diez bloques a lo largo del día, más una hora de networking.",
   },
   {
     q: "¿Me van a querer vender algo?",
-    a: "Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay sponsors con stand que también venden. A las 12 el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.",
+    a: `Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay sponsors con stand que también venden. A las ${TEMAS.find((t) => t.id === "pos").hora} el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.`,
   },
   {
     q: "Tengo el local abierto ese día. ¿Cómo hago?",
-    a: "Es la que más nos preguntan, y con un sábado pesa más todavía, así que va derecho: no hace falta que estés las ocho horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
+    a: "Es la que más nos preguntan, y con un sábado pesa más todavía, así que va derecho: no hace falta que estés las doce horas y nadie controla la butaca. Venís a la mañana, te llevás el estado del mercado y cómo comparar tus locales entre sí, y estás de vuelta en el local para el servicio. O llegás a media tarde y agarrás los últimos bloques y el panel de cierre, donde los proveedores discuten entre ellos delante de la sala. La grilla final les llega a los inscriptos antes del evento, así elegís a qué venir. Lo que no te conviene es mandar a alguien en tu lugar: lo que se habla acá —qué cerrar, qué cambiar, con quién meterte— lo terminás firmando vos, y la sala está armada para que los dueños se crucen entre ellos. Traé a tu socio o a tu gerente general si querés, pero vení.",
   },
   {
     q: "¿Cuánto cuesta?",
@@ -533,19 +641,15 @@ export const FAQ = [
   },
   {
     q: "¿Se come algo durante el día?",
-    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:30 con los stands ya abiertos, algo para picar entre bloque y bloque —alfajores, aceitunas, humus y café—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
+    a: "Sí, y está en la entrada. Café de bienvenida desde las 9:00 con los stands ya abiertos, algo para picar entre bloque y bloque —alfajores, aceitunas, humus y café—, la hora de networking de 12:45 a 13:45 con la ronda grande, y vino, cerveza y café en el cierre. No hay almuerzo servido: se come circulando, entre bloque y bloque.",
   },
   {
     q: "¿Se transmite en vivo?",
     a: "No. Lo que pasa en la sala pasa estando ahí: los sistemas se prueban en los stands, el panel se responde de frente y el networking no tiene versión remota. Lo que sí queda por escrito es el material del día, que les llega a los que asistieron.",
   },
   {
-    q: "¿Y el domingo qué pasa?",
-    a: "El fin de semana tiene dos jornadas y Sabores Tech es la del sábado, que es la de gastronomía. El domingo, en el mismo edificio, hay una jornada para emprendedores: si querés ir a las dos, se reserva por el mismo WhatsApp. El programa del domingo se anuncia con la grilla final.",
-  },
-  {
     q: "¿Dónde es exactamente?",
-    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de Sabores Tech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de Sabores Tech es aparte.`,
+    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. Puertas ${EVENTO.puertas}, charlas de ${EVENTO.horarioCharlas}. Se entra por lista: adentro estamos los 200 y nadie más. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de SaboresTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de SaboresTech es aparte.`,
   },
 ];
 
@@ -593,7 +697,13 @@ export const REELS = [
 // El número por el que entra toda la convocatoria. Formato wa.me: sin +, sin
 // espacios y con el 9 de celular. Es el único lugar donde vive: los cinco
 // mensajes y los seis botones lo toman de acá.
-export const WHATSAPP_ORGANIZADOR = "5491133302145";
+//
+// +54 9 3518 010147, que es 351 —Córdoba— y no 11: la convocatoria pasa a un
+// número local. Antes era el 11 3330-2145, y antes de ése el personal de Alan.
+// Ojo al cambiarlo: index.html lo tiene escrito a mano en el respaldo sin
+// JavaScript, porque ese bloque no puede importar nada. Lo vigila
+// tests/unit/respaldo-sin-js.test.js.
+export const WHATSAPP_ORGANIZADOR = "5493518010147";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mensajes de WhatsApp.
@@ -630,9 +740,33 @@ export const WHATSAPP_ORGANIZADOR = "5491133302145";
  */
 const SALUDO = "Hola Romina!";
 
+/*
+  El de reserva NO usa SALUDO y es el único de los seis: abre con "Buenas!" y
+  no nombra a nadie del otro lado.
+
+  Los otros cinco siguen saludando a Romina, que es quien atiende. Si el número
+  nuevo lo atiende otra persona, lo que hay que cambiar es SALUDO —una línea, y
+  los cinco se mueven juntos—; este no la nombra, así que no se entera.
+*/
+/**
+ * El tope de acompañantes que el mensaje sabe expresar.
+ *
+ * HOY NADIE LE PASA `personas` A mensajeReserva(): el selector de "¿cuántos
+ * van?" salió de RegistroSection para que reservar sea un solo toque, así que
+ * todos los mensajes salen en singular.
+ *
+ * El parámetro se conserva —con sus tests— porque el dato que resolvía sigue
+ * siendo real: el cupo se cuenta POR PERSONA, y doscientos mensajes que dicen
+ * "quiero sumarme" pueden ser doscientas sesenta personas en la puerta. Hoy eso
+ * se pregunta en la conversación. Si vuelve a la página, la función ya sabe
+ * escribirlo y respeta el tope: en 4 o más dice "vamos 4 o más", que es lo que
+ * decía el botón.
+ */
+export const TOPE_PERSONAS = 4;
+
 export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
   if (agotado) {
-    return `${SALUDO} Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`;
+    return `Buenas! Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`;
   }
 
   /*
@@ -641,8 +775,22 @@ export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
     lugar" pueden ser 260 personas en la puerta. Va en la misma línea y sólo
     cuando son más de uno — un "vamos 1" no informa nada y alarga el mensaje.
   */
-  const base = `${SALUDO} Quiero reservar mi lugar para el evento del ${EVENTO.fechaSinDia}`;
-  return personas > 1 ? `${base}, vamos ${personas}.` : `${base}.`;
+  /*
+    La fecha va en el mensaje aunque el pedido era sólo "quiero sumarme al
+    evento": del otro lado entran también los mensajes del domingo, que es otra
+    jornada, y sin la fecha hay que preguntar a cuál de las dos.
+  */
+  const base = `Buenas! Quiero sumarme al evento del ${EVENTO.fechaSinDia}`;
+  if (personas <= 1) return `${base}.`;
+  /*
+    El selector topa en "4 o más" (RegistroSection), así que el 4 no significa
+    cuatro: significa cuatro o más. El mensaje decía "vamos 4" y del otro lado
+    se anotaban cuatro lugares para un grupo que podía ser de siete. Escribirlo
+    igual que el botón deja la cifra abierta y hace que la repregunta ocurra en
+    el chat, que es donde cuesta un toque.
+  */
+  const cuantos = personas >= TOPE_PERSONAS ? `${TOPE_PERSONAS} o más` : personas;
+  return `${base}, vamos ${cuantos}.`;
 }
 
 /** El enlace de reserva, listo para abrir. */
@@ -650,6 +798,27 @@ export function linkWaReserva(opciones) {
   return `https://wa.me/${WHATSAPP_ORGANIZADOR}?text=${encodeURIComponent(mensajeReserva(opciones))}`;
 }
 
+/*
+  CUÁL USA QUÉ BOTÓN, hoy:
+
+    partner   → SumarseSection, "Quiero ser sponsor"
+    prensa    → SumarseSection, "Pedir acreditación"
+    rubro     → BrandsSection, el tablero de rubros libres
+    registro  → NADIE lo lee por acá. El botón de reserva usa linkWaReserva(),
+                que llama a mensajeReserva() directo para poder pasarle cuántos
+                van y si el cupo está agotado. Esta clave queda como el texto de
+                referencia del mensaje base, y la usan los tests.
+    consulta  → NADIE. Y no es un olvido: era el enlace "Escribinos por
+                WhatsApp" del pie, que salió cuando el pie pasó a cerrar sólo
+                con el nombre del evento y su bajada.
+
+  Ese último es el único hueco real del embudo. Era la salida sin compromiso
+  —para el que tiene una duda y todavía no quiere reservar— y hoy no hay
+  ninguna: los otros cinco botones piden algo concreto. El texto se conserva
+  porque el hueco es una decisión de producto pendiente, no un descarte: si
+  vuelve una salida de consulta, el mensaje ya está escrito y saluda igual que
+  los demás.
+*/
 export const MENSAJES_WA = {
   registro: mensajeReserva(),
   partner: `${SALUDO} Me interesa participar como sponsor del evento del ${EVENTO.fechaSinDia}.`,

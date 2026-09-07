@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { WHATSAPP_ORGANIZADOR, mensajeReserva } from "../../src/data/evento.js";
 
 /**
  * La reserva es un enlace a WhatsApp, no un formulario.
@@ -13,18 +14,28 @@ async function enlaceReserva(page) {
   return page.locator('#registro a[href*="wa.me"]').first().getAttribute("href");
 }
 
+/*
+  Este caso afirmaba TRES datos que ya no existían, y ninguno se cayó nunca
+  porque los e2e no corren en CI: el número 5491154596266 —dos números atrás—,
+  el texto "Quiero reservar mi lugar" —hoy el mensaje dice "Quiero sumarme"— y
+  los campos "Nombre:" y "Mi mail", que son el formulario de cinco renglones
+  que el commit cddae8e eliminó por fricción.
+
+  La causa de fondo era escribir los datos a mano en el test. Ahora se importan
+  de evento.js, así que el spec no puede volver a quedar atrás sin que el
+  cambio se vea acá.
+*/
 test("el botón de reservar abre WhatsApp con el mensaje escrito", async ({ page }) => {
   await page.goto("/");
   const href = await enlaceReserva(page);
-  expect(href).toContain("wa.me/5491154596266");
+  expect(href).toContain(`wa.me/${WHATSAPP_ORGANIZADOR}`);
 
   const texto = decodeURIComponent(href.split("text=")[1]);
-  // El noscript manda el MISMO mensaje que el boton real: si se separan, el
-  // que entra sin JS pide otra cosa que el que entra con JS.
-  expect(texto).toContain("Quiero reservar mi lugar");
-  expect(texto).toContain("19 de septiembre");
-  expect(texto).toContain("Nombre:");
-  expect(texto).toContain("Mi mail");
+  // El mensaje del botón es EXACTAMENTE el que produce la fuente. El del
+  // noscript también, y eso lo vigila tests/unit/respaldo-sin-js.test.js.
+  expect(texto).toBe(mensajeReserva());
+  // Y no revive el formulario que se sacó.
+  expect(texto).not.toMatch(/Nombre:|Mi mail|Marca:/);
 });
 
 test("no queda ningún formulario en la página", async ({ page }) => {
@@ -71,21 +82,34 @@ test("la reserva es un solo botón, sin nada que elegir antes", async ({ page })
   await expect(page.locator('#registro a[href*="wa.me"]')).toHaveCount(1);
 });
 
-test("tocar Reservar deja el botón que reserva a la vista", async ({ page }) => {
-  // El camino completo, que es lo que puede costar reservas: antes esto
-  // dejaba el botón a 1.037px del pliegue en escritorio y a 2.816 en teléfono,
-  // con dos pantallas y media de scroll pendiente.
-  await page.goto("/");
-  await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
-  await page.locator("#hero a.btn").click();
-  await page.waitForTimeout(2000);
+/*
+  Este caso medía el camino viejo: el botón del hero hacía scroll hasta el panel
+  de reserva, y lo que había que proteger era que ese scroll no dejara al lector
+  con el botón real 1.037px por debajo del pliegue en escritorio —2.816 en
+  teléfono—, o sea dos pantallas y media de scroll pendiente después de tocar
+  algo que dice "Quiero mi lugar".
 
-  const d = await page.evaluate(() => {
-    const wa = document.querySelector('#reservar a[href*="wa.me"]');
-    const r = wa.getBoundingClientRect();
-    const visible = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / r.height;
-    return { visible, barra: !!document.querySelector(".barra-flotante") };
-  });
-  // O se ve el botón real, o está la barra: nunca ninguno de los dos.
-  expect(d.visible > 0.5 || d.barra, "no quedó ningún botón en pantalla").toBe(true);
+  Ese camino ya no existe: el botón del hero abre WhatsApp directo, que es la
+  misma mejora llevada hasta el final —antes eran tres toques para una acción
+  que el lector cree que es una—. El test quedó midiendo un scroll que no
+  ocurre, y por eso fallaba: nunca llega al panel.
+
+  Lo que hay que proteger ahora es que ese primer botón sea la salida completa y
+  no un intermediario: que abra el chat, con el mensaje escrito, en otra pestaña.
+*/
+test("el botón del hero abre el chat directo, sin escalas", async ({ page }) => {
+  await page.goto("/");
+  const boton = page.locator("#hero a.btn").first();
+
+  const href = await boton.getAttribute("href");
+  expect(href).toContain(`wa.me/${WHATSAPP_ORGANIZADOR}`);
+  expect(decodeURIComponent(href.split("text=")[1])).toBe(mensajeReserva());
+
+  // En otra pestaña y avisándolo: se lleva a la persona fuera del sitio.
+  await expect(boton).toHaveAttribute("target", "_blank");
+  await expect(boton).toHaveAttribute("rel", /noopener/);
+
+  // Y no hace scroll a ningún lado: si volviera a apuntar a #reservar, esto
+  // vuelve a ser un intermediario.
+  expect(href).not.toContain("#reservar");
 });

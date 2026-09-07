@@ -83,11 +83,28 @@
             </li>
           </ul>
 
+          <!--
+            Abre WhatsApp directo, y NO hace scroll a #reservar como hacía.
+
+            Esta sección se monta en dos lugares: la vista /deadline y el
+            diálogo de BloquesResumen sobre la home. En el diálogo, el botón no
+            hacía absolutamente nada: para que el visor no salte, BloquesResumen
+            congela el fondo con position:fixed, y un scrollIntoView sobre un
+            documento congelado no puede moverse. El diálogo tampoco se cerraba,
+            así que el toque no producía ninguna señal — en teléfono el diálogo
+            ocupa casi toda la pantalla y no hay otro CTA a la vista.
+
+            El enlace directo funciona igual en los dos contextos porque no
+            depende del scroll, y de paso saca dos toques: antes era botón →
+            scroll → otro botón → WhatsApp. Es lo mismo que ya hacen el hero y
+            el panel de registro.
+          -->
           <a
             v-if="t.estado === 'actual'"
-            href="#reservar"
+            :href="enlaceReserva"
+            target="_blank"
+            rel="noopener noreferrer"
             class="btn mt-7 w-full"
-            @click.prevent="ir('reservar')"
             >{{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}</a
           >
           <p
@@ -105,8 +122,10 @@
 <script setup>
 import { computed } from "vue";
 import { useCupo } from "@/composables/useCupo";
+import { linkWaReserva } from "@/data/evento";
 
 const { total, ocupados, restantes, agotado, mostrarCupo } = useCupo();
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 /** Los tres tramos son el llenado real del salón, no fases de precio. */
 const tramos = computed(() =>
@@ -159,7 +178,4 @@ const tramos = computed(() =>
   ].filter((t) => mostrarCupo.value || t.etiqueta !== "Ya tomados")
 );
 
-function ir(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-}
 </script>

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { EVENTO, DOMINGO } from "@/data/evento";
+import { EVENTO } from "@/data/evento";
 
 /**
  * El .ics se genera dentro de un composable que usa onUnmounted, así que la
@@ -30,14 +30,12 @@ describe("agendado del evento", () => {
     expect(EVENTO.fechaLarga.toLowerCase()).toContain("sábado");
   });
 
-  it("el domingo es el día siguiente, y es otro evento", () => {
-    const sabado = new Date(EVENTO.fechaISO);
-    const domingo = new Date(DOMINGO.fechaISO);
-    expect(domingo.getUTCDay()).toBe(0);
-    // Por fecha de calendario y no por milisegundos: los dos eventos no
-    // arrancan a la misma hora, así que la resta cruda no da 1 exacto.
-    expect(domingo.getUTCDate() - sabado.getUTCDate()).toBe(1);
-  });
+  /*
+    Acá había un caso que verificaba que el domingo fuera el día siguiente del
+    sábado y un evento aparte. Se fue con la constante DOMINGO: la jornada de
+    emprendedores salió de la landing entera, así que ya no hay dos fechas que
+    mantener coherentes entre sí.
+  */
 
   it("el horario declarado termina después de que empieza", () => {
     const [desde, hasta] = EVENTO.horario.split("a").map((x) => Number(x.trim().split(":")[0]));
