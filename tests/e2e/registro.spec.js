@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { WHATSAPP_ORGANIZADOR, mensajeReserva } from "../../src/data/evento.js";
 
 /**
  * La reserva es un enlace a WhatsApp, no un formulario.
@@ -13,18 +14,28 @@ async function enlaceReserva(page) {
   return page.locator('#registro a[href*="wa.me"]').first().getAttribute("href");
 }
 
+/*
+  Este caso afirmaba TRES datos que ya no existían, y ninguno se cayó nunca
+  porque los e2e no corren en CI: el número 5491154596266 —dos números atrás—,
+  el texto "Quiero reservar mi lugar" —hoy el mensaje dice "Quiero sumarme"— y
+  los campos "Nombre:" y "Mi mail", que son el formulario de cinco renglones
+  que el commit cddae8e eliminó por fricción.
+
+  La causa de fondo era escribir los datos a mano en el test. Ahora se importan
+  de evento.js, así que el spec no puede volver a quedar atrás sin que el
+  cambio se vea acá.
+*/
 test("el botón de reservar abre WhatsApp con el mensaje escrito", async ({ page }) => {
   await page.goto("/");
   const href = await enlaceReserva(page);
-  expect(href).toContain("wa.me/5491154596266");
+  expect(href).toContain(`wa.me/${WHATSAPP_ORGANIZADOR}`);
 
   const texto = decodeURIComponent(href.split("text=")[1]);
-  // El noscript manda el MISMO mensaje que el boton real: si se separan, el
-  // que entra sin JS pide otra cosa que el que entra con JS.
-  expect(texto).toContain("Quiero reservar mi lugar");
-  expect(texto).toContain("19 de septiembre");
-  expect(texto).toContain("Nombre:");
-  expect(texto).toContain("Mi mail");
+  // El mensaje del botón es EXACTAMENTE el que produce la fuente. El del
+  // noscript también, y eso lo vigila tests/unit/respaldo-sin-js.test.js.
+  expect(texto).toBe(mensajeReserva());
+  // Y no revive el formulario que se sacó.
+  expect(texto).not.toMatch(/Nombre:|Mi mail|Marca:/);
 });
 
 test("no queda ningún formulario en la página", async ({ page }) => {

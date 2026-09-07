@@ -125,7 +125,7 @@ export function useCalendario() {
       "BEGIN:VALARM",
       "TRIGGER:-PT2H",
       "ACTION:DISPLAY",
-      `DESCRIPTION:${escapar(`${EVENTO.nombre} es hoy. Te esperamos desde las 9:00.`)}`,
+      `DESCRIPTION:${escapar(`${EVENTO.nombre} es hoy. Te esperamos desde las ${EVENTO.puertas}.`)}`,
       "END:VALARM",
       "END:VEVENT",
       "END:VCALENDAR",

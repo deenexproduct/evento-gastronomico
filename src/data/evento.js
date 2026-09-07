@@ -448,8 +448,11 @@ export const QUE_HAY = [
   },
   {
     icono: "gente",
-    titulo: "Networking",
-    detalle: "Una hora larga al mediodía, con los stands abiertos y la sala suelta.",
+    // "del mediodía" no es adorno: la ficha de arriba de esta misma sección
+    // publica "18 a 21 · Networking", que es el de cierre. Sin el apellido, la
+    // pantalla decía dos veces "Networking" con dos horarios distintos.
+    titulo: "Networking del mediodía",
+    detalle: "Una hora larga entre bloque y bloque, con los stands abiertos y la sala suelta.",
   },
   {
     icono: "cafe",
@@ -605,7 +608,7 @@ export const FAQ = [
   },
   {
     q: "¿Me van a querer vender algo?",
-    a: "Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay sponsors con stand que también venden. A las 12 el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.",
+    a: `Sí, y conviene decirlo derecho. El evento lo organiza Deenex, que le vende software a cadenas como la tuya, y hay sponsors con stand que también venden. A las ${TEMAS.find((t) => t.id === "pos").hora} el CEO de Bistrosoft muestra su sistema en vivo, dentro del programa. Lo que no hay es una agenda de reuniones armada ni nadie que te aborde: la conversación de negocios la arrancás vos. Si te vas sin haber hablado de plata con nadie, para nosotros el día salió bien igual.`,
   },
   {
     q: "Tengo el local abierto ese día. ¿Cómo hago?",
@@ -748,6 +751,9 @@ const SALUDO = "Hola Romina!";
   nuevo lo atiende otra persona, lo que hay que cambiar es SALUDO —una línea, y
   los cinco se mueven juntos—; este no la nombra, así que no se entera.
 */
+/** El tope del selector de "cuántos van". Lo comparten el botón y el mensaje. */
+export const TOPE_PERSONAS = 4;
+
 export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
   if (agotado) {
     return `Buenas! Quiero anotarme en la lista de espera del evento del ${EVENTO.fechaSinDia}.`;
@@ -765,7 +771,16 @@ export function mensajeReserva({ agotado = false, personas = 1 } = {}) {
     jornada, y sin la fecha hay que preguntar a cuál de las dos.
   */
   const base = `Buenas! Quiero sumarme al evento del ${EVENTO.fechaSinDia}`;
-  return personas > 1 ? `${base}, vamos ${personas}.` : `${base}.`;
+  if (personas <= 1) return `${base}.`;
+  /*
+    El selector topa en "4 o más" (RegistroSection), así que el 4 no significa
+    cuatro: significa cuatro o más. El mensaje decía "vamos 4" y del otro lado
+    se anotaban cuatro lugares para un grupo que podía ser de siete. Escribirlo
+    igual que el botón deja la cifra abierta y hace que la repregunta ocurra en
+    el chat, que es donde cuesta un toque.
+  */
+  const cuantos = personas >= TOPE_PERSONAS ? `${TOPE_PERSONAS} o más` : personas;
+  return `${base}, vamos ${cuantos}.`;
 }
 
 /** El enlace de reserva, listo para abrir. */

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { TEMAS, MENSAJES_WA, PARTNERS, BORDES, EVENTO } from "@/data/evento";
+import { TEMAS, MENSAJES_WA, PARTNERS, BORDES, EVENTO, FAQ } from "@/data/evento";
 
 /**
  * Las contradicciones: cosas que la página afirma en un lado y desmiente en
@@ -338,5 +338,34 @@ describe("la hora a la que termina el dia", () => {
 
   it("la acreditacion abre antes del primer bloque", () => {
     expect(min(BORDES.apertura.hora)).toBeLessThan(Math.min(...TEMAS.map((b) => min(b.hora))));
+  });
+
+  /*
+    Ninguna hora escrita en una respuesta del FAQ puede caer en un horario que
+    la grilla no tiene.
+
+    Es el caso que faltaba: la respuesta "¿me van a querer vender algo?" decía
+    que el CEO de Bistrosoft mostraba su sistema "a las 12" cuando su bloque es
+    a las 13:45, y a las 12 no arranca nada. El dato era verificable a un scroll
+    de distancia, en la respuesta cuyo único valor es hablar derecho.
+
+    No exige que el FAQ mencione horas —puede no hacerlo—: exige que las que
+    mencione existan como arranque de un bloque o como una de las puntas del
+    día.
+  */
+  it("las horas que menciona el FAQ existen en la grilla", () => {
+    const validas = new Set([
+      ...TEMAS.map((b) => min(b.hora)),
+      min(BORDES.apertura.hora),
+      min(BORDES.cierre.hora),
+      min(BORDES.cierre.hasta),
+    ]);
+    const fuera = [];
+    for (const { q, a } of FAQ) {
+      for (const marca of String(a).match(/\b\d{1,2}:\d{2}\b/g) || []) {
+        if (!validas.has(min(marca))) fuera.push(`${marca} en "${q}"`);
+      }
+    }
+    expect(fuera).toEqual([]);
   });
 });

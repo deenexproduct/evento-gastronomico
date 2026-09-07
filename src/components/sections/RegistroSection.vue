@@ -155,7 +155,7 @@
                   :aria-pressed="personas === n"
                   @click="personas = n"
                 >
-                  {{ n === 4 ? "4 o más" : n }}
+                  {{ n === TOPE_PERSONAS ? `${TOPE_PERSONAS} o más` : n }}
                 </button>
               </div>
             </div>
@@ -207,7 +207,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { linkWaReserva } from "@/data/evento";
+import { linkWaReserva, TOPE_PERSONAS } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";

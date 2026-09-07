@@ -5,6 +5,7 @@ import {
   mensajeReserva,
   linkWaReserva,
   WHATSAPP_ORGANIZADOR,
+  TOPE_PERSONAS,
 } from "@/data/evento";
 
 /**
@@ -84,5 +85,23 @@ describe("el mensaje de reserva", () => {
   it("el enlace de reserva sale del número que declara evento.js", () => {
     expect(linkWaReserva()).toContain(`wa.me/${WHATSAPP_ORGANIZADOR}`);
     expect(WHATSAPP_ORGANIZADOR).toMatch(/^549\d{10}$/);
+  });
+
+  /*
+    El selector de "cuántos van" topa en 4, y ese 4 significa "cuatro o más".
+    El mensaje decía "vamos 4" a secas: del otro lado se anotaban cuatro lugares
+    para un grupo que podía ser de siete. Ahora los dos leen TOPE_PERSONAS y
+    dicen lo mismo.
+  */
+  it("en el tope, el mensaje dice lo mismo que el botón: cuatro o más", () => {
+    const enElTope = mensajeReserva({ personas: TOPE_PERSONAS });
+    expect(enElTope).toContain(`vamos ${TOPE_PERSONAS} o más`);
+    // Y por encima del tope no inventa una cifra que el selector no ofrece.
+    expect(mensajeReserva({ personas: TOPE_PERSONAS + 5 })).toBe(enElTope);
+  });
+
+  it("por debajo del tope dice la cifra exacta", () => {
+    expect(mensajeReserva({ personas: 2 })).toContain("vamos 2.");
+    expect(mensajeReserva({ personas: 1 })).not.toContain("vamos");
   });
 });

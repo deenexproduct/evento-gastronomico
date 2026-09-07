@@ -10,9 +10,13 @@
     lee dos huecos seguidos y concluye que el evento está a medio vender.
 
     La lista de abajo dice lo mismo sin pedir prestado un dato que todavía no
-    está cerrado. Y no pierde concreción, porque las tres cifras siguen saliendo
-    de TEMAS: los minutos de contenido y de networking son los reales de la
-    grilla, calculados, no escritos a mano.
+    está cerrado.
+
+    Acá hubo tres cifras calculadas de TEMAS —bloques, minutos de contenido,
+    minutos de networking— y también salieron: describían la grilla, que es
+    justo lo que esta sección dejó de mostrar. Contar bloques cuando no se ve
+    ninguno le pide al lector que crea un número que no puede verificar. En su
+    lugar van las dos franjas del día, que son datos declarados en EVENTO.
 
     LO QUE SE PIERDE Y HAY QUE SABERLO: los títulos de los bloques eran el
     mejor material de venta de la página —"La mayoría de las cadenas no quiebra
@@ -180,7 +184,7 @@ import Pictograma from "@/components/ui/Pictograma.vue";
   }
 }
 
-/* Las tres cifras del día: fichas, no números sueltos. Un número grande sin
+/* Las dos franjas del día: fichas, no números sueltos. Un número grande sin
    caja obliga a leer el rótulo para saber de qué es. */
 .ficha {
   display: flex;

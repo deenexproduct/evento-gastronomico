@@ -19,8 +19,24 @@
 
     <div class="contenedor relative py-12 sm:py-16">
       <div class="grid items-start gap-10">
-        <!-- Columna del mensaje -->
-        <div>
+        <!--
+          Columna del mensaje.
+
+          min-w-0 no es decorativo: por defecto un ítem de grid tiene
+          min-width:auto, o sea que no se encoge por debajo del contenido más
+          ancho que lleva adentro. Ese contenido es el h1, que va en una sola
+          palabra y no puede partirse.
+
+          La escala del titular está calculada para que entre a root 16px, pero
+          el clamp tiene el piso en rem: si el lector agranda la letra del
+          navegador, el piso crece mientras el contenedor sigue midiendo en vw.
+          Con min-width:auto la columna se estira detrás del texto, la sección
+          tiene overflow-hidden y el resultado es que se corta el titular Y la
+          columna entera —fecha, promesa y botones— sin que aparezca barra de
+          scroll. Con min-w-0 la columna se encoge y el nombre se parte en dos
+          renglones, que es feo pero se lee.
+        -->
+        <div class="min-w-0">
           <!--
             Donde y cuando, antes que nada. Con el panel de la derecha
             afuera, estas dos lineas son lo unico que lo dicen en la primera
@@ -161,7 +177,7 @@
             <a :href="enlaceReserva" target="_blank" rel="noopener noreferrer" class="btn">{{
               agotado ? "Entrar a la lista" : "Quiero mi lugar"
             }}</a>
-            <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver el programa</a>
+            <a href="#jornada" class="btn-linea" @click.prevent="ir('jornada')">Ver qué pasa ese día</a>
           </div>
 
           <!--
