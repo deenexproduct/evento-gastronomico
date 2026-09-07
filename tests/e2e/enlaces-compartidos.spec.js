@@ -12,18 +12,64 @@ import { test, expect } from "@playwright/test";
  * Ya pasó una vez. Esta suite existe para que no vuelva a pasar en silencio.
  */
 
-/** Las anclas que la comunicación usa de verdad. */
-const ANCLAS = ["registro", "lugar", "faq", "contenido"];
+/**
+ * Las anclas que la comunicación usa de verdad, y el id donde vive HOY el
+ * contenido de cada una.
+ *
+ * Los dos nombres no siempre coinciden, y ese es justamente el punto. El spec
+ * asumía que sí —buscaba un elemento con el id igual al ancla— y por eso "#lugar"
+ * fallaba: la sección se llama "donde" desde que DondeSection reemplazó a
+ * LocationSection. Que el ancla y el id se llamaran igual era una coincidencia
+ * de las otras tres, no una regla.
+ *
+ * Lo que hay que proteger es que el enlace lleve AL CONTENIDO, no que dos
+ * nombres coincidan.
+ */
+const ANCLAS = {
+  registro: "registro",
+  lugar: "donde",
+  faq: "faq",
+  contenido: "contenido",
+};
 
-for (const ancla of ANCLAS) {
+for (const [ancla, id] of Object.entries(ANCLAS)) {
   test(`el enlace #${ancla} abre la página, no una pantalla vacía`, async ({ page }) => {
     await page.goto(`/#${ancla}`);
     await page.waitForLoadState("networkidle");
 
     // Lo que se rompía: el router no matcheaba y no se montaba nada.
     await expect(page.locator("section")).not.toHaveCount(0);
-    await expect(page.locator(`#${ancla}`)).toBeAttached();
+    await expect(page.locator(`#${id}`)).toBeAttached();
     await expect(page.locator("h1")).toBeVisible();
+  });
+
+  /*
+    Y que ADEMÁS lleve hasta la sección.
+
+    Que el destino exista no alcanzaba: el scrollBehavior devolvía { top: 0 }
+    siempre, así que alguien que abría un "#acceso" reenviado llegaba a la vista
+    correcta y tenía que buscar la sección a mano. Con "#lugar" era peor: caía
+    en la home, con la dirección a 3.500px de donde lo dejaban.
+
+    Se le da tiempo al scroll: la home entra con .v-reveal y las fuentes
+    recomponen el texto al llegar, así que la posición del destino se mueve
+    durante los primeros cientos de milisegundos.
+  */
+  test(`el enlace #${ancla} deja la sección a la vista, no arriba de todo`, async ({ page }) => {
+    await page.goto(`/#${ancla}`);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(1500);
+
+    const lejos = await page.evaluate((sel) => {
+      const el = document.getElementById(sel);
+      if (!el) return null;
+      // Cuán lejos quedó del borde superior del viewport. El nav fijo ocupa
+      // 88px, que es el scroll-margin-top que declara main.css.
+      return Math.abs(el.getBoundingClientRect().top);
+    }, id);
+
+    expect(lejos).not.toBeNull();
+    expect(lejos, `#${ancla} dejó a #${id} a ${lejos}px del borde`).toBeLessThan(300);
   });
 }
 
