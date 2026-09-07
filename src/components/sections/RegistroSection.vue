@@ -133,50 +133,26 @@
             </ol>
 
             <!--
-              Cuántos van, antes del botón.
+              ACÁ ESTABA EL SELECTOR DE "¿CUÁNTOS VAN?", y sale por decisión de
+              producto: un toque y listo.
 
-              Es el único dato que la conversación no recupera sin costo: el
-              cupo se cuenta por persona, así que doscientos mensajes que dicen
+              Eran cuatro botones que cambiaban una palabra del mensaje, y
+              existían por una razón real que conviene no perder de vista: el
+              cupo se cuenta POR PERSONA, así que doscientos mensajes que dicen
               "quiero mi lugar" pueden ser doscientas sesenta personas en la
-              puerta. No es un formulario —no hay campos ni validación—: son
-              cuatro botones que cambian una palabra del mensaje.
-            -->
-            <div v-if="!agotado" class="mt-8">
-              <p class="text-[13px] font-semibold uppercase tracking-[0.1em] text-gris-2">
-                ¿Cuántos van?
-              </p>
-              <!--
-                data-selector-personas lo usa tests/e2e/ritmo.spec.js para
-                excluir estos botones del control que exige que todo lo pintado
-                con el acento pleno lleve a algún lado: el número elegido se
-                pinta de violeta, pero es un control de la reserva y no una
-                salida.
-              -->
-              <div
-                class="mt-3 flex flex-wrap gap-2"
-                role="group"
-                aria-label="Cuántas personas van"
-                data-selector-personas
-              >
-                <button
-                  v-for="n in [1, 2, 3, 4]"
-                  :key="n"
-                  type="button"
-                  class="cuantos presionable"
-                  :class="{ 'cuantos-activo': personas === n }"
-                  :aria-pressed="personas === n"
-                  @click="personas = n"
-                >
-                  {{ n === TOPE_PERSONAS ? `${TOPE_PERSONAS} o más` : n }}
-                </button>
-              </div>
-            </div>
+              puerta. Ese dato ahora hay que preguntarlo en la conversación.
 
+              El intercambio es deliberado: se cambia un dato que se recuperaba
+              solo por un camino de un solo toque. Es la misma regla que ya
+              gobierna el resto de la reserva —sin formulario, sin nada que
+              elegir antes— y la que protege el caso "la reserva es un solo
+              botón, sin nada que elegir antes" de tests/e2e/registro.spec.js.
+            -->
             <a
               :href="enlaceReserva"
               target="_blank"
               rel="noopener noreferrer"
-              class="btn mt-5 w-full"
+              class="btn mt-8 w-full"
             >
               {{ agotado ? "Anotarme en la lista" : "Reservar por WhatsApp" }}
               <span class="sr-only"> (abre WhatsApp en una pestaña nueva)</span>
@@ -219,7 +195,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { linkWaReserva, TOPE_PERSONAS } from "@/data/evento";
+import { linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
@@ -230,8 +206,7 @@ const { valor: cupoContado, ancla: anclaCupo } = useContador(() => restantes.val
 const { google, urlIcs, nombreArchivo } = useCalendario();
 
 
-const personas = ref(1);
-const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value, personas: personas.value }));
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const INCLUYE = [
   "Los diez bloques del programa, en track único",
@@ -248,26 +223,5 @@ const PASOS = [
 </script>
 
 <style scoped>
-/* Los cuatro botones de "cuántos van". Píldoras, no un select: a un toque de
-   distancia y sin abrir nada. */
-.cuantos {
-  min-width: 3rem;
-  min-height: 44px;
-  padding: 0 1rem;
-  border-radius: 999px;
-  border: 1px solid var(--linea, #e7e4f0);
-  background: var(--papel, #fff);
-  color: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
-}
-.cuantos:hover { border-color: color-mix(in srgb, var(--acento, #695ede) 45%, transparent); }
-.cuantos-activo {
-  background: var(--acento, #695ede);
-  border-color: var(--acento, #695ede);
-  color: #fff;
-}
+/* El CSS de .cuantos se fue con el selector de "cuántos van". */
 </style>

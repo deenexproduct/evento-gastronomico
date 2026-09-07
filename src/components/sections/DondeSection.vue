@@ -68,16 +68,27 @@
         pedido de reserva. La página convoca al sábado 19 y el dato más visible
         de esa zona era otra fecha.
       -->
+      <!--
+        El rótulo dice "de regalo" y no "además": es lo mismo que decía antes,
+        contado desde lo que el lector se lleva y no desde lo que la página
+        agrega. Es el único beneficio de la landing que no cuesta nada montar y
+        que ya está cerrado —la acreditación es la misma—, así que conviene que
+        se lea como lo que es.
+
+        Sigue sin prometer nada del otro evento más allá del acceso: qué pasa
+        adentro de Córdoba Corazón de Moda no lo maneja este equipo.
+      -->
       <div class="cortesia mt-4">
         <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-acento-texto">
-          Además
+          De regalo por venir
         </p>
         <p class="mt-2.5 max-w-[46ch] text-[1.05rem] font-semibold leading-[1.35]">
-          Tu acreditación también te habilita Córdoba Corazón de Moda
+          Te regalamos el acceso a {{ EVENTO.eventoMadre }}
         </p>
         <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.55] text-gris">
-          Es el evento que ocupa el resto del centro de convenciones ese mismo día, y por el que
-          circulan más de 20.000 personas. Entrás con la misma credencial, sin trámite aparte.
+          Se hace en el mismo lugar y el mismo día: ocupa el resto del centro de convenciones y por
+          ahí circulan más de {{ EVENTO.eventoMadreCirculacion }} personas. Entrás con tu misma
+          credencial, sin pagar ni tramitar nada aparte.
         </p>
       </div>
     </div>

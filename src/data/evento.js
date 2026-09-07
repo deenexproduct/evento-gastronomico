@@ -157,7 +157,7 @@ export const BLOQUES = [
 
 export const CUPO = {
   total: 200,
-  ocupados: 85, // ← actualizar a mano hasta que el endpoint esté conectado
+  ocupados: 127, // ← actualizar a mano hasta que el endpoint esté conectado
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -748,7 +748,20 @@ const SALUDO = "Hola Romina!";
   nuevo lo atiende otra persona, lo que hay que cambiar es SALUDO —una línea, y
   los cinco se mueven juntos—; este no la nombra, así que no se entera.
 */
-/** El tope del selector de "cuántos van". Lo comparten el botón y el mensaje. */
+/**
+ * El tope de acompañantes que el mensaje sabe expresar.
+ *
+ * HOY NADIE LE PASA `personas` A mensajeReserva(): el selector de "¿cuántos
+ * van?" salió de RegistroSection para que reservar sea un solo toque, así que
+ * todos los mensajes salen en singular.
+ *
+ * El parámetro se conserva —con sus tests— porque el dato que resolvía sigue
+ * siendo real: el cupo se cuenta POR PERSONA, y doscientos mensajes que dicen
+ * "quiero sumarme" pueden ser doscientas sesenta personas en la puerta. Hoy eso
+ * se pregunta en la conversación. Si vuelve a la página, la función ya sabe
+ * escribirlo y respeta el tope: en 4 o más dice "vamos 4 o más", que es lo que
+ * decía el botón.
+ */
 export const TOPE_PERSONAS = 4;
 
 export function mensajeReserva({ agotado = false, personas = 1 } = {}) {

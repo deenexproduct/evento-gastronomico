@@ -103,6 +103,70 @@ img, video { max-width: 100%; height: auto; display: block; }
            hover:border-white/60 hover:bg-white/10;
   }
 
+  /* ── Que los botones se hagan notar ──────────────────────────────────
+     Dos animaciones, y están jerarquizadas a propósito.
+
+     El pulso —un halo que se expande y se apaga— va SÓLO en .btn, que es la
+     acción principal. Si pulsaran los dos, ninguno destacaría: es la misma
+     razón por la que el acento pleno se reserva para una cosa sola.
+
+     La cadencia es lenta a propósito: 2,8 s con la mayor parte del ciclo
+     quieto. Un botón que late rápido no se lee como invitación, se lee como
+     alerta, y en una página que el lector recorre quince pantallas termina
+     cansando.
+
+     El barrido de luz va en los dos y sólo al pasar el mouse: es el acuse de
+     recibo de que el botón está vivo, y en teléfono no existe porque no hay
+     hover.
+
+     Va en ::before porque el ::after de estos botones ya está tomado por el
+     velo del :active, más abajo en este mismo archivo. */
+  .btn {
+    animation: latido-cta 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    overflow: hidden;
+  }
+  .btn-linea { overflow: hidden; }
+
+  .btn::before,
+  .btn-linea::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      rgb(255 255 255 / 0.28),
+      transparent
+    );
+    transform: translateX(-180%) skewX(-18deg);
+    pointer-events: none;
+  }
+  .btn:hover::before,
+  .btn-linea:hover::before {
+    transform: translateX(320%) skewX(-18deg);
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* En claro el barrido blanco no se ve sobre el botón de línea, que es casi
+     blanco: ahí el destello va en tinta. */
+  html.claro .btn-linea::before {
+    background: linear-gradient(100deg, transparent, rgb(0 0 0 / 0.07), transparent);
+  }
+
+  @keyframes latido-cta {
+    /* El 0-55% quieto es lo que hace que el pulso se lea como un latido y no
+       como un parpadeo continuo. */
+    0%,
+    55% {
+      box-shadow: 0 0 0 0 rgb(105 94 222 / 0.5);
+    }
+    85%,
+    100% {
+      box-shadow: 0 0 0 14px rgb(105 94 222 / 0);
+    }
+  }
+
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5
            px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em];
@@ -360,6 +424,19 @@ img, video { max-width: 100%; height: auto; display: block; }
   }
   .btn::after, .btn-linea::after, .cuadro::after, .chip::after, .presionable::after {
     transition: none;
+  }
+  /* El latido del CTA y el barrido de luz. El latido se apaga entero —es una
+     animación permanente, que es justo lo que esta preferencia pide evitar— y
+     el destello deja de moverse: se queda fuera del botón, invisible.
+
+     Va con el selector completo por la misma razón que el resto del bloque: la
+     media query no suma especificidad y `.btn` a secas perdería contra la regla
+     de arriba. */
+  .btn.btn { animation: none; }
+  .btn::before, .btn-linea::before,
+  .btn:hover::before, .btn-linea:hover::before {
+    transition: none;
+    transform: translateX(-180%) skewX(-18deg);
   }
 }
 
