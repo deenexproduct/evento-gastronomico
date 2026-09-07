@@ -95,19 +95,46 @@ test("una ruta inventada tampoco deja la página en blanco", async ({ page }) =>
   await expect(page.locator("h1")).toBeVisible();
 });
 
-test("el nav fijo no tapa el título de la sección al saltar", async ({ page }) => {
-  await page.goto("/");
-  await page.waitForLoadState("networkidle");
+test("el nav fijo no tapa el título de la sección en ningún ancho", async ({ page }) => {
+  /*
+    Barre el rango en vez de mirar un ancho.
 
-  const alturaNav = await page
-    .locator(".fixed.inset-x-0.top-0")
-    .first()
-    .evaluate((el) => el.getBoundingClientRect().height);
+    Esto medía el viewport que trajera el proyecto de Playwright —1280 en
+    desktop, 412 en mobile— y con eso daba verde, pero el nav cambia de alto
+    DOS veces: a 640px las cinco pestañas caen a dos líneas (73 → 117) y abajo
+    de 360 caen a tres (117 → 161). El segundo escalón no lo veía nadie: este
+    caso miraba 412, el de las pestañas cortadas barre de 1024 para arriba y
+    el de la barra fija arranca en 360. A 320px —un iPhone SE de primera
+    generación, un Fold cerrado— el margen era 132 contra un nav de 161 y cada
+    salto de ancla dejaba el título 29px tapado.
 
-  // Sin scroll-margin-top, el ancla queda en y=0 y el nav se le sienta encima.
-  const margen = await page
-    .locator("#registro")
-    .evaluate((el) => parseFloat(getComputedStyle(el).scrollMarginTop));
+    Se compara contra el alto real medido en cada ancho, no contra una
+    constante: si mañana entra una sexta pestaña y el nav crece, esto lo dice
+    en el ancho exacto donde crece.
+  */
+  for (const ancho of [320, 359, 360, 480, 639, 640, 768, 1024, 1440]) {
+    await page.setViewportSize({ width: ancho, height: 800 });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
 
-  expect(margen).toBeGreaterThanOrEqual(alturaNav);
+    const r = await page.evaluate(() => {
+      const nav = document.querySelector(".fixed.inset-x-0.top-0");
+      const sec = document.querySelector("#registro");
+      return {
+        nav: nav ? nav.getBoundingClientRect().height : null,
+        margen: sec ? parseFloat(getComputedStyle(sec).scrollMarginTop) : null,
+      };
+    });
+
+    // Sin esto, un selector que dejara de encontrar el nav compararía null
+    // contra null y el caso pasaría en verde sin medir nada.
+    expect(r.nav, `no se encontró el nav a ${ancho}px`).not.toBeNull();
+    expect(r.margen, `no se encontró #registro a ${ancho}px`).not.toBeNull();
+
+    expect(
+      r.margen,
+      `a ${ancho}px el nav mide ${r.nav}px y el margen de ancla es ${r.margen}px: ` +
+        `el título queda ${Math.round(r.nav - r.margen)}px tapado`
+    ).toBeGreaterThanOrEqual(r.nav);
+  }
 });

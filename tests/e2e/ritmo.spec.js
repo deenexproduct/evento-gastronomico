@@ -388,3 +388,98 @@ test("ningún logo de sponsor queda invisible sobre el fondo claro", async ({ pa
   }
   expect(invisibles).toEqual([]);
 });
+
+test("el aire entre secciones se achica en teléfono y no en escritorio", async ({ page }) => {
+  /*
+    El ritmo vertical era 96px fijos a cualquier ancho, y medido resultó el
+    defecto responsive más caro de la página: los huecos entre bloques salían
+    idénticos a 375 y a 1280 —218, 222, 226px— porque nada dependía del
+    viewport. En un teléfono esos 192px entre bloque y bloque son casi un
+    tercio de pantalla en blanco, repetida treinta y cuatro veces en la home.
+
+    Ahora es clamp(3.5rem, 9vw, 6rem). Este caso fija las dos mitades de esa
+    decisión, porque cada una se puede romper sin la otra: que en teléfono
+    comprima de verdad, y que de 1067px para arriba el escritorio siga
+    valiendo exactamente 96px, que es lo que costó calibrar.
+  */
+  const medir = async (ancho) => {
+    await page.setViewportSize({ width: ancho, height: 900 });
+    await page.goto("/#/que-es");
+    await page.waitForLoadState("networkidle");
+    return page.evaluate(() => {
+      const s = document.querySelector(".py-seccion, [class*='py-seccion']");
+      if (!s) return null;
+      return Math.round(parseFloat(getComputedStyle(s).paddingTop));
+    });
+  };
+
+  const telefono = await medir(375);
+  const escritorio = await medir(1280);
+
+  // Si el selector dejó de encontrar la sección esto mediría null contra null
+  // y pasaría en verde sin comprobar nada, que es exactamente cómo dos casos
+  // de bloque-a estuvieron años sin ejecutar una aserción.
+  expect(telefono, "no se encontró ninguna sección con py-seccion").not.toBeNull();
+
+  expect(escritorio, "el escritorio dejó de valer los 96px calibrados").toBe(96);
+  expect(telefono, "en teléfono el aire de sección volvió a no comprimirse").toBeLessThanOrEqual(64);
+});
+
+test("ninguna respuesta termina con una palabra sola colgada", async ({ page }) => {
+  /*
+    A 375px la home tenía diez párrafos cuya última línea era una sola palabra:
+    "aparte.", "devolvió.", "lugares.", "ve.". En un ancho de teléfono, donde
+    cada párrafo son cuatro o cinco líneas, esa viuda es un quinto del bloque
+    en blanco y se lee como un final cortado. Lo resuelve text-wrap: pretty en
+    main.css.
+
+    OJO CON MEDIRLO: el primer detector que escribí para esto acumulaba la
+    última línea carácter por carácter con un Range y no descartaba los rects
+    degenerados. Un espacio al final de renglón devuelve height 0, así que se
+    perdía, y "200 lugares." se leía como "200lugares." —una palabra sola— y
+    daba viuda donde no había ninguna. Reportó las mismas diez DESPUÉS de que
+    el arreglo ya estaba puesto y funcionando. De ahí el filtro por height.
+  */
+  await page.setViewportSize({ width: 375, height: 900 });
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  await revelarTodo(page);
+  await page.evaluate(() => document.querySelectorAll("details").forEach((d) => (d.open = true)));
+  await page.waitForTimeout(400);
+
+  const r = await page.evaluate(() => {
+    const w = (p) => {
+      const it = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+      const rg = document.createRange();
+      let top = -1, linea = "", n;
+      while ((n = it.nextNode())) {
+        const s = n.textContent;
+        for (let i = 0; i < s.length; i++) {
+          rg.setStart(n, i);
+          rg.setEnd(n, i + 1);
+          const rc = rg.getBoundingClientRect();
+          if (rc.height === 0) continue;
+          if (rc.top > top + 2) { top = rc.top; linea = ""; }
+          if (Math.abs(rc.top - top) < 2) linea += s[i];
+        }
+      }
+      return linea.trim();
+    };
+    const ps = [...document.querySelectorAll("main p")].filter(
+      (p) => (p.innerText || "").trim().length > 80
+    );
+    const viudas = [];
+    for (const p of ps) {
+      const u = w(p);
+      // Una palabra sola y corta. Una última línea larga no es una viuda
+      // aunque no tenga espacios: es una palabra que no entró y ya está.
+      if (u.length > 0 && u.length <= 14 && !u.includes(" ")) {
+        viudas.push(`«${u}» en «${p.innerText.trim().replace(/\s+/g, " ").slice(0, 45)}»`);
+      }
+    }
+    return { medidos: ps.length, viudas };
+  });
+
+  expect(r.medidos, "no se encontró ningún párrafo largo para medir").toBeGreaterThan(15);
+  expect(r.viudas).toEqual([]);
+});

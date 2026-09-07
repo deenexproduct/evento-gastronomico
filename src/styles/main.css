@@ -49,13 +49,28 @@ html, body { overflow-x: clip; }
    existe para evitar, y justo en el ancho por donde entra la mayoría del
    tráfico.
 
-   Medido con getBoundingClientRect sobre el header: 117 px a 375 y a 639,
-   73 px de 640 para arriba. Los valores llevan un poco de aire encima.
+   Y TIENE UN TERCER ESCALÓN, que es el que faltaba: abajo de 360px las cinco
+   pestañas ya no entran en dos líneas y caen a tres, así que el nav pasa de
+   117 a 161. El margen de 132 dejaba el título 29 px tapado —exactamente el
+   mismo defecto que este bloque venía a arreglar, corrido un breakpoint más
+   abajo—. 320px no es un ancho de laboratorio: es un iPhone SE de primera
+   generación y un Galaxy Fold cerrado.
+
+   Nadie lo vio porque la suite entera empieza a medir en 360: el caso de las
+   pestañas cortadas barre de 1024 para arriba y el de la barra fija arranca
+   en 360. Por eso el test que vigila esto ahora barre desde 320.
+
+   Medido con getBoundingClientRect sobre el header: 161 px hasta 359, 117 px
+   de 360 a 639, 73 px de 640 para arriba. Los tres valores llevan 15 px de
+   aire encima, que es lo que separa el título de la barra.
 
    Lo vigila tests/e2e/enlaces-compartidos.spec.js, que compara el margen contra
-   el alto real del nav en los dos proyectos de Playwright —desktop y mobile—,
-   así que si el nav vuelve a crecer el test lo dice. */
-section[id], main[id] { scroll-margin-top: 132px; }
+   el alto real del nav a lo ancho de todo el rango, así que si el nav vuelve a
+   crecer el test lo dice. */
+section[id], main[id] { scroll-margin-top: 176px; }
+@media (min-width: 360px) {
+  section[id], main[id] { scroll-margin-top: 132px; }
+}
 @media (min-width: 640px) {
   section[id], main[id] { scroll-margin-top: 88px; }
 }
@@ -72,6 +87,27 @@ body {
 @media (min-width: 768px) { body { font-size: 18px; } }
 
 img, video { max-width: 100%; height: auto; display: block; }
+
+/*
+  Ninguna respuesta termina con una palabra sola colgada.
+
+  Medido con un Range sobre la última línea real de cada párrafo, la home a
+  375px tenía once: "…no se cobra la entrada: el valor está en quién se sienta
+  en la sala." partido de forma que "aparte.", "devolvió.", "lugares." o "ve."
+  quedaban solas ocupando un renglón entero. En un ancho de teléfono, donde
+  cada párrafo son cuatro o cinco líneas, una viuda es un 20% del bloque en
+  blanco y el ojo la lee como un final abrupto.
+
+  `pretty` es exactamente para esto: el navegador reparte las últimas líneas
+  para que ninguna quede huérfana, sin tocar las anteriores. Va sobre el
+  elemento, no sobre una clase, así que `text-balance` —que es la misma
+  propiedad con otra estrategia y se usa a mano en los titulares y en la bajada
+  del pie— le gana por especificidad y sigue mandando donde está puesta.
+
+  Donde el navegador no lo soporta se ignora y el texto se parte como hoy: no
+  hay nada que degradar.
+*/
+p, li, dd, figcaption { text-wrap: pretty; }
 
 @layer components {
   /* ── Titulares: peso 900 y caja alta, como el referente ─────────────── */

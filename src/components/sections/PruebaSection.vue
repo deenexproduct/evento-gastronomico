@@ -61,7 +61,25 @@
       <p class="mt-16 text-[13px] font-semibold uppercase tracking-[0.16em] text-gris-2">
         Marcas que trabajan con Deenex
       </p>
-      <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6 sm:gap-x-10">
+      <!--
+        Dos columnas que llenan el ancho en teléfono; la fila corrida de
+        siempre de 640px para arriba.
+
+        Los casilleros eran de 120px fijos a cualquier ancho. A 375px entran
+        dos por fila —120+32+120 = 272— y los 55px que sobraban se acumulaban
+        todos contra el borde derecho: el muro de doce marcas quedaba corrido a
+        la izquierda, sin alinear ni con el rótulo ni con el borde de la
+        sección. Centrarlo lo empeoraba de otra forma, porque entonces no
+        alineaba con "Marcas que trabajan con Deenex", que va a la izquierda.
+
+        Con grid de dos columnas cada casillero mide lo que le toca y los dos
+        bordes cierran donde tienen que cerrar. El logo sigue centrado adentro
+        del suyo y con su tope de 120px, así que ninguno se agranda por tener
+        más lugar.
+      -->
+      <div
+        class="mt-8 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:flex sm:flex-wrap sm:gap-x-10"
+      >
         <!--
           La caja reserva el espacio antes de que cargue el logo, así la página
           no salta. El alto va repetido en píxeles sobre la imagen y no como
@@ -71,7 +89,7 @@
         <div
           v-for="logo in logos"
           :key="logo.src"
-          class="grid h-7 w-[120px] place-items-center sm:h-9"
+          class="grid h-7 w-full place-items-center sm:h-9 sm:w-[120px]"
         >
           <img
             :src="logo.src"

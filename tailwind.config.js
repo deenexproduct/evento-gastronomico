@@ -47,8 +47,24 @@ export default {
         lectura: "68ch",
       },
       spacing: {
-        // El ritmo vertical del referente: 96px en todas las secciones.
-        seccion: "96px",
+        /*
+          El ritmo vertical del referente: 96px entre secciones.
+
+          Eran 96px fijos a cualquier ancho, y medido resultó ser el defecto
+          responsive más caro de la página. Los huecos entre bloques salían
+          idénticos a 375 y a 1280 —218, 222, 226px— porque nada de esto
+          dependía del viewport. En escritorio 96px de aire arriba y abajo dan
+          respiro; en un teléfono los mismos 192px entre bloque y bloque son
+          casi un tercio de pantalla en blanco, repetido treinta y cuatro
+          veces: 3.603px de vacío sobre 11.975 de alto, tres pantallas de nada
+          dentro de un scroll de dieciséis.
+
+          El clamp toca el techo de 96px a partir de 1067px de ancho, así que
+          el escritorio queda exactamente como estaba. Abajo de eso comprime
+          hasta 56px, que es el mínimo con el que dos bloques todavía se leen
+          como dos cosas distintas y no como una lista corrida.
+        */
+        seccion: "clamp(3.5rem, 9vw, 6rem)",
       },
     },
   },
