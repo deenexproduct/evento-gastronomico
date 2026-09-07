@@ -25,6 +25,7 @@
 -->
 <template>
   <header
+    ref="cabecera"
     class="fixed inset-x-0 top-0 z-[100] border-b transition-colors duration-300"
     :class="scrolled ? 'border-white/10 bg-noche/90 backdrop-blur-md' : 'border-transparent bg-noche'"
   >
@@ -102,6 +103,7 @@ import { barraVisible } from "@/composables/useBarraReserva";
 const { total, restantes, agotado, mostrarCupo } = useCupo();
 const ruta = useRoute();
 const scrolled = ref(false);
+const cabecera = ref(null);
 
 function rutaActiva(r) {
   return ruta.path === r;
@@ -110,9 +112,61 @@ function onScroll() {
   scrolled.value = window.scrollY > 24;
 }
 
+/*
+  El nav publica su propio alto en --alto-nav, y main.css lo usa para el
+  scroll-margin de las anclas.
+
+  Esto lo resolvia el CSS solo, con escalones por ancho: 73px de 640 para
+  arriba, 117 abajo, 161 abajo de 360. Los tres medidos a mano. Y estaba mal de
+  raiz, porque EL ALTO DEL NAV NO DEPENDE SOLO DEL ANCHO: las cinco pestañas
+  entran en una, dos o tres lineas segun lo que mida el texto, y eso lo decide
+  la fuente que haya cargado. El CI lo dejo a la vista: en el runner de Ubuntu,
+  a 360px el nav mide 161 y no 117, porque Bespoke Sans no llega y el respaldo
+  del sistema es mas ancho que el de esta maquina. El mismo sitio, el mismo
+  ancho, cuarenta y cuatro pixeles de diferencia.
+
+  Le pasa a cualquier visitante en los milisegundos anteriores a que carguen
+  las fuentes, y le pasa siempre al que las tenga bloqueadas.
+
+  Medirlo evita las tres cosas: no hay que adivinar, no hay que recalibrar si
+  entra una sexta pestaña, y no hay un ancho donde el escalon caiga del lado
+  equivocado. El ResizeObserver dispara tambien cuando la fuente termina de
+  cargar, que es justo el momento en que el numero cambia.
+
+  Los 15px son el aire entre la barra y el titulo al que se salta. El respaldo
+  de main.css sigue vivo para el primer frame, antes de que esto corra.
+*/
+let observador = null;
+
 onMounted(() => {
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  if (!cabecera.value) return;
+  const publicar = (alto) => {
+    if (alto > 0) document.documentElement.style.setProperty("--alto-nav", `${Math.ceil(alto)}px`);
+  };
+  publicar(cabecera.value.getBoundingClientRect().height);
+
+  // En un navegador sin ResizeObserver queda el valor del montaje, que ya es
+  // mejor que el escalon fijo: se midio con la fuente que efectivamente cargo.
+  if (typeof ResizeObserver === "undefined") return;
+  observador = new ResizeObserver(([e]) => publicar(e.contentRect.height + bordes(e.target)));
+  observador.observe(cabecera.value);
 });
-onUnmounted(() => window.removeEventListener("scroll", onScroll));
+
+// contentRect no incluye padding ni borde, y el header tiene borde abajo: sin
+// esto el margen queda un pixel corto y el titulo roza la barra.
+function bordes(el) {
+  const cs = getComputedStyle(el);
+  return (
+    parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) +
+    parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth)
+  );
+}
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
+  observador?.disconnect();
+});
 </script>

@@ -120,9 +120,16 @@ test("el nav fijo no tapa el título de la sección en ningún ancho", async ({ 
     const r = await page.evaluate(() => {
       const nav = document.querySelector(".fixed.inset-x-0.top-0");
       const sec = document.querySelector("#registro");
+      const hero = document.querySelector("#hero");
+      const primero = hero?.querySelector("p, h1, span");
+      const altoNav = nav ? nav.getBoundingClientRect().height : null;
       return {
-        nav: nav ? nav.getBoundingClientRect().height : null,
+        nav: altoNav,
         margen: sec ? parseFloat(getComputedStyle(sec).scrollMarginTop) : null,
+        heroLibre:
+          primero && altoNav !== null
+            ? Math.round(primero.getBoundingClientRect().top - altoNav)
+            : null,
       };
     });
 
@@ -136,5 +143,20 @@ test("el nav fijo no tapa el título de la sección en ningún ancho", async ({ 
       `a ${ancho}px el nav mide ${r.nav}px y el margen de ancla es ${r.margen}px: ` +
         `el título queda ${Math.round(r.nav - r.margen)}px tapado`
     ).toBeGreaterThanOrEqual(r.nav);
+
+    /*
+      Y lo mismo para la PRIMERA PANTALLA, que es donde más caro sale.
+
+      El hero tenía pt-[104px] fijo, calibrado contra un nav de 73. A 320px el
+      nav mide 161 y el titular quedaba 9px POR DEBAJO de la barra: tapado, sin
+      scroll de por medio, en lo único que ve el que llega y rebota. Con la
+      fuente de respaldo del runner eso mismo pasa a 360px.
+    */
+    expect(r.heroLibre, `no se encontró el primer texto del hero a ${ancho}px`).not.toBeNull();
+    expect(
+      r.heroLibre,
+      `a ${ancho}px el nav mide ${r.nav}px y el primer texto del hero arranca a ` +
+        `${r.nav + r.heroLibre}px: queda ${-r.heroLibre}px tapado`
+    ).toBeGreaterThanOrEqual(0);
   }
 });

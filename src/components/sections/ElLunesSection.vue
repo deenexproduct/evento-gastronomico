@@ -1,6 +1,13 @@
 <template>
   <!-- Verbo + resultado tangible. Sin adjetivos, sin marketinés. -->
-  <section id="el-lunes" class="border-b border-linea py-16 sm:py-24">
+  <!--
+    py-seccion y no py-16 sm:py-24: en escritorio py-24 son los mismos 96px que
+    vale el token, asi que no cambia nada ahi. Lo que arregla es el telefono.
+    Cuando el token paso a clamp, las nueve secciones que lo usan se comprimieron
+    y esta —que tenia el valor escrito a mano— se quedo quieta, asi que un corte
+    que estaba en el ritmo del resto paso a ser el mas ancho de su vecindario.
+  -->
+  <section id="el-lunes" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
         <div>

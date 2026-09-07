@@ -483,3 +483,77 @@ test("ninguna respuesta termina con una palabra sola colgada", async ({ page }) 
   expect(r.medidos, "no se encontró ningún párrafo largo para medir").toBeGreaterThan(15);
   expect(r.viudas).toEqual([]);
 });
+
+test("todas las secciones se comprimen con la misma curva, no cada una con la suya", async ({ page }) => {
+  /*
+    El caso de arriba mide UNA sección y no alcanza.
+
+    Cuando el ritmo pasó a clamp, dos secciones tenían el padding escrito a
+    mano —FAQSection con py-20 sm:py-28, ElLunesSection con py-16 sm:py-24— y
+    quedaron fuera de la curva. El resultado fue peor que no haber tocado nada:
+    el corte del FAQ era el MÁS APRETADO de la home, 176px contra 192, y pasó a
+    ser el MÁS SUELTO, 136 contra 112 a 375px y 170 contra 116 a 640. Justo el
+    último bloque de la página.
+
+    LA PRIMERA VERSIÓN DE ESTE TEST NO SERVÍA. Pedía que cada sección respirara
+    menos en teléfono que en escritorio, y `py-20 sm:py-28` cumple eso: 80 contra
+    112, se comprime igual, sólo que por breakpoint y con otra pendiente. El
+    test pasaba en verde con el defecto puesto. Verificado rompiéndolo a
+    propósito, que es la única forma de enterarse.
+
+    Lo que hay que comparar es la RAZÓN teléfono/escritorio de cada una contra
+    la de las demás. Las siete del ritmo dan 0.583 clavado; el FAQ, que tiene su
+    propio techo a propósito, da 0.571; con el valor fijo daba 0.714. La curva
+    se ve en la razón, no en el valor.
+  */
+  const leer = async (ancho) => {
+    await page.setViewportSize({ width: ancho, height: 900 });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    return page.evaluate(() =>
+      [...document.querySelectorAll("main section")].map((s) => ({
+        id: s.id || "(sin id)",
+        pt: parseFloat(getComputedStyle(s).paddingTop),
+      }))
+    );
+  };
+
+  const telefono = await leer(375);
+  const escritorio = await leer(1280);
+
+  expect(telefono.length, "no se encontró ninguna sección en la home").toBeGreaterThan(5);
+  expect(escritorio.length, "la home cambió de cantidad de secciones entre anchos").toBe(telefono.length);
+
+  /*
+    Dos quedan afuera, y por motivos distintos:
+
+    · #hero, porque su aire de arriba no sigue al ritmo de la página sino al
+      alto del nav, que en teléfono es MAYOR. Lo cubre "el nav fijo no tapa el
+      título de la sección en ningún ancho", en enlaces-compartidos.spec.js.
+    · #respaldan, porque es la franja fina de logos y lleva su propio py-10
+      sm:py-12 a propósito: no es un corte de sección, es un separador.
+  */
+  const APARTE = ["hero", "respaldan"];
+  const razones = telefono
+    .map((t, i) => ({ id: t.id, tel: t.pt, esc: escritorio[i].pt }))
+    .filter((s) => !APARTE.includes(s.id) && s.esc > 24)
+    .map((s) => ({ ...s, r: s.tel / s.esc }));
+
+  // Sin esto, un cambio de markup que dejara la lista vacía haría pasar el
+  // caso sin comparar nada.
+  expect(razones.length, "quedaron muy pocas secciones para comparar").toBeGreaterThanOrEqual(5);
+
+  const orden = [...razones.map((x) => x.r)].sort((a, b) => a - b);
+  const mediana = orden[Math.floor(orden.length / 2)];
+
+  const desviadas = razones
+    .filter((s) => Math.abs(s.r - mediana) > 0.06)
+    .map(
+      (s) =>
+        `#${s.id}: ${Math.round(s.tel)}/${Math.round(s.esc)} = ${s.r.toFixed(3)} ` +
+        `contra ${mediana.toFixed(3)} del resto`
+    );
+
+  expect(desviadas).toEqual([]);
+});
+

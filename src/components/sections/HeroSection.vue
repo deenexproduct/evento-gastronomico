@@ -9,7 +9,29 @@
     derecha. En celular el panel cae debajo de los botones, que es el orden que
     corresponde ahí.
   -->
-  <section id="hero" class="relative overflow-hidden pt-[104px]">
+  <!--
+    El aire de arriba sigue al nav, no a un numero.
+
+    Eran 104px fijos, calibrados contra un nav de 73. Pero el nav mide 73, 117
+    o 161 segun cuantas lineas ocupen las cinco pestañas, y eso depende del
+    ancho Y de la fuente que haya cargado: a 320px mide 161 y el titulo del
+    hero quedaba 9px POR DEBAJO de la barra —tapado, en la primera pantalla,
+    que es lo unico que ve el que llega y rebota—. Con la fuente de respaldo
+    del runner de CI eso mismo pasa a 360px, que es un telefono comun.
+
+    --alto-nav la publica Navbar.vue midiendose.
+
+    El max() es para no tocar lo que ya estaba bien. Los 104px daban 35px de
+    aire libre bajo la barra en telefono (nav 117) y 95 en escritorio (nav 73),
+    porque el div de adentro pone 48px mas. El calc replica esos 35px de aire
+    cuando el nav crece, y el max deja ganar al 104 cuando no hace falta: a
+    375px y de 640 para arriba el hero queda exactamente donde estaba, y a
+    320 —o a 360 con la fuente de respaldo— sube a 148 y deja de tapar.
+  -->
+  <section
+    id="hero"
+    class="relative overflow-hidden pt-[max(104px,calc(var(--alto-nav,117px)-13px))]"
+  >
     <!-- Halo del violeta de marca, contenido y barato: sin JS ni imágenes -->
     <div
       class="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[130px]"

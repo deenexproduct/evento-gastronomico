@@ -4,7 +4,22 @@
     tiene el suyo y anidarlos duplicaba el padding lateral— y sin el borde de
     abajo, que se juntaba con el del copyright y dibujaba dos lineas seguidas.
   -->
-  <section id="faq" :class="enPie ? '' : 'border-b border-linea py-20 sm:py-28'">
+  <!--
+    El aire del FAQ es a proposito mas suelto que el del resto —112px contra 96
+    en escritorio— y eso se conserva: el clamp llega al mismo techo de 7rem.
+    Lo que se le agrega es la curva, que no tenia.
+
+    Cuando el ritmo general paso a clamp, esta seccion se quedo con el valor
+    fijo y la relacion se dio vuelta: era el corte MAS APRETADO de la home
+    —176px contra 192— y paso a ser el MAS SUELTO, 136 contra 112 a 375px y 170
+    contra 116 a 640. Justo el ultimo bloque de la pagina, y justo en telefono.
+    Con la misma curva vuelve a estar donde estaba: apenas mas suelto que sus
+    vecinos en cualquier ancho, en vez de un 47% mas.
+  -->
+  <section
+    id="faq"
+    :class="enPie ? '' : 'border-b border-linea py-[clamp(4rem,10.5vw,7rem)]'"
+  >
     <div :class="enPie ? '' : 'contenedor'">
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-4">

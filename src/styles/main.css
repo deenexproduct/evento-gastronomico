@@ -42,37 +42,30 @@ html, body { overflow-x: clip; }
    menú, los botones de reservar, un link compartido con #registro— deja el
    título de la sección escondido debajo de la barra.
 
-   Y NO MIDE LO MISMO EN TODOS LADOS, que es lo que este bloque no contemplaba:
-   por debajo de 640px las cinco pestañas caen a una segunda línea y el nav pasa
-   de 73 px a 117. El margen era 88 para todo, así que en teléfono el título
-   quedaba 29 px por debajo de la barra en cada salto — justo lo que la regla
-   existe para evitar, y justo en el ancho por donde entra la mayoría del
-   tráfico.
+   EL VALOR LO PUBLICA EL NAV, no lo adivina este archivo.
 
-   Y TIENE UN TERCER ESCALÓN, que es el que faltaba: abajo de 360px las cinco
-   pestañas ya no entran en dos líneas y caen a tres, así que el nav pasa de
-   117 a 161. El margen de 132 dejaba el título 29 px tapado —exactamente el
-   mismo defecto que este bloque venía a arreglar, corrido un breakpoint más
-   abajo—. 320px no es un ancho de laboratorio: es un iPhone SE de primera
-   generación y un Galaxy Fold cerrado.
+   Acá había tres escalones por ancho —73px de 640 para arriba, 117 abajo de
+   eso, 161 abajo de 360— medidos a mano sobre esta máquina. Estaba mal de
+   raíz: el alto del nav no depende sólo del ancho. Las cinco pestañas entran
+   en una, dos o tres líneas según lo que MIDA el texto, y eso lo decide la
+   fuente que haya cargado. El CI lo dejó a la vista: en el runner de Ubuntu, a
+   360px el nav mide 161 y no 117, porque Bespoke Sans no llega y el respaldo
+   del sistema es más ancho. Mismo sitio, mismo ancho, 44px de diferencia y el
+   título tapado.
 
-   Nadie lo vio porque la suite entera empieza a medir en 360: el caso de las
-   pestañas cortadas barre de 1024 para arriba y el de la barra fija arranca
-   en 360. Por eso el test que vigila esto ahora barre desde 320.
+   Navbar.vue mide su propio alto con un ResizeObserver y lo escribe en
+   --alto-nav; el observer vuelve a disparar cuando la fuente termina de
+   cargar, que es cuando el número cambia. Los 15px son el aire entre la barra
+   y el título.
 
-   Medido con getBoundingClientRect sobre el header: 161 px hasta 359, 117 px
-   de 360 a 639, 73 px de 640 para arriba. Los tres valores llevan 15 px de
-   aire encima, que es lo que separa el título de la barra.
+   El respaldo de 117px —132 con el aire— es para el primer frame, antes de que
+   el componente monte. Es lo que mide el nav en la franja de anchos por la que
+   entra la mayoría del tráfico; si cae corto, cae corto un frame.
 
-   Lo vigila tests/e2e/enlaces-compartidos.spec.js, que compara el margen contra
-   el alto real del nav a lo ancho de todo el rango, así que si el nav vuelve a
-   crecer el test lo dice. */
-section[id], main[id] { scroll-margin-top: 176px; }
-@media (min-width: 360px) {
-  section[id], main[id] { scroll-margin-top: 132px; }
-}
-@media (min-width: 640px) {
-  section[id], main[id] { scroll-margin-top: 88px; }
+   Lo vigila tests/e2e/enlaces-compartidos.spec.js, que compara el margen
+   contra el alto real del nav de 320 a 1440. */
+section[id], main[id] {
+  scroll-margin-top: calc(var(--alto-nav, 117px) + 15px);
 }
 
 body {

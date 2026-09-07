@@ -34,22 +34,44 @@ for (const ancho of ANCHOS) {
     });
     expect(lineas).toBeLessThanOrEqual(4);
 
-    // Y ninguna línea puede ser un pedazo de palabra: se mide la última.
+    /*
+      Y ninguna línea puede ser un pedazo de palabra: se mide la última.
+
+      EL MEDIDOR ANTERIOR SE ROMPÍA SOLO. Comparaba `rc.top > top` sin
+      tolerancia y no descartaba los rects de altura cero, así que cualquier
+      jitter subpíxel dentro de una misma línea —o el rect degenerado que
+      devuelve un espacio al final del renglón— reseteaba el acumulador y
+      dejaba la última línea en uno o dos caracteres. Reportaba una palabra
+      partida donde no había ninguna, y sólo en los entornos donde el layout
+      cae en coordenadas fraccionarias: pasaba en esta máquina y fallaba en el
+      runner. Es el mismo defecto que tenía el detector de viudas de
+      ritmo.spec.js, encontrado por el mismo camino.
+
+      Ahora agrupa por línea con la misma tolerancia que usa para comparar,
+      recorre todos los nodos de texto y no sólo el primero, y descarta lo que
+      no tiene caja. Y el mensaje dice qué leyó: si esto vuelve a fallar hay que
+      poder distinguir "se partió de verdad" de "lo midió mal".
+    */
     const ultima = await h2.evaluate((el) => {
-      const nodo = [...el.childNodes].find((n) => n.nodeType === 3);
-      if (!nodo) return "";
+      const it = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
       const r = document.createRange();
-      const s = nodo.textContent;
-      let top = -1, out = "";
-      for (let i = 0; i < s.length; i++) {
-        r.setStart(nodo, i); r.setEnd(nodo, i + 1);
-        const rc = r.getBoundingClientRect();
-        if (rc.top > top) { top = rc.top; out = ""; }
-        if (Math.abs(rc.top - top) < 2) out += s[i];
+      let top = -1, out = "", n;
+      while ((n = it.nextNode())) {
+        const s = n.textContent;
+        for (let i = 0; i < s.length; i++) {
+          r.setStart(n, i); r.setEnd(n, i + 1);
+          const rc = r.getBoundingClientRect();
+          if (rc.height === 0) continue;
+          if (rc.top > top + 2) { top = rc.top; out = ""; }
+          if (Math.abs(rc.top - top) < 2) out += s[i];
+        }
       }
       return out.trim();
     });
-    expect(ultima.length).toBeGreaterThan(2);
+    expect(
+      ultima.length,
+      `la última línea del titular del FAQ a ${ancho}px es «${ultima}»`
+    ).toBeGreaterThan(2);
   });
 
   test(`a ${ancho}: ninguna cabecera de sponsor se encima a su chip`, async ({ page }) => {
