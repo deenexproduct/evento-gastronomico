@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { EVENTO } from "../../src/data/evento.js";
 
 /**
  * Lo que se ve en un teléfono antes de decidir si vale la pena scrollear.
@@ -28,8 +29,11 @@ test("la primera pantalla del teléfono dice dónde es y qué día", async ({ pa
   const texto = await rotulo.innerText();
   expect(texto).toMatch(/quinto centenario/i);
   expect(texto).toMatch(/córdoba/i);
-  expect(texto).toMatch(/domingo/i);
-  expect(texto).toMatch(/20 de septiembre|20\.09/i);
+  // La fecha sale de la fuente, no escrita acá. Este caso exigía "domingo" y
+  // "20 de septiembre" —la fecha anterior al 31/08— y nunca se cayó, porque los
+  // e2e no corren en CI: quedó afirmando el dato viejo durante cuatro
+  // correcciones de fecha seguidas.
+  expect(texto).toContain(EVENTO.fechaLarga);
 
   // Dos líneas como mucho, y ninguna cortada.
   //

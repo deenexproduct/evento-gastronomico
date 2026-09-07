@@ -145,7 +145,19 @@
               <p class="text-[13px] font-semibold uppercase tracking-[0.1em] text-gris-2">
                 ¿Cuántos van?
               </p>
-              <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Cuántas personas van">
+              <!--
+                data-selector-personas lo usa tests/e2e/ritmo.spec.js para
+                excluir estos botones del control que exige que todo lo pintado
+                con el acento pleno lleve a algún lado: el número elegido se
+                pinta de violeta, pero es un control de la reserva y no una
+                salida.
+              -->
+              <div
+                class="mt-3 flex flex-wrap gap-2"
+                role="group"
+                aria-label="Cuántas personas van"
+                data-selector-personas
+              >
                 <button
                   v-for="n in [1, 2, 3, 4]"
                   :key="n"

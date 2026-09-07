@@ -1,161 +1,92 @@
 import { test, expect } from "@playwright/test";
+import { QUE_HAY, EVENTO, BORDES } from "../../src/data/evento.js";
 
 /**
- * LA JORNADA: que la respuesta se VEA al tocar, y que los siete sigan siendo
- * cuadrados.
+ * LA JORNADA: que se vea qué hay ese día, y que se vea entero.
  *
- * Por qué existe este archivo. Hasta ahora no había una sola prueba de layout
- * en el proyecto: ni del orden de secciones, ni de la alternancia de fondos,
- * ni de que la grilla de siete entre en una pantalla. El pedido del cliente
- * —"que los siete entren en una pantalla"— lo sostenían únicamente los
- * comentarios del código, y se rompía en silencio.
+ * ESTE ARCHIVO SE REESCRIBIÓ. El anterior probaba una interfaz de dos
+ * rediseños atrás: siete cuadrados en grilla con `aspect-ratio: 1/1` y un panel
+ * lateral que se movía a los 1280px. Buscaba `#jornada .cuadro` y
+ * `.panel-jornada` — y ninguno de los dos existía dentro de esta sección ni
+ * siquiera antes del rediseño de hoy: lo verifiqué contra el commit 3f1fbab.
  *
- * Los tres modos de falla que esto atrapa, y los tres ya pasaron de verdad:
+ * O sea que sus cinco casos no probaban nada desde hacía dos versiones, y no se
+ * notó porque los e2e no corren en CI. Un spec que apunta a selectores muertos
+ * es peor que no tenerlo: da la sensación de que la sección está cubierta.
  *
- * 1. LA RESPUESTA FUERA DE PANTALLA. Con el panel colgado debajo de la
- *    grilla, tocar un cuadrado actualizaba un panel que estaba 137px por
- *    debajo del pliegue en 1440x900 y 736px en el teléfono. Lo único que se
- *    veía cambiar era el color de un borde.
- *
- * 2. LOS CUADRADOS DEFORMADOS. `aspect-ratio: 1/1` es un MÍNIMO, no un
- *    límite: si el texto no entra, el cuadrado se estira y nada falla. Con la
- *    quinta columna arrancando en lg (1024px), cada cuadrado quedaba en 160px
- *    de ancho y los títulos lo empujaban a 160x204. Se descubrió midiendo,
- *    no mirando.
- *
- * 3. EL TEXTO RECORTADO. .cuadro es overflow-hidden. A 195px de lado, el
- *    renglón del orador de los bloques 5 y 7 se cortaba 47 y 19px — el nombre
- *    salía partido a la mitad de una palabra. Tampoco falla nada: se recorta.
- *
- * NOTA DE MANTENIMIENTO: 1280 es el corte donde el panel se va al costado y
- * está atado a .panel-jornada en main.css. Si se mueve allá, se mueve acá.
+ * Lo que la sección hace HOY: no muestra el cronograma. Muestra las dos franjas
+ * del día y la lista de qué va a haber, con los ocho ítems entrando en cascada.
+ * Eso es lo que se prueba acá.
  */
 
-const anclar = async (page) => {
-  for (let i = 0; i < 8; i++) {
-    const d = await page.evaluate(() => {
-      const s = document.getElementById("jornada");
-      const t = s.getBoundingClientRect().top;
-      window.scrollTo({ top: Math.round(t + window.scrollY - 88), behavior: "instant" });
-      return Math.round(t - 88);
-    });
-    await page.waitForTimeout(150);
-    if (Math.abs(d) <= 1) break;
-  }
-};
-
-test.beforeEach(async ({ page }) => {
+/** Baja hasta la sección y espera a que termine la cascada de entrada. */
+async function abrirJornada(page) {
   await page.goto("/");
-  await page.waitForTimeout(2400); // el respaldo de reveal
-});
+  await page.locator("#jornada").scrollIntoViewIfNeeded();
+  // 385ms del último delay + 550 de la transición, con aire.
+  await page.waitForTimeout(1200);
+}
 
-test("los siete bloques son cuadrados de verdad, en todo ancho", async ({ page }) => {
-  for (const [w, h] of [
-    [1440, 900],
-    [1280, 800],
-    [1024, 800],
-    [768, 1024],
-    [393, 664],
-    [375, 667],
-  ]) {
-    await page.setViewportSize({ width: w, height: h });
-    await anclar(page);
-    const malos = await page.evaluate(() =>
-      [...document.querySelectorAll("#jornada .cuadro")]
-        .map((c, i) => {
-          const r = c.getBoundingClientRect();
-          return { i: i + 1, w: Math.round(r.width), h: Math.round(r.height) };
-        })
-        .filter((c) => Math.abs(c.w - c.h) > 2)
-    );
-    expect(malos, `cuadrados deformados a ${w}x${h}`).toEqual([]);
+test("muestra los ocho ítems de qué hay ese día, con su ícono", async ({ page }) => {
+  await abrirJornada(page);
+  const items = page.locator("#jornada .item-jornada");
+  await expect(items).toHaveCount(QUE_HAY.length);
+
+  // Cada ítem trae su pictograma: es lo que distingue una charla de un panel
+  // de un corte de un vistazo, y es la única razón por la que lleva ícono.
+  await expect(page.locator("#jornada .item-jornada svg")).toHaveCount(QUE_HAY.length);
+
+  // Y los títulos son los de la fuente, en orden.
+  for (const [i, item] of QUE_HAY.entries()) {
+    await expect(items.nth(i)).toContainText(item.titulo);
   }
 });
 
-test("ningún cuadrado recorta su propio texto", async ({ page }) => {
-  for (const [w, h] of [
-    [1440, 900],
-    [1280, 800],
-    [1024, 800],
-    [393, 664],
-  ]) {
-    await page.setViewportSize({ width: w, height: h });
-    await anclar(page);
-    const recortados = await page.evaluate(() =>
-      [...document.querySelectorAll("#jornada .cuadro")]
-        .map((c, i) => ({ i: i + 1, px: c.scrollHeight - c.clientHeight }))
-        .filter((c) => c.px > 1)
-    );
-    expect(recortados, `texto recortado a ${w}x${h}`).toEqual([]);
-  }
+test("los ocho terminan visibles: la cascada no deja ninguno escondido", async ({ page }) => {
+  await abrirJornada(page);
+  // El modo de falla que esto atrapa: una animación de entrada que no se
+  // completa deja media sección en blanco y nada falla. Ya pasó en este repo
+  // con otro efecto, así que se mide la opacidad real de los ocho.
+  const opacidades = await page.locator("#jornada .item-jornada").evaluateAll((els) =>
+    els.map((e) => getComputedStyle(e).opacity)
+  );
+  expect(opacidades).toHaveLength(QUE_HAY.length);
+  for (const o of opacidades) expect(Number(o)).toBeGreaterThan(0.99);
 });
 
-test("de 1280 para arriba entran los siete Y la respuesta en una pantalla", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await anclar(page);
-  const r = await page.evaluate(() => {
-    const cu = [...document.querySelectorAll("#jornada .cuadro")];
-    const p = document.querySelector('#jornada [aria-live="polite"]').getBoundingClientRect();
-    return {
-      vh: window.innerHeight,
-      ultimo: Math.round(cu[cu.length - 1].getBoundingClientRect().bottom),
-      panelTop: Math.round(p.top),
-      panelBottom: Math.round(p.bottom),
-    };
+test("publica las dos franjas del día, y son las que declara evento.js", async ({ page }) => {
+  await abrirJornada(page);
+  const fichas = page.locator("#jornada .ficha");
+  await expect(fichas).toHaveCount(2);
+  await expect(fichas.nth(0)).toContainText(EVENTO.horarioJornada);
+  await expect(fichas.nth(0)).toContainText("Jornada");
+  await expect(fichas.nth(1)).toContainText(EVENTO.horarioNetworking);
+  await expect(fichas.nth(1)).toContainText("Networking");
+});
+
+test("no vuelve a publicar el cronograma hora por hora", async ({ page }) => {
+  await abrirJornada(page);
+  const texto = await page.locator("#jornada").innerText();
+  // La sección dejó de mostrar la grilla a propósito: cuatro de diez bloques
+  // no tienen orador y una agenda hora por hora obliga a publicarlo. Si vuelven
+  // los horarios de los bloques, es que se revirtió esa decisión sin querer.
+  const horasDeBloque = texto.match(/\b1[0-7]:\d{2}\b/g) || [];
+  expect(horasDeBloque).toEqual([]);
+});
+
+test("la sección no desborda a lo ancho en teléfono", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await abrirJornada(page);
+  const desborda = await page.evaluate(() => {
+    const s = document.querySelector("#jornada");
+    return s.scrollWidth > document.documentElement.clientWidth;
   });
-  expect(r.ultimo, "el séptimo cuadrado se corta").toBeLessThanOrEqual(r.vh);
-  expect(r.panelBottom, "el panel se corta").toBeLessThanOrEqual(r.vh);
-  expect(r.panelTop).toBeGreaterThanOrEqual(0);
+  expect(desborda).toBe(false);
 });
 
-test("al tocar un bloque, la respuesta se ve sin buscarla", async ({ page }) => {
-  // El caso que importa: teléfono, que es como llega el 100% del público.
-  await page.setViewportSize({ width: 393, height: 664 });
-  await anclar(page);
-
-  for (const i of [0, 2, 4, 6]) {
-    // Dejar el cuadrado objetivo a la vista, como quedaría al bajar con el dedo.
-    for (let k = 0; k < 6; k++) {
-      const d = await page.evaluate((n) => {
-        const c = document.querySelectorAll("#jornada .cuadro")[n].getBoundingClientRect();
-        const objetivo = (window.innerHeight - c.height) / 2;
-        window.scrollTo({ top: Math.round(window.scrollY + c.top - objetivo), behavior: "instant" });
-        return Math.round(c.top - objetivo);
-      }, i);
-      await page.waitForTimeout(140);
-      if (Math.abs(d) <= 1) break;
-    }
-    await page.locator("#jornada .cuadro").nth(i).click();
-    await page.waitForTimeout(700);
-
-    const r = await page.evaluate(() => {
-      const p = document.querySelector('#jornada [aria-live="polite"]').getBoundingClientRect();
-      const a = document.querySelector("#jornada .cuadro-activo").getBoundingClientRect();
-      return {
-        brecha: Math.round(p.top - a.bottom),
-        visible: Math.max(0, Math.min(p.bottom, window.innerHeight) - Math.max(p.top, 0)),
-        alto: Math.round(p.height),
-      };
-    });
-    // La distancia dejó de ser la garantía: en teléfono el panel va después
-    // de los siete a propósito, para que la grilla entre en una pantalla. Lo
-    // que hay que proteger es lo que esa distancia buscaba asegurar — que la
-    // respuesta se vea al tocar, de lo que se encarga acercar().
-    expect(
-      r.visible / r.alto,
-      `bloque ${i + 1}: la respuesta no se ve al tocar`
-    ).toBeGreaterThan(0.5);
-  }
-});
-
-test("el panel muestra el bloque que se tocó, no otro", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await anclar(page);
-  await page.locator("#jornada .cuadro").nth(4).click();
-  await page.waitForTimeout(300);
-  const panel = page.locator('#jornada [aria-live="polite"]');
-  await expect(panel).toContainText("14:45");
-  await expect(page.locator("#jornada .cuadro").nth(4)).toHaveAttribute("aria-pressed", "true");
-  // Uno solo abierto a la vez.
-  expect(await page.locator("#jornada .cuadro-activo").count()).toBe(1);
+test("la acreditación y el corte de sala que anuncia son los de la fuente", async ({ page }) => {
+  await abrirJornada(page);
+  const texto = await page.locator("#jornada").innerText();
+  expect(texto).toContain(EVENTO.puertas);
+  expect(texto).toContain(BORDES.cierre.hasta.replace(":00", ""));
 });
