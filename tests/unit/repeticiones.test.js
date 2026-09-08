@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 /**
@@ -103,19 +103,31 @@ describe("la página no vuelve a prometer una grilla que no publica", () => {
     Los comentarios sí pueden usar la palabra: explican la decisión. Lo que se
     vigila son las cadenas de texto que llegan a la pantalla.
   */
-  const ARCHIVOS = [
-    "components/sections/DondeSection.vue",
-    "components/sections/PodcastSection.vue",
-    "components/sections/RegistroSection.vue",
-    "components/sections/JornadaSection.vue",
-    "views/QueEsView.vue",
-  ];
+  /*
+    SE RECORRE src/ ENTERO, no una lista escrita a mano.
+
+    La primera versión listaba cinco archivos y pasaba en verde con la palabra
+    puesta en un sexto: la mitad del texto del sitio vive en data/evento.js
+    —las respuestas del FAQ, los bordes del día— y ese no estaba en la lista.
+    Lo encontró una verificación contra producción, no el test que existía para
+    encontrarlo. Una lista a mano de dónde mirar es el mismo error que un
+    número escrito a mano: envejece sola y no avisa.
+  */
+  const archivosDeSrc = (dir = SRC, acum = []) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const ruta = join(dir, e.name);
+      if (e.isDirectory()) archivosDeSrc(ruta, acum);
+      else if (/\.(vue|js)$/.test(e.name)) acum.push(ruta);
+    }
+    return acum;
+  };
 
   it("no queda la palabra en ningún texto que se muestre", () => {
     const culpables = [];
+    const ARCHIVOS = archivosDeSrc();
 
     for (const a of ARCHIVOS) {
-      const fuente = readFileSync(join(SRC, a), "utf-8");
+      const fuente = readFileSync(a, "utf-8");
 
       // Se recorre el archivo sin sus comentarios: los de bloque —/* */ y
       // <!-- -->— y los de línea. Lo que queda es marcado y código, o sea lo
@@ -127,13 +139,13 @@ describe("la página no vuelve a prometer una grilla que no publica", () => {
 
       for (const linea of sinComentarios.split("\n")) {
         if (/grilla/i.test(linea) && !/grid|grilla de 12/i.test(linea)) {
-          culpables.push(`${a}: ${linea.trim().slice(0, 70)}`);
+          culpables.push(`${a.replace(SRC, "src")}: ${linea.trim().slice(0, 70)}`);
         }
       }
     }
 
-    // Si los archivos dejaran de existir esto pasaría sin mirar nada.
-    expect(ARCHIVOS.length, "no quedó ningún archivo que vigilar").toBeGreaterThan(3);
+    // Si el recorrido dejara de encontrar archivos, esto pasaría sin mirar nada.
+    expect(ARCHIVOS.length, "no se encontró ningún archivo en src/").toBeGreaterThan(20);
     expect(culpables).toEqual([]);
   });
 });
