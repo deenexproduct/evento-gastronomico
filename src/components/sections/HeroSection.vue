@@ -80,9 +80,20 @@
             de acceso, que es donde significa algo. Y sale "Organiza Deenex":
             quien organiza se contesta en el FAQ.
           -->
+          <!--
+            Una sola línea, con el punto medio separando las tres cosas.
+
+            Tenía un <br /> que la partía siempre en dos, incluso en un
+            escritorio donde sobraban trescientos píxeles. El corte forzado
+            hace leer en dos tiempos algo que es un solo dato: dónde y cuándo.
+
+            Sin el <br /> fluye: en pantalla ancha entra entera a lo largo, y
+            en teléfono envuelve sola por donde le toca. El text-wrap: pretty
+            de main.css se ocupa de que al envolver no quede una palabra suelta
+            en el segundo renglón.
+          -->
           <p class="text-[12px] font-medium leading-[1.65] text-gris-2 sm:text-[13px]">
-            {{ EVENTO.venue }} · {{ EVENTO.ciudad }}<br />
-            {{ EVENTO.fechaLarga }}
+            {{ EVENTO.venue }} · {{ EVENTO.ciudad }} · {{ EVENTO.fechaLarga }}
           </p>
 
           <!--
