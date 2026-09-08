@@ -35,11 +35,14 @@
             ofrece de distinto es lo contrario: pararse adelante y preguntar
             por el caso propio. Acá se dice en ese orden.
 
-            Sale el párrafo sobre Deenex. Quién organiza tiene una sección
-            entera más abajo —"Las marcas nos venían pidiendo este día"— con
-            el mismo dato de las +350 marcas. Repetirlo acá, en el segundo
-            renglón de la primera sección de contenido, es gastar la atención
-            del lector en nosotros antes de haberle dicho qué gana él.
+            Sale el párrafo sobre Deenex. Quién organiza se contesta en el FAQ,
+            que es donde lo busca el que quiere saberlo. Decirlo acá, en el
+            segundo renglón de la primera sección de contenido, es gastar la
+            atención del lector en nosotros antes de haberle dicho qué gana él.
+
+            Tuvo además una sección entera —"Las marcas nos venían pidiendo
+            este día", con el dato de las +350 marcas— que se eliminó junto con
+            la vista del organizador.
           -->
           <p class="text-[clamp(1.1rem,2.4vw,1.45rem)] font-bold leading-[1.4]">
             Hacia dónde va el mercado gastronómico y qué están aplicando las cadenas que crecen:

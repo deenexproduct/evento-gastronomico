@@ -2,10 +2,10 @@
   El pie de una vista interna: a dónde se sigue.
 
   Una vista que termina sin salida obliga a volver arriba y elegir de nuevo.
-  Esto ofrece los otros cuatro bloques, sin el actual, para que el recorrido
-  siga sin pasar por la cabecera. No lleva botón de reserva: el de la
-  cabecera está fijo y visible en todo momento, y duplicarlo acá rompería la
-  cuenta de dos CTAs.
+  Esto ofrece los otros bloques, sin el actual, para que el recorrido siga sin
+  pasar por la cabecera. No lleva botón de reserva: en escritorio el de la
+  cabecera está fijo y visible, y en teléfono lo lleva el dock; duplicarlo acá
+  rompería la cuenta de un solo CTA a la vez.
 -->
 <template>
   <section class="border-t border-linea py-seccion">

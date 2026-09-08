@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { BLOQUES } from "../../src/data/evento.js";
 
 /**
- * El dock de teléfono: las cinco pestañas y la reserva, abajo.
+ * El dock de teléfono: las pestañas y la reserva, abajo.
  *
  * Es la pieza que más cerca está del embudo —el único CTA de la página vive
  * ahí en teléfono— y la que más formas tiene de romperse en silencio, así que
@@ -11,7 +12,18 @@ import { test, expect } from "@playwright/test";
 
 const TELEFONOS = [320, 360, 375, 390, 414, 560, 639];
 
-test("en teléfono las cinco pestañas están abajo y no arriba", async ({ page }) => {
+/*
+  Cuántas pestañas hay sale de BLOQUES, no de un número escrito acá.
+
+  Estaba escrito "5" y se rompió al primer cambio de contenido: cuando se
+  eliminó la vista del organizador pasaron a ser cuatro y estos dos casos
+  fallaron por un dato viejo, no por un defecto. Es el mismo error que ya tuvo
+  esta suite tres veces —el horario, los colores de la paleta, un teléfono dos
+  números atrás— y el arreglo es siempre el mismo: leerlo de la fuente.
+*/
+const CUANTAS = BLOQUES.length;
+
+test("en teléfono las pestañas están abajo y no arriba", async ({ page }) => {
   for (const w of TELEFONOS) {
     await page.setViewportSize({ width: w, height: 800 });
     await page.goto("/");
@@ -25,7 +37,7 @@ test("en teléfono las cinco pestañas están abajo y no arriba", async ({ page 
       };
     });
 
-    expect(r.enDock, `a ${w}px faltan pestañas en el dock`).toBe(5);
+    expect(r.enDock, `a ${w}px faltan pestañas en el dock`).toBe(CUANTAS);
     expect(r.enHeader, `a ${w}px quedaron pestañas en la cabecera`).toBe(0);
   }
 });
@@ -48,7 +60,7 @@ test("de 640 para arriba las pestañas vuelven a la cabecera y el dock no existe
     });
 
     expect(r.dockVisible, `a ${w}px el dock de teléfono sigue a la vista`).toBe(false);
-    expect(r.enHeader, `a ${w}px la cabecera perdió pestañas`).toBe(5);
+    expect(r.enHeader, `a ${w}px la cabecera perdió pestañas`).toBe(CUANTAS);
   }
 });
 
@@ -161,7 +173,7 @@ test("la cabecera se retrae al bajar sólo en teléfono", async ({ page }) => {
     esconderla mientras se lee no le saca nada al lector.
 
     De 640 para arriba tiene que quedarse quieta, porque ahí adentro viven las
-    cinco pestañas y la píldora de reserva.
+    pestañas y la píldora de reserva.
   */
   for (const w of [375, 1280]) {
     await page.setViewportSize({ width: w, height: 800 });

@@ -14,8 +14,17 @@
   <section id="bloques" class="border-y border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Si querés más</p>
+      <!--
+        El número sale de BLOQUES, no escrito en el titular.
+
+        Decía "Cinco respuestas" mientras las tarjetas de abajo se numeraban
+        1/4 y 2/4: quedó viejo al eliminar la vista del organizador y el error
+        se leía en la misma pantalla que el dato correcto. Es el mismo defecto
+        que ya tuvo esta página tres veces con el horario, con la paleta y con
+        un teléfono viejo, y el arreglo es siempre el mismo.
+      -->
       <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-        Cinco respuestas, sin salir de acá
+        {{ cuantas }} respuestas, sin salir de acá
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
         Se abren sobre esta misma página. No hace falta leerlos en orden ni
@@ -74,20 +83,31 @@
 </template>
 
 <script setup>
-import { ref, shallowRef } from "vue";
+import { ref, computed, shallowRef } from "vue";
 import { BLOQUES } from "@/data/evento";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
 import AccesoSection from "@/components/sections/AccesoSection.vue";
 import RegistroSection from "@/components/sections/RegistroSection.vue";
 import BrandsSection from "@/components/sections/BrandsSection.vue";
-import PruebaSection from "@/components/sections/PruebaSection.vue";
 
 /*
   Cada bloque muestra la MISMA sección que su vista: no hay una segunda copia
   del contenido que se pueda desincronizar. shallowRef porque son componentes,
   no datos — con ref, Vue intentaría hacerlos reactivos por dentro.
 */
+/*
+  El número en letras. Se escribe como palabra porque el titular es prosa —"4
+  respuestas" en una caja alta se lee como un dato y no como una frase— y se
+  deriva del largo de BLOQUES para que no pueda quedar viejo.
+*/
+const EN_LETRAS = ["cero", "una", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho"];
+const cuantas = computed(() => {
+  const n = BLOQUES.length;
+  const p = EN_LETRAS[n] || String(n);
+  return p.charAt(0).toUpperCase() + p.slice(1);
+});
+
 const SECCIONES = shallowRef({
   "/que-es": QueEsSection,
   "/beneficios": ElLunesSection,
@@ -96,7 +116,6 @@ const SECCIONES = shallowRef({
   // que dice cómo se reserva y no hasta cuándo.
   "/deadline": AccesoSection,
   "/participan": BrandsSection,
-  "/organiza": PruebaSection,
 }).value;
 
 /*

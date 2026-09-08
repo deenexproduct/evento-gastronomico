@@ -78,7 +78,7 @@
 
             Sale "Edicion 01" de aca: ya no entra y ademas abre la seccion
             de acceso, que es donde significa algo. Y sale "Organiza Deenex":
-            quien organiza tiene su propia seccion mas abajo.
+            quien organiza se contesta en el FAQ.
           -->
           <p class="text-[12px] font-medium leading-[1.65] text-gris-2 sm:text-[13px]">
             {{ EVENTO.venue }} · {{ EVENTO.ciudad }}<br />
@@ -144,8 +144,8 @@
               entero con su andamiaje, así que si alguien lo extraña, esto no
               se "restaura": se vuelve a decidir.
 
-              Quien organiza se sigue diciendo en el "by Deenex" de la barra de
-              arriba, que está en todas las pantallas, y en su propia sección.
+              Quien organiza se contesta en el FAQ. Hubo un "by Deenex" en la
+              cabecera y una vista propia; los dos se sacaron.
             -->
             {{ EVENTO.nombre }}
           </h1>
@@ -161,10 +161,10 @@
             parte" no afirma nada. La decisión es que esto es un espacio y
             punto, sin la empresa por detrás en la comunicación.
 
-            Quién organiza se sigue diciendo donde corresponde —el "by Deenex"
-            de la cabecera, que está en todas las pantallas, y la vista
-            /organiza entera—, pero no acá, que es donde el lector decide si
-            esto es para él.
+            Quién organiza se sigue diciendo donde corresponde —la respuesta
+            del FAQ que lo pregunta— pero no acá, que es donde el lector decide
+            si esto es para él. El "by Deenex" de la cabecera y la vista del
+            organizador también se sacaron, por lo mismo.
 
             Y ahora la frase califica al público. Antes la palabra "cadena" no
             aparecía en toda la primera pantalla: había que scrollear hasta la

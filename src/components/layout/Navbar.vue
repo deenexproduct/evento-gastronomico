@@ -1,26 +1,26 @@
 <!--
-  La cabecera es el índice del evento: una sola fila, con las cinco pestañas
+  La cabecera es el índice del evento: una sola fila, con las pestañas
   siempre a la vista.
 
   Estuvo partida en dos filas —logo y botón arriba, pestañas abajo— y eso
   empujaba el contenido 130px hacia abajo y hacía leer la cabecera en dos
   tiempos. Ahora es una sola barra de 72px.
 
-  Cómo entran cinco pestañas, un logo y un botón: lo que cede es lo accesorio,
-  en este orden. Las etiquetas largas ("Quiénes son parte", "Quién organiza")
-  vuelven recién en xl: con el wordmark en Panchang —más ancha que el cuerpo—
+  Cómo entran las pestañas, el logo y el botón: lo que cede es lo accesorio,
+  en este orden. Las etiquetas largas ("Quiénes son parte", "Con qué te
+  volvés") vuelven recién en xl: con el wordmark en Panchang —más ancha que el cuerpo—
   a 1024px ya no entraban. Primero la fecha del logo (debajo de 1536),
   después el contador de lugares (debajo de 1024). Las pestañas y el botón no ceden
   nunca: son la navegación y la conversión. Si aun así no entran —un teléfono
   de 375px—, la tira de pestañas scrollea de costado dentro de su propio
   espacio, sin romper la fila ni esconder ninguna.
 
-  Debajo de 640px ni siquiera con etiquetas cortas entran las cinco al lado del
+  Debajo de 640px ni siquiera con etiquetas cortas entran al lado del
   logo, así que ahí —y sólo ahí— la tira de pestañas baja a su propio renglón,
-  donde entran las cinco sin scroll. Sigue siendo una cabecera de dos alturas
+  donde entran todas sin scroll. Sigue siendo una cabecera de dos alturas
   nada más que en teléfono.
 
-  Sin menú hamburguesa a propósito: las cinco pestañas quedan a la vista y se
+  Sin menú hamburguesa a propósito: las pestañas quedan a la vista y se
   llega a cualquiera con un toque, no con dos.
 -->
 <template>
@@ -39,14 +39,15 @@
             SaboresTech
           </span>
           <!--
-            "by Deenex" en el violeta de marca y en peso medio: acompaña al
-            wordmark sin competirle. El color sale de --deenex-texto, que tiene
-            un tono por tema porque el #695EDE de la paleta rinde 4,93:1 sobre
-            blanco y sólo 3,53:1 sobre los negros.
-            El -ml-1 recupera el gap-3 del contenedor, que acá separaría
-            demasiado dos partes del mismo nombre.
+            SIN "by Deenex". El wordmark dice SaboresTech y nada más.
+
+            Estuvo acá desde el rename y era el último lugar donde la empresa
+            aparecía como sujeto en la primera pantalla. Sale por la misma
+            razón por la que ya había salido del hero y del pie: el evento se
+            presenta solo, no como algo que alguien montó. Quién organiza se
+            sigue diciendo en la respuesta del FAQ que lo pregunta, que es
+            donde lo busca el que quiere saberlo.
           -->
-          <span class="texto-deenex -ml-1 text-[0.75rem] font-medium lg:text-[0.8rem]">by Deenex</span>
           <span class="rotulo hidden text-gris 2xl:inline">
             {{ EVENTO.fechaNumerica }} · Córdoba
           </span>
@@ -132,7 +133,7 @@ function rutaActiva(r) {
   · El umbral de 8px es para que el rebote elástico de iOS y los saltos de un
     píxel del scroll suave no la hagan parpadear.
   · Arriba de todo siempre está: si no, la primera pantalla arranca sin marca.
-  · De 640px para arriba nunca se retrae, porque ahí adentro viven las cinco
+  · De 640px para arriba nunca se retrae, porque ahí adentro viven las
     pestañas y la píldora de reserva. La regla vive en el CSS de abajo y no en
     esta condición: así el estado de Vue es uno solo y el ancho lo decide el
     medio que sabe de anchos.
@@ -158,7 +159,7 @@ function onScroll() {
 
   Esto lo resolvia el CSS solo, con escalones por ancho: 73px de 640 para
   arriba, 117 abajo, 161 abajo de 360. Los tres medidos a mano. Y estaba mal de
-  raiz, porque EL ALTO DEL NAV NO DEPENDE SOLO DEL ANCHO: las cinco pestañas
+  raiz, porque EL ALTO DEL NAV NO DEPENDE SOLO DEL ANCHO: las pestañas
   entran en una, dos o tres lineas segun lo que mida el texto, y eso lo decide
   la fuente que haya cargado. El CI lo dejo a la vista: en el runner de Ubuntu,
   a 360px el nav mide 161 y no 117, porque Bespoke Sans no llega y el respaldo
@@ -215,7 +216,7 @@ onUnmounted(() => {
 <style scoped>
 /*
   La retracción es sólo de teléfono: de 640px para arriba esta barra lleva las
-  cinco pestañas y la píldora de reserva, y esconderlas al bajar sería sacarle
+  pestañas y la píldora de reserva, y esconderlas al bajar sería sacarle
   al lector la navegación y la conversión de la mano.
 
   Se mueve con transform y no con altura: la altura la leen --alto-nav, el

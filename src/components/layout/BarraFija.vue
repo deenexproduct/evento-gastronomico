@@ -5,7 +5,7 @@
 
     DE 640px PARA ARRIBA. En teléfono la reemplaza el dock, que lleva el mismo
     CTA con el mismo contador pero a ancho completo y pegado al borde, junto a
-    las cinco pestañas. Este componente igual se sigue montando en la home
+    las pestañas. Este componente igual se sigue montando en la home
     aunque no se vea: sus dos IntersectionObserver son los que alimentan
     `barraVisible`, que es de lo que depende la píldora del header para
     turnarse con ella. Apagarlo con v-if dejaría ese turno sin árbitro.

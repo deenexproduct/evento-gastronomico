@@ -52,3 +52,38 @@ describe("los dos pedidos del 26/08", () => {
     expect(registro).not.toMatch(/no pod[eé]s venir/i);
   });
 });
+
+describe("los números escritos a mano no sobreviven a un cambio de contenido", () => {
+  /*
+    El titular del bloque de resúmenes decía "Cinco respuestas" mientras las
+    tarjetas de abajo se numeraban 1/4 y 2/4: el número estaba escrito en la
+    prosa y quedó viejo al eliminar la vista del organizador. Se leía el error
+    y el dato correcto en la misma pantalla.
+
+    Es el mismo defecto que esta página ya tuvo con el horario en tres lugares
+    que no coincidían, con la paleta vieja en un test y con un teléfono dos
+    números atrás. Este caso lo fija donde puede fijarse: que la cantidad que
+    anuncia el titular sea la que hay.
+  */
+  it("el titular del bloque de resúmenes cuenta los bloques que existen", () => {
+    const fuente = readFileSync(
+      join(process.cwd(), "src/components/sections/BloquesResumen.vue"),
+      "utf-8"
+    );
+
+    // Si el titular vuelve a llevar el número escrito, esto lo encuentra.
+    const enLetras = /\b(una|dos|tres|cuatro|cinco|seis|siete|ocho)\s+respuestas/i;
+    const escritoAMano = fuente
+      .split("\n")
+      .filter((l) => !/^\s*(\/\/|\*|<!--|Decía)/.test(l.trim()))
+      .filter((l) => enLetras.test(l) && !l.includes("{{"));
+
+    expect(
+      escritoAMano,
+      "el titular volvió a llevar la cantidad escrita en vez de derivarla de BLOQUES"
+    ).toEqual([]);
+
+    // Y que efectivamente la derive.
+    expect(fuente).toContain("BLOQUES.length");
+  });
+});

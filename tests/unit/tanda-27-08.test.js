@@ -46,21 +46,12 @@ describe("4 · la casilla de precio habla en registro profesional", () => {
   });
 });
 
-describe("7 · quien organiza habla del organizador", () => {
-  const detras = leer("components/sections/PruebaSection.vue");
-
-  it("no vuelve a contar el evento en sus cifras", () => {
-    // Dos de las tres cifras eran del evento —7 bloques, 200 lugares— en la
-    // seccion que tiene que contestar quien lo hace.
-    expect(detras).not.toContain("bloques en la jornada");
-    expect(detras).not.toContain("lugares, no más");
-  });
-
-  it("las cifras que quedan son de Deenex", () => {
-    expect(detras).toContain("marcas en la plataforma");
-    expect(detras).toContain("años con dueños de cadenas");
-  });
-});
+/*
+  El caso 7 —"quien organiza habla del organizador"— se fue con la sección que
+  vigilaba. PruebaSection y la vista /organiza se eliminaron: el evento dejó de
+  presentar a la empresa que lo arma, así que ya no hay cifras del organizador
+  que puedan volver a contar el evento.
+*/
 
 describe("8 y 9 · las dos tarjetas de riesgo no vuelven", () => {
   const registro = leer("components/sections/RegistroSection.vue");
@@ -137,19 +128,24 @@ describe("13 · el pie", () => {
     expect(cuantas(pie, "{ ruta:")).toBe(0);
   });
 
-  it("los cinco bloques tienen ruta en el router y una vista que la sirve", () => {
-    // El test viejo pedia que las cinco secciones estuvieran en la home.
-    // Desde que cada bloque es su propia vista, la propiedad equivalente —y
-    // mas fuerte— es que ninguna ruta de la cabecera quede sin destino: un
-    // bloque sin vista es un 404 servido como si fuera la home.
-    expect(BLOQUES).toHaveLength(5);
+  it("cada bloque tiene ruta en el router y una vista que la sirve", () => {
+    // El test viejo pedia que las secciones estuvieran en la home. Desde que
+    // cada bloque es su propia vista, la propiedad equivalente —y mas fuerte—
+    // es que ninguna ruta de la cabecera quede sin destino: un bloque sin
+    // vista es un 404 servido como si fuera la home.
+    //
+    // No se fija el número de bloques acá: eran cinco hasta que se eliminó
+    // /organiza, y volver a escribir "cuatro" es fijar otra vez un dato que
+    // vive en evento.js. Lo que importa es que TODOS tengan destino, sean los
+    // que sean; el mapa de vistas de abajo es lo que falla si entra un bloque
+    // nuevo sin vista.
+    expect(BLOQUES.length).toBeGreaterThan(2);
     const router = leer("router/index.js");
     const vistas = {
       "/que-es": "QueEsView",
       "/beneficios": "BeneficiosView",
       "/deadline": "DeadlineView",
       "/participan": "ParticipanView",
-      "/organiza": "OrganizaView",
     };
     for (const b of BLOQUES) {
       expect(router).toContain(`path: "${b.ruta}"`);
@@ -160,12 +156,12 @@ describe("13 · el pie", () => {
 
   it("la home resume el detalle y no lo reabsorbe entero", () => {
     const home = leer("views/HomeView.vue");
-    // La home ofrece los cinco bloques como tarjetas y no monta sus secciones
+    // La home ofrece los bloques como tarjetas y no monta sus secciones
     // en línea, salvo las que el recorrido principal necesita: qué es —el que
     // llega de un anuncio tiene que poder entenderlo sin abrir nada—, el lugar
     // y las preguntas. Lo que sigue detrás de su tarjeta es el detalle, no la
     // propuesta.
-    for (const s of ["ElLunesSection", "PruebaSection", "BrandsSection"]) {
+    for (const s of ["ElLunesSection", "BrandsSection"]) {
       expect(home).not.toContain(s);
     }
     expect(home).toContain("BloquesResumen");

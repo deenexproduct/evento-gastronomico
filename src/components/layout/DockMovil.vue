@@ -1,7 +1,7 @@
 <!--
   El dock de teléfono: la navegación y la reserva, abajo, al alcance del pulgar.
 
-  POR QUÉ ABAJO. Las cinco pestañas vivían en una segunda fila del header y le
+  POR QUÉ ABAJO. Las pestañas vivían en una segunda fila del header y le
   costaban 44px de alto permanentes, más 29 de padding y borde propios de esa
   fila. Sumado a la barra flotante de reserva, el cromo se comía 199px de 800
   en teléfono: la cuarta parte de la pantalla, siempre. Abajo, además, están
@@ -14,11 +14,11 @@
   del cambio —el header se retrae al bajar, ver Navbar.vue—: mientras se lee,
   el cromo queda en 97px, el 12% de la pantalla en vez del 25%.
 
-  DOS PISOS Y NO UNO, siempre, porque medido no entran en una fila: las cinco
-  pestañas piden 288px y "Reservar mi lugar" 156, o sea 444 contra los 351 que
-  hay a 375px. Se podría achicar la tipografía hasta que entre por ocho
-  píxeles, y ocho píxeles de margen es exactamente lo que hizo que el titular
-  del FAQ se partiera en el CI hace un rato.
+  DOS PISOS Y NO UNO, siempre, porque medido no entran en una fila. Con las
+  cinco pestañas que había, pedían 288px y "Reservar mi lugar" 156: 444 contra
+  los 351 que hay a 375px. Con cuatro sigue sin entrar, y lo que sobra es menos
+  margen del que hace falta para no repetir el error del titular del FAQ, que
+  entraba por nueve píxeles y el CI lo partió al medio.
 
   Estuvo escrita la fusión en una fila de 560px para arriba, y se sacó: el
   único ancho donde aplicaba en vertical es un teléfono muy grande, y acostado
@@ -41,15 +41,6 @@
     class="dock-movil fixed inset-x-0 bottom-0 z-[95] sm:hidden"
     :style="{ '--alto-dock': altoDock + 'px' }"
   >
-    <!--
-      La píldora, a ancho completo y con el cupo adentro.
-
-      El contador iba en la barra flotante y es lo que apura: "Quedan 73 de 200
-      lugares" es el único dato de escasez que ve alguien que llega de un
-      anuncio. Entra en la misma píldora en vez de pedir su propia línea —a
-      375px sobran 67px de los 311 útiles, medido— así que la mudanza no le
-      cuesta alto a nadie.
-    -->
     <!--
       El contenido se desvanece antes de llegar al dock.
 
@@ -79,6 +70,15 @@
     -->
     <div class="velo-dock pointer-events-none absolute inset-x-0 bottom-full h-10" aria-hidden="true"></div>
 
+    <!--
+      La píldora, a ancho completo y con el cupo adentro.
+
+      El contador vivía en la barra flotante y es lo que apura: cuántos lugares
+      quedan es el único dato de escasez que ve alguien que llega de un anuncio.
+      Entra en la misma píldora en vez de pedir su propia línea —a 375px sobran
+      67px de los 311 útiles, medido— así que la mudanza no le cuesta alto a
+      nadie.
+    -->
     <Transition name="plegar">
       <div v-if="mostrarPildora" class="bg-noche px-3 pb-2 pt-1">
         <a
@@ -91,8 +91,8 @@
             {{ agotado ? "Anotarme en la lista" : "Reservar mi lugar" }}
           </span>
           <!--
-            tabular-nums: el contador baja de 73 a 72 a 71 y sin esto la píldora
-            cambia de ancho con cada dígito.
+            tabular-nums: el contador baja de a uno con cada reserva y sin esto
+            la píldora cambia de ancho con cada dígito.
 
             " de 200" cae abajo de 360px, donde el ancho útil se pone justo. El
             número solo sigue diciendo lo que tiene que decir.
@@ -158,10 +158,10 @@ const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 /*
   En la home no queda ninguna pestaña activa, y está bien que así sea.
 
-  Las cinco rutas son /que-es, /beneficios, /deadline, /participan y /organiza;
-  la home es "/" y no es ninguna de ellas: es el índice que las contiene. Una
-  tab bar que marcara una estaría mintiendo sobre dónde está parado el lector.
-  Lo que da la referencia en la home es el wordmark del header, que lleva a "/".
+  Las rutas son /que-es, /beneficios, /deadline y /participan; la home es "/" y
+  no es ninguna de ellas: es el índice que las contiene. Una tab bar que marcara
+  una estaría mintiendo sobre dónde está parado el lector. Lo que da la
+  referencia en la home es el wordmark del header, que lleva a "/".
 */
 function rutaActiva(r) {
   return ruta.path === r;

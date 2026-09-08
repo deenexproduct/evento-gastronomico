@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { BLOQUES } from "../../src/data/evento.js";
 
 /**
  * El ritmo de la página: costuras, turnos entre las dos píldoras y para qué
@@ -207,82 +208,17 @@ test("el mapa de Google no se descarga hasta que alguien lo pide", async ({ page
   await expect(aMaps).toHaveAttribute("href", /Quinto\+?%?20?Centenario|Duarte/i);
 });
 
-test("solo dos logos del muro siguen trayendo su propia caja", async ({ page }) => {
-  // Cuatro de los doce archivos venían con un rectángulo opaco adentro y se
-  // veían como manchas. Dos eran de fondo blanco (konex, sportclub) y
-  // multiply sobre fondo claro los resuelve: el blanco no pinta nada y queda
-  // solo la marca. Los otros dos —hatsu y ayres— traen la caja en gris
-  // oscuro (35,35,35) y multiply la deja igual: para ésos hace falta el
-  // archivo recortado. Este test fija dónde estamos y falla si aparece un
-  // tercero.
-  await page.setViewportSize({ width: 1280, height: 900 });
-  // #detras es PruebaSection y vive en /organiza: la home dejó de montarla el
-  // 31/08, así que este caso venía midiendo una sección que no estaba.
-  await page.goto("/#/organiza");
-  await revelarTodo(page);
-  await page.evaluate(() => {
-    document.querySelectorAll(".barra-fija, header").forEach((e) => (e.style.visibility = "hidden"));
-  });
+/*
+  Se fue el caso "solo dos logos del muro siguen trayendo su propia caja".
 
-  /*
-    EL FONDO EFECTIVO, no el de la sección.
+  Vigilaba el muro de marcas de PruebaSection, en /organiza: fijaba que sólo
+  hatsu y ayres traían un rectángulo opaco adentro del archivo y fallaba si
+  aparecía un tercero. La sección y la vista se eliminaron —el evento dejó de
+  presentar a la empresa que lo arma— así que no queda muro que medir.
 
-    Esto tomaba getComputedStyle("#detras").backgroundColor a secas, y en
-    /organiza esa sección es TRANSPARENTE: devuelve "rgba(0, 0, 0, 0)". Al
-    parsear los números daba [0,0,0] y comparaba los logos contra NEGRO, así
-    que los ocho de fondo claro salían marcados "con caja" — un falso positivo
-    de manual, que además habría mandado a recortar ocho archivos que están bien.
-
-    Se sube por los ancestros hasta el primero con fondo opaco, que es contra
-    lo que el logo se ve de verdad.
-  */
-  const fondo = await page.evaluate(() => {
-    let el = document.querySelector("#detras");
-    while (el) {
-      const c = getComputedStyle(el).backgroundColor;
-      const p = c.match(/[\d.]+/g)?.map(Number) || [];
-      const alfa = p.length === 4 ? p[3] : 1;
-      if (alfa > 0.9) return c;
-      el = el.parentElement;
-    }
-    return "rgb(255, 255, 255)";
-  });
-  const f = fondo.match(/\d+/g).map(Number);
-  const conCaja = [];
-
-  for (const img of await page.$$("#detras img")) {
-    const alt = await img.getAttribute("alt");
-    await img.scrollIntoViewIfNeeded();
-    const buf = await img.screenshot();
-    // Se muestrea a un 4% de cada esquina y se promedia, no el píxel (1,1):
-    // el proyecto móvil renderiza con densidad 2,6x y ese píxel cae sobre el
-    // antialias del borde, así que "ayres" pasaba desapercibido. El dato que
-    // se busca es del archivo, no del viewport, y no puede depender del DPR.
-    const esquina = await page.evaluate(async (b64) => {
-      const im = new Image();
-      im.src = "data:image/png;base64," + b64;
-      await im.decode();
-      const c = document.createElement("canvas");
-      c.width = im.width;
-      c.height = im.height;
-      const x = c.getContext("2d");
-      x.drawImage(im, 0, 0);
-      const dx = Math.max(1, Math.round(im.width * 0.04));
-      const dy = Math.max(1, Math.round(im.height * 0.04));
-      const puntos = [[dx, dy], [im.width - dx, dy], [dx, im.height - dy], [im.width - dx, im.height - dy]];
-      const suma = [0, 0, 0];
-      for (const [px, py] of puntos) {
-        const d = x.getImageData(px, py, 1, 1).data;
-        suma[0] += d[0]; suma[1] += d[1]; suma[2] += d[2];
-      }
-      return suma.map((v) => Math.round(v / puntos.length));
-    }, buf.toString("base64"));
-    const dif = Math.max(...esquina.map((v, i) => Math.abs(v - f[i])));
-    if (dif > 25) conCaja.push(alt);
-  }
-
-  expect(conCaja.sort()).toEqual(["ayres", "hatsu"]);
-});
+  Los logos que SÍ siguen en la página son los de sponsors, en #respaldan y
+  #partners, y los cubre el caso de abajo.
+*/
 
 test("cada pestaña del nav lleva a una sección que existe y ninguna se corta", async ({ page }) => {
   // Eran tres y dejaban afuera las dos secciones que el lector busca primero
@@ -319,7 +255,9 @@ test("cada pestaña del nav lleva a una sección que existe y ninguna se corta",
         cortados: enlaces.filter((a) => a.scrollWidth > a.clientWidth + 1).map((a) => a.innerText),
       };
     });
-    expect(r.n, `pestañas a ${ancho}`).toBeGreaterThanOrEqual(5);
+    // El número sale de BLOQUES: escribirlo acá lo deja viejo al primer
+    // bloque que entre o salga, y el caso falla por el dato y no por el nav.
+    expect(r.n, `pestañas a ${ancho}`).toBe(BLOQUES.length);
     expect(r.rotos, `anclas rotas a ${ancho}`).toEqual([]);
     expect(r.cortados, `pestañas cortadas a ${ancho}`).toEqual([]);
   }

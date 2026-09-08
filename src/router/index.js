@@ -40,10 +40,10 @@ import HomeView from "@/views/HomeView.vue";
  *              LocationSection salió de /que-es y la reemplazó DondeSection en
  *              la home; el mapa se había escrito diez horas antes.
  *   #faq    →  lo mismo: FAQSection se movió del pie a la home ese mismo día.
- *   #prueba →  /organiza sí es la vista correcta, pero PruebaSection tiene id
- *              "detras", no "prueba".
- *   #marcas →  no existe ningún id "marcas" en toda la app. Se manda a
- *              /organiza sin hash, que es la vista que muestra esos logos.
+ *   #prueba →  iba a /organiza, que ya no existe: la vista del organizador se
+ *   #marcas     eliminó junto con el muro de marcas que mostraba. Las dos van
+ *               a la home, que es lo que hay: mandar un enlace compartido a
+ *               una ruta muerta lo deja en blanco.
  */
 const ANCLAS_VIEJAS = {
   "que-es": { path: "/que-es", hash: "#que-es" },
@@ -54,8 +54,8 @@ const ANCLAS_VIEJAS = {
   partners: { path: "/participan", hash: "#partners" },
   respaldan: { path: "/participan", hash: "#respaldan" },
   sumarse: { path: "/participan", hash: "#sumarse" },
-  prueba: { path: "/organiza", hash: "#detras" },
-  marcas: "/organiza",
+  prueba: "/",
+  marcas: "/",
   acceso: { path: "/deadline", hash: "#acceso" },
   anotadas: { path: "/deadline", hash: "#anotadas" },
   registro: { path: "/deadline", hash: "#registro" },
@@ -127,11 +127,6 @@ const router = createRouter({
       alias: "/partners",
       name: "participan",
       component: () => import("@/views/ParticipanView.vue"),
-    },
-    {
-      path: "/organiza",
-      name: "organiza",
-      component: () => import("@/views/OrganizaView.vue"),
     },
     {
       // Lo que no matcheó ninguna ruta real: o es un ancla vieja conocida y

@@ -135,17 +135,6 @@ export const BLOQUES = [
     titulo: "Quiénes son parte",
     resumen: "Un lugar por rubro, y qué trae cada uno.",
   },
-  {
-    ruta: "/organiza",
-    label: "Quién organiza",
-    corto: "Organiza",
-    titulo: "Quién organiza",
-    // "Deenex, y por qué abrimos este espacio" repetía en la home la postura
-    // que se sacó del hero: la empresa como sujeto. Acá el dato SÍ corresponde
-    // —es la tarjeta que lleva a la vista de quién organiza— pero como
-    // respuesta a una pregunta del lector, no como autoría reclamada.
-    resumen: "Quién está detrás y con qué credencial.",
-  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -157,7 +146,7 @@ export const BLOQUES = [
 
 export const CUPO = {
   total: 200,
-  ocupados: 127, // ← actualizar a mano hasta que el endpoint esté conectado
+  ocupados: 173, // ← actualizar a mano hasta que el endpoint esté conectado
 };
 
 // ─────────────────────────────────────────────────────────────────────────────

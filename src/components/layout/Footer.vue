@@ -8,8 +8,9 @@
     cartera de clientes"—, que son la promesa que Deenex le hace a un cliente,
     no la del día que se está invitando. El que llega hasta acá scrolleó la
     página entera: lo último que lee tiene que ser de qué se trata el sábado.
-    Quién lo organiza sigue dicho en el "by Deenex" de la cabecera, que está en
-    todas las pantallas.
+    Quién lo organiza se dice en la respuesta del FAQ que lo pregunta, que es
+    donde lo busca el que quiere saberlo. Estuvo también en un "by Deenex" de
+    la cabecera y en una vista propia; los dos se sacaron.
 
     LO QUE SE FUE ACÁ, Y HAY QUE SABERLO: el enlace "Escribinos por WhatsApp"
     era la única salida a WhatsApp que no pedía nada, para el que tiene una
