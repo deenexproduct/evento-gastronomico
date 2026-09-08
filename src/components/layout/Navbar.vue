@@ -81,20 +81,24 @@
             {{ agotado ? "Cupo completo" : mostrarCupo ? `${restantes} lugares` : `${total} lugares` }}
           </span>
           <!--
-            De 640px para arriba se esconde cuando la barra flotante de la home
-            está en pantalla: si no, quedan dos píldoras violetas idénticas a la
-            vez. Ese turno lo arbitra useBarraReserva.js.
+            Aparece cuando NO hay ningún otro acceso a reservar en pantalla, en
+            cualquier ancho. El turno lo arbitra useBarraReserva.js, y ahora
+            cuenta a los dos: la barra flotante de escritorio y el dock de
+            teléfono. Con dos píldoras violetas a la vez el violeta deja de
+            querer decir "esta es LA acción".
 
-            Abajo de 640 no existe: el CTA de teléfono vive en el dock de abajo
-            y es el único. Eso es lo que le permite a esta cabecera retraerse
-            sin llevarse ningún acceso a reservar —en teléfono no lleva más que
-            el wordmark— y es también lo que evita que el turno tenga que
-            contemplar un tercer participante.
+            EL sm: SE FUE Y ESA ERA LA MITAD DEL BUG. Estaba escondida abajo de
+            640px porque ahí el CTA vive en el dock, y es cierto casi siempre:
+            pero el dock se esconde en pantallas de menos de 500px de alto, y
+            entonces no quedaba ninguno. Un teléfono chico acostado, o la
+            pantalla partida de Android, dejaban la home sin un solo botón de
+            reservar. Ahora la condición es una sola y dice lo que importa: si
+            no hay otro, esta aparece.
           -->
           <RouterLink
             v-if="!barraVisible"
             to="/deadline"
-            class="presionable hidden min-h-[44px] items-center rounded-full bg-deenex px-3.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-deenex-hover sm:inline-flex sm:px-4 lg:px-5"
+            class="presionable inline-flex min-h-[44px] items-center rounded-full bg-deenex px-3.5 text-[0.82rem] font-semibold text-white transition-colors hover:bg-deenex-hover sm:px-4 lg:px-5"
           >
             {{ agotado ? "Lista de espera" : "Reservar" }}
           </RouterLink>
@@ -149,7 +153,20 @@ function onScroll() {
 
   const salto = y - ultimaY;
   if (Math.abs(salto) < 8) return;
-  retraida.value = salto > 0 && y > 120;
+  /*
+    NO SE RETRAE SI SE LLEVA EL ÚNICO ACCESO A RESERVAR.
+
+    La idea de esconderla al bajar es que en teléfono esta barra lleva sólo el
+    wordmark, así que no le saca nada al lector. Deja de ser cierto justo
+    cuando el turno le devuelve la píldora: si abajo no hay ni barra flotante
+    ni dock —un teléfono chico acostado, la pantalla partida de Android—, la
+    píldora de acá es la única salida que queda, y retraerse se la lleva.
+
+    Medido a 375x500: el dock se esconde por la regla de pantalla baja, la
+    píldora vuelve al nav, y al bajar el nav se iba con ella. Cero botones de
+    reservar en toda la página.
+  */
+  retraida.value = salto > 0 && y > 120 && barraVisible.value;
   ultimaY = y;
 }
 

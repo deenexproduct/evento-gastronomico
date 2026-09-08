@@ -65,9 +65,33 @@
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { EVENTO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
-import { barraVisible as visible } from "@/composables/useBarraReserva";
+import { publicarBarra } from "@/composables/useBarraReserva";
 
 const { total, restantes, agotado, mostrarCupo } = useCupo();
+const visible = ref(false);
+
+/*
+  EL CTA DE ESTA BARRA NO LLEVABA A NINGÚN LADO.
+
+  El template hace :href="enlaceReserva" y esta constante no existía: se
+  importaba linkWaReserva y nunca se llamaba. En Vue una variable que el
+  template no encuentra es undefined, y un :href undefined hace que el
+  atributo NO se escriba, así que el <a> dejaba de ser un enlace. Verificado
+  en producción: href null, y al tocarlo no pasaba nada —ni navegación, ni
+  scroll—.
+
+  Es el botón más visible del escritorio: la barra acompaña dieciséis pantallas
+  de scroll y su única razón de existir es que siempre haya una salida a mano.
+  Ninguno de los 259 tests lo agarró porque todos comprueban el href de los
+  botones que SÍ lo tienen, y un elemento sin href no matchea 'a[href*="wa.me"]'
+  ni ningún selector que lo busque: desaparece del conjunto medido en vez de
+  fallar. Lo cubre ahora el caso de abajo, que cuenta los botones de reserva en
+  lugar de mirar los que encuentra.
+
+  Va computed y no resuelto una vez, como en el hero y en AccesoSection: el
+  mensaje cambia si el cupo se agota.
+*/
+const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const pasoElHero = ref(false);
 const formEnPantalla = ref(false);
@@ -80,8 +104,24 @@ const pieEnPantalla = ref(false);
  * la flotante, a trescientos píxeles una de otra. Escondiéndola, la lectura
  * es que la barra se convirtió en el pie.
  */
+/*
+  LA PANTALLA BAJA ENTRA EN LA CUENTA, y ese era el bug.
+
+  El @media (max-height: 500px) de abajo esconde esta barra en un teléfono
+  acostado. Antes eso lo sabía sólo el CSS: el estado compartido seguía
+  diciendo "estoy visible", el nav escondía su píldora por deferencia, y en
+  844x390 —un iPhone en horizontal— la home quedaba sin un solo botón de
+  reservar. Ahora la misma condición se evalúa acá con matchMedia, así que lo
+  que se publica es si la barra se ve DE VERDAD y no si su lógica dice que
+  debería verse.
+*/
+const pantallaBaja = ref(false);
+
 function recalcular() {
-  visible.value = pasoElHero.value && !formEnPantalla.value && !pieEnPantalla.value;
+  const seVe =
+    pasoElHero.value && !formEnPantalla.value && !pieEnPantalla.value && !pantallaBaja.value;
+  visible.value = seVe;
+  publicarBarra(seVe);
 }
 function onScroll() {
   pasoElHero.value = window.scrollY > window.innerHeight * 0.7;
@@ -91,7 +131,17 @@ function onScroll() {
 let observer = null;
 let observerPie = null;
 
+let mqBaja = null;
+
 onMounted(() => {
+  // La misma condición que el @media de abajo, para que no haya dos verdades.
+  mqBaja = window.matchMedia("(max-height: 500px)");
+  pantallaBaja.value = mqBaja.matches;
+  mqBaja.addEventListener("change", (e) => {
+    pantallaBaja.value = e.matches;
+    recalcular();
+  });
+
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
@@ -145,11 +195,9 @@ onUnmounted(() => {
     el estado es el que tiene que apagarlo.
   */
   visible.value = false;
+  publicarBarra(false);
 });
 
-function ir() {
-  document.getElementById("reservar")?.scrollIntoView({ behavior: "smooth" });
-}
 </script>
 
 <style scoped>

@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, computed, shallowRef } from "vue";
+import { ref, computed, shallowRef, onUnmounted } from "vue";
 import { BLOQUES } from "@/data/evento";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
 import ElLunesSection from "@/components/sections/ElLunesSection.vue";
@@ -131,12 +131,42 @@ function congelar() {
   document.body.style.top = `-${scrollGuardado}px`;
   document.body.style.width = "100%";
 }
-function descongelar() {
+/*
+  Soltar el body es UNA COSA; devolver el scroll es otra, y no siempre van
+  juntas. Por eso están separadas.
+*/
+function soltarBody() {
   document.body.style.position = "";
   document.body.style.top = "";
   document.body.style.width = "";
+}
+
+function descongelar() {
+  soltarBody();
   window.scrollTo({ top: scrollGuardado, behavior: "instant" });
 }
+
+/*
+  RED DE SEGURIDAD, y sin ella la página quedaba rota sin forma de volver.
+
+  descongelar() colgaba únicamente del evento `close` del <dialog>. Sacar un
+  dialog abierto del DOM NO dispara ese evento —lo saca del top layer y nada
+  más— así que si el componente se desmontaba con el visor abierto, el
+  position:fixed que congelar() puso sobre document.body sobrevivía al
+  componente que lo puso. Y el router va en modo hash: el botón Atrás del
+  navegador cambia de ruta, HomeView se desmonta, y listo.
+
+  Medido: abrir un bloque con scrollY 5500 y pulsar Atrás dejaba el body en
+  "position: fixed; top: -5500px", scrollHeight igual a innerHeight —o sea
+  nada que scrollear—, y document.elementFromPoint del centro devolviendo HTML:
+  pantalla en blanco. No se recuperaba solo, ni navegando a otra pestaña. La
+  única salida era recargar.
+
+  Acá se sueltan sólo los estilos y NO se restaura el scroll: el scroll
+  guardado es de la home y el que está entrando es otra vista, que tiene el
+  suyo. Devolvérselo lo mandaría a un punto que no le corresponde.
+*/
+onUnmounted(soltarBody);
 
 const dlg = ref(null);
 const activo = ref(null);

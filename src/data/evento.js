@@ -665,8 +665,6 @@ export const MARCAS_ANOTADAS = [
  */
 export const MINIMO_PARA_MOSTRAR_CUPO = 60;
 
-/** WhatsApp de Alan — fallback cuando no hay endpoint conectado. */
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Reels verticales embebidos.
 //

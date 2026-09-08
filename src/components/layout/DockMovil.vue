@@ -146,6 +146,7 @@ import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import { BLOQUES, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
+import { publicarDock } from "@/composables/useBarraReserva";
 
 const { total, restantes, agotado, mostrarCupo } = useCupo();
 const ruta = useRoute();
@@ -281,6 +282,19 @@ onMounted(() => {
     const el = document.querySelector(".dock-movil");
     const alto = el ? Math.ceil(el.getBoundingClientRect().height) : 0;
     altoDock.value = alto;
+
+    /*
+      El dock avisa si se ve DE VERDAD, y eso es lo que decide si el nav
+      muestra su píldora.
+
+      El dock se esconde por CSS de dos formas: sm:hidden de 640px para arriba
+      —ahí manda la barra flotante— y la regla de pantalla baja de más abajo.
+      Antes esa segunda nadie la sabía fuera del CSS, y en un teléfono chico
+      acostado no quedaba ni una pestaña ni un botón de reserva. Se mide el
+      display computado en vez de repetir las condiciones: el que sabe de
+      anchos y altos es el medio, no este archivo.
+    */
+    publicarDock(!!el && getComputedStyle(el).display !== "none" && alto > 0);
     if (alto > maximo) {
       maximo = alto;
       document.documentElement.style.setProperty("--alto-dock-real", `${maximo}px`);
@@ -297,6 +311,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
   ro?.disconnect();
+  publicarDock(false);
   document.documentElement.style.setProperty("--alto-dock-real", "0px");
 });
 </script>
