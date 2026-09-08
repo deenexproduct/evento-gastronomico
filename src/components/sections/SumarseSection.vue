@@ -41,14 +41,26 @@
             sin factura de por medio.
           </p>
 
-          <a
-            :href="whatsappPartner"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn mt-7 w-full"
-          >
-            Quiero ser sponsor
-          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
+          <!--
+            El botón va al fondo de la tarjeta, no debajo del texto.
+
+            Las dos tarjetas son hermanas de un grid, así que miden lo mismo de
+            alto, pero sus textos no: el de sponsors es más largo. Con el botón
+            colgando del último párrafo, los dos quedaban a distinta altura
+            —66px de diferencia a 1024px, 21 a 1280— y el ojo lee eso como que
+            una tarjeta está a medio terminar. mt-auto se come el sobrante y el
+            pt-7 conserva la separación mínima que daba el mt-7.
+          -->
+          <div class="mt-auto pt-7">
+            <a
+              :href="whatsappPartner"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn w-full"
+            >
+              Quiero ser sponsor
+            <span class="sr-only"> (abre en una pestaña nueva)</span></a>
+          </div>
         </article>
 
         <!-- Prensa -->
@@ -76,14 +88,17 @@
             lugar donde se ve.
           </p>
 
-          <a
-            :href="whatsappPrensa"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn mt-7 w-full"
-          >
-            Pedir acreditación
-          <span class="sr-only"> (abre en una pestaña nueva)</span></a>
+          <!-- Al fondo, igual que la de al lado: ver el comentario de arriba. -->
+          <div class="mt-auto pt-7">
+            <a
+              :href="whatsappPrensa"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn w-full"
+            >
+              Pedir acreditación
+            <span class="sr-only"> (abre en una pestaña nueva)</span></a>
+          </div>
         </article>
       </div>
     </div>

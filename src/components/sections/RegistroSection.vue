@@ -224,11 +224,17 @@ const { google, urlIcs, nombreArchivo } = useCalendario();
 
 const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
+/*
+  "El programa final" y no "la grilla final": la página dejó de publicar el
+  cronograma hora por hora, así que prometer una grilla deja al lector
+  esperando un formato que no va a ver. Lo que se promete es el mismo dato con
+  el nombre que la página usa hoy.
+*/
 const INCLUYE = [
   "Los diez bloques del programa, en track único",
   "Los stands de los sponsors abiertos desde las 9:00",
   "Las pausas y el networking de cierre",
-  "La grilla final, antes que el resto",
+  "El programa final, antes que el resto",
 ];
 
 const PASOS = [

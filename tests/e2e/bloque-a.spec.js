@@ -11,12 +11,34 @@ import { test, expect } from "@playwright/test";
 
 const ANCHOS = [1024, 1280, 1600];
 
-/** El IntersectionObserver esconde lo que todavía no se vio. */
+/*
+  El IntersectionObserver esconde lo que todavía no se vio, así que se revela a
+  mano. Y se apagan las transiciones ANTES de revelar, que es la parte que
+  faltaba.
+
+  Aplicar `.v-reveal-visible` no muestra el contenido: dispara una transición de
+  opacidad y desplazamiento. Dormir un rato fijo después alcanza en una máquina
+  ociosa y no alcanza cuando la suite corre en paralelo y el navegador está
+  saturado: ahí se mide a mitad del viaje y las posiciones están corridas unos
+  píxeles. Eso hacía fallar de a ratos —y sólo bajo carga— tres casos de layout
+  de esta suite, siempre distintos, que es la firma de un problema de timing y
+  no de un defecto.
+
+  Un test de layout quiere la posición final, no el viaje. Apagadas las
+  transiciones y las animaciones, el estado es el mismo en la primera línea que
+  en la centésima.
+*/
 async function revelar(page) {
+  await page.addStyleTag({
+    content: `*, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
+    }`,
+  });
   await page.evaluate(() => {
     document.querySelectorAll(".v-reveal").forEach((e) => e.classList.add("v-reveal-visible"));
   });
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(120);
 }
 
 for (const ancho of ANCHOS) {
@@ -204,4 +226,54 @@ test("solo el tramo activo de #acceso lleva su cifra en negro", async ({ page })
   // ellos es un cero.
   const iguales = cifras.filter((c) => c.color === activo.color);
   expect(iguales).toHaveLength(1);
+});
+
+test("los botones de dos tarjetas hermanas quedan a la misma altura", async ({ page }) => {
+  /*
+    Las tarjetas de #sumarse son hermanas de un grid: miden lo mismo de alto,
+    pero sus textos no. Con el botón colgando del último párrafo, el de
+    "Quiero ser sponsor" quedaba 66px más abajo que el de "Pedir acreditación"
+    a 1024px, y 21 a 1280. Nada se rompe y se lee como que una de las dos está
+    a medio terminar.
+
+    Se mide la fila del grid, no la tarjeta: apiladas en teléfono el problema
+    no existe, y comparar dos tarjetas que están una arriba de la otra no
+    querría decir nada.
+  */
+  for (const ancho of [1024, 1280, 1440]) {
+    await page.setViewportSize({ width: ancho, height: 900 });
+    await page.goto("/");
+    await revelar(page);
+
+    const r = await page.evaluate(() => {
+      const cont = document.querySelector("#sumarse");
+      if (!cont) return null;
+      const arts = [...cont.querySelectorAll("article")].filter(
+        (a) => a.getBoundingClientRect().height > 0
+      );
+      const filas = {};
+      for (const a of arts) {
+        const k = Math.round(a.getBoundingClientRect().top);
+        (filas[k] ||= []).push(a);
+      }
+      const desalineadas = [];
+      let comparadas = 0;
+      for (const grupo of Object.values(filas)) {
+        if (grupo.length < 2) continue;
+        const btns = grupo.map((g) => g.querySelector("a[class*='btn']"));
+        if (btns.some((b) => !b)) continue;
+        comparadas++;
+        const tops = btns.map((b) => Math.round(b.getBoundingClientRect().top));
+        const dif = Math.max(...tops) - Math.min(...tops);
+        if (dif > 2) desalineadas.push(`${dif}px (${tops.join(" vs ")})`);
+      }
+      return { comparadas, desalineadas };
+    });
+
+    // Sin esto, un cambio de markup que dejara de encontrar las tarjetas haría
+    // pasar el caso sin comparar nada.
+    expect(r, `no se encontró #sumarse a ${ancho}px`).not.toBeNull();
+    expect(r.comparadas, `a ${ancho}px no se comparó ninguna fila de tarjetas`).toBeGreaterThan(0);
+    expect(r.desalineadas, `a ${ancho}px los botones no arrancan a la misma altura`).toEqual([]);
+  }
 });

@@ -43,8 +43,13 @@
             <li v-for="p in puntos" :key="p" class="punto-podcast">{{ p }}</li>
           </ul>
 
+          <!--
+            "el programa final" y no "la grilla final": la página dejó de
+            publicar el cronograma hora por hora, y prometer una grilla que
+            nunca se va a ver deja al lector esperando algo que no llega.
+          -->
           <p class="mt-7 text-[14px] leading-[1.55] text-gris-2">
-            Los invitados y el momento del día se anuncian con la grilla final.
+            Los invitados y el momento del día se anuncian con el programa final.
           </p>
         </div>
       </div>

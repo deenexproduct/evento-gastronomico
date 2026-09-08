@@ -87,3 +87,53 @@ describe("los números escritos a mano no sobreviven a un cambio de contenido", 
     expect(fuente).toContain("BLOQUES.length");
   });
 });
+
+describe("la página no vuelve a prometer una grilla que no publica", () => {
+  /*
+    El 03/09 la jornada dejó de mostrar el cronograma hora por hora y pasó a
+    decir QUÉ hay ese día. La palabra sobrevivió igual en tres textos visibles
+    —"la grilla termina 18:00", "se anuncian con la grilla final" y "La grilla
+    final, antes que el resto"— porque el refactor cambió una sección y esos
+    tres vivían en otras.
+
+    Nombrar una grilla que el lector no puede ver lo manda a buscar algo que no
+    está, y en el caso de RegistroSection se la promete como parte de lo que se
+    lleva por reservar.
+
+    Los comentarios sí pueden usar la palabra: explican la decisión. Lo que se
+    vigila son las cadenas de texto que llegan a la pantalla.
+  */
+  const ARCHIVOS = [
+    "components/sections/DondeSection.vue",
+    "components/sections/PodcastSection.vue",
+    "components/sections/RegistroSection.vue",
+    "components/sections/JornadaSection.vue",
+    "views/QueEsView.vue",
+  ];
+
+  it("no queda la palabra en ningún texto que se muestre", () => {
+    const culpables = [];
+
+    for (const a of ARCHIVOS) {
+      const fuente = readFileSync(join(SRC, a), "utf-8");
+
+      // Se recorre el archivo sin sus comentarios: los de bloque —/* */ y
+      // <!-- -->— y los de línea. Lo que queda es marcado y código, o sea lo
+      // que puede llegar a la pantalla.
+      const sinComentarios = fuente
+        .replace(/<!--[\s\S]*?-->/g, "")
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/.*$/gm, "");
+
+      for (const linea of sinComentarios.split("\n")) {
+        if (/grilla/i.test(linea) && !/grid|grilla de 12/i.test(linea)) {
+          culpables.push(`${a}: ${linea.trim().slice(0, 70)}`);
+        }
+      }
+    }
+
+    // Si los archivos dejaran de existir esto pasaría sin mirar nada.
+    expect(ARCHIVOS.length, "no quedó ningún archivo que vigilar").toBeGreaterThan(3);
+    expect(culpables).toEqual([]);
+  });
+});

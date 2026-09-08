@@ -116,7 +116,10 @@ const datos = [
     // esta ficha está calculando a qué hora se va, no cuándo termina el último
     // bloque. Las 18 se dicen igual, como el momento en que arranca el
     // networking.
-    n: `Las charlas arrancan ${TEMAS[0].hora}, la grilla termina ${BORDES.cierre.hora} y el networking sigue hasta las ${BORDES.cierre.hasta.replace(":00", "")}.`,
+    // "la jornada" y no "la grilla": la página dejó de publicar el cronograma
+    // hora por hora, así que nombrar una grilla que el lector no puede ver lo
+    // manda a buscar algo que no está.
+    n: `Las charlas arrancan ${TEMAS[0].hora}, la jornada termina ${BORDES.cierre.hora} y el networking sigue hasta las ${BORDES.cierre.hasta.replace(":00", "")}.`,
   },
   {
     r: "Cómo se entra",

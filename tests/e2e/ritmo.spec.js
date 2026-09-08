@@ -9,19 +9,37 @@ import { BLOQUES } from "../../src/data/evento.js";
  * componente, solo midiendo la página entera.
  */
 
-/** El IntersectionObserver esconde lo que todavía no se vio. */
+/*
+  El IntersectionObserver esconde lo que todavía no se vio, así que se revela a
+  mano. Y se apagan las transiciones ANTES de revelar, que es la parte que
+  faltaba.
+
+  Aplicar `.v-reveal-visible` no muestra el contenido: dispara una transición de
+  opacidad y desplazamiento. Dormir un rato fijo después alcanza en una máquina
+  ociosa y no alcanza cuando la suite corre en paralelo y el navegador está
+  saturado: ahí se mide a mitad del viaje y las posiciones están corridas unos
+  píxeles. Eso hacía fallar de a ratos —y sólo bajo carga— tres casos de layout
+  de esta suite, siempre distintos, que es la firma de un problema de timing y
+  no de un defecto.
+
+  Un test de layout quiere la posición final, no el viaje. Apagadas las
+  transiciones y las animaciones, el estado es el mismo en la primera línea que
+  en la centésima.
+*/
 async function revelarTodo(page) {
-  await page.evaluate(async () => {
-    const h = document.documentElement.scrollHeight;
-    for (let y = 0; y < h; y += 400) {
-      window.scrollTo(0, y);
-      await new Promise((r) => setTimeout(r, 40));
-    }
-    document.querySelectorAll(".v-reveal").forEach((e) => e.classList.add("v-reveal-visible"));
-    window.scrollTo(0, 0);
-    await new Promise((r) => setTimeout(r, 300));
+  await page.addStyleTag({
+    content: `*, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
+    }`,
   });
-  await page.waitForTimeout(600);
+  await page.evaluate(() => {
+    document.querySelectorAll(".v-reveal").forEach((e) => e.classList.add("v-reveal-visible"));
+  });
+  // El recorrido queda: algunos casos miden después de scrollear y necesitan
+  // que la página tenga el alto final, no el de antes de revelarse.
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForTimeout(120);
 }
 
 test("ningún límite entre secciones es invisible", async ({ page }) => {
