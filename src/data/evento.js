@@ -468,6 +468,15 @@ export const EL_LUNES = [
 //
 //   { nombre: "Nombre y Apellido", empresa: "Dónde trabaja" }
 //
+// Y dos archivos opcionales, los dos por lo mismo: van a llegar de a uno y la
+// tarjeta tiene que verse terminada sin ellos.
+//
+//   foto: "nombre-archivo.jpg"   en src/assets/images/speakers/
+//   logo: "empresa.svg"          en src/assets/images/partners/
+//
+// Sin foto van las iniciales del nombre; sin logo queda el nombre de la
+// empresa solo, que es lo que ya hace la barra de partners.
+//
 // Dos datos y nada más. Estuvo escrito un tercero opcional para el cargo y se
 // sacó: con unos que lo tienen y otros que no, las tarjetas de una misma fila
 // quedan desalineadas. Si hace falta el cargo, entra para todos o para ninguno.

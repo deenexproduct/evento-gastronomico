@@ -178,6 +178,20 @@ describe("los oradores se cargan en un solo lugar y no se muestran a medias", ()
       .filter(Boolean);
     expect(rotos, "hay oradores cargados a medias").toEqual([]);
 
+    /*
+      Y NINGUNO PUEDE QUEDAR CON UN MARCADOR DE PENDIENTE.
+
+      Mientras se arma la lista es cómodo dejar escrito "NOMBRE PENDIENTE" para
+      ver el bloque funcionando, y es exactamente así como un texto de relleno
+      termina publicado: nadie lo nota hasta que está online. El CI frena el
+      deploy con esto antes de que llegue.
+    */
+    const marcadores = /pendiente|por confirmar|a definir|lorem|ejemplo|placeholder|xxx|TBD/i;
+    const conRelleno = lista
+      .filter((s) => marcadores.test(`${s.nombre} ${s.empresa}`))
+      .map((s) => `${s.nombre} — ${s.empresa}`);
+    expect(conRelleno, "hay oradores con texto de relleno sin reemplazar").toEqual([]);
+
     // Dos veces la misma persona en la misma empresa es un copiar y pegar, y
     // además rompe la clave del v-for.
     const claves = lista.map((s) => `${s.nombre}·${s.empresa}`);

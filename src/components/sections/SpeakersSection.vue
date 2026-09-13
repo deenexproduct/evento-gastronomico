@@ -19,12 +19,11 @@
   <section id="speakers" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Quiénes hablan</p>
-      <h2 class="titulo mt-4 max-w-[18ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-        Los que ya lo hicieron en sus locales
+      <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
+        Todos los referentes gastronómicos
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        No son consultores contando casos ajenos: cada uno cuenta lo que aplicó
-        adentro de su propia operación, qué le costó y qué le devolvió.
+        Los que están innovando en el mercado de cadenas gastronómicas.
       </p>
 
       <!--
@@ -89,14 +88,30 @@
             {{ s.nombre }}
           </p>
           <!--
-            Dos datos y nada más: nombre y empresa. Estuvo escrito un tercero
-            opcional para el cargo y se sacó antes de subirlo, porque con unos
-            que lo tienen y otros que no, las tarjetas de una misma fila
-            quedaban desalineadas: la empresa de uno a la altura del cargo del
-            de al lado. Si más adelante hace falta el cargo, entra para todos o
-            para ninguno.
+            La empresa, con su logo adelante cuando lo hay.
+
+            El logo es opcional por lo mismo que la foto: van a llegar de a uno.
+            Sin archivo queda el nombre solo, que es la misma decisión que toma
+            la barra de partners —"un nombre bien puesto se lee mejor que un
+            recuadro vacío esperando una imagen"—. Hoy de los tres referentes
+            sólo Bistrosoft tiene el suyo en el repo.
+
+            24px de alto y no 16: el de Bistrosoft es 785x285, asi que a 16px
+            queda en 44px de ancho con el nombre de la marca escrito adentro, o
+            sea una mancha. El alto fijo de la fila, con o sin logo, es lo que
+            mantiene alineadas las tarjetas de una misma fila.
           -->
-          <p class="mt-2 text-[15px] leading-[1.5] text-gris">{{ s.empresa }}</p>
+          <p class="mt-2 flex min-h-[24px] items-center gap-2 text-[15px] leading-[1.5] text-gris">
+            <img
+              v-if="s.logoSrc"
+              :src="s.logoSrc"
+              alt=""
+              aria-hidden="true"
+              class="logo-sponsor h-6 w-auto max-w-[76px] shrink-0 object-contain"
+              loading="lazy"
+            />
+            {{ s.empresa }}
+          </p>
         </li>
       </ul>
 
@@ -133,6 +148,13 @@ const archivos = import.meta.glob("@/assets/images/speakers/*", {
   import: "default",
 });
 
+// Los logos salen de la misma carpeta que los de partners: son las mismas
+// empresas y no tiene sentido guardar el archivo dos veces.
+const logos = import.meta.glob("@/assets/images/partners/*", {
+  eager: true,
+  import: "default",
+});
+
 /*
   Las iniciales son el respaldo cuando todavía no hay foto, y salen del nombre
   para que no haya un tercer dato que cargar a mano y se pueda desincronizar.
@@ -148,8 +170,14 @@ function inicialesDe(nombre) {
 
 const speakers = computed(() =>
   SPEAKERS.map((s) => {
-    const clave = s.foto ? Object.keys(archivos).find((k) => k.endsWith(`/${s.foto}`)) : null;
-    return { ...s, src: clave ? archivos[clave] : "", iniciales: inicialesDe(s.nombre) };
+    const buscar = (mapa, archivo) =>
+      archivo ? mapa[Object.keys(mapa).find((k) => k.endsWith(`/${archivo}`))] || "" : "";
+    return {
+      ...s,
+      src: buscar(archivos, s.foto),
+      logoSrc: buscar(logos, s.logo),
+      iniciales: inicialesDe(s.nombre),
+    };
   })
 );
 </script>
