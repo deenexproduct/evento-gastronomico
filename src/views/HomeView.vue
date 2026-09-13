@@ -35,6 +35,14 @@
     -->
     <QueEsSection class="v-reveal" />
 
+    <!-- ── Quiénes hablan ────────────────────────────────────────────
+         Aparece sola cuando SPEAKERS llegue a MINIMO_SPEAKERS. Hasta
+         entonces no se monta: una sección titulada "quiénes hablan" con un
+         nombre adentro dice que hay uno. La condición vive acá y no dentro
+         del componente para que una sección vacía ni siquiera entre al
+         árbol, y para que se lea de una en el orden de la página. -->
+    <SpeakersSection v-if="haySpeakers" class="v-reveal" />
+
     <!-- ── Qué pasa ese día ──────────────────────────────────────── -->
 
     <JornadaSection class="v-reveal bg-noche-3" />
@@ -73,8 +81,10 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from "vue";
+import { computed, onMounted, onUnmounted } from "vue";
+import { SPEAKERS, MINIMO_SPEAKERS } from "@/data/evento";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
+import SpeakersSection from "@/components/sections/SpeakersSection.vue";
 import PodcastSection from "@/components/sections/PodcastSection.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
@@ -84,6 +94,13 @@ import RegistroSection from "@/components/sections/RegistroSection.vue";
 import SumarseSection from "@/components/sections/SumarseSection.vue";
 import FAQSection from "@/components/sections/FAQSection.vue";
 import DondeSection from "@/components/sections/DondeSection.vue";
+
+/*
+  Los oradores se muestran recién cuando son varios. El umbral y la lista viven
+  en evento.js: acá sólo se pregunta, así que sumar un speaker no obliga a
+  tocar ningún componente.
+*/
+const haySpeakers = computed(() => SPEAKERS.length >= MINIMO_SPEAKERS);
 
 let observer = null;
 let respaldo = null;

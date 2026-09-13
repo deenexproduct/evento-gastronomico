@@ -149,3 +149,72 @@ describe("la página no vuelve a prometer una grilla que no publica", () => {
     expect(culpables).toEqual([]);
   });
 });
+
+describe("los oradores se cargan en un solo lugar y no se muestran a medias", () => {
+  /*
+    La lista arranca vacía y crece de a uno hasta la semana del evento, así que
+    lo que hay que fijar no es su contenido sino las dos propiedades que la
+    hacen funcionar mientras se llena.
+  */
+  const datos = readFileSync(join(SRC, "data/evento.js"), "utf-8");
+  const seccion = readFileSync(join(SRC, "components/sections/SpeakersSection.vue"), "utf-8");
+  const home = readFileSync(join(SRC, "views/HomeView.vue"), "utf-8");
+
+  it("cada orador tiene nombre y empresa, y nada queda a medio cargar", () => {
+    // Se evalúa el literal tal cual está escrito en la fuente: importar el
+    // módulo traería el valor, pero este caso existe para vigilar lo que se
+    // escribe a mano en el archivo, que es por donde entran los errores.
+    const m = datos.match(/export const SPEAKERS = (\[[\s\S]*?\]);/);
+    expect(m, "no se encontró la lista de oradores en evento.js").not.toBeNull();
+
+    const lista = eval(m[1]);
+    expect(Array.isArray(lista)).toBe(true);
+
+    const rotos = lista
+      .map((s, i) => {
+        const falta = ["nombre", "empresa"].filter((k) => !String(s?.[k] || "").trim());
+        return falta.length ? `#${i + 1} (${s?.nombre || "sin nombre"}): falta ${falta.join(" y ")}` : null;
+      })
+      .filter(Boolean);
+    expect(rotos, "hay oradores cargados a medias").toEqual([]);
+
+    // Dos veces la misma persona en la misma empresa es un copiar y pegar, y
+    // además rompe la clave del v-for.
+    const claves = lista.map((s) => `${s.nombre}·${s.empresa}`);
+    expect(claves.length - new Set(claves).size, "hay oradores repetidos").toBe(0);
+  });
+
+  it("la sección no se monta hasta que haya varios", () => {
+    /*
+      Una sección titulada "quiénes hablan" con un nombre adentro dice que hay
+      uno. Es la misma razón por la que JornadaSection dejó de publicar el
+      cronograma: con la mitad de los bloques sin orador, el lector no lee los
+      nombres que hay, lee los huecos.
+    */
+    expect(datos).toContain("export const MINIMO_SPEAKERS");
+    expect(home, "la home monta los oradores sin condición").toMatch(
+      /<SpeakersSection\s+v-if=/
+    );
+    expect(home, "la condición no sale del umbral de evento.js").toContain("MINIMO_SPEAKERS");
+  });
+
+  it("los separadores no dejan ver la celda que falta", () => {
+    /*
+      La grilla se dibujaba con gap-px sobre un fondo de línea —la técnica del
+      muro de resúmenes— y ahí funciona porque esa grilla siempre está llena.
+      Acá no: con 3, 5, 7 o 9 oradores queda una celda vacía en la última fila,
+      y con el fondo abajo esa celda se ve como un rectángulo gris al lado del
+      último nombre. Son la mitad de los números por los que la lista va a
+      pasar mientras se completa.
+
+      Ahora cada tarjeta dibuja su propio contorno hacia adentro, así que donde
+      no hay tarjeta no se dibuja nada.
+    */
+    const ul = seccion.match(/<ul[^>]*>/)?.[0] || "";
+    expect(ul, "no se encontró la grilla de oradores").not.toBe("");
+    expect(ul, "la grilla volvió a pintar el separador con su propio fondo").not.toMatch(
+      /bg-linea|gap-px/
+    );
+    expect(seccion, "las tarjetas dejaron de dibujar su contorno").toContain("outline-offset: -1px");
+  });
+});

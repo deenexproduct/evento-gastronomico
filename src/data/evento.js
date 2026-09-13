@@ -326,18 +326,6 @@ export const TIPOS_BLOQUE = {
   cierre: { label: "Networking", icono: "gente" },
 };
 
-/**
- * Cómo se rotula a quién da cada bloque. Al aire sólo se nombra lo cerrado:
- * hoy el único confirmado es Alan. Los que están participando del armado ya
- * tienen su logo publicado en la barra de arriba, así que se los nombra; los
- * rubros que todavía se están vendiendo van por rubro y sin marca.
- */
-export const ESTADOS_BLOQUE = {
-  confirmado: { label: "Confirmado", tono: "firme" },
-  participa: { label: "Participa del armado", tono: "medio" },
-  abierto: { label: "Orador por confirmar", tono: "tenue" },
-};
-
 
 /**
  * Solo los huecos que tienen nombre propio, indexados por la hora que el
@@ -473,19 +461,36 @@ export const EL_LUNES = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Fotos
+// Quiénes hablan.
 //
-// Todo lo que está en "" es un hueco marcado en la landing (ver FotoSlot.vue).
-// Para enchufar una foto: dejarla en src/assets/images/ y poner acá el nombre
-// del archivo tal cual, con extensión.
-// ─────────────────────────────────────────────────────────────────────────────
+// SE CARGAN ACÁ Y NADA MÁS: la sección de la home los lee de esta lista y se
+// acomoda sola. Cada uno son dos datos y ninguno es opcional:
+//
+//   { nombre: "Nombre y Apellido", empresa: "Dónde trabaja" }
+//
+// Dos datos y nada más. Estuvo escrito un tercero opcional para el cargo y se
+// sacó: con unos que lo tienen y otros que no, las tarjetas de una misma fila
+// quedan desalineadas. Si hace falta el cargo, entra para todos o para ninguno.
+//
+// LA LISTA ARRANCA VACÍA A PROPÓSITO Y LA SECCIÓN NO SE MUESTRA HASTA QUE
+// TENGA GENTE. Es la misma razón por la que JornadaSection dejó de publicar el
+// cronograma hora por hora: con cuatro de diez bloques diciendo "orador por
+// confirmar", el lector que escanea no lee cuatro nombres, lee seis huecos y
+// concluye que el evento está a medio vender. Un speaker solo en una sección
+// que se llama "quiénes hablan" dice exactamente eso.
+//
+// El umbral está en MINIMO_SPEAKERS, abajo. Cuando haya esa cantidad, la
+// sección aparece sola en la home sin tocar ningún componente.
+export const SPEAKERS = [];
 
-export const FOTOS = {
-  /** El salón del hotel. El brief lo marca como argumento, no como detalle. */
-  salon: "",
-  /** Sala llena en un evento anterior, para prueba social. */
-  sala: "",
-};
+/**
+ * Cuántos hacen falta para que valga la pena mostrarlos.
+ *
+ * Tres es el mínimo que se lee como "hay varios" en vez de como "hay uno y
+ * capaz otro". Con menos, la sección directamente no se monta: el que llega de
+ * un anuncio no se entera de que falta gente, y el día que estén, están.
+ */
+export const MINIMO_SPEAKERS = 3;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Partners — SOLO CERRADOS
@@ -571,21 +576,6 @@ export const PARTNERS = [
   },
 ];
 
-/** Marcas del ecosistema Deenex. Prueba social, sin restricción de confidencialidad. */
-export const MARCAS_LOGOS = [
-  "hatsu.webp",
-  "palta.webp",
-  "konex.webp",
-  "quem.webp",
-  "la-fabrica.webp",
-  "coquitos.webp",
-  "glorias.webp",
-  "monti.webp",
-  "emplatame.webp",
-  "ayres.webp",
-  "Maxirest.webp",
-  "sportclub.png",
-];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // FAQ
@@ -664,22 +654,6 @@ export const MARCAS_ANOTADAS = [
  * debajo, decir "van 12 de 200" destruye más de lo que construye.
  */
 export const MINIMO_PARA_MOSTRAR_CUPO = 60;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Reels verticales embebidos.
-//
-// Se llenan con las piezas que ya se graban para redes: el material existe
-// igual, así que no hay costo de producción extra. Dejar el .mp4 en
-// src/assets/video/ y poner acá el nombre del archivo.
-// Con la lista vacía, la sección directamente no se renderiza.
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const REELS = [
-  // { archivo: "01-por-que-ahora.mp4", poster: "01.jpg", titulo: "Por qué armé este evento" },
-  // { archivo: "05-tus-datos.mp4", poster: "05.jpg", titulo: "Tu sistema de cobro sabe más que vos" },
-  // { archivo: "17-el-salon.mp4", poster: "17.jpg", titulo: "Este es el salón" },
-];
-
 
 // El número por el que entra toda la convocatoria. Formato wa.me: sin +, sin
 // espacios y con el 9 de celular. Es el único lugar donde vive: los cinco

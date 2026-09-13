@@ -562,6 +562,13 @@ html.claro [class~="bg-noche/95"] { background-color: rgba(255, 255, 255, .95) !
    las divisiones de sección y la barra fija. */
 html.claro .border-linea { border-color: rgba(0, 0, 0, .1) !important; }
 
+/* Lo mismo para el contorno de las tarjetas de oradores, que dibujan su
+   separador con outline en vez de con border —ver SpeakersSection.vue: con
+   border, una lista impar deja ver el hueco de la celda que falta—. Va acá y
+   no en el scoped del componente porque ahí :global() pierde por
+   especificidad contra la regla con atributo de scope. */
+html.claro .celda-speaker { outline-color: rgba(0, 0, 0, .1) !important; }
+
 /* El texto se invierte. */
 html.claro .text-white { color: #1A1A1A !important; }
 html.claro .text-gris { color: #55535C !important; }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { EVENTO, BLOQUES, MENSAJES_WA, TEMAS, TIPOS_BLOQUE, PAUSAS } from "@/data/evento";
 
@@ -248,15 +248,63 @@ describe("6 · la agenda", () => {
 
 describe("evento.js no vuelve a tener cuatro agendas", () => {
   it("no quedan exports que no importa nadie", () => {
-    // Habia ocho, y TRES de ellos eran agendas viejas que contradecian a
-    // TEMAS: una decia "Puertas 09:00" y "acreditacion con QR", dos cosas
-    // que la pagina dejo de decir. Editar la equivocada no fallaba: no
-    // pasaba nada, que es peor.
+    /*
+      Habia ocho, y TRES de ellos eran agendas viejas que contradecian a
+      TEMAS: una decia "Puertas 09:00" y "acreditacion con QR", dos cosas que
+      la pagina dejo de decir. Editar la equivocada no fallaba: no pasaba nada,
+      que es peor.
+
+      ESTO ERA UNA LISTA NEGRA DE NOMBRES y envejecio mal. Entre los ocho
+      estaba SPEAKERS, y el dia que hizo falta una lista de oradores DE VERDAD
+      —importada, usada y con su seccion— el caso fallo por el nombre, no por
+      el defecto. Un nombre no es el problema: el problema es un export que no
+      lee nadie.
+
+      Ahora se comprueba la propiedad directamente: todo lo que evento.js
+      exporta tiene que aparecer en un import de src/. Asi no hay lista que
+      mantener, y cubre tambien los exports que nazcan manana.
+    */
     const datos = readFileSync(join(SRC, "data/evento.js"), "utf-8");
-    for (const muerto of ["TRAMOS", "BENTO", "VOLVES_CON", "SPEAKERS",
-                          "AGENDA_PUBLICA", "AGENDA", "AGENDA_BLOQUES", "PUBLICO"]) {
-      expect(datos).not.toContain(`export const ${muerto} `);
-    }
+    const exportados = [...datos.matchAll(/export (?:const|function) ([A-Za-z_$][\w$]*)/g)].map(
+      (m) => m[1]
+    );
+    expect(exportados.length, "no se encontro ningun export en evento.js").toBeGreaterThan(10);
+
+    // Se mira src/ y tests/, y se excluye el propio evento.js: hay funciones
+    // que se usan ahi adentro —linkWaReserva llama a mensajeReserva— y
+    // constantes que solo consumen los tests para validar. Ninguna de las dos
+    // cosas es un export muerto.
+    const leerTodo = (raiz, saltar) => {
+      const acum = [];
+      const rec = (dir) => {
+        for (const e of readdirSync(dir, { withFileTypes: true })) {
+          const ruta = join(dir, e.name);
+          if (e.isDirectory()) rec(ruta);
+          else if (/[.](vue|js)$/.test(e.name) && !(saltar && ruta.endsWith(saltar))) {
+            acum.push(readFileSync(ruta, "utf-8"));
+          }
+        }
+      };
+      rec(raiz);
+      return acum.join(" ");
+    };
+    const todo = leerTodo(SRC, join("data", "evento.js")) + " " + leerTodo("tests");
+
+    /*
+      SIN REGEX, a proposito. La primera version buscaba cada nombre con un
+      new RegExp y una frontera de palabra escrita dentro de un template
+      literal, y no matcheaba ninguno: ahi esa secuencia es el caracter
+      BACKSPACE y no la frontera de la expresion regular. Los veintiseis
+      exports salieron huerfanos de una, que es como se ve siempre este error:
+      el caso pasa o falla en bloque, porque la expresion no matchea nunca. Es
+      la tercera vez que muerde en este repo.
+
+      Partir por lo que no es caracter de identificador da lo mismo y no tiene
+      escapes que puedan salir mal.
+    */
+    const palabras = new Set(todo.split(/[^A-Za-z0-9_$]+/));
+    const huerfanos = exportados.filter((n) => !palabras.has(n));
+    expect(huerfanos, "evento.js exporta cosas que no importa nadie").toEqual([]);
   });
 });
 
