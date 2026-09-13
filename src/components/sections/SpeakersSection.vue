@@ -49,11 +49,42 @@
           distintas, y una misma empresa puede mandar dos oradores.
         -->
         <li
-          v-for="(s, i) in SPEAKERS"
+          v-for="(s, i) in speakers"
           :key="`${s.nombre}-${s.empresa}`"
           class="celda-speaker v-reveal p-7"
           :style="{ '--orden': i }"
         >
+          <!--
+            La foto es opcional y el hueco nunca lo es.
+
+            Las fotos van llegando de a una, igual que los nombres, así que la
+            tarjeta tiene que verse terminada sin ella. Cuando no hay, van las
+            iniciales sobre el violeta de superficie: ocupa exactamente el mismo
+            lugar, así que una fila con tres fotos y una sin no se descalibra.
+
+            aspect-square y object-cover: los retratos llegan en cualquier
+            recorte y acá entran todos al mismo, sin deformarse.
+          -->
+          <div class="mb-5 h-16 w-16 overflow-hidden rounded-full bg-acento/15">
+            <img
+              v-if="s.src"
+              :src="s.src"
+              :alt="`Foto de ${s.nombre}`"
+              class="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="64"
+              height="64"
+            />
+            <span
+              v-else
+              class="grid h-full w-full place-items-center text-[1.05rem] font-extrabold tracking-[-0.02em] text-acento-texto"
+              aria-hidden="true"
+            >
+              {{ s.iniciales }}
+            </span>
+          </div>
+
           <p class="text-[1.15rem] font-extrabold leading-tight tracking-[-0.02em]">
             {{ s.nombre }}
           </p>
@@ -86,7 +117,41 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { SPEAKERS } from "@/data/evento";
+
+/*
+  Las fotos se resuelven con import.meta.glob, igual que los logos de partners:
+  así entran al build con su hash y no hay que acordarse de copiarlas a public.
+  El dato sólo guarda el nombre del archivo.
+
+  `eager` porque son seis imágenes chicas y el v-for las necesita todas a la
+  vez; la carga diferida real la hace el loading="lazy" de cada <img>.
+*/
+const archivos = import.meta.glob("@/assets/images/speakers/*", {
+  eager: true,
+  import: "default",
+});
+
+/*
+  Las iniciales son el respaldo cuando todavía no hay foto, y salen del nombre
+  para que no haya un tercer dato que cargar a mano y se pueda desincronizar.
+
+  Se toman la primera palabra y la última: "María del Carmen Pérez" da MP y no
+  MD. Con un solo nombre, una sola letra.
+*/
+function inicialesDe(nombre) {
+  const p = String(nombre).trim().split(/\s+/).filter(Boolean);
+  if (!p.length) return "";
+  return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase();
+}
+
+const speakers = computed(() =>
+  SPEAKERS.map((s) => {
+    const clave = s.foto ? Object.keys(archivos).find((k) => k.endsWith(`/${s.foto}`)) : null;
+    return { ...s, src: clave ? archivos[clave] : "", iniciales: inicialesDe(s.nombre) };
+  })
+);
 </script>
 
 <style scoped>
