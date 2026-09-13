@@ -1,6 +1,22 @@
-Videos verticales 9:16 para la seccion de reels.
+Videos de la edición anterior (ExpoFranquicia).
 
-Dejar los .mp4 aca y completar REELS en src/data/evento.js.
-Mientras REELS este vacio, la seccion no se muestra.
+Sólo los .mp4. El poster de cada uno va en assets/images/expo/, porque es una
+imagen.
 
-Recomendado: max 8 MB por video, H.264, y un poster .jpg del primer frame.
+Se declaran en EXPO.piezas, en src/data/evento.js:
+
+  { tipo: "video", archivo: "bloque.mp4", poster: "bloque.jpg", texto: "Qué se ve" }
+
+EL POSTER NO ES OPCIONAL aunque el código lo tolere: sin él el navegador pinta
+un rectángulo negro hasta que alguien toca play, y una galería de rectángulos
+negros se lee peor que no tener galería.
+
+QUÉ MANDAR
+ · H.264 en .mp4, que es lo que abre en todos lados sin pensar.
+ · 1080p alcanza. El video se ve dentro de una caja de 340px de ancho.
+ · Cortos. Cada archivo se descarga entero cuando alguien toca play, así que
+   un video de 80MB es una espera de un minuto en un teléfono con datos.
+   Si un clip pasa de ~15MB, conviene recortarlo o bajarle el bitrate.
+
+Los .mp4 NO se descargan en la primera carga: van con preload="none", así que
+lo único que pesa al abrir la página son los posters.

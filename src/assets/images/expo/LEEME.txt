@@ -1,0 +1,20 @@
+Fotos de la edición anterior (ExpoFranquicia).
+
+Acá van las fotos de la galería y también los posters de los videos —el poster
+es una imagen, así que vive de este lado y no en assets/video—.
+
+Cada archivo se declara en EXPO.piezas, en src/data/evento.js:
+
+  { tipo: "foto",  archivo: "sala.jpg", texto: "Qué se ve" }
+  { tipo: "video", archivo: "bloque.mp4", poster: "bloque.jpg", texto: "Qué se ve" }
+
+Un archivo que esté acá pero no figure en esa lista no se muestra, y uno que
+figure en la lista pero no exista se descarta solo: una galería con una foto
+menos es mejor que una con un recuadro vacío.
+
+QUÉ MANDAR
+ · Horizontales, que es a lo que la galería recorta (4:3). Una vertical entra
+   igual pero se le va casi la mitad en el recorte.
+ · 1600px de ancho alcanza y sobra. Más que eso es peso que nadie ve.
+ · JPG para fotos de cámara, no PNG: un PNG de una foto pesa cuatro veces más
+   y se ve igual.

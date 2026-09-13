@@ -461,6 +461,36 @@ export const EL_LUNES = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// La edición anterior: ExpoFranquicia.
+//
+// Prueba social de la única clase que no se puede discutir: fotos y videos de
+// que esto ya pasó. Va después del podcast, que es donde el lector ya entendió
+// qué es el evento y lo que le falta es creer que va a suceder.
+//
+// CÓMO SE CARGA. Los archivos van en:
+//
+//   src/assets/images/expo/    las fotos
+//   src/assets/video/          los videos, y su poster como imagen
+//
+// y cada pieza se declara acá:
+//
+//   { tipo: "foto",  archivo: "algo.jpg", texto: "Qué se ve" }
+//   { tipo: "video", archivo: "algo.mp4", poster: "algo.jpg", texto: "Qué se ve" }
+//
+// EL POSTER DE CADA VIDEO NO ES OPCIONAL, aunque el código lo tolere: sin él,
+// el navegador muestra un rectángulo negro hasta que alguien toca play, y una
+// galería de rectángulos negros se lee peor que no tener galería. Los videos
+// van con preload="none": el .mp4 no se descarga hasta que lo piden, así que
+// lo único que pesa en la primera carga son los posters.
+//
+// ARRANCA VACÍA y la sección no se monta hasta que haya algo, que es la misma
+// regla que traía la sección de reels: no se muestran huecos de video.
+export const EXPO = {
+  edicion: "ExpoFranquicia",
+  piezas: [],
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Quiénes hablan.
 //
 // SE CARGAN ACÁ Y NADA MÁS: la sección de la home los lee de esta lista y se

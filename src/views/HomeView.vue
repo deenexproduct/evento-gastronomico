@@ -55,6 +55,14 @@
     -->
     <PodcastSection class="v-reveal bg-noche-2" />
 
+    <!-- ── La edición anterior ──────────────────────────────────────
+         Después del podcast, que es donde el lector ya entendió qué es el
+         evento y lo que le falta es creer que va a pasar. Una galería de algo
+         que ya ocurrió no promete: muestra. Aparece sola cuando EXPO.piezas
+         tenga contenido; vacía no se monta, que es la regla que traía la
+         sección de reels. -->
+    <ExpoSection v-if="hayExpo" class="v-reveal" />
+
     <!--
       Dónde y a qué hora, antes del pedido de reserva: no se le puede pedir el
       sí a alguien que todavía no sabe dónde queda.
@@ -82,10 +90,11 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted } from "vue";
-import { SPEAKERS, MINIMO_SPEAKERS } from "@/data/evento";
+import { SPEAKERS, MINIMO_SPEAKERS, EXPO } from "@/data/evento";
 import QueEsSection from "@/components/sections/QueEsSection.vue";
 import SpeakersSection from "@/components/sections/SpeakersSection.vue";
 import PodcastSection from "@/components/sections/PodcastSection.vue";
+import ExpoSection from "@/components/sections/ExpoSection.vue";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import BarraPartners from "@/components/sections/BarraPartners.vue";
 import JornadaSection from "@/components/sections/JornadaSection.vue";
@@ -101,6 +110,10 @@ import DondeSection from "@/components/sections/DondeSection.vue";
   tocar ningún componente.
 */
 const haySpeakers = computed(() => SPEAKERS.length >= MINIMO_SPEAKERS);
+
+// La galería de la edición anterior: con una pieza ya vale, porque una foto de
+// algo que pasó prueba lo mismo que diez. Lo que no puede es estar vacía.
+const hayExpo = computed(() => (EXPO.piezas || []).length > 0);
 
 let observer = null;
 let respaldo = null;
