@@ -586,7 +586,10 @@ export const PARTNERS = [
   },
   {
     nombre: "Asociación de Marcas y Franquicias",
-    logo: "aamf.webp",
+    // SIN LOGO A PEDIDO (14/09/2026). Sale la imagen, no el partner: la
+    // tarjeta de #partners y el bloque de las 15:20 quedan como estaban.
+    // Sin archivo, el muro y la barra muestran el nombre en tipografía.
+    logo: "",
     rubro: "Institucional",
     empresa:
       "Nuclea a las marcas y cadenas del país que crecen por franquicia y por locales propios.",
