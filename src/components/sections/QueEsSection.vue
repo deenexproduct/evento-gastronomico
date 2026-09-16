@@ -8,7 +8,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
         <div>
-          <p class="rotulo text-gris">Qué es</p>
+          <p class="rotulo text-gris">Qué es {{ EVENTO.nombre }}</p>
           <!--
             El titular decía "Un domingo entre dueños de cadenas": abría con
             lo que el lector PAGA, no con lo que pasa. Y la casilla de al lado
@@ -23,8 +23,20 @@
             párrafo de al lado y encima rompía en cinco líneas, dejando media
             columna derecha en blanco. El titular enmarca, el párrafo detalla.
           -->
+          <!--
+            EL TEXTO DE ESTE BLOQUE ES DE JOAQUÍN LOMBARDI, del 16/09.
+
+            Arranca por lo que NO es, y es a propósito: son las dos cosas con las
+            que este evento se confunde. La expo de franquicias pasa en el mismo
+            edificio y la misma temporada, y "tecnología para gastronomía" hoy
+            suena a delivery. Sacándolas primero, la definición de al lado llega a
+            un lector que ya no está pensando en otra cosa.
+
+            Van en el titular y no en la bajada porque son el gancho: una frase que
+            niega crea la pregunta que la de al lado contesta.
+          -->
           <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-            Un día de tendencias e innovación para tu cadena.
+            No es una feria de franquicias. No es un evento de delivery.
           </h2>
         </div>
 
@@ -45,17 +57,25 @@
             la vista del organizador.
           -->
           <p class="text-[clamp(1.1rem,2.4vw,1.45rem)] font-bold leading-[1.4]">
-            Hacia dónde va el mercado gastronómico y qué están aplicando las cadenas que crecen:
-            <span class="text-acento-texto"
-              >tendencias de consumo, formas nuevas de operar varios locales y las herramientas
-              que lo hacen posible</span
-            >.
+            Es el día en que la industria gastronómica se sienta a ver
+            <span class="text-acento-texto">qué tecnología ya está funcionando</span>, contada por
+            los que la están usando.
           </p>
 
+          <!--
+            MEDIO PÁRRAFO SE FUE PORQUE LA BAJADA NUEVA YA LO DICE. Empezaba "Lo
+            cuenta gente que ya lo aplicó adentro de su propia cadena", y la de
+            arriba termina "contada por los que la están usando": la misma idea,
+            un renglón de distancia.
+
+            La otra mitad se queda y hace falta. La bajada dice que la industria
+            "se sienta a ver", que pone al lector de espectador; este renglón es el
+            único de la sección que le dice que también puede pararse y preguntar
+            por su caso, que es lo que un evento no da y un video sí.
+          -->
           <p class="lectura mt-6 text-[17px] leading-[1.6] text-gris">
-            Lo cuenta gente que ya lo aplicó adentro de su propia cadena, y lo que se muestra en el
-            salón se puede probar ahí mismo: te parás adelante, preguntás por tu caso y ves si te
-            sirve.
+            Y lo que se muestra en el salón se puede probar ahí mismo: te parás
+            adelante, preguntás por tu caso y ves si te sirve.
           </p>
         </div>
       </div>

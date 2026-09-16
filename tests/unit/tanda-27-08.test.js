@@ -23,11 +23,30 @@ describe("2 y 3 · que es", () => {
     expect(queEs).not.toContain("pasa adelante tuyo");
   });
 
-  it("encabeza con tendencias e innovacion, no con tecnologia sola", () => {
-    // Alan: "todo es tecnologia, y el objetivo es que se llevan tendencias,
-    // innovacion, y todo apuntado a mercado gastronomico para cadenas".
-    expect(queEs).toContain("tendencias");
-    expect(queEs).toContain("mercado gastronomico".replace("gastronomico", "gastronómico"));
+  it("habla de la industria gastronómica y de tecnología que ya funciona, no de tecnología como rubro", () => {
+    /*
+      ESTE CASO CAMBIÓ DE CONTENIDO EL 16/09, y la decisión que guardaba antes
+      quedó superada por otra.
+
+      El 27/08 Alan pidió que la sección no encabezara con tecnología: "todo es
+      tecnología, y el objetivo es que se llevan tendencias, innovación, y todo
+      apuntado a mercado gastronómico para cadenas". El caso exigía las
+      palabras "tendencias" y "mercado gastronómico".
+
+      El 16/09 el enfoque se dio vuelta desde arriba: la bajada del hero pasó a
+      "El único evento de tecnología de la industria gastronómica" —texto de
+      Alan— y esta sección, a "qué tecnología ya está funcionando, contada
+      por los que la están usando" —texto de Joaquín Lombardi—. Exigir
+      "tendencias" acá habría sido pelearse con las dos.
+
+      Lo que sobrevive del pedido original es su fondo, y eso es lo que se
+      vigila: que la sección hable DE LA INDUSTRIA GASTRONÓMICA y de tecnología
+      que ya está en uso, no de "tecnología" como categoría suelta, que es lo
+      que aquella frase de Alan rechazaba.
+    */
+    expect(queEs).toContain("industria gastronómica");
+    expect(queEs).toContain("ya está funcionando");
+    // La formulación que se rechazó el 27/08 sigue sin volver.
     expect(queEs).not.toContain("Un día de tecnología para tu cadena");
   });
 });

@@ -200,6 +200,20 @@ test("solo el tramo activo de #acceso lleva su cifra en negro", async ({ page })
   // el elemento tipográfico más grande de esa tarjeta era un cero.
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/#/deadline");
+  /*
+    SE ESPERA A QUE LOS TRAMOS EXISTAN antes de medirlos.
+
+    /#/deadline es una vista de carga diferida: su código es un chunk aparte
+    que se baja al navegar. El caso consultaba #acceso apenas volvía el goto,
+    y corriendo solo pasaba siempre —tres de tres—, pero dentro de la suite
+    completa, con 140 casos en paralelo, a veces el chunk todavía no había
+    montado la vista y encontraba cero tramos. Falló así el 16/09 sin que
+    #acceso tuviera nada roto: el caso medía antes de que hubiera qué medir.
+
+    Esperar al elemento y no un tiempo fijo: un sleep alcanza hasta que la
+    máquina de CI está un poco más cargada.
+  */
+  await page.locator("#acceso article").first().waitFor();
   await revelar(page);
 
   const cifras = await page.evaluate(() => {

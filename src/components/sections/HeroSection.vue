@@ -162,6 +162,27 @@
           </h1>
 
           <!--
+            BY DEENEX, CHIQUITO Y ABAJO. Se volvió a decidir el 16/09, pedido de
+            Joaquín Lombardi —que es lo que el comentario de arriba decía que
+            haría falta—.
+
+            No es lo que se sacó. Aquello ponía "by Deenex" EN el titular, alternando
+            con el nombre cada 6,5 s, así que el texto más grande de la página
+            pasaba la mitad del tiempo diciendo el nombre del organizador. Acá el
+            nombre del evento no se mueve nunca, y Deenex firma debajo a un tamaño
+            que no compite: es un respaldo, no un sujeto.
+
+            Pegado al wordmark (mt-3) y lejos de la bajada (que lleva mt-6), para
+            que se lea como parte del nombre y no como el primer renglón del texto.
+            El logo toma el color del texto que lo rodea: text-gris, que el tema
+            claro pisa por clase.
+          -->
+          <p class="mt-3 flex items-center gap-2 text-[13px] font-medium text-gris">
+            <span>By</span>
+            <LogoDeenex class="h-3.5 w-auto" />
+          </p>
+
+          <!--
             La única promesa de la página, y el sujeto es el LECTOR.
 
             Decía "Deenex crea un espacio para hablar de tecnología
@@ -305,6 +326,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { EVENTO, CUPO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRelojEvento } from "@/composables/useCuentaRegresiva";
+import LogoDeenex from "@/components/ui/LogoDeenex.vue";
 
 const { total, ocupados, porcentaje, agotado, mostrarCupo } = useCupo();
 const { restante } = useRelojEvento();
