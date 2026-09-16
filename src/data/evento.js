@@ -987,7 +987,7 @@ export const FAQ = [
   },
   {
     q: "¿Dónde se realiza exactamente?",
-    a: `En un salón propio del ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba. El salón abre a las ${abreElSalon} y la jornada se extiende hasta las ${cierraLaJornada}. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de SaboresTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de SaboresTech es independiente y se entra por lista: adentro estamos los 200 y nadie más.`,
+    a: `En el ${EVENTO.venue}, ${EVENTO.direccion}, Córdoba, en una sala reservada sólo para la jornada. El salón abre a las ${abreElSalon} y la jornada se extiende hasta las ${cierraLaJornada}. Ese mismo día el centro de convenciones aloja ${EVENTO.eventoMadre}, y tu acreditación de SaboresTech también te habilita ese evento: son unas ${EVENTO.eventoMadreCirculacion} personas circulando por el edificio durante el día. La sala de SaboresTech es independiente y se entra por lista: adentro estamos los 200 y nadie más.`,
   },
 ];
 

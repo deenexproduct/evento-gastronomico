@@ -194,7 +194,26 @@
             que destacarse acá. Lo que sostiene la jerarquía es el salto de
             cuerpo y de tipografía, no el grito.
           -->
-          <p class="mt-6 max-w-[34ch] text-[clamp(1.1rem,2.4vw,1.5rem)] font-medium leading-[1.35]">
+          <!--
+            EL ANCHO LO MARCA EL WORDMARK, no una cuenta de caracteres.
+
+            Tenía max-w-[34ch] y cortaba a media altura de SABORESTECH: el
+            nombre llegaba al final de la línea y la bajada se plegaba mucho
+            antes, así que las dos piezas del hero no compartían ni un borde.
+            Ahora la bajada termina donde termina la H.
+
+            Cómo: el ancho de "SABORESTECH" es proporcional a su cuerpo, y esa
+            proporción es una constante de la tipografía. Medida en la página a
+            dos anchos muy distintos: 11.379 a 1280px y 11.376 a 375px. Con el
+            mismo clamp del h1 multiplicado por ese factor, la bajada sigue al
+            nombre a cualquier ancho sin una sola consulta de media.
+
+            OJO SI SE TOCA ALGUNO DE LOS DOS: el factor vale para esta fuente y
+            para esta palabra. Si cambia la display, o si el evento cambia de
+            nombre, hay que volver a medirlo. Es un máximo, así que equivocarlo
+            desalinea, no rompe.
+          -->
+          <p class="ancho-del-wordmark mt-6 text-[clamp(1.1rem,2.4vw,1.5rem)] font-medium leading-[1.35]">
             Un día entre dueños de cadenas gastronómicas:
             <span class="texto-deenex font-bold">qué están aplicando los que crecen</span>, contado
             por los que ya lo implementaron en sus locales.
@@ -302,6 +321,12 @@ function ir(id) {
 </script>
 
 <style scoped>
+/* El ancho del wordmark: su cuerpo por el factor medido. Ver el comentario
+   de la bajada, arriba. */
+.ancho-del-wordmark {
+  max-width: calc(11.38 * clamp(1.4rem, 7.2vw, 6rem));
+}
+
 /* ── El titular ────────────────────────────────────────────────────── */
 
 /*

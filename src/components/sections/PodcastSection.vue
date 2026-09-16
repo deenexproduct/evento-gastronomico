@@ -173,9 +173,15 @@
                     Video
                   </span>
                 </div>
-                <figcaption v-if="pieza.texto" class="mt-2 text-[13px] leading-[1.4] text-gris-2">
-                  {{ pieza.texto }}
-                </figcaption>
+                <!--
+                  SIN EPÍGRAFE. Cada pieza tenía su nota debajo —«El set, entre
+                  charla y charla»— y las sacó Alan: en una tira que se desliza,
+                  el texto de abajo obliga a leer para ver, que es lo contrario
+                  de lo que hace una galería. Las fotos se explican solas.
+
+                  EL DATO SIGUE EN EXPO y no se borró: es el alt de cada imagen.
+                  Lo que dejó de estar es el renglón a la vista.
+                -->
               </figure>
             </div>
           </div>

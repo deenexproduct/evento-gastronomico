@@ -13,8 +13,20 @@
   <section id="donde" class="border-b border-linea py-seccion">
     <div class="contenedor">
       <p class="rotulo text-acento-texto">Dónde y a qué hora</p>
-      <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-        Un salón propio, con entrada por lista
+      <!--
+        EL TITULAR DEJÓ DE DESCRIBIR LA SALA Y PASÓ A DECIR EL NÚMERO.
+
+        Decía «Un salón propio, con entrada por lista», que es correcto y no
+        dice nada: todo evento pasa en un salón y casi todos tienen lista.
+        El dato que este lugar sí tiene, y que ninguna otra sección cuenta,
+        es la desproporción: doscientos adentro de un edificio por el que ese
+        mismo día pasan veinte mil. Eso explica de una por qué la sala es
+        chica a propósito y por qué la acreditación vale doble.
+
+        Los dos números salen de CUPO y de EVENTO: ninguno escrito acá.
+      -->
+      <h2 class="titulo mt-4 max-w-[22ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
+        {{ CUPO.total }} adentro, {{ EVENTO.eventoMadreCirculacion }} en el edificio
       </h2>
 
       <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -96,7 +108,7 @@
 </template>
 
 <script setup>
-import { EVENTO, TEMAS, BORDES } from "@/data/evento";
+import { EVENTO, CUPO, TEMAS, BORDES } from "@/data/evento";
 
 const comoLlegar =
   "https://www.google.com/maps/search/?api=1&query=" +
