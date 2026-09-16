@@ -47,20 +47,6 @@
           </ul>
 
           <!--
-            Decía «Los invitados y el momento del día se anuncian con el programa
-            final». Ya están los dos publicados: cada entrevista figura en la
-            jornada con su hora y su orador. La línea le prometía al lector algo que
-            tenía dos secciones más arriba, así que ahora le dice dónde está.
-
-            Sin la palabra «grilla»: hay un caso en repeticiones.test.js que sólo
-            la permite en las secciones que la publican, y ésta no es una.
-          -->
-          <p class="mt-7 text-[14px] leading-[1.55] text-gris-2">
-            Cada entrevista figura en el programa de la jornada, a continuación de la
-            charla de su empresa.
-          </p>
-
-          <!--
             LA EDICIÓN ANTERIOR, ADENTRO DE ESTE MISMO MARCO.
 
             Estuvo un rato como sección propia debajo y estaba mal leído: acá
@@ -69,10 +55,13 @@
             veces. Adentro del marco es lo que es: la sección promete una
             grabación en vivo, y abajo muestra cómo salió la vez anterior.
 
-            El filete de arriba lo separa sin abrirle una sección: es el mismo
-            bloque, dos momentos.
+            SIN FILETE ARRIBA. Lo separaba una línea violeta, y antes de ella
+            una nota que mandaba a buscar las entrevistas en el programa; Alan
+            sacó las dos el 16/09. Ahora lo separa el aire: mt-12 es más que
+            los 32px entre el párrafo y los puntos, así que la etiqueta no se
+            lee como un punto más.
           -->
-          <div v-if="hayExpo" class="mt-10 border-t border-acento/20 pt-8">
+          <div v-if="hayExpo" class="mt-12">
             <!--
               LA ETIQUETA VA EN VIOLETA Y CON ALMOHADILLA, que es como sale en
               redes: el que ya la vio pasar por ahí la reconoce sin leer nada
