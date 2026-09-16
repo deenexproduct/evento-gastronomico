@@ -109,6 +109,9 @@ for (const ancho of ANCHOS) {
     // sponsor no traiga archivo.
     await page.setViewportSize({ width: ancho, height: 900 });
     await page.goto("/#/participan");
+    // La vista es de carga diferida: se espera a que las tarjetas existan antes
+    // de medirlas. Ver el comentario largo en el caso de #acceso, más abajo.
+    await page.locator("#partners article").first().waitFor();
     await revelar(page);
 
     const medido = await page.evaluate(() => {
@@ -162,6 +165,9 @@ test("la grilla de partners no deja una tarjeta sola con la fila vacía", async 
   // de fila en blanco, y se leía como si faltara un partner.
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/#/participan");
+  // La vista es de carga diferida: se espera a que las tarjetas existan antes
+  // de medirlas. Ver el comentario largo en el caso de #acceso, más abajo.
+  await page.locator("#partners article").first().waitFor();
   await revelar(page);
 
   const filas = await page.evaluate(() => {
@@ -212,6 +218,14 @@ test("solo el tramo activo de #acceso lleva su cifra en negro", async ({ page })
 
     Esperar al elemento y no un tiempo fijo: un sleep alcanza hasta que la
     máquina de CI está un poco más cargada.
+
+    NO ERA SÓLO ESTE CASO. El mismo día falló igual "ninguna cabecera de
+    sponsor se encima a su chip", que va a /#/participan. revelar() no espera
+    a la vista: inyecta estilos y aguarda 120 ms. En este archivo hay tres
+    casos que entran a una vista diferida; los que miden con page.evaluate
+    —que no espera— llevan ahora el waitFor. El de /#/beneficios no hace
+    falta: mide con un locator, y Playwright espera solo a que el locator
+    exista.
   */
   await page.locator("#acceso article").first().waitFor();
   await revelar(page);

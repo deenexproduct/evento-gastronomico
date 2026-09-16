@@ -291,6 +291,17 @@ test("ningún logo de sponsor queda invisible sobre el fondo claro", async ({ pa
   // #partners vive en /participan, y ahí está también la cinta de #respaldan:
   // en la home este caso sólo veía la cinta y ninguna tarjeta.
   await page.goto("/#/participan");
+  /*
+    SE ESPERA A LAS TARJETAS, y acá la carrera podía terminar en verde.
+
+    /#/participan es de carga diferida y más abajo se juntan los logos con
+    page.$$, que no espera. La barra de #respaldan suele estar antes que la
+    vista, así que bajo carga el caso podía encontrar sólo los logos de la
+    barra, pasar la guarda de "alguna imagen hay" y dar por buenos los de las
+    tarjetas sin haberlos medido. Es el modo de falla que este archivo tiene
+    anotado dos veces: pasar por vacío.
+  */
+  await page.locator("#partners article").first().waitFor();
   await revelarTodo(page);
   await page.evaluate(() => {
     document.querySelectorAll(".barra-fija, header").forEach((e) => (e.style.visibility = "hidden"));

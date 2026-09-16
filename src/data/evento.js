@@ -743,7 +743,7 @@ export const EXPO = {
 // sección aparece sola en la home sin tocar ningún componente.
 export const SPEAKERS = [
   { nombre: "Gastón Ponteville", empresa: "Bistrosoft", foto: "gaston-ponteville.jpg", logo: "bistrosoft.svg" },
-  { nombre: "Alan Tapia", empresa: "Deenex", foto: "alan-tapia.jpg" },
+  { nombre: "Alan Tapia", empresa: "Deenex", foto: "alan-tapia.jpg", logo: "deenex.svg" },
   {
     nombre: "Martín Zuker",
     rol: "Cofundador y CEO",
