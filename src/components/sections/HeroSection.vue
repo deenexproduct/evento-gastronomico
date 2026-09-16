@@ -176,10 +176,16 @@
             que se lea como parte del nombre y no como el primer renglón del texto.
             El logo toma el color del texto que lo rodea: text-gris, que el tema
             claro pisa por clase.
+
+            MÁS GRANDE DESDE EL 16/09, pedido de Alan. A 13px con el logo de 14px
+            de alto no se leía: las letras del logo ocupan el 43% de su caja, así
+            que DEENEX medía 6px, menos que la B de "By". Ahora el alto del logo
+            es 1.5em y crece con el texto; el texto crece por pantalla, porque el
+            wordmark de arriba también lo hace.
           -->
-          <p class="mt-3 flex items-center gap-2 text-[13px] font-medium text-gris">
+          <p class="mt-3 flex items-center gap-[0.4em] text-[15px] font-medium text-gris sm:text-[17px] lg:text-[19px]">
             <span>By</span>
-            <LogoDeenex class="h-3.5 w-auto" />
+            <LogoDeenex class="h-[1.5em] w-auto" />
           </p>
 
           <!--
