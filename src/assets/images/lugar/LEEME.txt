@@ -1,4 +1,8 @@
-Fotos del lugar y del evento.
+Fotos del lugar.
 
-Dejá el archivo acá y poné su nombre en FOTOS de src/data/evento.js.
-Mientras el nombre esté vacío, la landing muestra un hueco marcado.
+hotel-quinto-centenario.avif es la del hero: la torre del hotel al atardecer.
+Se importa directo en src/components/sections/HeroSection.vue.
+
+Si llega una versión más grande, reemplazá el archivo con el mismo nombre. La
+de hoy mide 575x855 y el hero la muestra a 280-320px de ancho para no
+estirarla: con un original más grande se puede mostrar más grande.

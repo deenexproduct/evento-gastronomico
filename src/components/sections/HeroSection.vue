@@ -40,7 +40,7 @@
     ></div>
 
     <div class="contenedor relative py-12 sm:py-16">
-      <div class="grid items-start gap-10">
+      <div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-12">
         <!--
           Columna del mensaje.
 
@@ -58,7 +58,7 @@
           scroll. Con min-w-0 la columna se encoge y el nombre se parte en dos
           renglones, que es feo pero se lee.
         -->
-        <div class="min-w-0">
+        <div class="columna-titular min-w-0">
           <!--
             Donde y cuando, antes que nada. Con el panel de la derecha
             afuera, estas dos lineas son lo unico que lo dicen en la primera
@@ -139,7 +139,7 @@
             siguiente que proteger.
           -->
           <h1
-            class="display mt-4 text-[clamp(1.4rem,7.2vw,6rem)] leading-[0.88] tracking-[-0.035em]"
+            class="titular-hero display mt-4 leading-[0.88] tracking-[-0.035em]"
           >
             <!--
               El nombre y nada más. Acá había un cruce animado: la palabra se
@@ -316,6 +316,40 @@
           </p>
         </div>
 
+        <!--
+          LA FOTO DEL LUGAR. Pedido de Alan del 16/09: que en la primera pantalla
+          aparezca una foto, y no sólo texto.
+
+          Es la torre del Hotel Quinto Centenario al atardecer, o sea la sede. No
+          es decoración: es el mismo dato que el rótulo de arriba dice en letra
+          chica, dicho con la imagen del edificio.
+
+          DÓNDE VA. En escritorio, a la derecha del mensaje. En teléfono, DEBAJO
+          de todo lo demás y no arriba: la foto es vertical, y puesta antes del
+          nombre empujaba el botón de reservar fuera de la primera pantalla, que
+          es lo único que esa pantalla tiene que garantizar.
+
+          POR QUÉ TAN CHICA. El archivo que llegó mide 575x855. A 320px de ancho
+          en una pantalla de alta densidad ya son 640 píxeles físicos, apenas por
+          encima del original: más grande se vería estirada. Con un original de
+          más resolución se puede agrandar sin tocar nada más que el ancho.
+
+          Proporción original y sin recorte: width y height le dicen al navegador
+          cuánto va a ocupar antes de bajarla, así el texto no salta cuando
+          carga. Se pide ya y no diferida porque en escritorio está en la primera
+          pantalla, y pesa 38 KB.
+        -->
+        <figure class="w-full max-w-[320px] lg:w-[280px] xl:w-[320px]">
+          <img
+            :src="fotoHotel"
+            :alt="`${EVENTO.venue}, ${EVENTO.ciudad}: la sede de ${EVENTO.nombre}`"
+            width="575"
+            height="855"
+            class="h-auto w-full rounded-2xl"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
       </div>
     </div>
   </section>
@@ -327,6 +361,7 @@ import { EVENTO, CUPO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRelojEvento } from "@/composables/useCuentaRegresiva";
 import LogoDeenex from "@/components/ui/LogoDeenex.vue";
+import fotoHotel from "@/assets/images/lugar/hotel-quinto-centenario.avif";
 
 const { total, ocupados, porcentaje, agotado, mostrarCupo } = useCupo();
 const { restante } = useRelojEvento();
@@ -368,10 +403,50 @@ function ir(id) {
 </script>
 
 <style scoped>
-/* El ancho del wordmark: su cuerpo por el factor medido. Ver el comentario
-   de la bajada, arriba. */
+/*
+  ── El titular y la bajada, medidos contra SU COLUMNA ────────────────────
+
+  Hasta el 16/09 el cuerpo de SABORESTECH salía del ancho de la PANTALLA
+  (7.2vw) y la bajada llegaba hasta la H con el factor 11.38: el ancho del
+  nombre dividido su cuerpo, medido a 375 y a 1280px. Andaba porque el nombre
+  tenía el ancho entero para él solo.
+
+  Con la foto al costado ya no lo tiene. A 1280px el nombre medía 1049px y la
+  columna del mensaje pasa a medir 768: medido contra la pantalla se hubiera
+  metido abajo de la foto.
+
+  Así que ahora se mide contra la columna. .columna-titular es un contenedor
+  (container-type: inline-size) y el cuerpo es 100cqi / 11.38 —el ancho de la
+  columna dividido el mismo factor—, o sea que el nombre ocupa exactamente la
+  columna, con foto o sin ella, a cualquier ancho. Y la bajada, que tenía que
+  terminar donde termina la H, ahora sólo tiene que ocupar la columna: ya no
+  hace falta calcularla.
+
+  El techo de 6rem y el piso de 1.4rem son los de siempre. EL FACTOR SIGUE
+  VALIENDO SOLO PARA ESTA FUENTE Y ESTA PALABRA: si cambia la display o el
+  nombre del evento, hay que volver a medirlo.
+
+  EL RESPALDO. Un navegador que no conoce cqi ignora las dos declaraciones de
+  adentro del @supports y se queda con las de afuera, que son exactamente las
+  de antes. Ahí no hay foto al costado en ningún caso que importe: los que
+  no soportan cqi son anteriores a 2023.
+*/
+.columna-titular {
+  container-type: inline-size;
+}
+.titular-hero {
+  font-size: clamp(1.4rem, 7.2vw, 6rem);
+}
 .ancho-del-wordmark {
   max-width: calc(11.38 * clamp(1.4rem, 7.2vw, 6rem));
+}
+@supports (width: 1cqi) {
+  .titular-hero {
+    font-size: clamp(1.4rem, calc(100cqi / 11.38), 6rem);
+  }
+  .ancho-del-wordmark {
+    max-width: 100%;
+  }
 }
 
 /* ── El titular ────────────────────────────────────────────────────── */
