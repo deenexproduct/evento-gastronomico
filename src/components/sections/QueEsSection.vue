@@ -8,7 +8,7 @@
     <div class="contenedor">
       <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
         <div>
-          <p class="rotulo text-gris">Qué es {{ EVENTO.nombre }}</p>
+          <p class="rotulo text-gris">Qué es</p>
           <!--
             El titular decía "Un domingo entre dueños de cadenas": abría con
             lo que el lector PAGA, no con lo que pasa. Y la casilla de al lado
@@ -24,28 +24,34 @@
             columna derecha en blanco. El titular enmarca, el párrafo detalla.
           -->
           <!--
-            EL TEXTO DE ESTE BLOQUE ES DE JOAQUÍN LOMBARDI, del 16/09.
+            EL TEXTO DE ESTE BLOQUE ES DE ALAN, del 16/09 a la tarde.
 
-            Arranca por lo que NO es, y es a propósito: son las dos cosas con las
-            que este evento se confunde. La expo de franquicias pasa en el mismo
-            edificio y la misma temporada, y "tecnología para gastronomía" hoy
-            suena a delivery. Sacándolas primero, la definición de al lado llega a
-            un lector que ya no está pensando en otra cosa.
+            Reemplazó al de Joaquín Lombardi de la mañana del mismo día, que
+            abría por la negativa —"No es una feria de franquicias. No es un evento
+            de delivery."— y duró publicado unas horas.
 
-            Van en el titular y no en la bajada porque son el gancho: una frase que
-            niega crea la pregunta que la de al lado contesta.
+            "Tecnología APLICADA" y no "tecnología" a secas, y la palabra importa:
+            el 27/08 se había rechazado "Un día de tecnología para tu cadena"
+            porque pedía al lector que viniera por una categoría. "Aplicada" le
+            dice que viene a ver algo que ya funciona en una cadena como la suya,
+            que es lo que la bajada de al lado enumera.
           -->
           <h2 class="titulo mt-4 max-w-[20ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-            No es una feria de franquicias. No es un evento de delivery.
+            Un día de tecnología aplicada para tu cadena.
           </h2>
         </div>
 
         <div>
           <!--
-            La frase más grande de la sección ponía al lector de oyente
-            —"escuchan a los que ya resolvieron"— cuando lo que la jornada
-            ofrece de distinto es lo contrario: pararse adelante y preguntar
-            por el caso propio. Acá se dice en ese orden.
+            LA BAJADA ENUMERA, Y EN VIOLETA VA LA LISTA. Lo que el que evalúa venir
+            quiere saber es QUÉ va a ver, y esos cinco ítems —sistemas para
+            varios locales, canales propios, datos, inteligencia artificial,
+            automatización— son la respuesta concreta. La primera mitad de la
+            frase los presenta; el acento cae donde está la información.
+
+            "Que funciona de verdad" cierra la lista a propósito: es la única
+            aclaración que le importa a un dueño que ya compró una herramienta que
+            prometió mucho.
 
             Sale el párrafo sobre Deenex. Quién organiza se contesta en el FAQ,
             que es donde lo busca el que quiere saberlo. Decirlo acá, en el
@@ -57,25 +63,26 @@
             la vista del organizador.
           -->
           <p class="text-[clamp(1.1rem,2.4vw,1.45rem)] font-bold leading-[1.4]">
-            Es el día en que la industria gastronómica se sienta a ver
-            <span class="text-acento-texto">qué tecnología ya está funcionando</span>, contada por
-            los que la están usando.
+            Qué están usando hoy las cadenas que crecen:
+            <span class="text-acento-texto">sistemas para operar varios locales, canales propios,
+              datos para decidir, inteligencia artificial y automatización que funciona de
+              verdad</span>.
           </p>
 
           <!--
-            MEDIO PÁRRAFO SE FUE PORQUE LA BAJADA NUEVA YA LO DICE. Empezaba "Lo
-            cuenta gente que ya lo aplicó adentro de su propia cadena", y la de
-            arriba termina "contada por los que la están usando": la misma idea,
-            un renglón de distancia.
+            QUIÉN LO CUENTA, en dos grupos y no en uno. Referentes de tecnología
+            del mercado —los que venden y arman los sistemas— y marcas
+            gastronómicas que ya los aplicaron: el que escucha a un proveedor sabe
+            que le están vendiendo, y el que escucha a otra cadena sabe que le
+            están contando. Tener los dos es lo que hace creíble al primero.
 
-            La otra mitad se queda y hace falta. La bajada dice que la industria
-            "se sienta a ver", que pone al lector de espectador; este renglón es el
-            único de la sección que le dice que también puede pararse y preguntar
-            por su caso, que es lo que un evento no da y un video sí.
+            Hubo acá un renglón sobre probar las cosas en el salón y preguntar por
+            el caso propio. Sale con este texto; los stands siguen dichos en "Y
+            además, todo el día", en la jornada.
           -->
           <p class="lectura mt-6 text-[17px] leading-[1.6] text-gris">
-            Y lo que se muestra en el salón se puede probar ahí mismo: te parás
-            adelante, preguntás por tu caso y ves si te sirve.
+            Lo cuentan referentes de tecnología del mercado y marcas gastronómicas que ya lo
+            aplicaron para la misma industria en la que estás vos.
           </p>
         </div>
       </div>

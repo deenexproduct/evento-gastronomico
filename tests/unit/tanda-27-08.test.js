@@ -23,31 +23,36 @@ describe("2 y 3 · que es", () => {
     expect(queEs).not.toContain("pasa adelante tuyo");
   });
 
-  it("habla de la industria gastronómica y de tecnología que ya funciona, no de tecnología como rubro", () => {
+  it("la tecnología llega calificada y atada a la cadena, nunca como rubro suelto", () => {
     /*
-      ESTE CASO CAMBIÓ DE CONTENIDO EL 16/09, y la decisión que guardaba antes
-      quedó superada por otra.
+      ESTE CASO VIGILA UNA IDEA, NO UNA REDACCIÓN, y tuvo que aprenderlo dos
+      veces el mismo día.
 
-      El 27/08 Alan pidió que la sección no encabezara con tecnología: "todo es
-      tecnología, y el objetivo es que se llevan tendencias, innovación, y todo
-      apuntado a mercado gastronómico para cadenas". El caso exigía las
-      palabras "tendencias" y "mercado gastronómico".
+      Origen: el 27/08 Alan rechazó "Un día de tecnología para tu cadena" —"todo
+      es tecnología"— porque le pedía al lector que viniera por una categoría.
+      El caso exigía las palabras "tendencias" y "mercado gastronómico".
 
-      El 16/09 el enfoque se dio vuelta desde arriba: la bajada del hero pasó a
-      "El único evento de tecnología de la industria gastronómica" —texto de
-      Alan— y esta sección, a "qué tecnología ya está funcionando, contada
-      por los que la están usando" —texto de Joaquín Lombardi—. Exigir
-      "tendencias" acá habría sido pelearse con las dos.
+      El 16/09 el texto de la sección cambió DOS VECES en unas horas —primero
+      Joaquín Lombardi, después Alan—, y las dos veces este caso falló sin
+      que hubiera un defecto: la primera porque ya no decía "tendencias", la
+      segunda porque se lo había reescrito para exigir las palabras exactas del
+      texto de Joaquín, que duró publicado una tarde. Un caso que fija la
+      redacción se rompe cada vez que alguien mejora una frase, y termina
+      editándose sin leer para qué estaba.
 
-      Lo que sobrevive del pedido original es su fondo, y eso es lo que se
-      vigila: que la sección hable DE LA INDUSTRIA GASTRONÓMICA y de tecnología
-      que ya está en uso, no de "tecnología" como categoría suelta, que es lo
-      que aquella frase de Alan rechazaba.
+      Lo que se vigila ahora es lo que aquel pedido quería de fondo:
+
+        · que la sección hable de la CADENA del lector, y no del rubro en
+          abstracto;
+        · que la formulación desnuda —"tecnología para tu cadena", sin nada
+          que la califique— no vuelva. "Tecnología aplicada para tu cadena"
+          pasa; "tecnología que ya funciona en tu cadena" pasaría.
     */
-    expect(queEs).toContain("industria gastronómica");
-    expect(queEs).toContain("ya está funcionando");
-    // La formulación que se rechazó el 27/08 sigue sin volver.
-    expect(queEs).not.toContain("Un día de tecnología para tu cadena");
+    const visible = queEs.split("<script")[0].replace(/<!--[\s\S]*?-->/g, "");
+    expect(visible, "la sección dejó de hablarle a la cadena del lector").toMatch(/cadena/i);
+    expect(visible, "volvió la tecnología como rubro suelto").not.toMatch(
+      /tecnología para tu cadena/i
+    );
   });
 });
 
