@@ -78,7 +78,9 @@ const archivos = import.meta.glob("@/assets/images/partners/*", {
   import: "default",
 });
 
-const partners = PARTNERS.map((p) => {
+// Las que sólo van en la barra no arman tarjeta: sin rubro, quién ni aporte,
+// la tarjeta quedaría con cuatro renglones vacíos. Ver `enTarjetas` en PARTNERS.
+const partners = PARTNERS.filter((p) => p.enTarjetas !== false).map((p) => {
   const clave = p.logo ? Object.keys(archivos).find((k) => k.endsWith(`/${p.logo}`)) : null;
   return { ...p, src: clave ? archivos[clave] : "" };
 });

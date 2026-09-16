@@ -872,6 +872,9 @@ export const MINIMO_SPEAKERS = 3;
  * `enBarra: false` lo deja fuera de la barra de arriba y le conserva la
  * tarjeta — se usa para los que no son el nombre de una empresa.
  *
+ * `enTarjetas: false` es la inversa: va en la barra y no arma tarjeta. Es para
+ * la marca confirmada de la que todavía no hay rubro, quién ni aporte.
+ *
  * La grilla de tarjetas está medida hasta seis: con cuatro y con cinco no
  * deja una sola colgada en una fila vacía (ver bloque-a.spec.js).
  */
@@ -912,6 +915,17 @@ export const PARTNERS = [
     empresa: "Los proveedores que ponen lo que se come y se toma durante toda la jornada.",
     quien: "Cuatro rondas más una larga",
     aporte: "Alfajores, aceitunas, humus y café entre bloque y bloque, y coffee break a la tarde.",
+  },
+  {
+    nombre: "Coca-Cola",
+    logo: "coca-cola.webp",
+    // SÓLO EN LA BARRA. Alan la sumó el 16/09 a las marcas que participan, y
+    // de su participación no hay todavía rubro, quién viene ni qué aporta —los
+    // cuatro datos que arma cada tarjeta de #participan—. Una tarjeta con
+    // esos cuatro renglones vacíos se lee como un sponsor a medio cerrar, que
+    // es peor que no tenerla. Cuando lleguen, se borra esta línea y la tarjeta
+    // aparece sola.
+    enTarjetas: false,
   },
 ];
 
