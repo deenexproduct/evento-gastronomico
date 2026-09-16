@@ -40,8 +40,9 @@ describe("la grilla del día no se contradice sola", () => {
   });
 
   it("ninguna fila dura menos de cero minutos", () => {
-    // La apertura del salón dura cero a propósito —es un instante, no un
-    // bloque—, pero una fila negativa significa horas invertidas.
+    // Una fila de cero minutos puede existir —la apertura del salón lo fue
+    // hasta la planilla del 16/09: un instante, no un bloque—, pero una fila
+    // negativa significa horas invertidas.
     const negativas = GRILLA.filter((f) => duracionDe(f) < 0).map(
       (f) => `${f.desde} a ${f.hasta}`
     );
@@ -109,13 +110,31 @@ describe("la condición por la que la grilla volvió sigue siendo cierta", () =>
   });
 
   it("ningún bloque de contenido se publica sin decir quién lo da", () => {
+    // Quién lo da es el orador, o los panelistas en un panel. La única otra
+    // salida es `anuncio`, que dice por qué todavía no hay nombre; el caso de
+    // abajo impide que se vuelva costumbre.
     const sinNombre = deContenido
-      .filter((f) => !String(f.orador || "").trim())
+      .filter((f) => !String(f.orador || "").trim() && !(f.panelistas || []).length && !f.anuncio)
       .map((f) => `${f.desde} ${f.titulo || "(sin título)"}`);
     expect(
       sinNombre,
       "hay bloques sin orador: es la condición por la que la grilla se sacó de la home la vez anterior"
     ).toEqual([]);
+  });
+
+  it("el bloque que se anuncia sin nombre es uno solo", () => {
+    /*
+      Existe desde el 16/09: una entrevista cuya empresa todavía no autorizó
+      por escrito que se la nombre, y Alan eligió publicarla así antes que
+      sacarla. Uno solo se lee como una sorpresa; dos o tres, como los huecos
+      por los que esta grilla estuvo fuera de la home.
+
+      Y el que se anuncia no lleva orador: las dos cosas juntas son un nombre
+      publicado al lado de la frase que dice que todavía no se publica.
+    */
+    const anunciados = deContenido.filter((f) => f.anuncio);
+    expect(anunciados.length, "hay más de un bloque anunciado sin nombre").toBeLessThanOrEqual(1);
+    expect(anunciados.filter((f) => f.orador || f.empresa).map((f) => f.desde)).toEqual([]);
   });
 
   it("los títulos abiertos son minoría", () => {
@@ -193,6 +212,21 @@ describe("la grilla y el resto de la página cuentan el mismo día", () => {
       }
     }
     expect(casi, "hay nombres que se parecen sin ser iguales: la foto no va a aparecer").toEqual([]);
+  });
+
+  it("cada panelista está en SPEAKERS, escrito igual", () => {
+    /*
+      Más estricto que el caso de arriba, y a propósito. Un orador puede no
+      tener tarjeta todavía; un panelista no es texto libre sino una referencia:
+      su nombre es lo que busca la cara y lo que da la empresa que se lee bajo
+      el título del panel. Uno que no esté en SPEAKERS desaparece del panel sin
+      que nada falle.
+    */
+    const panelistas = [...new Set(GRILLA.flatMap((f) => f.panelistas || []))];
+    expect(panelistas.length, "la grilla no tiene panelistas para comparar").toBeGreaterThan(0);
+
+    const nombres = new Set(SPEAKERS.map((s) => s.nombre));
+    expect(panelistas.filter((n) => !nombres.has(n))).toEqual([]);
   });
 
   it("toda foto cargada en SPEAKERS existe como archivo", () => {

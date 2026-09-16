@@ -26,7 +26,8 @@
     cuatro. "Charlas", "Paneles" y "Networking del mediodía" decían sin horas lo
     que la grilla dice con horas, nombre y empresa —repetían en abstracto lo que
     abajo se ve en concreto—, y "Referentes tecnológicos" es lo que cuenta la
-    sección de oradores. Los cuatro que quedan son los que la grilla no puede
+    sección de oradores. El 16/09 salió también el invitado especial, que pasó
+    a tener fila en la grilla. Los que quedan son los que la grilla no puede
     mostrar porque no ocupan una fila del escenario, y van abajo de ella.
   -->
   <section id="jornada" class="border-b border-linea py-seccion">
@@ -69,9 +70,9 @@
       <!--
         LO QUE NO ENTRA EN LA GRILLA, porque no ocupa una fila del escenario.
 
-        Los stands están abiertos todo el día, la degustación y el café pasan
-        entre bloque y bloque, y el invitado especial todavía no tiene hora. Si
-        esto no estuviera, el lector concluiría que el sábado es sentarse a
+        Los stands están abiertos todo el día, y la degustación y el café pasan
+        entre bloque y bloque. Si esto no estuviera, el lector concluiría que
+        el sábado es sentarse a
         mirar el escenario nueve horas, que es justamente lo que el evento no
         es. Va después de la grilla y no antes: primero el programa, después lo
         que lo rodea.

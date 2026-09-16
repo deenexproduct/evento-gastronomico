@@ -4,9 +4,9 @@ Landing de convocatoria de **SaboresTech**: un día de gastronomía y tecnologí
 cadenas gastronómicas. **Sábado 19 de septiembre de 2026, Hotel Quinto Centenario, Duarte Quirós
 1300, Córdoba.** Entrada sin costo, con reserva previa y cupo real de 200 personas.
 
-El día se parte en dos franjas: **jornada de 9 a 18** —acreditación desde las 9:00, charlas de 10 a
-18— y **networking de 18 a 21**. El evento completo, que es lo que leen el `.ics` y el JSON-LD, va de
-9 a 21.
+El día se parte en dos franjas: **jornada de 9:30 a 17:10** —acreditación desde las 9:30, charlas de
+10 a 17:10— y **networking de 17:10 a 18:10**. El evento completo, que es lo que leen el `.ics` y el
+JSON-LD, va de 9:30 a 18:10.
 
 La landing es el destino de toda la comunicación del evento: cada video, cada pieza de pauta y cada
 bio terminan acá. **No hay formulario**: se reserva escribiendo por WhatsApp, con el mensaje
@@ -23,7 +23,7 @@ dato que buscás está ahí.
 | Las dos puntas del día: acreditación y cierre | `BORDES` |
 | Cupo y lugares tomados | `CUPO.ocupados` |
 | Qué se lleva el que viene | `EL_LUNES` |
-| Los temas del día, con hora y duración | `TEMAS` |
+| La grilla del día, fila por fila con sus horas | `GRILLA` |
 | Qué va a haber ese día (lo que muestra la home) | `QUE_HAY` |
 | Qué NO es el evento | `NO_ES` |
 | Partners cerrados | `PARTNERS` |
@@ -39,18 +39,18 @@ dato que buscás está ahí.
 esté confirmado por escrito. Por eso hay bloques con "orador por confirmar" y un invitado especial
 sin nombre.
 
-**Hay cuatro ventanas horarias y no son intercambiables.** `horario` es el evento entero (9 a 21, lo
-que se agenda), `horarioJornada` el programa (9 a 18), `horarioNetworking` lo que sigue (18 a 21) y
-`horarioCharlas` el escenario (10 a 18). Mezclarlas ya rompió esta página tres veces; el bloque de
-comentarios arriba de esas constantes explica cuál contesta qué.
+**Hay cuatro ventanas horarias y no son intercambiables.** `horario` es el evento entero (9:30 a
+18:10, lo que se agenda), `horarioJornada` el programa (9:30 a 17:10), `horarioNetworking` lo que
+sigue (17:10 a 18:10) y `horarioCharlas` el escenario (10 a 17:10). Mezclarlas ya rompió esta página
+tres veces; el bloque de comentarios arriba de esas constantes explica cuál contesta qué.
 
-**Dos cierres distintos.** `BORDES.cierre.hora` (18:00) es cuando termina la grilla y arranca el
-networking; `BORDES.cierre.hasta` (21:00) es cuando se corta la sala. El `.ics` tiene que cubrir
-hasta el segundo, o la alarma de fin suena tres horas antes de que el evento termine.
+**Dos cierres distintos.** `BORDES.cierre.hora` (17:10) es cuando termina el escenario y arranca el
+networking; `BORDES.cierre.hasta` (18:10) es cuando se corta la sala. El `.ics` tiene que cubrir
+hasta el segundo, o la alarma de fin suena una hora antes de que el evento termine.
 
-**La grilla ya no se muestra.** `TEMAS` sigue siendo la fuente —alimenta el `.ics`, la aritmética del
-día y los tests que verifican que todo cierre a horario— pero la home muestra `QUE_HAY`, que es la
-lista de qué va a haber sin horas.
+**La grilla es la fuente de las horas.** `GRILLA` es el run-of-show de producción y la home la publica
+entera, menos las transiciones. Las puntas de `EVENTO` y `BORDES` repiten su primera y su última fila,
+y `tests/unit/contradicciones.test.js` falla si dejan de coincidir.
 
 ## La tarjeta que se comparte
 

@@ -302,18 +302,22 @@ describe("el día como argumento", () => {
 
 /**
  * La hora de cierre se declara en lugares que no se hablan entre si:
- * EVENTO.horario (lo que lee el .ics), BORDES.cierre y la suma de la grilla.
+ * EVENTO.horario (lo que lee el .ics), BORDES y la grilla.
  * Durante un tiempo la grilla termino 18:05 mientras los otros dos decian
  * 18:00, y ningun test lo vio: el que llegaba a las 17:55 pensando que
  * quedaban cinco minutos se encontraba con un panel empezado hacia media hora.
  *
- * AHORA HAY DOS CIERRES Y NO SON EL MISMO:
- *   BORDES.cierre.hora  (18:00) — termina la GRILLA y arranca el networking.
- *   BORDES.cierre.hasta (21:00) — termina el EVENTO y se corta la sala.
+ * HAY DOS CIERRES Y NO SON EL MISMO:
+ *   BORDES.cierre.hora  (17:10) — termina el ESCENARIO y arranca el networking.
+ *   BORDES.cierre.hasta (18:10) — termina el EVENTO y se corta la sala.
  *
  * EVENTO.horario tiene que cubrir hasta el segundo, porque es lo que queda
- * agendado en el telefono de la gente: si el .ics terminara a las 18, la
- * alarma de fin sonaria tres horas antes de que la sala se vacie.
+ * agendado en el telefono de la gente: si el .ics terminara a las 17:10, la
+ * alarma de fin sonaria una hora antes de que la sala se vacie.
+ *
+ * SE MIDE CONTRA GRILLA, que es el programa que la pagina publica. Hasta el
+ * 16/09 se media contra TEMAS, el cronograma anterior, y por eso nada fallo
+ * mientras la grilla publicada abria 9:30 y cerraba 18:20 con el .ics de 9 a 21.
  *
  * Se compara la ARITMETICA, no el texto. Si manana se alarga un bloque o se
  * corre una hora, esto se cae antes de publicarse.
@@ -323,13 +327,27 @@ describe("la hora a la que termina el dia", () => {
     const [hh, mm] = String(h).split(":").map(Number);
     return hh * 60 + (mm || 0);
   };
-  const finDeGrilla = Math.max(...TEMAS.map((b) => min(b.hora) + b.dur));
+  const ultima = GRILLA[GRILLA.length - 1];
+  const escenario = GRILLA.slice(0, -1);
+  const finDeEscenario = Math.max(...escenario.map((f) => min(f.hasta)));
+  // El primer bloque es la primera fila con alguien arriba del escenario.
+  const primerBloque = Math.min(
+    ...GRILLA.filter((f) => f.orador || f.panelistas || f.anuncio).map((f) => min(f.desde))
+  );
 
-  it("la grilla termina exactamente cuando arranca el networking de cierre", () => {
-    expect(finDeGrilla).toBe(min(BORDES.cierre.hora));
+  it("la grilla abre y cierra a las horas que declaran EVENTO y BORDES", () => {
+    expect(min(GRILLA[0].desde)).toBe(min(BORDES.apertura.hora));
+    expect(min(EVENTO.puertas)).toBe(min(BORDES.apertura.hora));
+    expect(min(ultima.hasta)).toBe(min(BORDES.cierre.hasta));
   });
 
-  it("el .ics cubre hasta que se corta la sala, no hasta que termina la grilla", () => {
+  it("el escenario termina exactamente cuando arranca el networking de cierre", () => {
+    expect(ultima.tipo).toBe("cierre");
+    expect(min(ultima.desde)).toBe(min(BORDES.cierre.hora));
+    expect(finDeEscenario).toBe(min(BORDES.cierre.hora));
+  });
+
+  it("el .ics cubre hasta que se corta la sala, no hasta que termina el escenario", () => {
     const marcas = String(EVENTO.horario).match(/\d{1,2}(?::\d{2})?/g) || [];
     expect(marcas).toHaveLength(2);
     // La punta de EVENTO.horario es el fin del EVENTO: BORDES.cierre.hasta.
@@ -338,35 +356,40 @@ describe("la hora a la que termina el dia", () => {
     expect(min(BORDES.apertura.hora)).toBe(min(marcas[0]));
   });
 
-  it("el networking de cierre va despues de la grilla y antes del corte", () => {
+  it("el networking de cierre va despues del escenario y antes del corte", () => {
     expect(min(BORDES.cierre.hora)).toBeLessThan(min(BORDES.cierre.hasta));
-    expect(finDeGrilla).toBeLessThanOrEqual(min(BORDES.cierre.hora));
+    expect(finDeEscenario).toBeLessThanOrEqual(min(BORDES.cierre.hora));
   });
 
   /*
-    Las tres franjas que publica EVENTO tienen que encajar entre si: la jornada
-    va de la apertura al fin de la grilla, el networking de ahi al corte, y el
-    horario del evento cubre las dos. Si alguien mueve una y se olvida de otra,
-    esto se cae.
+    Las franjas que publica EVENTO tienen que encajar entre si: la jornada va
+    de la apertura al fin del escenario, el networking de ahi al corte, y el
+    horario del evento cubre las dos. Las charlas van del primer bloque de la
+    grilla al fin del escenario: esa franja es la que imprime la tarjeta de
+    WhatsApp, y nada la comparaba con la grilla. Si alguien mueve una y se
+    olvida de otra, esto se cae.
   */
   it("las franjas publicadas encajan con las puntas del dia", () => {
     const puntas = (rango) => (String(rango).match(/\d{1,2}(?::\d{2})?/g) || []).map(min);
     const [jorIni, jorFin] = puntas(EVENTO.horarioJornada);
     const [netIni, netFin] = puntas(EVENTO.horarioNetworking);
+    const [chaIni, chaFin] = puntas(EVENTO.horarioCharlas);
 
     expect(jorIni).toBe(min(BORDES.apertura.hora));
     expect(jorFin).toBe(min(BORDES.cierre.hora));
     expect(netIni).toBe(min(BORDES.cierre.hora)); // el networking arranca donde termina la jornada
     expect(netFin).toBe(min(BORDES.cierre.hasta));
+    expect(chaIni).toBe(primerBloque);
+    expect(chaFin).toBe(min(BORDES.cierre.hora));
   });
 
   it("ningun bloque se pasa de la hora declarada", () => {
-    const tarde = TEMAS.filter((b) => min(b.hora) + b.dur > min(BORDES.cierre.hora));
-    expect(tarde.map((b) => `${b.id} ${b.hora}+${b.dur}′`)).toEqual([]);
+    const tarde = escenario.filter((f) => min(f.hasta) > min(BORDES.cierre.hora));
+    expect(tarde.map((f) => `${f.desde} a ${f.hasta}`)).toEqual([]);
   });
 
   it("la acreditacion abre antes del primer bloque", () => {
-    expect(min(BORDES.apertura.hora)).toBeLessThan(Math.min(...TEMAS.map((b) => min(b.hora))));
+    expect(min(BORDES.apertura.hora)).toBeLessThan(primerBloque);
   });
 
   /*

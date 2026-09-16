@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { GRILLA, TIPOS_GRILLA } from "../../src/data/evento.js";
+import { GRILLA, TIPOS_GRILLA, SPEAKERS } from "../../src/data/evento.js";
 
 /**
  * LA JORNADA: que la grilla esté entera, y que se entienda.
@@ -43,8 +43,8 @@ test("está la grilla entera menos las de producción", async ({ page }) => {
 
   /*
     Se cuentan las filas de GRILLA que llegaron a la pantalla, no los <li>: el
-    componente agrupa de a pares, así que catorce filas de contenido viven
-    dentro de ocho cajas. Contar contenedores mediría el agrupamiento; contar
+    componente agrupa de a pares, así que quince filas de contenido viven
+    dentro de nueve cajas. Contar contenedores mediría el agrupamiento; contar
     filas mide que no se haya perdido ninguna.
 
     LO QUE SE ESPERA NO ES 29 sino 29 menos las de servicio, y sale de la
@@ -88,6 +88,22 @@ test("cada bloque de contenido muestra quién lo da", async ({ page }) => {
     faltan,
     "hay oradores de la grilla que no se leen: es la condición por la que la grilla se sacó la vez anterior"
   ).toEqual([]);
+
+  /*
+    Los paneles no tienen orador: se leen por las empresas de sus panelistas,
+    y el bloque sin nombre, por su anuncio. Sin esto, un panel podía llegar a
+    la pantalla con el título y nada debajo, y este caso pasaba igual.
+  */
+  const paneles = FILAS_DE_CONTENIDO.filter((f) => f.panelistas);
+  expect(paneles.length, "la grilla ya no tiene paneles para medir").toBeGreaterThan(0);
+  const empresaDe = (nombre) => SPEAKERS.find((s) => s.nombre === nombre)?.empresa;
+  const empresasSinLeer = paneles
+    .flatMap((f) => f.panelistas.map(empresaDe))
+    .filter((e) => !e || !texto.includes(e));
+  expect(empresasSinLeer, "hay empresas de un panel que no se leen").toEqual([]);
+
+  const anuncios = FILAS_DE_CONTENIDO.filter((f) => f.anuncio).map((f) => f.anuncio);
+  expect(anuncios.filter((a) => !texto.includes(a))).toEqual([]);
 });
 
 test("las horas que se leen son las de la planilla", async ({ page }) => {
@@ -115,13 +131,13 @@ test("las filas de producción no se publican", async ({ page }) => {
   await abrirJornada(page);
 
   /*
-    "Promo y presentación" es producción: la misma frase nueve veces entre las
+    "Promo y presentación" es producción: la misma frase diez veces entre las
     charlas, nada que el que evalúa venir el sábado pueda usar para decidir.
     Alan las sacó el 15/09 después de verlas puestas.
 
     SIGUEN EN GRILLA —el dato es el run-of-show completo— así que lo que se fija
     acá es que el filtro esté en la vista y siga funcionando: si alguien lo
-    saca, vuelven nueve renglones a la pantalla sin que nada falle.
+    saca, vuelven diez renglones a la pantalla sin que nada falle.
 
     Se comprueba por el texto y no por el selector de la fila. Un selector que
     ya no existe matchea cero y el caso pasa por vacío, que es exactamente cómo

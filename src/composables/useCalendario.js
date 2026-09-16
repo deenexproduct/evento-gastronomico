@@ -59,8 +59,8 @@ function plegar(linea) {
 }
 
 /**
- * Duración leída del horario declarado ("9 a 21" → 12 h). Se calcula como
- * diferencia de minutos y se suma al instante de inicio: hacerlo con setHours
+ * Duración leída del horario declarado ("9:30 a 18:10" → 8 h 40′). Se calcula
+ * como diferencia de minutos y se suma al instante de inicio: hacerlo con setHours
  * escribiría hora local del navegador, y una máquina configurada fuera de
  * Argentina generaría un evento de otra duración —o con el fin antes del
  * inicio.

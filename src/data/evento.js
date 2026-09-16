@@ -20,7 +20,7 @@ export const EVENTO = {
   // que leen el .ics, el JSON-LD y la cuenta regresiva. Si dijera 10:00 —la
   // hora del escenario—, el que se lo agenda llegaría con la acreditación
   // terminada, que es un error que este archivo ya tuvo.
-  fechaISO: "2026-09-19T09:00:00-03:00",
+  fechaISO: "2026-09-19T09:30:00-03:00",
   fechaLarga: "Sábado 19 de septiembre de 2026",
   fechaCorta: "Sábado 19.09.2026",
   // Sin anio: entra en una linea en el rotulo del hero a 375px de ancho.
@@ -32,32 +32,36 @@ export const EVENTO = {
   // CUATRO ventanas, y cada una contesta una pregunta distinta. Mezclarlas es
   // lo que ya rompio esta pagina tres veces.
   //
-  // `horario` es EL EVENTO ENTERO: 9:00 con la acreditacion y los stands ya
-  // abiertos, hasta las 21:00 cuando se corta el networking. Es lo que leen el
-  // .ics y el JSON-LD, o sea lo que queda agendado en el telefono de la gente.
-  // Si dijera "9 a 18", al que se lo agenda le suena la alarma de fin tres
-  // horas antes de que el evento termine.
+  // `horario` es EL EVENTO ENTERO: 9:30 con la acreditacion y los stands ya
+  // abiertos, hasta las 18:10 cuando termina el networking de cierre. Es lo que
+  // leen el .ics y el JSON-LD, o sea lo que queda agendado en el telefono de la
+  // gente. Si dijera "9:30 a 17:10", al que se lo agenda le suena la alarma de
+  // fin una hora antes de que el evento termine.
   //
-  // `horarioJornada` es el programa: de 9 a 18, acreditacion y charlas. Es lo
-  // que contesta "cuanto dura el dia de trabajo".
+  // `horarioJornada` es el programa: de 9:30 a 17:10, acreditacion y
+  // escenario. Es lo que contesta "cuanto dura el dia de trabajo".
   //
-  // `horarioNetworking` es lo que sigue: de 18 a 21, sin escenario.
+  // `horarioNetworking` es lo que sigue: de 17:10 a 18:10, sin escenario.
   //
   // `horarioCharlas` es el escenario: el primer bloque es 10:00. Escribir
-  // "charlas de 9" mandaria a la sala a gente que todavia tiene que
+  // "charlas de 9:30" mandaria a la sala a gente que todavia tiene que
   // acreditarse.
   //
-  // Estas horas ya se movieron: la apertura fue 8:30, despues 9:30 y ahora
-  // 9:00; el cierre fue 18:00 y ahora 21:00. Cada vez quedaron restos en los
-  // lugares que las escriben a mano —el respaldo sin JS de index.html, el
-  // endDate del JSON-LD, la tarjeta de og-image.py y los textos del FAQ—, asi
-  // que si se vuelven a mover hay que barrer los tres formatos: "9:00",
-  // "9 a 21" y el ISO de fechaISO.
-  horario: "9 a 21",
-  horarioJornada: "9 a 18",
-  horarioNetworking: "18 a 21",
-  horarioCharlas: "10 a 18",
-  puertas: "9:00",
+  // LAS PUNTAS SALEN DE GRILLA: la primera fila abre el salón y la última
+  // cierra el networking. Acá se repiten porque este objeto se lee antes que
+  // la grilla, y contradicciones.test.js vigila que digan lo mismo.
+  //
+  // Estas horas ya se movieron: la apertura fue 8:30, 9:30, 9:00 y de nuevo
+  // 9:30; el cierre fue 18:00, 21:00 y ahora 18:10, con la planilla del 16/09.
+  // Cada vez quedaron restos en los lugares que las escriben a mano —el
+  // respaldo sin JS y el JSON-LD de index.html, la tarjeta de og-image.py—, asi
+  // que si se vuelven a mover hay que barrer los tres formatos: "9:30",
+  // "9:30 a 18:10" y el ISO de fechaISO.
+  horario: "9:30 a 18:10",
+  horarioJornada: "9:30 a 17:10",
+  horarioNetworking: "17:10 a 18:10",
+  horarioCharlas: "10 a 17:10",
+  puertas: "9:30",
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
@@ -318,8 +322,16 @@ export const TEMAS = [
 // ─────────────────────────────────────────────────────────────────────────────
 // LA GRILLA DEL DÍA — el run-of-show, tal cual lo opera producción.
 //
-// Es la planilla pasada a dato, fila por fila y sin editar: las mismas 29
-// filas, los mismos horarios, los mismos nombres.
+// Es la planilla del 16/09 pasada a dato, fila por fila: las mismas 29 filas y
+// los mismos horarios. Es también la fuente de las horas de toda la página:
+// la jornada y el FAQ las leen de acá, y EVENTO y BORDES repiten las dos
+// puntas del día bajo la vigilancia de contradicciones.test.js.
+//
+// LO QUE NO SE COPIÓ DE LA PLANILLA, por decisión de Alan y no por descuido:
+// la conductora, que no se nombra en la página (15/09); el título de la
+// apertura, que la planilla sigue llamando «Bienvenida y apertura de la
+// jornada» (15/09); el apellido del orador de PUNI (ver SPEAKERS), y el nombre
+// de la entrevista de las 15:20 (ver la fila).
 //
 // POR QUÉ VUELVE LA GRILLA. Se había sacado de la home por una razón escrita
 // en JornadaSection: "una agenda hora por hora obliga a publicar quién da cada
@@ -327,21 +339,19 @@ export const TEMAS = [
 // existe —cada bloque de contenido tiene nombre y empresa—, así que el motivo
 // del retiro se cayó.
 //
-// Lo que queda abierto son tres TÍTULOS, no tres oradores. Es una
-// diferencia que el lector nota: un tema sin cerrar con una persona puesta se
-// lee como un programa en armado; una persona sin cerrar, como un evento a
-// medio vender. Los cuatro van con `titulo: ""` y el componente resuelve cómo
-// se muestra un título que todavía no está.
-//
 // EL DÍA TIENE UN PATRÓN y es lo único que la planilla no deja ver: cada
 // empresa ocupa DOS filas seguidas —su charla y después su entrevista en vivo
-// con Alan—. Siete empresas, catorce filas. Por eso el componente agrupa de a
-// pares y no renglón por renglón: son siete unidades, no veintinueve.
+// con Alan—. Seis empresas, doce filas. Por eso el componente agrupa de a
+// pares y no renglón por renglón.
 //
 // `tipo` manda sobre el peso visual. `transicion` es producción pura —promo y
-// presentación entre bloque y bloque—: va, porque la planilla la tiene, pero no
-// compite con el contenido. Si las nueve transiciones pesaran lo mismo que las
-// charlas, la grilla exacta sería ilegible, que es lo contrario de lo pedido.
+// presentación entre bloque y bloque—: está en el dato porque la planilla la
+// tiene, y la vista no la publica.
+//
+// LOS PANELES LLEVAN `panelistas` Y NO `orador`: son varias personas, y la
+// grilla busca la cara de cada una en SPEAKERS por nombre exacto. Un nombre
+// escrito distinto no rompe nada —la cara simplemente no aparece—, así que un
+// test exige que cada panelista esté en SPEAKERS tal cual.
 //
 // LA DURACIÓN NO SE ESCRIBE: se calcula de `desde` y `hasta`. La planilla la
 // trae en su propia columna y las 29 coinciden —lo comprueba un test—, pero un
@@ -350,145 +360,148 @@ export const TEMAS = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const GRILLA = [
-  { desde: "09:30", hasta: "09:30", tipo: "salon", titulo: "Apertura del salón" },
+  { desde: "09:30", hasta: "10:00", tipo: "salon", titulo: "Acreditación y stands abiertos" },
 
   {
-    desde: "09:30", hasta: "09:45", tipo: "apertura",
+    desde: "10:00", hasta: "10:15", tipo: "apertura",
     // El título lo puso Alan el 15/09. La fila SIGUE siendo la apertura: es lo
-    // que abre el día y lo que encadena con el salón, que se abre a la misma
-    // hora. Lo que cambió es que deje de anunciarse como un trámite
-    // —«bienvenida y apertura»— y diga de qué va a hablar.
+    // que abre el escenario, a la hora en que termina la acreditación. Lo que
+    // cambió es que deje de anunciarse como un trámite —«bienvenida y
+    // apertura», que es como la sigue llamando la planilla— y diga de qué va a
+    // hablar.
     titulo: "Cómo dirigir tu negocio con datos y IA",
     orador: "Alan Tapia",
     conduccion: "Alan Tapia",
   },
 
-  { desde: "09:45", hasta: "09:55", tipo: "transicion" },
+  { desde: "10:15", hasta: "10:25", tipo: "transicion" },
 
   {
-    desde: "09:55", hasta: "10:10", tipo: "charla",
-    titulo: "La trampa del software fácil en la era de la IA",
+    desde: "10:25", hasta: "10:40", tipo: "charla",
+    // El salto de línea es el de la planilla, que lo trae en dos renglones:
+    // el título y, abajo, lo que promete. La vista lo respeta con
+    // white-space: pre-line.
+    titulo:
+      "La trampa del software fácil en la era de la IA:\nLo que un gastronómico debería saber antes de digitalizar su negocio",
     orador: "Gastón Ponteville", empresa: "Bistrosoft",
   },
   {
-    desde: "10:10", hasta: "10:25", tipo: "podcast",
+    desde: "10:40", hasta: "10:55", tipo: "podcast",
     titulo: "Entrevista en vivo: caso Bistrosoft",
     orador: "Gastón Ponteville", empresa: "Bistrosoft",
     conduccion: "Alan Tapia",
   },
 
-  { desde: "10:25", hasta: "10:35", tipo: "transicion" },
+  { desde: "10:55", hasta: "11:05", tipo: "transicion" },
 
   {
-    desde: "10:35", hasta: "10:50", tipo: "charla",
-    titulo: "Tecnología para dark kitchens",
-    orador: "Martín Zuker", empresa: "I+DIoT Lab",
+    desde: "11:05", hasta: "11:20", tipo: "charla",
+    titulo: "De un horno de barro a 90 locales: qué sistemas hubo que construir en el medio",
+    orador: "Franco Suárez", empresa: "El Hornito Santiagueño",
   },
   {
-    desde: "10:50", hasta: "11:05", tipo: "podcast",
-    titulo: "Entrevista en vivo: caso I+DIoT Lab",
-    orador: "Martín Zuker", empresa: "I+DIoT Lab",
-    conduccion: "Alan Tapia",
-  },
-
-  { desde: "11:05", hasta: "11:20", tipo: "transicion" },
-
-  { desde: "11:20", hasta: "12:20", tipo: "networking", titulo: "Networking del mediodía" },
-
-  { desde: "12:20", hasta: "12:35", tipo: "transicion" },
-
-  {
-    desde: "12:35", hasta: "12:50", tipo: "charla",
-    titulo: "", orador: "Matías Yoma", empresa: "PUNI",
-  },
-  {
-    desde: "12:50", hasta: "13:05", tipo: "podcast",
-    titulo: "Entrevista en vivo: caso PUNI",
-    orador: "Matías Yoma", empresa: "PUNI",
-    conduccion: "Alan Tapia",
-  },
-
-  { desde: "13:05", hasta: "13:15", tipo: "transicion" },
-
-  {
-    desde: "13:15", hasta: "13:30", tipo: "charla",
-    titulo: "", orador: "Vicente Biondo", empresa: "AQA",
-  },
-  {
-    desde: "13:30", hasta: "13:45", tipo: "podcast",
-    titulo: "Entrevista en vivo: caso AQA",
-    orador: "Vicente Biondo", empresa: "AQA",
-    conduccion: "Alan Tapia",
-  },
-
-  { desde: "13:45", hasta: "13:55", tipo: "transicion" },
-
-  {
-    desde: "13:55", hasta: "14:10", tipo: "charla",
-    // La planilla lo trae como «TEMA A CONFIRMAR - "QUÉ DATOS MIRO EN PEDIDOS
-    // YA"»: el título no está cerrado, pero el tema sí. Se publica el tema, no
-    // la palabra "a confirmar" delante de él.
-    titulo: "Qué datos miro en Pedidos Ya",
-    orador: "Gabriel Chayle", empresa: "Pimentón",
-  },
-  {
-    desde: "14:10", hasta: "14:25", tipo: "podcast",
-    titulo: "Entrevista en vivo: caso Pimentón",
-    orador: "Gabriel Chayle", empresa: "Pimentón",
-    conduccion: "Alan Tapia",
-  },
-
-  { desde: "14:25", hasta: "14:35", tipo: "transicion" },
-
-  {
-    desde: "14:35", hasta: "14:50", tipo: "charla",
-    titulo: "", orador: "Franco Suárez", empresa: "El Hornito Santiagueño",
-  },
-  {
-    desde: "14:50", hasta: "15:05", tipo: "podcast",
+    desde: "11:20", hasta: "11:35", tipo: "podcast",
     titulo: "Entrevista en vivo: caso El Hornito Santiagueño",
     orador: "Franco Suárez", empresa: "El Hornito Santiagueño",
     conduccion: "Alan Tapia",
   },
 
-  { desde: "15:05", hasta: "15:15", tipo: "transicion" },
+  { desde: "11:35", hasta: "11:45", tipo: "transicion" },
+
+  { desde: "11:45", hasta: "12:45", tipo: "networking", titulo: "Networking del mediodía" },
+
+  { desde: "12:45", hasta: "12:55", tipo: "transicion" },
 
   {
-    desde: "15:15", hasta: "15:45", tipo: "charla",
-    titulo: "IA y datos",
+    desde: "12:55", hasta: "13:10", tipo: "charla",
+    titulo: "De la cocina a la puerta: dónde se gana o se pierde un cliente",
+    orador: "Matías Yoma", empresa: "PUNI",
+  },
+  {
+    desde: "13:10", hasta: "13:25", tipo: "podcast",
+    titulo: "Entrevista en vivo: caso PUNI",
+    orador: "Matías Yoma", empresa: "PUNI",
+    conduccion: "Alan Tapia",
+  },
+
+  { desde: "13:25", hasta: "13:35", tipo: "transicion" },
+
+  {
+    desde: "13:35", hasta: "13:50", tipo: "charla",
+    titulo: "Cómo escalar tu negocio en las aplicaciones de delivery",
+    orador: "Gabriel Chayle", empresa: "Pimentón",
+  },
+  {
+    desde: "13:50", hasta: "14:05", tipo: "podcast",
+    titulo: "Entrevista en vivo: caso Pimentón",
+    orador: "Gabriel Chayle", empresa: "Pimentón",
+    conduccion: "Alan Tapia",
+  },
+
+  { desde: "14:05", hasta: "14:15", tipo: "transicion" },
+
+  {
+    desde: "14:15", hasta: "14:30", tipo: "panel",
+    titulo: "Gastronomía de punta a punta: la cadena completa en un solo panel",
+    // La planilla lo escribe por empresa —Bistrosoft, El Hornito, PUNI,
+    // Pimentón y Deenex—: son los cuatro oradores que hablaron antes, más Alan.
+    panelistas: ["Gastón Ponteville", "Franco Suárez", "Matías Yoma", "Gabriel Chayle", "Alan Tapia"],
+  },
+
+  { desde: "14:30", hasta: "14:40", tipo: "transicion" },
+
+  {
+    desde: "14:40", hasta: "14:55", tipo: "charla",
+    titulo: "Dark kitchens: el futuro de la industria gastronómica, tendencias e innovación constante",
+    orador: "Martín Zuker", empresa: "I+DIoT Lab",
+  },
+  {
+    desde: "14:55", hasta: "15:10", tipo: "podcast",
+    titulo: "Entrevista en vivo: caso I+DIoT Lab",
+    orador: "Martín Zuker", empresa: "I+DIoT Lab",
+    conduccion: "Alan Tapia",
+  },
+
+  { desde: "15:10", hasta: "15:20", tipo: "transicion" },
+
+  {
+    desde: "15:20", hasta: "15:50", tipo: "podcast",
+    // SIN NOMBRE, A PROPÓSITO. La planilla le pone empresa y orador, pero la
+    // autorización por escrito para publicarlos todavía no está, y la regla
+    // del brief es que al aire sólo se nombra lo cerrado. Alan eligió el 16/09
+    // que figure así hasta que firme.
+    //
+    // `anuncio` ocupa el lugar de `orador`: dice por qué no hay nombre en vez
+    // de dejar el hueco. Cuando firme, se borra y entran `orador`, `empresa` y
+    // el título del caso, como en las demás entrevistas.
+    titulo: "Invitado especial",
+    anuncio: "El nombre se anuncia antes del evento",
+    conduccion: "Alan Tapia",
+  },
+
+  { desde: "15:50", hasta: "16:00", tipo: "transicion" },
+
+  {
+    desde: "16:00", hasta: "16:30", tipo: "charla",
+    titulo: "IA sin humo: cómo usarla para tener resultados",
     orador: "Marcos Bruno", empresa: "Merovingian Data",
   },
   {
-    desde: "15:45", hasta: "16:00", tipo: "podcast",
+    desde: "16:30", hasta: "16:45", tipo: "podcast",
     titulo: "Entrevista en vivo: caso Merovingian Data",
     orador: "Marcos Bruno", empresa: "Merovingian Data",
     conduccion: "Alan Tapia",
   },
 
-  { desde: "16:00", hasta: "16:10", tipo: "transicion" },
+  { desde: "16:45", hasta: "16:55", tipo: "transicion" },
 
   {
-    desde: "16:10", hasta: "17:10", tipo: "panel",
-    titulo: "Panel de expertos",
-    orador: "Todos los oradores del día",
-    // `todos` en vez de que la vista adivine por el texto del orador. La
-    // grilla muestra las caras de quien está en el escenario en cada fila, y
-    // en ésta están los siete: sin esta marca habría que reconocer la frase
-    // "Todos los oradores del día" con una comparación de texto, que se rompe
-    // el día que alguien la reescriba en singular o le cambie una tilde.
-    todos: true,
-    conduccion: "Alan Tapia",
+    desde: "16:55", hasta: "17:10", tipo: "panel",
+    titulo: "Referentes hablan de innovación, IA y datos en la industria gastronómica",
+    panelistas: ["Martín Zuker", "Marcos Bruno", "Alan Tapia"],
   },
 
-  {
-    desde: "17:10", hasta: "17:20", tipo: "cierre",
-    titulo: "Cierre",
-    orador: "Alan Tapia",
-  },
-  {
-    desde: "17:20", hasta: "18:20", tipo: "cierre",
-    titulo: "Networking de cierre",
-  },
+  { desde: "17:10", hasta: "18:10", tipo: "cierre", titulo: "Networking de cierre" },
 ];
 
 /**
@@ -510,7 +523,7 @@ export const TIPOS_GRILLA = {
   cierre: { label: "Cierre", icono: "gente", peso: "marco" },
   // Sin ícono a propósito: la transición se dibuja como un filete entre dos
   // bloques, no como una fila más. Un pictograma la subiría al mismo peso que
-  // la charla que separa, que es exactamente lo que hay que evitar nueve veces.
+  // la charla que separa, que es exactamente lo que hay que evitar diez veces.
   transicion: { label: "Promo y presentación", icono: "", peso: "servicio" },
 };
 
@@ -548,33 +561,33 @@ export const TIPOS_BLOQUE = {
  */
 export const PAUSAS = {};
 /**
- * Las dos puntas del día. Estas sí publican hora: 9:00, 18:00 y 21:00 ya están
- * al aire en la sección del lugar y en EVENTO.horario.
+ * Las dos puntas del día. Estas sí publican hora: 9:30, 17:10 y 18:10 están
+ * al aire en la sección del lugar y en EVENTO.horario. Son las de GRILLA —la
+ * primera fila y la última— y un test verifica que sigan siéndolo.
  *
  * OJO CON `cierre`: su `hora` es cuando ARRANCA el networking, no cuando
- * termina el evento. Son las 18:00, que es también cuando termina la grilla —de
- * ahí que un test verifique que el último bloque cae exactamente ahí—. El
- * evento sigue tres horas más y termina a las 21:00, que es lo que dice
- * `hasta` y lo que tiene que leer el .ics.
+ * termina el evento. Son las 17:10, que es también cuando termina el
+ * escenario. El evento sigue una hora más y termina a las 18:10, que es lo que
+ * dice `hasta` y lo que tiene que leer el .ics.
  *
  * Confundir esas dos es el error que hay que evitar: si el .ics tomara `hora`,
- * la alarma de fin sonaría tres horas antes de que la sala se vacíe.
+ * la alarma de fin sonaría una hora antes de que la sala se vacíe.
  */
 export const BORDES = {
   apertura: {
     id: "apertura",
     tipo: "apertura",
-    hora: "9:00",
+    hora: "9:30",
     titulo: "Acreditación y stands abiertos",
     detalle: "Te recibimos uno por uno, con los stands ya abiertos.",
   },
   cierre: {
     id: "cierre",
     tipo: "cierre",
-    hora: "18:00",
-    hasta: "21:00",
+    hora: "17:10",
+    hasta: "18:10",
     titulo: "Networking de cierre",
-    detalle: "Termina la jornada y la sala queda suelta hasta las 21.",
+    detalle: "Termina el escenario y la sala sigue una hora más para el networking.",
   },
 };
 
@@ -582,18 +595,23 @@ export const BORDES = {
 /**
  * Lo que pasa fuera del escenario, y por eso no tiene hora.
  *
- * ESTA LISTA ERA DE OCHO Y AHORA ES DE CUATRO. Existía para reemplazar al
- * cronograma: mientras la home no publicaba grilla, enumerar "Charlas",
- * "Paneles" y "Networking del mediodía" era la única forma de decir qué había
+ * ESTA LISTA ERA DE OCHO, PASÓ A CUATRO Y AHORA ES DE TRES. Existía para
+ * reemplazar al cronograma: mientras la home no publicaba grilla, enumerar
+ * "Charlas", "Paneles" y "Networking del mediodía" era la única forma de decir qué había
  * ese día. Con GRILLA publicada, esos tres se leen dos veces en la misma
  * pantalla —una acá en abstracto y otra abajo con hora, nombre y empresa—, y
  * de las dos sobra la que no da datos. Salió también "Referentes
  * tecnológicos", que es lo que cuenta la sección de oradores.
  *
- * Los cuatro que quedan son los que la grilla NO puede mostrar, porque no
- * ocupan una fila del escenario: pasan en paralelo o entre medio. Sacarlos
- * junto con los otros habría borrado de la página los stands y la degustación,
- * que son parte de lo que se compra al reservar el sábado.
+ * Los que quedan son los que la grilla NO puede mostrar, porque no ocupan una
+ * fila del escenario: pasan en paralelo o entre medio. Sacarlos junto con los
+ * otros habría borrado de la página los stands y la degustación, que son parte
+ * de lo que se compra al reservar el sábado.
+ *
+ * Y SALIÓ EL INVITADO ESPECIAL el 16/09, por la misma regla: dejó de ser algo
+ * sin hora. Con la planilla nueva tiene su fila en la grilla —la entrevista de
+ * las 15:20—, y dicho acá también se leía dos veces en la misma pantalla, una
+ * con hora y otra sin.
  *
  * Sobre la degustación y el coffee break: el commit af88276 los sacó del
  * cronograma porque las ocho pausas decían "Degustación y preparación" una
@@ -603,13 +621,6 @@ export const BORDES = {
  * problema: una mención, no ocho.
  */
 export const QUE_HAY = [
-  {
-    icono: "estrella",
-    titulo: "Invitado especial",
-    // Sin nombre a propósito: la regla del brief es que al aire sólo se nombra
-    // lo cerrado. Cuando esté firmado, entra el nombre acá.
-    detalle: "El nombre se anuncia antes del evento.",
-  },
   {
     icono: "demo",
     titulo: "Stands",
@@ -801,9 +812,12 @@ export const SPEAKERS = [
     // ampliando el original, no fue una mala transcripción— y él lo pasó dos
     // veces como «Matías Yoma, fundador de PUNI» al mandar la foto. Se unificó
     // en Yoma, acá y en GRILLA, por ser el dato más reciente y más específico.
-    // Si la planilla tenía razón se cambia en los dos lugares a la vez: son los
-    // únicos dos, y el retrato se busca por nombre EXACTO, así que con uno solo
-    // cambiado la cara desaparece de la grilla sin que nada falle.
+    // La planilla del 16/09 sigue con el otro apellido y se mantuvo Yoma: Alan
+    // la mandó pidiendo que valgan sus correcciones por encima de ella.
+    // Si la planilla tenía razón se cambia en TRES lugares a la vez —acá, las
+    // dos filas de GRILLA y los panelistas del panel de las 14:15—: el retrato
+    // se busca por nombre EXACTO, así que con uno solo cambiado la cara
+    // desaparece de la grilla sin que nada falle.
     nombre: "Matías Yoma",
     rol: "Fundador",
     empresa: "PUNI",

@@ -68,16 +68,24 @@ describe("tarjeta compartida (og-image.py)", () => {
   });
 
   it("publica la hora en que se corta la sala", () => {
-    // "21:00" en los datos, "21" en la tarjeta: alcanza con la hora.
-    expect(dibujo).toContain(BORDES.cierre.hasta.split(":")[0]);
+    // En punto va sin los minutos —"21:00" en los datos era "21" en la
+    // tarjeta—; con minutos, entera. Buscar sólo la hora dejaba pasar un
+    // "18" cualquiera cuando el corte es 18:10.
+    const corte = BORDES.cierre.hasta.replace(/:00$/, "");
+    expect(dibujo).toContain(corte);
   });
 
   it("no arrastra ninguna hora que evento.js ya no declara", () => {
-    // 9:30 y 8:30 fueron aperturas anteriores; "cierre 18:00" fue el cierre
-    // anterior. Ninguna puede seguir impresa en la tarjeta.
-    expect(dibujo).not.toContain("9:30");
+    // 8:30 y 9:00 fueron aperturas anteriores; "cierre 18:00" y "hasta las 21",
+    // cierres anteriores. Ninguna puede seguir impresa en la tarjeta.
+    //
+    // 9:30 estuvo en esta lista y el 16/09 volvió a ser la apertura: una lista
+    // de horas viejas se vence sola, así que cuando falle por una hora que
+    // volvió, se saca de acá y no se toca la tarjeta.
     expect(dibujo).not.toContain("8:30");
+    expect(dibujo).not.toContain("9:00");
     expect(dibujo).not.toMatch(/cierre\s+18/i);
+    expect(dibujo).not.toMatch(/hasta las 21/i);
   });
 
   it("dice el mismo lugar y la misma ciudad que el resto del sitio", () => {

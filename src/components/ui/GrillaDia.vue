@@ -3,8 +3,8 @@
     La grilla del día, fila por fila.
 
     LAS TRANSICIONES NO SE PUBLICAN, y es una decisión de Alan del 15/09 después
-    de verlas puestas. De las 29 filas de la planilla, nueve son "promo y
-    presentación" entre bloque y bloque: producción pura, la misma frase nueve
+    de verlas puestas. De las 29 filas de la planilla, diez son "promo y
+    presentación" entre bloque y bloque: producción pura, la misma frase diez
     veces, y nada que el que evalúa venir el sábado pueda usar para decidir.
 
     SIGUEN EN GRILLA, en el dato, y no se borran de ahí por dos razones. Una es
@@ -25,8 +25,8 @@
 
     Y SE AGRUPA DE A PARES, que es la estructura real del día y lo único que la
     planilla no deja ver: cada empresa ocupa dos filas seguidas —su charla y
-    después su entrevista en vivo con Alan—. Siete empresas, catorce filas. Al
-    agrupar, el lector cuenta siete cosas en vez de catorce, y entiende de una
+    después su entrevista en vivo con Alan—. Seis empresas, doce filas. Al
+    agrupar, el lector cuenta seis cosas en vez de doce, y entiende de una
     que a cada una la va a escuchar dos veces y de dos maneras distintas.
 
     La columna de horas es un grid de ancho fijo y no un float: así las horas de
@@ -82,8 +82,8 @@
       </li>
 
       <!--
-        El bloque de contenido: una empresa con sus dos filas, o el panel, que
-        no tiene empresa y va solo.
+        El bloque de contenido: una empresa con sus dos filas, o una fila que
+        no es de ninguna —un panel, el invitado sin nombre— y va sola.
 
         El nombre de la empresa es el encabezado y no una línea más adentro,
         porque es el dato por el que este público escanea una grilla: primero
@@ -173,10 +173,11 @@
                 {{ TIPOS_GRILLA[fila.tipo].label }} · {{ fila.desde }} · {{ duracionDe(fila) }}′
               </p>
               <!--
-                TRES TÍTULOS TODAVÍA NO ESTÁN CERRADOS, y se dice así en vez
-                de inventar uno. Van en gris y en redonda: un "tema a confirmar"
-                con la misma tipografía que un título real le haría creer al que
-                escanea que el tema se llama así.
+                UN TÍTULO QUE NO ESTÁ CERRADO se dice así en vez de inventar
+                uno. Con la planilla del 16/09 no queda ninguno, pero hubo tres,
+                y el caso sigue resuelto. Va en gris y en redonda: un "tema a
+                confirmar" con la misma tipografía que un título real le haría
+                creer al que escanea que el tema se llama así.
 
                 Lo que NO falta es quién lo da. Esa es la diferencia con la
                 grilla que esta página sacó en su momento: ahí faltaban las
@@ -240,9 +241,10 @@ const personas = computed(() => {
 /*
   QUIÉN ESTÁ EN EL ESCENARIO EN ESTA FILA.
 
-  Sale de dos campos: `orador`, que es uno solo, y `conduccion`, que es prosa y
-  puede nombrar a más de uno. Por eso la conducción no se parte por separadores:
-  se pregunta cuál de las personas que la página conoce aparece nombrada ahí. Un
+  En un panel sale de `panelistas`, que es la lista con nombre y apellido. En
+  el resto, de dos campos: `orador`, que es uno solo, y `conduccion`, que es
+  prosa y puede nombrar a más de uno. Por eso la conducción no se parte por
+  separadores: se pregunta cuál de las personas que la página conoce aparece nombrada ahí. Un
   separador nuevo, una aclaración entre paréntesis o un "y" que pase a ser una
   coma no rompen nada. Hoy todas dicen "Alan Tapia", pero el día que vuelvan a
   ser dos esto ya funciona.
@@ -255,10 +257,9 @@ const personas = computed(() => {
 function carasDe(fila) {
   const gente = personas.value;
 
-  // El panel los lleva a todos, y lo dice el dato, no una comparación de texto.
-  if (fila.todos) {
-    const enGrilla = GRILLA.map((f) => f.orador).filter((n) => gente.has(n));
-    return [...new Set(enGrilla)].map((n) => gente.get(n));
+  // Un panel dice quiénes lo integran con nombre y apellido, en su dato.
+  if (fila.panelistas) {
+    return fila.panelistas.filter((n) => gente.has(n)).map((n) => gente.get(n));
   }
 
   const nombres = [];
@@ -275,11 +276,25 @@ function carasDe(fila) {
   SIN TOPE Y SIN CONTADOR, por pedido de Alan del 15/09.
 
   Hubo un tope de cuatro con un «+3» al final, que es lo que hace cualquier
-  lista de asistentes. En el panel no servía: esa fila existe para decir que
-  están TODOS, y un contador que esconde a tres de siete dice lo contrario
-  justo donde hay que mostrarlos. Es la única fila con más de dos caras, así
-  que el tope no protegía ninguna otra.
+  lista de asistentes. En un panel no sirve: esa fila existe para mostrar
+  quiénes se sientan juntos, y un contador que esconde a uno de cinco dice
+  menos justo donde hay que mostrarlos. Los paneles son las únicas filas con
+  más de dos caras, así que el tope no protegía ninguna otra.
 */
+
+/*
+  LOS PANELES SE PRESENTAN POR EMPRESA debajo del título, que es como los
+  escribe la planilla y como este público escanea la grilla: primero qué
+  marcas hay. Las personas ya están en las caras. La empresa sale de SPEAKERS
+  y no se escribe en la fila: son los mismos nombres que buscan las caras.
+*/
+function empresasDe(nombres) {
+  const empresas = [
+    ...new Set(nombres.map((n) => SPEAKERS.find((s) => s.nombre === n)?.empresa).filter(Boolean)),
+  ];
+  if (empresas.length < 2) return empresas.join("");
+  return `${empresas.slice(0, -1).join(", ")} y ${empresas[empresas.length - 1]}`;
+}
 
 /*
   Las iniciales son el respaldo mientras la foto no llegó, igual que en la
@@ -336,18 +351,20 @@ const items = computed(() => {
       salida.push({
         clase: "bloque",
         clave: fila.desde,
-        // El panel se titula con su propio título; los demás, con la empresa.
+        // Lo que no es de una empresa se titula con su propio título.
         titulo: fila.empresa || fila.titulo,
-        orador: fila.orador || "",
+        // Debajo, quién: el orador, las empresas del panel, o por qué todavía
+        // no hay nombre.
+        orador: fila.orador || (fila.panelistas && empresasDe(fila.panelistas)) || fila.anuncio || "",
         desde: grupo[0].desde,
         hasta: grupo[grupo.length - 1].hasta,
         /*
           `tituloEnLaCabecera` evita que el título salga dos veces.
 
           La cabecera del bloque muestra la empresa; cuando no hay empresa
-          —el panel— muestra el título de la fila, y entonces la fila de abajo
-          lo repetía: «Panel de expertos» dos veces, una encima de la otra,
-          separadas por cuatro milímetros.
+          —un panel— muestra el título de la fila, y entonces la fila de abajo
+          lo repetía: el título del panel dos veces, uno encima del otro,
+          separados por cuatro milímetros.
         */
         filas: grupo.map((f) => ({
           ...f,
@@ -558,11 +575,15 @@ const items = computed(() => {
   letter-spacing: 0.1em;
   color: var(--acento-texto, #4f42c4);
 }
+/* pre-line: un título puede traer su salto de línea desde la planilla —el de
+   Bistrosoft va en dos renglones— y se respeta. Los espacios se siguen
+   juntando como en cualquier texto. */
 .titulo-fila {
   margin-top: 0.2rem;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.3;
+  white-space: pre-line;
 }
 .titulo-abierto {
   margin-top: 0.2rem;

@@ -108,7 +108,7 @@
 </template>
 
 <script setup>
-import { EVENTO, CUPO, TEMAS, BORDES } from "@/data/evento";
+import { EVENTO, CUPO, GRILLA, BORDES } from "@/data/evento";
 
 const comoLlegar =
   "https://www.google.com/maps/search/?api=1&query=" +
@@ -124,14 +124,16 @@ const datos = [
     r: "Cuándo abre",
     v: `${EVENTO.puertas} · acreditación`,
     // El cierre que se publica acá es el del EVENTO (BORDES.cierre.hasta, las
-    // 21) y no el de la grilla (BORDES.cierre.hora, las 18): el lector que mira
-    // esta ficha está calculando a qué hora se va, no cuándo termina el último
-    // bloque. Las 18 se dicen igual, como el momento en que arranca el
-    // networking.
-    // "la jornada" y no "la grilla": la página dejó de publicar el cronograma
-    // hora por hora, así que nombrar una grilla que el lector no puede ver lo
-    // manda a buscar algo que no está.
-    n: `Las charlas arrancan ${TEMAS[0].hora}, la jornada termina ${BORDES.cierre.hora} y el networking sigue hasta las ${BORDES.cierre.hasta.replace(":00", "")}.`,
+    // 18:10) y no el del escenario (BORDES.cierre.hora, las 17:10): el lector
+    // que mira esta ficha está calculando a qué hora se va, no cuándo termina
+    // el último bloque. Las 17:10 se dicen igual, como el momento en que
+    // arranca el networking.
+    //
+    // «El escenario cierra» y no «la jornada termina»: el FAQ dice que la
+    // jornada va hasta las 18:10, y las dos frases están en la misma página.
+    //
+    // La primera charla sale de GRILLA: la primera fila con alguien que habla.
+    n: `Las charlas arrancan ${GRILLA.find((f) => f.orador).desde}, el escenario cierra ${BORDES.cierre.hora} y el networking sigue hasta las ${BORDES.cierre.hasta}.`,
   },
   {
     r: "Cómo se entra",

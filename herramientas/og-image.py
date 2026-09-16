@@ -167,9 +167,9 @@ def generar(oscuro=True):
     d.line([64, 458, W - 64, 458], fill=linea, width=1)
     fd = f(25, 500)
     # Las dos líneas del pie llevan los datos que se movieron hoy. Medidas a 25
-    # con peso 500: 846 px y 727 px contra los 1072 útiles.
+    # con peso 500: 846 px y 799 px contra los 1072 útiles.
     cap(d, (64, 495), "Un día entero de charlas y networking. Hotel Quinto Centenario, Córdoba.", fd, gris)
-    cap(d, (64, 533), "Acreditación 9:00 · charlas de 10 a 18 · networking hasta las 21.", fd, gris)
+    cap(d, (64, 533), "Acreditación 9:30 · charlas de 10 a 17:10 · networking hasta las 18:10.", fd, gris)
     espaciado(d, (64, 584), "DIEZ BLOQUES  ·  UN SOLO TRACK  ·  SE RESERVA POR WHATSAPP",
               f(20), acento, 2.2)
     return img

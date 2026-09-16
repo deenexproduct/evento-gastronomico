@@ -211,7 +211,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { linkWaReserva } from "@/data/evento";
+import { EVENTO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useCalendario } from "@/composables/useCalendario";
 import { useContador } from "@/composables/useContador";
@@ -229,10 +229,13 @@ const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
   cronograma hora por hora, así que prometer una grilla deja al lector
   esperando un formato que no va a ver. Lo que se promete es el mismo dato con
   el nombre que la página usa hoy.
+
+  La hora de los stands sale de EVENTO.puertas: estaba escrita "9:00" y quedó
+  vieja cuando la acreditación volvió a las 9:30.
 */
 const INCLUYE = [
   "Los diez bloques del programa, en track único",
-  "Los stands de los sponsors abiertos desde las 9:00",
+  `Los stands de los sponsors abiertos desde las ${EVENTO.puertas}`,
   "Las pausas y el networking de cierre",
   "El programa final, antes que el resto",
 ];
