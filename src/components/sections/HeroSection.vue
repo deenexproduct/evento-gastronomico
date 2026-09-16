@@ -213,10 +213,35 @@
             nombre, hay que volver a medirlo. Es un máximo, así que equivocarlo
             desalinea, no rompe.
           -->
+          <!--
+            LA BAJADA DE ALAN DEL 16/09, en dos renglones como la escribió.
+
+            Antes decía "Un día entre dueños de cadenas gastronómicas: qué están
+            aplicando los que crecen, contado por los que ya lo implementaron en
+            sus locales". Ahora son dos afirmaciones y cada una va en su línea:
+            la primera dice qué es el evento, la segunda cómo es. Separadas con
+            un bloque y no con un <br>: en teléfono la primera se parte en dos o
+            tres renglones, y un salto de línea suelto puede dejar la segunda
+            empezando a mitad de uno.
+
+            Sigue calificando al público en la primera pantalla —"dueños de
+            cadenas" está en la segunda línea—, que es la razón que se explica
+            en el comentario de arriba.
+
+            El violeta cae sobre "único evento de tecnología", que es la
+            afirmación que distingue al evento. Uno solo, como hubo siempre en esta
+            bajada: dos acentos en dos renglones dejan de marcar nada.
+
+            El 200 sale de CUPO. Es el mismo número que dicen #acceso, el FAQ y la
+            tarjeta de WhatsApp, y si se escribe acá queda un cuarto lugar para
+            desincronizarse.
+          -->
           <p class="ancho-del-wordmark mt-6 text-[clamp(1.1rem,2.4vw,1.5rem)] font-medium leading-[1.35]">
-            Un día entre dueños de cadenas gastronómicas:
-            <span class="texto-deenex font-bold">qué están aplicando los que crecen</span>, contado
-            por los que ya lo implementaron en sus locales.
+            <span class="block">
+              El <span class="texto-deenex font-bold">único evento de tecnología</span> de la
+              industria gastronómica.
+            </span>
+            <span class="block">Un día, un solo escenario, {{ CUPO.total }} dueños de cadenas.</span>
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -277,7 +302,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from "vue";
-import { EVENTO, linkWaReserva } from "@/data/evento";
+import { EVENTO, CUPO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { useRelojEvento } from "@/composables/useCuentaRegresiva";
 
