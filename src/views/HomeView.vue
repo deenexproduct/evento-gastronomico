@@ -48,10 +48,14 @@
     <JornadaSection class="v-reveal bg-noche-3" />
 
     <!--
-      El podcast, después de la jornada: primero el lector sabe qué se habla
-      en el escenario, y recién entonces que además hay algo fuera de la
-      grilla. Con sección propia porque es lo único del día que no le pasa a
-      todo el mundo.
+      El podcast, después de la jornada: primero el lector ve el programa
+      entero, y recién entonces se le cuenta qué son esas siete «entrevistas en
+      vivo» que aparecen intercaladas. Tiene sección propia porque el formato
+      necesita explicarse y porque acá vive la galería de la edición anterior.
+
+      Hasta el 16/09 esto decía que el podcast era «lo único del día que no le
+      pasa a todo el mundo», en una sala privada fuera del programa. Esa sala no
+      se hace: se graba arriba del escenario, frente a todos.
     -->
     <PodcastSection class="v-reveal bg-noche-2" />
 

@@ -1,23 +1,26 @@
 <!--
   El podcast, con sección propia.
 
-  Se presenta como lo que es para el que lee: un podcast que se graba adentro
-  del evento, con referentes del rubro. Decía "el podcast de Deenex" y "Deenex
-  abre su podcast", que es la misma postura que se sacó del hero —la empresa
-  como sujeto de lo que pasa—, y encima en la sección donde más ajena suena:
-  el lector no puede entrar a una sala que se presenta como de otro.
+  SE GRABA ARRIBA DEL ESCENARIO, EN VIVO, FRENTE A TODA LA SALA. Hasta el 16/09
+  esta sección decía lo contrario —«una sala privada, dentro del evento»,
+  «por invitación»— y estaba ubicada como lo único del día que no le pasaba a
+  todo el mundo. Alan confirmó que la sala privada al final no se hace: el
+  podcast es cada una de las entrevistas en vivo de la grilla, las que siguen a
+  la charla de cada empresa.
 
+  Es mejor argumento que el anterior, y conviene decirlo así: antes el lector
+  se enteraba de algo a lo que probablemente no iba a entrar; ahora se entera
+  de que va a estar sentado en la grabación.
+
+  Se presenta como lo que es para el que lee: un podcast con referentes del
+  rubro. Decía «el podcast de Deenex» y «Deenex abre su podcast», que es la
+  misma postura que se sacó del hero —la empresa como sujeto de lo que pasa—.
   Quién lo produce no se esconde: sigue dicho abajo, donde se cuenta por dónde
-  sale después. Lo que cambia es que ya no abre la sección.
+  sale después.
 
-  Va DESPUÉS de la jornada a propósito: primero el lector sabe qué se va a
-  hablar en el escenario, y recién entonces se le cuenta que además hay algo
-  que no está en la grilla.
-
-  Sobre los nombres: sólo Alan está confirmado. La grilla del 30/08 dejó el
-  podcast fuera del programa y todavía no tiene franja, ni conductor, ni los
-  otros invitados — publicar una hora o un nombre sería prometer algo que no
-  está decidido.
+  CUÁNTOS EPISODIOS SE GRABAN sale de GRILLA, contando las filas de entrevista.
+  No va escrito: si mañana se suma o se cae una empresa, el número se mueve
+  solo.
 -->
 <template>
   <section id="podcast" class="py-seccion">
@@ -29,14 +32,14 @@
           <p class="rotulo text-acento-texto">Podcast</p>
 
           <h2 class="titulo mt-4 max-w-[19ch] text-[clamp(1.4rem,4.4vw,2.85rem)]">
-            Un podcast con referentes, grabado ahí adentro
+            Un podcast grabado en vivo, arriba del escenario
           </h2>
 
           <p class="mt-6 max-w-[58ch] text-[1.05rem] leading-[1.6] text-gris">
-            Una sala privada, dentro del evento, donde
-            <span class="texto-deenex font-bold">referentes del rubro</span> se sientan a conversar
-            sobre el impacto de la tecnología en la gastronomía y sobre lo que va apareciendo
-            alrededor. Conduce Alan Tapia.
+            Después de cada charla, el orador se sienta con Alan Tapia y se graba un
+            episodio frente a toda la sala: <span class="texto-deenex font-bold">referentes del
+            rubro</span> conversando sobre el impacto de la tecnología en la gastronomía y sobre
+            lo que va apareciendo alrededor.
           </p>
 
           <ul class="mt-8 grid gap-3 sm:grid-cols-3">
@@ -44,12 +47,17 @@
           </ul>
 
           <!--
-            "el programa final" y no "la grilla final": la página dejó de
-            publicar el cronograma hora por hora, y prometer una grilla que
-            nunca se va a ver deja al lector esperando algo que no llega.
+            Decía «Los invitados y el momento del día se anuncian con el programa
+            final». Ya están los dos publicados: cada entrevista figura en la
+            jornada con su hora y su orador. La línea le prometía al lector algo que
+            tenía dos secciones más arriba, así que ahora le dice dónde está.
+
+            Sin la palabra «grilla»: hay un caso en repeticiones.test.js que sólo
+            la permite en las secciones que la publican, y ésta no es una.
           -->
           <p class="mt-7 text-[14px] leading-[1.55] text-gris-2">
-            Los invitados y el momento del día se anuncian con el programa final.
+            Cada entrevista figura en el programa de la jornada, a continuación de la
+            charla de su empresa.
           </p>
 
           <!--
@@ -58,8 +66,8 @@
             Estuvo un rato como sección propia debajo y estaba mal leído: acá
             el material no es del evento en general sino DE ESTE PODCAST, y
             separarlo lo convertía en dos cosas distintas que se explican dos
-            veces. Adentro del marco es lo que es: la sección promete una sala
-            donde pasa algo, y abajo muestra esa misma sala la vez anterior.
+            veces. Adentro del marco es lo que es: la sección promete una
+            grabación en vivo, y abajo muestra cómo salió la vez anterior.
 
             El filete de arriba lo separa sin abrirle una sección: es el mismo
             bloque, dos momentos.
@@ -193,7 +201,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { EXPO } from "@/data/evento";
+import { EXPO, GRILLA } from "@/data/evento";
 
 /*
   Las piezas de la edición anterior: fotos en assets/images/expo y videos en
@@ -224,15 +232,23 @@ const piezas = computed(() =>
 );
 const hayExpo = computed(() => piezas.value.length > 0);
 
-/* Los tres puntos no repiten lo que ya dice el párrafo de arriba: la sala
-   privada y quién conduce están ahí, así que acá va lo que falta.
+/*
+  Los tres puntos no repiten lo que ya dice el párrafo de arriba: cómo es el
+  formato está ahí, así que acá va lo que falta.
 
-   El tercero es el único lugar de la sección donde se nombra a Deenex, y
-   corresponde: es un dato verificable —por dónde sale el episodio después— y
-   no la autoría del espacio. */
+  El primero reemplazó a «Sala privada, por invitación» el 16/09, cuando la
+  sala dejó de existir. Es el dato que más cambió y el que más vende: el
+  que reserva está adentro de la grabación.
+
+  El tercero es el único lugar de la sección donde se nombra a Deenex, y
+  corresponde: es un dato verificable —por dónde sale el episodio después— y
+  no la autoría del espacio.
+*/
+const episodios = GRILLA.filter((f) => f.tipo === "podcast").length;
+
 const puntos = [
-  "Sala privada, por invitación",
-  "Conversación entre referentes del rubro",
+  "En vivo, frente a toda la sala",
+  `${episodios} episodios, uno por empresa`,
   "Después sale por los canales de Deenex",
 ];
 </script>

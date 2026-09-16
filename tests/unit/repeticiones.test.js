@@ -167,7 +167,19 @@ describe("la grilla que la página publica es la que dice tener", () => {
         .replace(/^\s*\/\/.*$/gm, "");
 
       for (const linea of sinComentarios.split("\n")) {
-        if (/grilla/i.test(linea) && !/grid|grilla de 12/i.test(linea)) {
+        /*
+          SE BUSCA LA PALABRA, NO EL IDENTIFICADOR, y por eso la búsqueda
+          distingue mayúsculas. Era /grilla/i y tropezó dos veces con código:
+          primero con los nombres del componente de la jornada, después con
+          PodcastSection, que importa GRILLA para contar los episodios. Ninguna
+          de esas líneas llega a la pantalla.
+
+          En castellano la palabra se escribe «grilla» o «Grilla»; la constante
+          va en mayúsculas y el componente se llama GrillaDia, que el borde de
+          palabra deja afuera. Un texto visible en versales no se escribe en
+          mayúsculas en la fuente: lo pone el CSS.
+        */
+        if (/[Gg]rilla/.test(linea) && !/grid|grilla de 12/i.test(linea)) {
           culpables.push(`${a.replace(SRC, "src")}: ${linea.trim().slice(0, 70)}`);
         }
       }
