@@ -32,11 +32,18 @@
             :aria-hidden="v === 1 ? 'true' : undefined"
           >
             <template v-for="p in partnersBarra" :key="p.nombre + v">
+              <!--
+                UN LOGO APILADO VA MÁS ALTO. Casi todos son horizontales y a
+                52px su nombre se lee grande; uno con el sello arriba del nombre
+                reparte ese alto entre los dos y el nombre queda a 10px. Con
+                más caja, el nombre llega a leerse del tamaño de los de al lado.
+              -->
               <img
                 v-if="p.src"
                 :src="p.src"
                 :alt="v === 0 ? p.nombre : ''"
-                class="h-11 w-auto max-w-[170px] shrink-0 object-contain opacity-70 logo-sponsor brightness-0 invert transition-opacity duration-200 hover:opacity-100 sm:h-[3.25rem]"
+                :class="p.apilado ? 'h-[3.75rem] sm:h-[4.5rem]' : 'h-11 sm:h-[3.25rem]'"
+                class="w-auto max-w-[170px] shrink-0 object-contain opacity-70 logo-sponsor brightness-0 invert transition-opacity duration-200 hover:opacity-100"
                 loading="lazy"
               />
               <span
@@ -61,9 +68,9 @@ const archivos = import.meta.glob("@/assets/images/partners/*", {
   import: "default",
 });
 
-function conLogo(nombre, logo) {
+function conLogo(nombre, logo, apilado = false) {
   const clave = logo ? Object.keys(archivos).find((k) => k.endsWith(`/${logo}`)) : null;
-  return { nombre, logo, src: clave ? archivos[clave] : "" };
+  return { nombre, logo, apilado, src: clave ? archivos[clave] : "" };
 }
 
 /*
@@ -89,8 +96,10 @@ const partnersBarra = (() => {
   const salida = [];
   const vistas = new Set();
 
+  // `enBarra: false` vale también acá: una empresa puede subir al escenario y
+  // no ir en la cinta, si así se decide. Hoy es el caso de Merovingian Data.
   for (const s of SPEAKERS) {
-    if (!s.empresa || vistas.has(s.empresa)) continue;
+    if (!s.empresa || s.enBarra === false || vistas.has(s.empresa)) continue;
     vistas.add(s.empresa);
     salida.push(conLogo(s.empresa, s.logo));
   }
@@ -101,7 +110,7 @@ const partnersBarra = (() => {
   for (const p of PARTNERS) {
     if (p.enBarra === false || vistas.has(p.nombre)) continue;
     vistas.add(p.nombre);
-    salida.push(conLogo(p.nombre, p.logo));
+    salida.push(conLogo(p.nombre, p.logo, p.logoApilado));
   }
 
   return salida;

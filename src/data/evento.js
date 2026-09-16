@@ -805,6 +805,10 @@ export const SPEAKERS = [
     // sportclub. Se le quitó el fondo por distancia de color contra el
     // turquesa y se recortó al contenido: 233x52 de marca real.
     logo: "merovingian.png",
+    // FUERA DE LA BARRA «PARTICIPAN», pedido de Alan del 16/09. Sigue en la
+    // grilla y con su tarjeta: esto saca la marca de la cinta de logos y
+    // nada más.
+    enBarra: false,
   },
   {
     // EL APELLIDO VINO DE ALAN, NO DE LA PLANILLA. La planilla de producción
@@ -889,6 +893,9 @@ export const MINIMO_SPEAKERS = 3;
  * `enTarjetas: false` es la inversa: va en la barra y no arma tarjeta. Es para
  * la marca confirmada de la que todavía no hay rubro, quién ni aporte.
  *
+ * `logoApilado: true` es para el logo con el ícono arriba del nombre: la barra
+ * le da más alto, porque a la altura de los horizontales el nombre queda chico.
+ *
  * La grilla de tarjetas está medida hasta seis: con cuatro y con cinco no
  * deja una sola colgada en una fila vacía (ver bloque-a.spec.js).
  */
@@ -939,6 +946,21 @@ export const PARTNERS = [
     // esos cuatro renglones vacíos se lee como un sponsor a medio cerrar, que
     // es peor que no tenerla. Cuando lleguen, se borra esta línea y la tarjeta
     // aparece sola.
+    enTarjetas: false,
+  },
+  {
+    nombre: "La Fábrica",
+    // El archivo llegó como un círculo magenta con las letras en blanco, y así
+    // en la barra era un disco negro: brightness(0) vuelve negro todo píxel
+    // opaco, letras incluidas. Se invirtió el papel de cada color —el blanco
+    // pasó a ser la tinta y el magenta, transparente— y se recortó a lo que
+    // queda: el sello, el nombre y «compartí algo rico».
+    logo: "la-fabrica.png",
+    // Casi cuadrado, con el sello arriba del nombre: la barra le da más alto
+    // para que «LA FÁBRICA» no quede a la mitad de tamaño que las demás marcas.
+    logoApilado: true,
+    // SÓLO EN LA BARRA, como Coca-Cola y por lo mismo: Alan la sumó el 16/09
+    // sin rubro, quién viene ni qué aporta.
     enTarjetas: false,
   },
 ];
