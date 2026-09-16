@@ -97,6 +97,18 @@
       <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85z" />
     </template>
 
+    <template v-else-if="nombre === 'entrevista'">
+      <!--
+        Dos globos de diálogo: la entrevista en vivo es de a dos.
+
+        Tiene que distinguirse de 'charla', que en este set ya es un micrófono
+        de mano —uno hablando—. Un micrófono de estudio al lado de uno de mano
+        son el mismo dibujo a 20px; dos globos contra un micrófono, no.
+      -->
+      <path d="M4 3.5h8a2 2 0 0 1 2 2v3.5a2 2 0 0 1-2 2H7.5L4.5 13.6V11H4a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2Z" />
+      <path d="M12 11.5h8a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-.5v2.4L18 18.5h-6a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2Z" />
+    </template>
+
     <template v-else-if="nombre === 'cafe'">
       <!-- Taza con asa y vapor: el corte, distinto de la copa de degustación -->
       <path d="M4 9.5h12v5.5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" />

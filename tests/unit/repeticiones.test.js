@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { GRILLA } from "@/data/evento";
 
 /**
  * Frases que la página decía dos veces, y las dos que Alan pidió sacar.
@@ -88,45 +89,73 @@ describe("los números escritos a mano no sobreviven a un cambio de contenido", 
   });
 });
 
-describe("la página no vuelve a prometer una grilla que no publica", () => {
+describe("la grilla que la página publica es la que dice tener", () => {
   /*
-    El 03/09 la jornada dejó de mostrar el cronograma hora por hora y pasó a
-    decir QUÉ hay ese día. La palabra sobrevivió igual en tres textos visibles
-    —"la grilla termina 18:00", "se anuncian con la grilla final" y "La grilla
-    final, antes que el resto"— porque el refactor cambió una sección y esos
-    tres vivían en otras.
+    ESTE CASO ERA EL CONTRARIO, y conviene dejar escrito el giro porque el
+    comentario que vivía acá decía justo lo opuesto.
 
-    Nombrar una grilla que el lector no puede ver lo manda a buscar algo que no
-    está, y en el caso de RegistroSection se la promete como parte de lo que se
-    lleva por reservar.
+    El 03/09 la jornada dejó de mostrar el cronograma y este caso vigilaba que
+    la palabra "grilla" no quedara en ningún texto visible: nombrar una grilla
+    que el lector no puede ver lo manda a buscar algo que no está, y en
+    RegistroSection se la prometía como parte de lo que se lleva por reservar.
+    Era correcto mientras no hubo grilla.
 
-    Los comentarios sí pueden usar la palabra: explican la decisión. Lo que se
-    vigila son las cadenas de texto que llegan a la pantalla.
+    Ahora la hay —el run-of-show entero, en GRILLA—, así que la prohibición
+    dejó de proteger algo: las diecinueve líneas que encontraba eran los
+    identificadores del componente nuevo (GRILLA, TIPOS_GRILLA, GrillaDia,
+    class="grilla-dia"), ni una sola cadena de texto que llegue a la pantalla.
+    Un caso que prohíbe una palabra que ya es verdad no es un control sino un
+    obstáculo, y el que lo cruce la próxima vez lo va a borrar sin leer por qué
+    estaba.
+
+    Lo que sí sigue vivo es lo que aquella prohibición protegía de fondo: que
+    lo que la página nombra exista de verdad. Eso es lo que se vigila acá.
   */
-  /*
-    SE RECORRE src/ ENTERO, no una lista escrita a mano.
+  it("la sección de la jornada monta la grilla, y la grilla tiene filas", () => {
+    const seccion = readFileSync(
+      join(SRC, "components/sections/JornadaSection.vue"),
+      "utf-8"
+    );
 
-    La primera versión listaba cinco archivos y pasaba en verde con la palabra
-    puesta en un sexto: la mitad del texto del sitio vive en data/evento.js
-    —las respuestas del FAQ, los bordes del día— y ese no estaba en la lista.
-    Lo encontró una verificación contra producción, no el test que existía para
-    encontrarlo. Una lista a mano de dónde mirar es el mismo error que un
-    número escrito a mano: envejece sola y no avisa.
-  */
-  const archivosDeSrc = (dir = SRC, acum = []) => {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const ruta = join(dir, e.name);
-      if (e.isDirectory()) archivosDeSrc(ruta, acum);
-      else if (/\.(vue|js)$/.test(e.name)) acum.push(ruta);
-    }
-    return acum;
-  };
+    expect(seccion, "la jornada dejó de montar el componente de la grilla").toContain(
+      "<GrillaDia />"
+    );
+    // Si GRILLA quedara vacía, la sección nombraría una grilla sin filas: es
+    // exactamente el defecto que este caso existe para evitar, del otro lado.
+    expect(GRILLA.length, "la grilla quedó vacía").toBeGreaterThan(10);
+  });
 
-  it("no queda la palabra en ningún texto que se muestre", () => {
+  it("ningún texto visible promete una grilla en una sección que no la tiene", () => {
+    /*
+      SE RECORRE src/ ENTERO, no una lista escrita a mano.
+
+      La primera versión listaba cinco archivos y pasaba en verde con la
+      palabra puesta en un sexto: la mitad del texto del sitio vive en
+      data/evento.js —las respuestas del FAQ, los bordes del día— y ese no
+      estaba en la lista. Lo encontró una verificación contra producción, no el
+      test que existía para encontrarlo.
+
+      Lo que cambió respecto de la versión anterior es el permiso: los archivos
+      de la jornada SÍ pueden nombrarla, porque son los que la publican. El
+      resto de la página, no: ahí la palabra vuelve a mandar al lector a buscar
+      algo que en esa sección no está.
+    */
+    const PUBLICAN_LA_GRILLA = /JornadaSection\.vue|GrillaDia\.vue|data.evento\.js/;
+
+    const archivosDeSrc = (dir = SRC, acum = []) => {
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const ruta = join(dir, e.name);
+        if (e.isDirectory()) archivosDeSrc(ruta, acum);
+        else if (/\.(vue|js)$/.test(e.name)) acum.push(ruta);
+      }
+      return acum;
+    };
+
     const culpables = [];
     const ARCHIVOS = archivosDeSrc();
 
     for (const a of ARCHIVOS) {
+      if (PUBLICAN_LA_GRILLA.test(a)) continue;
       const fuente = readFileSync(a, "utf-8");
 
       // Se recorre el archivo sin sus comentarios: los de bloque —/* */ y

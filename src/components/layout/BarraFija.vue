@@ -6,9 +6,9 @@
     DE 640px PARA ARRIBA. En teléfono la reemplaza el dock, que lleva el mismo
     CTA con el mismo contador pero a ancho completo y pegado al borde, junto a
     las pestañas. Este componente igual se sigue montando en la home
-    aunque no se vea: sus dos IntersectionObserver son los que alimentan
-    `barraVisible`, que es de lo que depende la píldora del header para
-    turnarse con ella. Apagarlo con v-if dejaría ese turno sin árbitro.
+    aunque no se vea: su cuenta de scroll es la que alimenta `barraVisible`,
+    que es de lo que depende la píldora del header para turnarse con ella.
+    Apagarlo con v-if dejaría ese turno sin árbitro.
   -->
   <Transition name="subir">
     <!--
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { EVENTO, linkWaReserva } from "@/data/evento";
 import { useCupo } from "@/composables/useCupo";
 import { publicarBarra } from "@/composables/useBarraReserva";
@@ -95,15 +95,25 @@ const enlaceReserva = computed(() => linkWaReserva({ agotado: agotado.value }));
 
 const pasoElHero = ref(false);
 const formEnPantalla = ref(false);
-const pieEnPantalla = ref(false);
 
 
-/**
- * La barra se esconde cuando el pie entra en pantalla. Sin esto quedan dos
- * píldoras magenta a la vista al mismo tiempo diciendo lo mismo: la del pie y
- * la flotante, a trescientos píxeles una de otra. Escondiéndola, la lectura
- * es que la barra se convirtió en el pie.
- */
+/*
+  ACÁ VIVÍA LA REGLA DEL PIE, y se cayó sola porque su premisa desapareció.
+
+  Decía: "la barra se esconde cuando el pie entra en pantalla, porque si no
+  quedan dos píldoras magenta diciendo lo mismo, la del pie y la flotante, a
+  trescientos píxeles una de otra".
+
+  El pie ya no tiene esa píldora. Hoy mide 127px y no tiene UN SOLO enlace:
+  es el nombre del evento y la bajada. Así que la regla no evitaba un
+  duplicado, dejaba la última pantalla de escritorio sin ningún botón de
+  reservar —medido: cero— justo donde el que llegó hasta abajo terminó de
+  leer y decide.
+
+  Si mañana el pie vuelve a tener su propio CTA, la regla tiene que volver con
+  él, y el lugar es este mismo. Lo que no puede volver es la regla sin el
+  botón.
+*/
 /*
   LA PANTALLA BAJA ENTRA EN LA CUENTA, y ese era el bug.
 
@@ -117,9 +127,49 @@ const pieEnPantalla = ref(false);
 */
 const pantallaBaja = ref(false);
 
+/*
+  ── POR QUÉ ESTO SE MIDE Y NO SE OBSERVA ──────────────────────────────
+
+  Acá había dos IntersectionObserver montados en onMounted sobre el nodo que
+  devolvía un querySelector. Y fallaba en silencio: quedaban DOS píldoras
+  violetas a la vez —la de #reservar y ésta— diciendo lo mismo, de forma
+  estable, no durante una transición.
+
+  LA CAUSA: un observer vigila un NODO, no un selector. El botón de #reservar
+  vive en un subárbol que Vue vuelve a crear cuando useCupo resuelve y cambia
+  el estado del cupo; a partir de ahí el observer apunta a un nodo huérfano que
+  ya no está en el documento y que, por lo tanto, no interseca nunca. Medido:
+  un observer NUEVO sobre el nodo actual dispara con ratio 1 en la misma
+  posición en la que el del componente tenía formEnPantalla en false.
+
+  Es la tercera vez que este repo tropieza con lo mismo —DockMovil tiene las
+  otras dos escritas— y el arreglo es el que quedó allá: preguntarle al DOM en
+  el momento en que hace falta, que acá es cada scroll. No hay nodo guardado,
+  así que no hay nodo que se pueda quedar viejo.
+
+  POR QUÉ NO SE VEÍA ANTES: el recorrido que lo caza salta de 600 en 600
+  píxeles, y con la página más corta ninguna parada caía donde los dos botones
+  se ven enteros al mismo tiempo. La grilla de la jornada alargó la home 4.000
+  píxeles y una parada cayó justo ahí. El defecto estaba en producción desde
+  antes; lo que cambió es que ahora hay una parada que lo pisa.
+*/
+
+/** Qué parte de un elemento se ve en la ventana, de 0 a 1. */
+function porcionVisible(el) {
+  const caja = el.getBoundingClientRect();
+  if (caja.height === 0) return 0;
+  const dentro = Math.max(0, Math.min(caja.bottom, window.innerHeight) - Math.max(caja.top, 0));
+  return dentro / caja.height;
+}
+
 function recalcular() {
-  const seVe =
-    pasoElHero.value && !formEnPantalla.value && !pieEnPantalla.value && !pantallaBaja.value;
+  // Umbral alto: la barra se apaga recién cuando el botón de la sección se ve
+  // casi entero, no cuando asoma un borde. Es el mismo 0.9 que tenía el
+  // observer, por la misma razón que está escrita más abajo.
+  const boton = document.querySelector('#reservar a[href*="wa.me"]');
+  formEnPantalla.value = boton ? porcionVisible(boton) >= 0.9 : false;
+
+  const seVe = pasoElHero.value && !formEnPantalla.value && !pantallaBaja.value;
   visible.value = seVe;
   publicarBarra(seVe);
 }
@@ -127,9 +177,6 @@ function onScroll() {
   pasoElHero.value = window.scrollY > window.innerHeight * 0.7;
   recalcular();
 }
-
-let observer = null;
-let observerPie = null;
 
 let mqBaja = null;
 
@@ -143,44 +190,30 @@ onMounted(() => {
   });
 
   window.addEventListener("scroll", onScroll, { passive: true });
+  /*
+    Se mide EL BOTÓN y no la sección entera. Mirando la sección la barra se
+    apagaba apenas asomaba —mide 1183px en escritorio y 2376 en teléfono—, así
+    que quedaba un tramo largo de lectura sin ningún botón en pantalla, justo
+    adentro de la sección que sirve para reservar.
+  */
   onScroll();
 
-  // Se observa EL BOTÓN, no la sección. Mirando la sección entera la barra se
-  // apagaba apenas asomaba —y la sección mide 1183px en escritorio y 2376 en
-  // teléfono—, así que quedaba un tramo largo de lectura sin ningún botón en
-  // pantalla, justo adentro de la sección que sirve para reservar.
-  const boton = document.querySelector('#reservar a[href*="wa.me"]');
-  if (boton) {
-    observer = new IntersectionObserver(
-      ([entry]) => {
-        formEnPantalla.value = entry.isIntersecting;
-        recalcular();
-      },
-      // Umbral alto: se apaga recién cuando el botón se ve casi entero, no
-      // cuando asoma un borde.
-      { threshold: 0.9 }
-    );
-    observer.observe(boton);
-  }
+  // Al redimensionar cambia qué entra en la ventana sin que haya scroll: un
+  // teléfono que rota deja la cuenta vieja hasta el siguiente movimiento.
+  window.addEventListener("resize", recalcular, { passive: true });
 
-  const pie = document.querySelector("footer");
-  if (pie) {
-    // Umbral bajo: alcanza con que asome el zócalo para que la barra baje.
-    observerPie = new IntersectionObserver(
-      ([entry]) => {
-        pieEnPantalla.value = entry.isIntersecting;
-        recalcular();
-      },
-      { threshold: 0.02 }
-    );
-    observerPie.observe(pie);
-  }
+  /*
+    Y una recuenta cuando el cupo resuelve. Es el momento exacto en que Vue
+    rehace el subárbol de #reservar —lo que antes dejaba al observer huérfano—
+    y además puede cambiar el alto del botón. Sin esto, entre que el fetch
+    vuelve y el visitante mueve el dedo, la cuenta queda vieja.
+  */
+  watch(agotado, recalcular, { flush: "post" });
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
-  observer?.disconnect();
-  observerPie?.disconnect();
+  window.removeEventListener("resize", recalcular);
   /*
     Y se apaga el estado compartido, que es lo que no hacía.
 

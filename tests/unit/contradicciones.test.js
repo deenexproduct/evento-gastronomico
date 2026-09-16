@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { TEMAS, MENSAJES_WA, PARTNERS, BORDES, EVENTO, FAQ } from "@/data/evento";
+import { TEMAS, GRILLA, MENSAJES_WA, PARTNERS, BORDES, EVENTO, FAQ } from "@/data/evento";
 
 /**
  * Las contradicciones: cosas que la página afirma en un lado y desmiente en
@@ -218,19 +218,30 @@ describe("preguntas que la página abría y no contestaba", () => {
     expect(todo()).not.toMatch(/y estacionar/i);
   });
 
-  it("el FAQ dice si se come, que es la cuenta que hace el que evalúa el domingo", () => {
-    // Nueve horas, evento gastronómico, y diez preguntas sin una sola sobre
-    // comida. La respuesta se arma entera con datos que ya están publicados
-    // en la jornada. Las horas son las de la grilla del 30/08: el coffee de
-    // las 15:30 dejó de existir cuando las pausas pasaron a ser ocho de 10\'.
-    const faq = todo();
-    expect(faq).toMatch(/¿Se come algo durante el día\?/);
-    // La hora de apertura sale de EVENTO.puertas y no va escrita acá: ya se
-    // movió tres veces —8:30, 9:30 y ahora 9:00— y cada vez este test hubo que
-    // tocarlo a mano. Las otras dos son horas de la grilla, que no dependen de
-    // la apertura.
-    for (const dato of [EVENTO.puertas, "12:45", "13:45"]) {
-      expect(faq).toContain(dato);
+  it("el FAQ contesta si se come, que es la cuenta que hace el que evalúa el sábado", () => {
+    /*
+      Nueve horas, evento gastronómico, y una lista de preguntas sin una sola
+      sobre comida. La respuesta se arma entera con datos ya publicados.
+
+      YA NO SE BUSCA LA PREGUNTA POR SU TEXTO. Estaba escrita acá tal cual
+      —«¿Se come algo durante el día?»— y se rompió al primer cambio de
+      redacción, que fue de registro y no de contenido: el caso falló por una
+      palabra, no por un defecto. Un test que fija la redacción exacta de un
+      texto obliga a tocarlo cada vez que alguien mejora una frase, y lo que
+      termina pasando es que se lo edita sin leer para qué estaba.
+
+      Lo que importa es que alguna respuesta hable de comida y traiga la hora
+      del corte, y esa hora sale de GRILLA: estuvo escrita a mano —12:45 y
+      13:45— y quedó vieja cuando el programa se movió a 11:20.
+    */
+    const sobreComida = FAQ.filter((f) => /come|comida|almuerzo|caf[eé]/i.test(`${f.q} ${f.a}`));
+    expect(sobreComida.length, "el FAQ no contesta si se come").toBeGreaterThan(0);
+
+    const texto = sobreComida.map((f) => f.a).join(" ");
+    const corte = GRILLA.find((f) => f.tipo === "networking");
+    expect(corte, "la grilla no tiene una ronda de networking").toBeDefined();
+    for (const hora of [corte.desde, corte.hasta]) {
+      expect(texto, `la respuesta sobre comida no dice ${hora}`).toContain(hora);
     }
   });
 });
@@ -372,12 +383,16 @@ describe("la hora a la que termina el dia", () => {
     día.
   */
   it("las horas que menciona el FAQ existen en la grilla", () => {
-    const validas = new Set([
-      ...TEMAS.map((b) => min(b.hora)),
-      min(BORDES.apertura.hora),
-      min(BORDES.cierre.hora),
-      min(BORDES.cierre.hasta),
-    ]);
+    /*
+      SE VALIDA CONTRA GRILLA, que es el programa que la página publica.
+
+      Salía de TEMAS y de las puntas de BORDES, que es el cronograma
+      anterior. Cuando el FAQ pasó a citar las horas de la grilla nueva,
+      este caso marcó cuatro fuera de lista — y tenía razón en marcarlas:
+      había dos programas en el mismo archivo. Apuntarlo al que se ve es lo
+      que hace que siga midiendo algo.
+    */
+    const validas = new Set(GRILLA.flatMap((f) => [min(f.desde), min(f.hasta)]));
     const fuera = [];
     for (const { q, a } of FAQ) {
       for (const marca of String(a).match(/\b\d{1,2}:\d{2}\b/g) || []) {

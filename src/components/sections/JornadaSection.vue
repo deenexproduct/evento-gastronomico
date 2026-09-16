@@ -1,28 +1,33 @@
 <template>
   <!--
-    Qué hay ese día, no a qué hora.
+    La jornada, hora por hora.
 
-    Acá vivía el cronograma completo: once renglones con hora exacta, cada uno
-    con su orador y su diálogo de detalle. Se sacó por una razón de fondo, no
-    de forma: una agenda hora por hora obliga a publicar quién da cada bloque, y
-    hoy cuatro de diez dicen "orador por confirmar" —incluidos el que abre el
-    día y el panel que lo cierra—. El lector que escanea no lee diez títulos:
-    lee dos huecos seguidos y concluye que el evento está a medio vender.
+    ACÁ VOLVIÓ LA GRILLA, y conviene dejar escrito por qué, porque este mismo
+    archivo tuvo durante meses el comentario contrario.
 
-    La lista de abajo dice lo mismo sin pedir prestado un dato que todavía no
-    está cerrado.
+    La grilla se había sacado por un motivo real: "una agenda hora por hora
+    obliga a publicar quién da cada bloque, y hoy cuatro de diez dicen orador
+    por confirmar". Con cuatro huecos —incluidos el que abría el día y el panel
+    que lo cerraba— el que escaneaba no leía diez títulos, leía cuatro huecos.
+    En su lugar iba una lista de lo que había, sin horas.
 
-    Acá hubo tres cifras calculadas de TEMAS —bloques, minutos de contenido,
-    minutos de networking— y también salieron: describían la grilla, que es
-    justo lo que esta sección dejó de mostrar. Contar bloques cuando no se ve
-    ninguno le pide al lector que crea un número que no puede verificar. En su
-    lugar van las dos franjas del día, que son datos declarados en EVENTO.
+    Esa condición se dio vuelta: el run-of-show de producción tiene nombre y
+    empresa en cada bloque de contenido. Lo que sigue abierto son TÍTULOS, no
+    personas, y eso el lector lo lee distinto — un tema sin cerrar con alguien
+    puesto es un programa cerrándose; una persona sin poner es un evento a
+    medio vender. Así que el motivo del retiro se cayó y la grilla vuelve.
 
-    LO QUE SE PIERDE Y HAY QUE SABERLO: los títulos de los bloques eran el
-    mejor material de venta de la página —"La mayoría de las cadenas no quiebra
-    por vender poco: quiebra creciendo"— y ahora no se leen en ningún lado de la
-    home. Si se quieren recuperar sin volver a la grilla, el lugar es una vista
-    propia enlazada desde acá, con los temas y sin las horas.
+    Esos títulos abiertos dicen «Tema a confirmar» en su fila y nada más: hubo
+    una línea al pie explicándolos y Alan la sacó el 15/09. Tenía razón — era
+    una disculpa por algo que la grilla ya dice sola, y puesta debajo del
+    programa lo último que quedaba en la cabeza era lo que falta.
+
+    LO QUE SE RECORTÓ PARA QUE ENTRE: la lista QUE_HAY pasó de ocho ítems a
+    cuatro. "Charlas", "Paneles" y "Networking del mediodía" decían sin horas lo
+    que la grilla dice con horas, nombre y empresa —repetían en abstracto lo que
+    abajo se ve en concreto—, y "Referentes tecnológicos" es lo que cuenta la
+    sección de oradores. Los cuatro que quedan son los que la grilla no puede
+    mostrar porque no ocupan una fila del escenario, y van abajo de ella.
   -->
   <section id="jornada" class="border-b border-linea py-seccion">
     <div class="contenedor">
@@ -31,112 +36,91 @@
         Todo esto pasa el mismo día
       </h2>
       <p class="lectura mt-5 text-[17px] text-gris">
-        Track único: no hay salas paralelas ni hay que elegir qué perderse. La
-        acreditación abre a las {{ EVENTO.puertas }} y la sala queda suelta hasta las
-        {{ BORDES.cierre.hasta.replace(":00", "") }}.
+        Track único: no hay salas paralelas ni hay que elegir qué perderse. El
+        salón abre a las {{ abre }} y el networking de cierre va hasta las
+        {{ cierra }}.
       </p>
 
       <!--
-        Cómo se parte el día, en vez de las tres cifras que había acá —10
-        bloques, 340' de contenido, 60' de networking—. Esos números describían
-        la grilla, que es justo lo que esta sección dejó de mostrar: contar
-        bloques cuando no se ve ninguno obliga al lector a creer en un número
-        que no puede verificar.
+        UNA SOLA FICHA. Hubo tres —el horario, "7 empresas en escenario" y
+        "285′ de contenido"— y las dos últimas las sacó Alan el 15/09.
 
-        Las dos franjas contestan lo que sí se pregunta el que evalúa dedicarle
-        un sábado: cuánto dura el programa y hasta cuándo se queda la gente. Las
-        horas salen de EVENTO, no escritas acá.
+        Tenía razón y el motivo se ve en la pantalla: las dos contaban lo que la
+        grilla muestra entera cuatro centímetros más abajo. Un número que
+        resume una lista visible no informa, compite con ella — y peor, invita
+        a verificarlo. La que queda es la única que la grilla no contesta de un
+        vistazo: para saber a qué hora abre y a qué hora se corta habría que
+        leer la primera fila y la última.
+
+        Sale calculada igual, de GRILLA. Si mañana se mueve una fila, se mueve
+        sola.
       -->
       <dl class="mt-9 flex flex-wrap gap-x-4 gap-y-4">
-        <div class="ficha">
-          <dd class="ficha-n">{{ EVENTO.horarioJornada }}</dd>
-          <dt class="ficha-r">Jornada</dt>
-        </div>
-        <div class="ficha">
-          <dd class="ficha-n">{{ EVENTO.horarioNetworking }}</dd>
-          <dt class="ficha-r">Networking</dt>
+        <div class="ficha border-linea">
+          <dd class="ficha-n">{{ abre }} a {{ cierra }}</dd>
+          <dt class="ficha-r">En el salón</dt>
         </div>
       </dl>
 
+      <div class="mt-10">
+        <GrillaDia />
+      </div>
+
       <!--
-        Grilla de dos columnas desde 640px y una en teléfono. El ícono aporta
-        información que el texto no da —distingue una charla de un panel de un
-        corte de un stand de un vistazo—, que es la única razón por la que este
-        proyecto usa pictogramas.
+        LO QUE NO ENTRA EN LA GRILLA, porque no ocupa una fila del escenario.
+
+        Los stands están abiertos todo el día, la degustación y el café pasan
+        entre bloque y bloque, y el invitado especial todavía no tiene hora. Si
+        esto no estuviera, el lector concluiría que el sábado es sentarse a
+        mirar el escenario nueve horas, que es justamente lo que el evento no
+        es. Va después de la grilla y no antes: primero el programa, después lo
+        que lo rodea.
       -->
-      <ul class="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
-        <li
-          v-for="(item, i) in QUE_HAY"
-          :key="item.titulo"
-          class="item-jornada flex gap-4"
-          :style="{ '--orden': i }"
-        >
-          <span class="disco-icono" aria-hidden="true">
-            <Pictograma :nombre="item.icono" :tam="20" />
-          </span>
-          <div>
-            <p class="text-[1.02rem] font-semibold leading-snug">{{ item.titulo }}</p>
-            <p class="mt-1 text-[14px] leading-[1.5] text-gris">{{ item.detalle }}</p>
-          </div>
-        </li>
-      </ul>
+      <div class="mt-12 border-t border-linea pt-9">
+        <p class="rotulo text-gris-2">Y además, todo el día</p>
+        <ul class="mt-6 grid list-none gap-x-8 gap-y-6 sm:grid-cols-2">
+          <li
+            v-for="(item, i) in QUE_HAY"
+            :key="item.titulo"
+            class="item-jornada flex gap-4"
+            :style="{ '--orden': i }"
+          >
+            <span class="disco-icono" aria-hidden="true">
+              <Pictograma :nombre="item.icono" :tam="20" />
+            </span>
+            <div>
+              <p class="text-[1.02rem] font-semibold leading-snug">{{ item.titulo }}</p>
+              <p class="mt-1 text-[14px] leading-[1.5] text-gris">{{ item.detalle }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { EVENTO, BORDES, QUE_HAY } from "@/data/evento";
+import { computed } from "vue";
+import { GRILLA, QUE_HAY } from "@/data/evento";
+import GrillaDia from "@/components/ui/GrillaDia.vue";
 import Pictograma from "@/components/ui/Pictograma.vue";
 
 /*
-  Ya no hay nada que calcular acá. Las cifras que se mostraban —bloques,
-  minutos de contenido, minutos de networking— salían de TEMAS con un computed;
-  al reemplazarlas por las dos franjas horarias, que son datos declarados en
-  EVENTO, el componente dejó de necesitar lógica.
-
-  TEMAS sigue vivo en evento.js: lo usan el .ics, la sección del lugar y los
-  tests que verifican que la grilla cierre donde arranca el networking.
+  Todo lo de esta sección se deriva de GRILLA. No hay una hora ni un número
+  escrito a mano acá adentro: es la lección que este archivo ya aprendió tres
+  veces —el horario, el conteo de bloques, los colores— y siempre de la misma
+  forma, con un dato viejo sobreviviendo a la fuente que lo generó.
 */
+const abre = computed(() => GRILLA[0].desde);
+const cierra = computed(() => GRILLA[GRILLA.length - 1].hasta);
+
 </script>
 
 <style scoped>
 /*
-  ── La entrada escalonada ─────────────────────────────────────────────
-
-  Los ocho ítems no aparecen de golpe: entran de a uno, 55 ms de diferencia
-  entre vecinos. Ocho por 55 son 440 ms de cascada, que es lo que tarda el ojo
-  en recorrer la lista de arriba abajo — más lento se siente lento, y más
-  rápido no se lee como cascada sino como un parpadeo.
-
-  NO monta un IntersectionObserver propio: se cuelga del .v-reveal que ya
-  maneja HomeView, igual que hace .cinta en main.css. Ese sistema trae además
-  el respaldo de dos segundos que revela todo si el observer no dispara.
-
-  Y respeta la regla de la casa: el estado oculto SÓLO existe bajo
-  .reveal-listo, la clase que el script pone en el <html> recién cuando
-  confirmó que puede revelar. Si el JavaScript no llega, los ocho ítems se ven
-  igual — una animación de entrada no puede dejar media sección en blanco.
-*/
-.item-jornada {
-  transition:
-    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-  /* El índice lo pone el v-for como --orden; acá se convierte en tiempo. */
-  transition-delay: calc(var(--orden, 0) * 55ms);
-}
-.reveal-listo .v-reveal:not(.v-reveal-visible) .item-jornada {
-  opacity: 0;
-  transform: translateY(14px);
-}
-
-/*
-  El disco del ícono: el mismo lenguaje redondo que usaba el disco de la hora
-  en el cronograma que había acá.
-
-  Al pasar el mouse se rellena y el ícono pasa a blanco. En el cronograma ese
-  relleno avisaba "esto se toca"; acá no hay nada que abrir, así que es sólo
-  peso visual — por eso el ítem entero no se mueve ni cambia el cursor: no
-  promete un clic que no existe.
+  El disco del ícono en la lista de lo que pasa en paralelo. Acá no hay nada
+  que abrir, así que no se rellena al pasar el mouse ni cambia el cursor: sería
+  prometer un clic que no existe.
 */
 .disco-icono {
   flex-shrink: 0;
@@ -149,50 +133,32 @@ import Pictograma from "@/components/ui/Pictograma.vue";
   border: 1px solid color-mix(in srgb, var(--acento, #695ede) 30%, transparent);
   background: color-mix(in srgb, var(--acento, #695ede) 6%, transparent);
   color: var(--acento-texto, #4f42c4);
-  transition:
-    background-color 0.22s ease,
-    border-color 0.22s ease,
-    color 0.22s ease,
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.item-jornada:hover .disco-icono {
-  background: var(--acento, #695ede);
-  border-color: var(--acento, #695ede);
-  color: #fff;
-  transform: scale(1.08);
 }
 
 /*
-  Repite el selector completo, no alcanza con .item-jornada: una media query no
-  suma especificidad y la regla de arriba le ganaría. Es la misma trampa que
-  main.css documenta para .v-reveal.
+  La entrada escalonada de esos cuatro ítems, colgada del .v-reveal que ya
+  maneja HomeView. Sin estado oculto propio: si el JavaScript no llega, los
+  cuatro se ven igual.
 */
+.item-jornada {
+  transition-delay: calc(var(--orden, 0) * 55ms);
+}
 @media (prefers-reduced-motion: reduce) {
   .item-jornada {
-    transition: none;
-    transition-delay: 0s;
-  }
-  .reveal-listo .v-reveal:not(.v-reveal-visible) .item-jornada {
-    opacity: 1;
-    transform: none;
-  }
-  .disco-icono {
-    transition: none;
-  }
-  .item-jornada:hover .disco-icono {
-    transform: none;
+    transition-delay: 0ms;
   }
 }
 
-/* Las dos franjas del día: fichas, no números sueltos. Un número grande sin
-   caja obliga a leer el rótulo para saber de qué es. */
+/* Las fichas del día. Un número grande sin caja obliga a leer el rótulo para
+   saber de qué es. */
 .ficha {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 999px;
-  border: 1px solid var(--linea, #e7e4f0);
+  border-width: 1px;
+  border-style: solid;
 }
 .ficha-n {
   font-weight: 800;

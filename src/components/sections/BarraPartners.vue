@@ -54,21 +54,58 @@
 </template>
 
 <script setup>
-import { PARTNERS } from "@/data/evento";
+import { PARTNERS, SPEAKERS } from "@/data/evento";
 
 const archivos = import.meta.glob("@/assets/images/partners/*", {
   eager: true,
   import: "default",
 });
 
-const partners = PARTNERS.map((p) => {
-  const clave = p.logo ? Object.keys(archivos).find((k) => k.endsWith(`/${p.logo}`)) : null;
-  return { ...p, src: clave ? archivos[clave] : "" };
-});
+function conLogo(nombre, logo) {
+  const clave = logo ? Object.keys(archivos).find((k) => k.endsWith(`/${logo}`)) : null;
+  return { nombre, logo, src: clave ? archivos[clave] : "" };
+}
 
-// La barra son puros nombres de empresa. El que no lo es queda afuera de acá
-// y sigue teniendo su tarjeta en #partners, que es donde se explica qué es.
-const partnersBarra = partners.filter((p) => p.enBarra !== false);
+/*
+  LA BARRA LA ARMAN LOS ORADORES, y después los partners que no mandan ninguno.
+
+  Salía sólo de PARTNERS, que es el padrón de sponsors, y quedó corta: hoy
+  suben al escenario siete empresas y la mayoría no está en ese padrón. La
+  franja dice "PARTICIPAN" arriba, así que la respuesta honesta a esa palabra
+  es quién está en la grilla, no quién firmó un contrato de sponsoreo.
+
+  El orden es el de SPEAKERS, o sea el mismo en que la página los presenta más
+  abajo: el que ya vio la barra reconoce las tarjetas, y al revés.
+
+  SE DEDUPLICA POR NOMBRE porque hay empresas en las dos listas —Bistrosoft y
+  I+DIoT Lab mandan orador Y son sponsors—, y una marca repetida en una cinta
+  que da vueltas se lee como un error de carga, no como énfasis.
+
+  Sin archivo de logo va el nombre en tipografía, que es lo que esta barra hace
+  desde siempre: un nombre bien puesto se lee mejor que un hueco esperando una
+  imagen.
+*/
+const partnersBarra = (() => {
+  const salida = [];
+  const vistas = new Set();
+
+  for (const s of SPEAKERS) {
+    if (!s.empresa || vistas.has(s.empresa)) continue;
+    vistas.add(s.empresa);
+    salida.push(conLogo(s.empresa, s.logo));
+  }
+
+  // Y los del padrón que no subieron al escenario. `enBarra: false` sigue
+  // mandando: lo usa el que no es el nombre de una empresa y en una barra de
+  // puros nombres se leería como una que no existe.
+  for (const p of PARTNERS) {
+    if (p.enBarra === false || vistas.has(p.nombre)) continue;
+    vistas.add(p.nombre);
+    salida.push(conLogo(p.nombre, p.logo));
+  }
+
+  return salida;
+})();
 </script>
 
 <style scoped>

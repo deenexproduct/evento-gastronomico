@@ -88,6 +88,20 @@
             {{ s.nombre }}
           </p>
           <!--
+            EL CARGO, cuando lo hay, y es opcional por lo mismo que la foto y el
+            logo: llegan de a uno. Sin cargo la tarjeta se cierra en el nombre y
+            la empresa, que es como estuvo hasta ahora.
+
+            Va entre el nombre y la empresa porque así se lee de lo particular a
+            lo general —quién, qué hace, dónde— que es el orden en que se
+            presenta una persona. Y en gris, no en negrita: el que escanea esta
+            grilla busca nombres y marcas; el cargo lo lee después, cuando ya se
+            detuvo en alguien.
+          -->
+          <p v-if="s.rol" class="mt-1.5 text-[14px] leading-[1.45] text-gris">
+            {{ s.rol }}
+          </p>
+          <!--
             La empresa, con su logo adelante cuando lo hay.
 
             El logo es opcional por lo mismo que la foto: van a llegar de a uno.
@@ -101,16 +115,53 @@
             sea una mancha. El alto fijo de la fila, con o sin logo, es lo que
             mantiene alineadas las tarjetas de una misma fila.
           -->
+          <!--
+            EL LOGO O EL NOMBRE, NUNCA LOS DOS.
+
+            Iban juntos y decían lo mismo dos veces: el logo de Bistrosoft con
+            la palabra "Bistrosoft" al lado. La marca ya está dibujada; volver a
+            escribirla no agrega un dato, gasta el renglón y ensucia la columna,
+            que es donde el que escanea busca de qué empresa es cada uno.
+
+            Es la misma regla que la barra de arriba tiene escrita desde
+            siempre, sólo que al revés de como se lee: sin archivo se muestra el
+            nombre en tipografía. Con archivo, no hace falta.
+
+            Y POR ESO EL LOGO DEJA DE SER DECORATIVO: cuando era el nombre el
+            que cargaba el dato, la imagen iba con alt vacío y aria-hidden para
+            no decirlo dos veces. Ahora es lo único que nombra a la empresa, así
+            que el alt lleva el nombre y el aria-hidden se va — si no, la
+            tarjeta quedaba sin empresa para un lector de pantalla.
+          -->
           <p class="mt-2 flex min-h-[24px] items-center gap-2 text-[15px] leading-[1.5] text-gris">
             <img
               v-if="s.logoSrc"
               :src="s.logoSrc"
-              alt=""
-              aria-hidden="true"
+              :alt="s.empresa"
               class="logo-sponsor h-6 w-auto max-w-[76px] shrink-0 object-contain"
               loading="lazy"
             />
-            {{ s.empresa }}
+            <template v-else>{{ s.empresa }}</template>
+          </p>
+
+          <!--
+            La descripción, cuando la hay, y al pie de la tarjeta.
+
+            Va última y separada por un filete a propósito: lo que el que
+            escanea esta grilla busca es nombre y marca, y eso tiene que seguir
+            siendo lo primero que encuentra. La credencial la lee después,
+            cuando ya se detuvo en alguien. Puesta arriba empujaría el nombre
+            hacia abajo en la única tarjeta que la tiene y rompería la lectura
+            en columna de las demás.
+
+            Es opcional como la foto, el logo y el cargo: la lista se completa
+            de a uno y la tarjeta tiene que verse terminada en cada paso.
+          -->
+          <p
+            v-if="s.descripcion"
+            class="mt-4 border-t border-linea pt-3 text-[13px] leading-[1.5] text-gris-2"
+          >
+            {{ s.descripcion }}
           </p>
         </li>
       </ul>

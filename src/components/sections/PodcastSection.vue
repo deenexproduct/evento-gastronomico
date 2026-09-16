@@ -65,9 +65,35 @@
             bloque, dos momentos.
           -->
           <div v-if="hayExpo" class="mt-10 border-t border-acento/20 pt-8">
-            <p class="rotulo text-gris-2">Edición {{ EXPO.edicion }}</p>
-            <p class="mt-3 max-w-[52ch] text-[15px] leading-[1.55] text-gris">
-              Así se grabó la vez anterior.
+            <!--
+              LA ETIQUETA VA EN VIOLETA Y CON ALMOHADILLA, que es como sale en
+              redes: el que ya la vio pasar por ahí la reconoce sin leer nada
+              más. El número de edición al lado, en negrita, porque es el dato
+              que convierte esto en una serie y no en un recuerdo suelto — la
+              segunda es la que se está por grabar arriba, en esta misma
+              sección.
+            -->
+            <!--
+              SIN .rotulo, y ésta es la razón: esa clase pone uppercase, y en
+              uppercase "#DeenexExperience" queda "#DEENEXEXPERIENCE", una
+              palabra de dieciséis letras sin junturas. Lo que hace legible un
+              hashtag es justamente la mayúscula interna, que marca dónde
+              empieza cada palabra. Así que lleva el peso y el color del rótulo
+              pero conserva su caja.
+            -->
+            <p
+              class="text-[13px] font-bold tracking-[0.04em] text-acento-texto sm:text-[14px]"
+            >
+              {{ EXPO.etiqueta }}
+            </p>
+            <p class="mt-3 flex max-w-[56ch] flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span class="text-[1.15rem] font-extrabold tracking-[-0.02em]">
+                {{ EXPO.edicion }}
+              </span>
+              <span class="text-[15px] leading-[1.55] text-gris">
+                Así se grabó la anterior: el set, la cámara y los que pasaron por
+                los sillones.
+              </span>
             </p>
 
             <!--
@@ -100,23 +126,34 @@
                 class="w-[68vw] max-w-[260px] shrink-0 snap-start sm:w-[260px]"
               >
                 <!--
-                  Todas al mismo recorte 4:3, sean foto o video: sin un ratio
-                  fijo una vertical al lado de una horizontal descalibra la
-                  fila entera.
+                  TODAS AL MISMO RECORTE, y ahora es 3:4 y no 4:3. Dieciséis de
+                  las diecinueve fotos que llegaron y el video son verticales
+                  —material de teléfono—, así que el recorte apaisado que había
+                  acá se comía la mitad de cada escena. Lo que no cambia es que
+                  el ratio sea UNO SOLO: con cada pieza en el suyo, la fila se
+                  descalibra.
                 -->
-                <div class="relative aspect-[4/3] overflow-hidden rounded-xl bg-acento/10">
+                <div class="relative aspect-[3/4] overflow-hidden rounded-xl bg-acento/10">
                   <!--
                     preload="none" y poster: el .mp4 no se baja hasta que
                     alguien toca play, así que en la primera carga sólo pesan
                     las imágenes. Sin poster el navegador pinta un rectángulo
                     negro, y una fila de rectángulos negros se lee peor que no
                     tener nada.
+
+                    EL VIDEO VA CONTAIN Y LAS FOTOS COVER, que es la única
+                    excepción de la fila y tiene motivo: el video es 9:16 y
+                    lleva los nombres de quién habla sobreimpresos abajo, más
+                    los subtítulos. Recortado a 3:4 se pierden los dos, o sea
+                    justo lo que hace entendible un clip que la mayoría va a
+                    mirar sin sonido. Con contain entra entero y quedan dos
+                    franjas al costado, que es un precio más barato.
                   -->
                   <video
                     v-if="pieza.tipo === 'video'"
                     :src="pieza.src"
                     :poster="pieza.posterSrc || undefined"
-                    class="h-full w-full object-cover"
+                    class="h-full w-full bg-noche object-contain"
                     playsinline
                     preload="none"
                     controls
@@ -131,7 +168,7 @@
                   />
                   <span
                     v-if="pieza.tipo === 'video'"
-                    class="pointer-events-none absolute right-2 top-2 rounded-full bg-noche/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-sm"
+                    class="chapa-video pointer-events-none absolute right-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] backdrop-blur-sm"
                   >
                     Video
                   </span>
@@ -195,6 +232,25 @@ const puntos = [
 </script>
 
 <style scoped>
+/*
+  LA CHAPA DE «VIDEO» TIENE COLOR PROPIO, y no sale de la paleta a propósito.
+
+  Tenía bg-noche/80 y text-white, y fallaba dos veces. Una: `html.claro
+  .text-white` le pisaba el texto a #1A1A1A sobre una pastilla #1A1A1A, o sea
+  negro sobre negro —contraste 1—. Dos, y es la que importó: arreglado eso, el
+  caso de contraste siguió fallando porque su medidor sube por los ancestros
+  hasta encontrar un fondo con alfa > .85, y 0.8 no califica: medía el texto
+  contra el blanco de la tarjeta, no contra la pastilla. Dio 1.09.
+
+  Y el medidor tiene razón en desconfiar. Esta chapa NO se apoya en el fondo de
+  la página sino sobre un cuadro de video cualquiera, así que su legibilidad no
+  puede depender de qué hay detrás. Con .92 la pastilla manda sola.
+*/
+.chapa-video {
+  background: rgba(20, 20, 24, 0.92);
+  color: #fff;
+}
+
 /*
   Una sola caja ancha en vez de la grilla del resto de la página: el cambio de
   ritmo es lo que hace que la sección se lea como un aparte y no como el

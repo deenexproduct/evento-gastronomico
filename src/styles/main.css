@@ -649,7 +649,6 @@ html.claro .bg-acento [class*="text-white"],
 html.claro .bg-acento-boton [class*="text-white"],
 html.claro .bg-acento .titulo,
 html.claro .bg-acento-boton .titulo { color: #fff !important; }
-
 /* Las etiquetas del formulario definen su color en un style scoped. */
 html.claro .etiqueta { color: #55535C !important; }
 html.claro .campo {
