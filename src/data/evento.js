@@ -65,6 +65,11 @@ export const EVENTO = {
   ciudad: "Córdoba",
   venue: "Hotel Quinto Centenario",
   direccion: "Duarte Quirós 1300",
+  // Los dos contactos de prensa, para escribirlos en un solo lugar. El número
+  // es el mismo WHATSAPP_ORGANIZADOR de más abajo, acá en el formato en que se
+  // lee; la casilla es la que firma la campaña de prensa y recibe las respuestas.
+  whatsappVisible: "+54 9 351 801-0147",
+  mailPrensa: "saborestech@deenex.tech",
   // La bajada de la marca del evento, en una línea. Es la misma que compone la
   // tarjeta de WhatsApp (herramientas/og-image.py, en dos renglones) y la que
   // cierra el pie. El .py no puede importar este archivo —es Python—, así que
