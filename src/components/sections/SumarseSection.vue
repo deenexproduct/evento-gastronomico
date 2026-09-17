@@ -89,7 +89,7 @@
           </p>
 
           <!-- Al fondo, igual que la de al lado: ver el comentario de arriba. -->
-          <div class="mt-auto pt-7">
+          <div class="mt-auto grid gap-3 pt-7">
             <a
               :href="whatsappPrensa"
               target="_blank"
@@ -98,6 +98,16 @@
             >
               Pedir acreditación
             <span class="sr-only"> (abre en una pestaña nueva)</span></a>
+
+            <!--
+              El link a la sala de prensa, abajo del pedido y no arriba: el que
+              llegó hasta acá ya decidió escribir, y la página sirve para el que
+              antes necesita ver el programa, los horarios para grabar y la
+              gacetilla.
+            -->
+            <RouterLink to="/prensa" class="btn-linea w-full text-center">
+              Ver la sala de prensa
+            </RouterLink>
           </div>
         </article>
       </div>
@@ -106,6 +116,7 @@
 </template>
 
 <script setup>
+import { RouterLink } from "vue-router";
 import { EVENTO, linkWa } from "@/data/evento";
 
 const INCLUYE_PARTNER = [

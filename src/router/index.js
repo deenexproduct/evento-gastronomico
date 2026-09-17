@@ -129,6 +129,14 @@ const router = createRouter({
       component: () => import("@/views/ParticipanView.vue"),
     },
     {
+      // La sala de prensa no entra en BLOQUES ni en la cabecera: no le habla al
+      // que viene a reservar. Se llega por el link de la invitación de prensa y
+      // desde la tarjeta «Prensa» de #sumarse.
+      path: "/prensa",
+      name: "prensa",
+      component: () => import("@/views/PrensaView.vue"),
+    },
+    {
       // Lo que no matcheó ninguna ruta real: o es un ancla vieja conocida y
       // se redirige, o es basura y cae en la home.
       path: "/:resto(.*)",
